@@ -1,0 +1,1 @@
+{{ obj.summary }} (published {{ obj.issue.pub_date|date:"F j, Y" }})

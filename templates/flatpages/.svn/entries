@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="269"
+   name=""
+   committed-date="2007-08-05T19:42:50.456619Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates/flatpages"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="269"
+   name="default.html"
+   text-time="2007-08-05T19:42:58.000000Z"
+   committed-date="2007-08-05T19:42:50.456619Z"
+   checksum="91a553a72c66a14d33e07a9a7948a29a"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-05T19:42:58.000000Z"/>
+</wc-entries>

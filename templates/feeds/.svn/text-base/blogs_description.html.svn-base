@@ -1,0 +1,1 @@
+{{ obj.content|striptags|truncatewords:50 }}

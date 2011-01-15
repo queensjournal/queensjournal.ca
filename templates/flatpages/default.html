@@ -1,0 +1,20 @@
+{% extends "stories/single_detail.html" %}
+{% load navigation %}
+{% load custom_html %}
+{% load typogrify %}
+{% current_issue as issue %}
+
+{% block title %}{{ flatpage.title }} - Queen's Journal{% endblock title %}
+{% block breadcrumb %}<a href="/">Home</a> &raquo; {{ flatpage.title }}{% endblock breadcrumb %}
+{% block actions %}
+	<div id="actions"><p><a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
+{% endblock actions %}
+{% block content %}
+	<div class="story">
+		<h1 class="story-head">{{ flatpage.title|typogrify }}</h1>
+		<p class="story-byline"></p>
+		<div class="story-content">		
+		{{ flatpage.content|linebreakswithcode|typogrify }}
+		</div>
+	</div>
+{% endblock content %}

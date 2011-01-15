@@ -1,0 +1,27 @@
+{% extends "stories/single_detail.html" %}
+{% load custom_html %}
+{% load typogrify %}
+{% load navigation %}
+
+{% block title %}Search for &ldquo;{{ query }}&rdquo; - Queen's Journal{% endblock title %}
+{% block dateline %}{% current_issue as issue %}{{ issue.pub_date|date:"F jS, Y" }}{% endblock dateline %}
+{% block breadcrumb %}
+	Search for &ldquo;{{ query }}&rdquo;: {{ hits }} result{{ hits|pluralize }}{% if is_paginated %}, showing results {{ first_on_page }}&ndash;{{ last_on_page }}{% endif %}
+{% endblock breadcrumb %}
+{% block actions %}
+{% endblock actions %}
+
+{% block content %}
+	<div class="story">
+	{% for object in object_list %}
+		<p class="story-label"><a href="{{ object.issue.get_absolute_url }}">{{ object.issue.pub_date|date:"F jS, Y" }}</a> &ndash; <a href="{% url journal.stories.views.index_section object.issue.volume.volume,object.issue.issue,object.section.slug %}">{{ object.section.name }}</a></p>
+		<h3 class="story-head"><a href="{{ object.get_absolute_url }}">{{ object.head|stripspace|convert_entities|widont }}</a></h3>
+		<p class="story-summary">{{ object.summary|convert_entities }}</p>
+	{% endfor %}
+	{% if has_previous %}
+	<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ previous }}" id="nav-previous">&laquo; previous</a>{% endif %}
+	{% if has_next %}<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ next }}" id="nav-next">next &raquo;</a>{% endif %}
+	</div>
+{% endblock content %}
+
+{% block menu-stories %}{% endblock menu-stories %}

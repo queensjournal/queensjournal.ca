@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="315"
+   name=""
+   committed-date="2007-09-28T08:21:56.496577Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates/images"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="315"
+   name="widget_add_to_markup.html"
+   text-time="2007-10-10T04:03:52.000000Z"
+   committed-date="2007-09-28T08:21:56.496577Z"
+   checksum="4829e2a3a9e61dc000d0aff45a509d85"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+<entry
+   committed-rev="315"
+   name="image_instance.html"
+   text-time="2007-10-10T04:03:52.000000Z"
+   committed-date="2007-09-28T08:21:56.496577Z"
+   checksum="f7d532f4f2638ef82bb7f8cd53b191bc"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+<entry
+   committed-rev="315"
+   name="widget_add.html"
+   text-time="2007-10-10T04:03:52.000000Z"
+   committed-date="2007-09-28T08:21:56.496577Z"
+   checksum="42954f0618da12c35960d6101fa65a28"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+</wc-entries>

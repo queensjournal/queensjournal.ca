@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="364"
+   name=""
+   committed-date="2008-04-24T00:26:34.769181Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   name="global"
+   kind="dir"/>
+<entry
+   name="blog"
+   kind="dir"/>
+<entry
+   name="comments"
+   kind="dir"/>
+<entry
+   name="images"
+   kind="dir"/>
+<entry
+   name="flatpages"
+   kind="dir"/>
+<entry
+   committed-rev="238"
+   name="400.html"
+   text-time="2007-08-03T06:57:29.000000Z"
+   committed-date="2007-07-24T00:28:19.243920Z"
+   checksum="a26d02d8f93e7d21f42ac1ca1f77a629"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:29.000000Z"/>
+<entry
+   name="feeds"
+   kind="dir"/>
+<entry
+   name="masthead"
+   kind="dir"/>
+<entry
+   committed-rev="162"
+   name="500.html"
+   text-time="2007-05-26T22:00:32.000000Z"
+   committed-date="2007-05-08T03:49:27.954040Z"
+   checksum="f6801e30ac2144029e8c13f65fc5be50"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-05-26T22:00:31.000000Z"/>
+<entry
+   name="stories"
+   kind="dir"/>
+<entry
+   committed-rev="191"
+   name="404.html"
+   text-time="2007-05-27T19:45:25.000000Z"
+   committed-date="2007-05-27T19:47:06.630994Z"
+   checksum="2c9953d621a8666644a6564823264ad3"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-05-26T22:00:32.000000Z"/>
+<entry
+   name="sidebars"
+   kind="dir"/>
+<entry
+   committed-rev="356"
+   name="base.html"
+   text-time="2007-10-28T04:23:59.000000Z"
+   committed-date="2007-10-29T00:21:03.289957Z"
+   checksum="b09169bc0d338a22b26711144e7014ad"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+</wc-entries>

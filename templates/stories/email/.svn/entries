@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="168"
+   name=""
+   committed-date="2007-05-12T21:42:52.726279Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates/stories/email"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="168"
+   name="email_to_person.txt"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-05-12T21:42:52.726279Z"
+   checksum="9a8b7838c33a79ba8acd5288fedc6581"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+</wc-entries>

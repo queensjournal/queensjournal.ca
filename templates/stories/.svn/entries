@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="359"
+   name=""
+   committed-date="2008-01-24T04:17:16.099497Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates/stories"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="259"
+   name="email_complete.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-08-02T23:48:38.651179Z"
+   checksum="f87b6edc81283678f190129a1868fe3a"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+<entry
+   committed-rev="347"
+   name="index_front.html"
+   text-time="2007-10-12T03:52:39.000000Z"
+   committed-date="2007-10-12T03:52:00.124413Z"
+   checksum="43f5edcbd88318752332f59b18457766"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-12T03:52:39.000000Z"/>
+<entry
+   committed-rev="359"
+   name="single_detail.html"
+   text-time="2008-01-24T04:10:43.000000Z"
+   committed-date="2008-01-24T04:17:16.099497Z"
+   checksum="3fdb4950520277fe898b5b0293909fc3"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+<entry
+   name="email"
+   kind="dir"/>
+<entry
+   committed-rev="262"
+   name="comment_detail.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-08-03T07:21:05.162494Z"
+   checksum="88f50c37924eb9e3c34d0e33b2710ff3"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+<entry
+   committed-rev="270"
+   name="search.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-08-08T02:59:56.159868Z"
+   checksum="3cf2ee85918448458e27049ea5fd48f1"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+<entry
+   committed-rev="328"
+   name="email_spam.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-10-07T19:24:40.384718Z"
+   checksum="0f64b85afa4ebaf816a2e16179914b3f"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+<entry
+   committed-rev="259"
+   name="email_form.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-08-02T23:48:38.651179Z"
+   checksum="ec6380f818d3c19d9b3a8c39db35e809"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+<entry
+   committed-rev="328"
+   name="index_section.html"
+   text-time="2007-10-10T04:03:53.000000Z"
+   committed-date="2007-10-07T19:24:40.384718Z"
+   checksum="cbd14c68047a4f91738bdee189479a4e"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:53.000000Z"/>
+</wc-entries>

@@ -1,0 +1,19 @@
+{% load custom_email %}
+{{ sender }} has sent you the following Queen's Journal article:
+
+{% filter upper %}"{{ story.head }}" - {{ story.issue.pub_date|date:"F j, Y" }} - {{ story.section.name }}
+{{ story.list_authors }}{% endfilter %}
+{{ story.summary|striplinebreaks }}
+
+http://www.queensjournal.ca{{ story.get_absolute_url }}
+
+{% spaceless %}{% if user_msg %}{{ sender }} also left you this note:
+"{{ user_msg|escape|truncatewords:"1000" }}"
+{% endif %}
+{% endspaceless %}
+
+This is an automated e-mail. You received it because a friend sent you this e-mail via our E-mail a Friend feature.
+
+--
+The Queen's Journal - since 1873
+http://www.queensjournal.ca

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load navigation %}
+{% load typogrify %}
+{% load custom_html %}
+{% load sanitize %}
+{% load comparison %}
+{% load comments.comments %}
+{% load comment_utils %}
+{% load polls %}
+{% load flash %}
+{% load lists %}
+{% block head-code %}
+<link rel="alternate stylesheet" type="text/css" href="/media/styles/journal_print_preview.css" media="screen" title="Print Preview" />
+<link rel="stylesheet" type="text/css" href="/media/styles/journal_print.css" media="print" />
+{% if story.gallery_set.all %}
+<link rel="stylesheet" type="text/css" href="/media/js/thickbox/thickbox.css" media="screen" />
+<script type="text/javascript" src="/media/js/jquery/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="/media/js/thickbox/thickbox-compressed.js"></script>
+{% endif %}
+<script type="text/javascript" src="/media/js/print_preview.js"></script>
+{% endblock head-code %}
+
+{% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
+
+{% block header-type %}secondary{% endblock header-type %}
+	{% block header-img %}logo_inside.gif{% endblock header-img %}
+	{% block dateline %}{{ story.issue.pub_date|date:"F j, Y" }}{% endblock dateline %}
+	{% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
+
+{% block menu-type %}wide{% endblock menu-type %}
+	{% block menu-stories %}
+		{% other_stories story.section story.issue %}
+		{% if other_stories %}
+			<p class="menu-label">Other stories in {{ story.section.name }}</p>
+			<ul>
+			{% for other_story in other_stories %}
+				<li><a href="{{ other_story.get_absolute_url }}">{{ other_story.head }}</a></li>
+			{% endfor %}
+		{% endif %}
+		</ul>
+	{% endblock menu-stories %}
+		
+{% block layout-type %}narrow-1col{% endblock layout-type %}
+	{% block breadcrumb %}<a href="{% url journal.stories.views.index_front story.issue.pub_date %}">{% current_issue as issue %}{% ifequal issue.pub_date story.issue.pub_date %}Current issue{% else %}Back issue{% endifequal %}</a> &raquo; <a href="{% url journal.stories.views.index_section story.issue.pub_date,story.section.slug %}">{{ story.section.name }}</a> &raquo; {% firstof story.label "Story" %}{% endblock breadcrumb %}
+	{% block actions %}
+		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="/media/global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
+	{% endblock actions %}
+	{% block content %}
+		<!-- google_ad_section_start -->
+		<div id="story" class="story clearfix">
+			<h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
+			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
+			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>
+			{% for pwrapper in story.storyphoto_set.all %}
+				<img src="{{ pwrapper.photo.get_photo_url }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
+				<p class="story-caption" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+			{% endfor %}
+			
+			{% if story.has_inlines %}
+				<div class="story-inlines">
+				{% for factbox in story.factbox_set.all %}
+				{% if not factbox.full_width %}
+					<div class="inline-container factbox">
+						<h4>{{ factbox.head|widont }}</h4>
+						{{ factbox.body|sanitize:"h4 strong em a ul li table tr td tbody thead tfoot th,"|typogrify|convert_entities|linebreakswithcode }}
+						{% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+					</div>
+				{% endif %}
+				{% endfor %}
+				{% for document in story.document_set.all %}
+					<div class="inline-container document">
+						<h4>{{ document.head|widont }}</h4>
+						{% if document.body %}<p>{{ document.body|typogrify|convert_entities }}</p>{% endif %}
+						<ul>
+						{% for file in document.files.all %}
+							<li>{% filter widont %}<a href="{{ file.get_file_obj_url }}">{{ file.name }}</a> <span class="doc-details">({{ file.get_file_obj_size|filesizeformat }})</span>{% endfilter %}{% if file.caption %}<p class="doc-caption">{{ file.caption }}</p>{% endif %}</li>
+						{% endfor %}
+						</ul>
+					</div>
+				{% endfor %}
+				{% for poll in story.storypoll_set.all %}
+					<div class="inline-container poll">
+						<h4>Poll</h4>
+						<p id="poll-question">{{ poll.poll.question }}</p>
+						{% pollflash poll.poll.id %}
+							{% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll poll.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
+						{% endpollflash %}
+						{% if poll.poll.id|in_list:request.session.vote or request.GET.results or not poll.poll.is_active %}
+						{% if not poll.poll.is_active %}
+							<p><strong>Voting on this poll is closed.</strong></p>
+						{% endif %}
+						<ul id="poll-results">
+							{% for choice in poll.poll.choice_set.all %}
+							<li class="clearfix"><p>{{ choice.choice }}</p>
+							<p class="result-number">{{ choice.vote_set.count }}</p>
+							<div class="result-bar-back">
+								<div class="result-bar-interval"></div>
+								<div class="result-bar-interval"></div>
+								<div class="result-bar-interval"></div>
+								<div class="result-bar-interval"></div>
+							{% ifnotequal choice.vote_set.count 0 %}
+								<div class="result-bar" style="width: {% widthratio choice.vote_set.count poll.poll.total_votes 118 %}px;"></div>
+							{% endifnotequal %}
+							</div>
+							</li>
+							{% endfor %}
+						{% else %}
+						<form action="{% url journal.polls.views.poll_vote poll.poll.id %}" method="post">
+							{% poll_form poll.poll.id as form %}
+							{{ form.choice }}
+							<input type="hidden" name="url" value="{{ request.get_full_path }}" />
+							<button type="submit">Vote!</button> <a href="{{ request.get_full_path }}?results=1">View results</a>
+						</form>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			<div class="story-content">
+			{{ story.content|typogrify|convert_entities|linebreakswithcode }}
+			{% if story.gallery_set.all %}
+				{% for gallery in story.gallery_set.all %}
+					<div class="inline-container gallery clearfix">
+						<h4>{{ gallery.name|widont }}</h4>
+						{% for image in gallery.images.all %}
+						<a href="{{ image.get_photo_url }}" title="{{ image.caption|escape }} ({{ image.list_photographer }})" class="thickbox" rel="{{ gallery.name|slugify }}"><img src="{{ image.get_thumbnail_url }}" alt="{{ image.caption }}"/></a>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			{% endif %}
+			{% if story.has_wide_inlines %}
+				{% for factbox in story.factbox_set.all %}
+				{% if factbox.full_width %}
+					<div class="inline-container factbox">
+						<h4>{{ factbox.head|widont }}</h4>
+						{{ factbox.body|sanitize:"h4 strong em a ul li table tr td th tbody thead tfoot,"|typogrify|convert_entities|linebreakswithcode }}
+						{% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+					</div>
+				{% endif %}
+				{% endfor %}
+			{% endif %}
+
+			{% get_public_free_comment_count for stories.story story.id as comment_count %}
+			
+			<h3><a href="{% url journal.stories.views.comment_story story.issue.pub_date,story.section.slug,story.slug %}">Discuss this story {% ifnotequal comment_count 0 %}({{ comment_count }} comment{{ comment_count|pluralize }}){% endifnotequal %}</a></h3>
+			</div>
+		</div>
+	{% endblock content %}
+	<!-- google_ad_section_end -->
+
+
