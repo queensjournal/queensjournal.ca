@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="362"
+   name=""
+   committed-date="2008-04-19T04:26:46.870794Z"
+   url="http://svn.starkcontrast.net/portia/trunk/templates/blog"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="349"
+   name="entry_list.html"
+   text-time="2007-10-14T08:03:34.000000Z"
+   committed-date="2007-10-14T08:19:45.934498Z"
+   checksum="84d3cfceb281819c7071f5d5d9ad1d92"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+<entry
+   committed-rev="362"
+   name="blog_list.html"
+   text-time="2008-04-19T04:27:22.000000Z"
+   committed-date="2008-04-19T04:26:46.870794Z"
+   checksum="01da39050bd5f1cedd17ea06297466e2"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2008-04-19T04:27:22.000000Z"/>
+<entry
+   committed-rev="348"
+   name="entry_detail.html"
+   text-time="2007-10-14T03:08:17.000000Z"
+   committed-date="2007-10-14T03:12:01.983407Z"
+   checksum="fd6f85a9ce06ef2ea55f18c1953d4738"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+<entry
+   committed-rev="353"
+   name="authorprofile_detail.html"
+   text-time="2007-10-26T22:10:56.000000Z"
+   committed-date="2007-10-26T22:10:49.922779Z"
+   checksum="cfdcecf261335f899368c929cb54b570"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-26T22:10:56.000000Z"/>
+<entry
+   committed-rev="348"
+   name="base.html"
+   text-time="2007-10-14T03:10:00.000000Z"
+   committed-date="2007-10-14T03:12:01.983407Z"
+   checksum="94fc61c7c1ec7b93396cf024a4d48c7b"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:52.000000Z"/>
+</wc-entries>

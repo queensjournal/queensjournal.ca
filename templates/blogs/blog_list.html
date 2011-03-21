@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+
+{% block head-code %}
+{% if active %}<link rel="alternate" type="application/rss+xml" title="Latest posts from all blogs (RSS 2.0)" href="/rss/blogs/all/" />{% endif %}
+{% endblock head-code %}
+
+{% block title %}All Journal blogs - {{ block.super }}{% endblock title %}
+
+{% block header-type %}secondary{% endblock header-type %}
+	{% block header-img %}logo_inside.gif{% endblock header-img %}
+	{% block dateline %}Journal blogs{% endblock dateline %}
+
+{% block menu-type %}narrow{% endblock menu-type %}
+
+{% block layout-type %}wide-2cols{% endblock layout-type %}
+	{% block breadcrumb %}
+		<a href="{% url journal.stories.views.index_latest %}">Home</a> &raquo; {% if not active %}<a href="{% url all_blogs %}">Blogs</a> &raquo; Archived blogs{% else %}Blogs{% endif %}
+	{% endblock breadcrumb %}
+	{% block actions %}
+		{% if active %}<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/allblogs/">Latest blogs RSS <img src="{{ MEDIA_URL }}global/icon_rss.gif" /></a></span></p></div>{% endif %}
+	{% endblock actions %}
+	{% block content %}
+		<div id="blogs-list">
+			<h1 class="blog-head">{% if not active %}Archived {% endif %}Journal blogs</h1>
+			{% if active %}<p><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-icon-10x10.gif">&ensp;Latest posts from all Journal blogs (RSS 2.0)</a>{% if archives %}<br/><a href="{% url all_blogs_archived %}">Archived blogs</a>{% endif %}</p>
+			{% else %}<p>These blogs have been archived from previous years.</p>{% endif %}
+
+			{% for blog in object_list %}
+			<div id="blog-{{ blog.slug }}" class="blog-container clearfix">
+				<div class="blog-description">
+					<h3><a href="{{ blog.get_absolute_url }}">{{ blog.title|typogrify }}</a></h3>
+					<p class="blog-bloggers"><strong>Bloggers:</strong> {% for blogger in blog.bloggers.all %}{{ blogger.user.get_full_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+					<div class="bloggers-headshots clearfix">{% for blogger in blog.bloggers.all %}{% if blogger.portrait %}<img src="{{ blogger.get_portrait_url }}" class="author-headshot" title="{{ blogger.user.get_full_name }}" style="width: {% spaceless %}{% if_greater blogger.get_portrait_width 150 %}150{% else %}{{ blogger.get_portrait_width }}{% endif_greater %}px{% endspaceless %}" />{% endif %}{% endfor %}</div>
+					<p>{{ blog.description|typogrify }}</p>
+					<p><a href="/rss/blogs/{{ blog.slug }}"><img src="{{ MEDIA_URL }}global/feed-icon-10x10.gif">&ensp;Latest posts feed</a></p>
+				</div>
+				<div class="blog-recent-posts">
+					{% for post in blog.entry_set.published|slice:":2" %}
+						<h4><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+						<h5>Posted {{ post.date_published|timesince }} ago</h5>
+						<p>{{ post.content|striptags|truncatewords:25 }}</p>
+					{% endfor %}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<!--
+		<div id="content-sidebar">
+			
+		</div>
+		-->
+	{% endblock content %}
+

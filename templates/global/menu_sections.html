@@ -3,21 +3,17 @@
 	{% for sect_obj in sections.flatplansection_set.all %}
 		{% ifequal sect_obj.section.slug current.slug %}
 			<li id="section-current">
-			{% if show_section_link %}
-				<a href="{% url journal.stories.views.index_section issue.pub_date,sect_obj.section.slug %}">
-			{% endif %}
 		{% else %}
-			<li><a href="{% url journal.stories.views.index_section issue.pub_date,sect_obj.section.slug %}">
+			<li>
 		{% endifequal %}
-		{% if sect_obj.section.short_name %}{{ sect_obj.section.short_name }}{% else %}{{ sect_obj.section.name }}{% endif %}
-		{% ifequal sect_obj.section.slug current.slug %}
-			{% if show_section_link %}
-				</a>
-			{% endif %}
+		<a href="{% url journal.stories.views.index_section sect_obj.section.slug %}">
+		{% if sect_obj.section.short_name %}
+			{{ sect_obj.section.short_name }}
 		{% else %}
-			</a>
-		{% endifequal %}
-			</li>
+			{{ sect_obj.section.name }}
+		{% endif %}
+			</a></li>
 	{% endfor %}
+		<li><a href="{% url all_blogs %}">Blogs</a></li>
 	</ul>
 {% endspaceless %}

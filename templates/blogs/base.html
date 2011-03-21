@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+{% load more %}
+{% load images %}
+{% load archives %}
+
+{% block title %}{{ blog.title }} - {{ block.super }}{% endblock title %}
+
+{% block header-type %}secondary{% endblock header-type %}
+	{% block header-img %}logo_inside.gif{% endblock header-img %}
+	{% block dateline %}Journal blogs{% endblock dateline %}
+
+{% block menu-type %}narrow{% endblock menu-type %}
+
+{% block layout-type %}wide-2cols{% endblock layout-type %}
+	<!-- google_ad_section_start -->
+	{% block content %}
+		<div id="blog-column">
+			<h1 class="blog-head">{{ blog.title }}</h1>
+			{% block blog-filter %}{% endblock blog-filter %}
+			{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ MEDIA_URL }}/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
+
+			<div class="blog-sidebar">
+				<p class="blog-label">About the blog</p>
+				<p>{{ blog.description }}</p>
+				<p class="blog-label">About the author{{ blog.bloggers.count|pluralize }}</p>
+				{% for blogger in blog.bloggers.all %}
+					<h5>{{ blogger.user.get_full_name }}</h5>
+					<p>{{ blogger.bio }}</p>
+				{% endfor %}
+				<p class="blog-label">Archives by date</p>
+				<ul>
+				{% blog_dates blog.slug as dates %}
+				{% for date in dates %}
+					<li><a href="{% url blog_archive_month_front blog.slug,date.year,date|date:"m" %}" title="{{ date|date:"F Y" }}">{{ date|date:"F Y" }}</a></li>
+				{% endfor %}
+				</ul>
+				<p class="blog-label">Archives by category</p>
+				<ul>
+				{% blog_categories blog.slug as categories %}
+				{% for category in categories %}
+					{% ifnotequal category.count 0 %}
+					<li><a href="{% url blog_archive_category_front blog.slug,category.object.slug %}" title="{{ category.object.name }}">{{ category.object.name }}</a> ({{ category.count }})</li>
+					{% endifnotequal %}
+				{% endfor %}
+				</ul>
+			</div>
+			{% block blog-content %}{% endblock blog-content %}
+		</div>
+	{% endblock content %}
+<!-- google_ad_section_end -->
+
