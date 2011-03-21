@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="351"
+   name=""
+   committed-date="2007-10-24T15:56:41.361838Z"
+   url="http://svn.starkcontrast.net/portia/trunk/staff/templates"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   name="staff"
+   kind="dir"/>
+</wc-entries>

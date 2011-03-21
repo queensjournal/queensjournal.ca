@@ -1,0 +1,51 @@
+{% extends 'staff/base.html' %}
+{% block title %} - {% if object %}Editing photo request for {{ object.subject }}{% else %}Adding photo request{% endif %}{% endblock title %}
+{% block staffapp %}Photo request board{% endblock staffapp %}
+{% block header %}{% if object %}Editing photo request for {{ object.subject }}{% else %}Adding photo request{% endif %}{% endblock header %}
+{% block content %}
+	<form action="" method="post">
+		{% if form.errors %}
+		<h3>There were errors.</h3>
+		{% endif %}
+		<fieldset id="form-basics">
+			<legend>Basic information</legend>
+			<div id="form-subject" class="form-field{% if form.subject.errors %} form-error{% endif %}"><label for="id_subject" class="required">Shoot subject</label><br/>{{ form.subject }}{% if form.subject.errors %}<br/><span>{{ form.subject.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-location" class="form-field{% if form.location.errors %} form-error{% endif %}"><label for="id_location">Shoot location</label><br/>{{ form.location }}{% if form.location.errors %}<br/><span>{{ form.location.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-time" class="form-field{% if form.time_date.errors or form.time_time.errors %} form-error{% endif %}"><label for="id_time">Shoot date/time</label><br/>{{ form.time_date }} @ {{ form.time_time }}{% if form.time_date.errors or form.time_time.errors %}<br/><span>{{ form.time_date.errors|join:", " }}{{ form.time_time.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+
+		<fieldset id="form-workflow">
+			<legend>Workflow management</legend>
+			{% if edit_request or object %}
+			<div id="form-status" class="form-field{% if form.status.errors %} form-error{% endif %}"><label for="id_status" class="required">Status:</label><br/>{{ form.status }}{% if form.status.errors %}<br/><span>{{ form.status.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-photographer" class="form-field{% if form.photographer.errors %} form-error{% endif %}"><label for="id_photographer">Photographer:</label><br/>{{ form.photographer }}{% if form.photographer.errors %}<br/><span>{{ form.photographer.errors|join:", " }}</span>{% endif %}</div>
+			{% else %}
+			<input type="hidden" name="status" value="{% if object %}{{ object.status }}{% else %}0{% endif %}" />
+			<input type="hidden" name="photographer" value="{% if object %}{{ object.photographer }}{% endif %}" />
+			{% endif %}
+			<div id="form-deadline" class="form-field{% if form.deadline.errors %} form-error{% endif %}"><label for="id_deadline" class="required">Deadline:</label><br/>{{ form.deadline }}{% if form.deadline.errors %}<br/><span>{{ form.deadline.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+		
+		<fieldset id="form-details">
+			<legend>Details</legend>
+			<div id="form-section" class="form-field{% if form.section.errors %} form-error{% endif %}"><label for="id_section" class="required">Section:</label><br/>{{ form.section }}{% if form.section.errors %}<br/><span>{{ form.section.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-notes" class="form-field{% if form.notes.errors %} form-error{% endif %}"><label for="id_notes">Notes:</label><br/>{{ form.notes }}{% if form.notes.errors %}<br/><span>{{ form.notes.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+		
+		<input type="hidden" name="creator" value="{% if object %}{{ object.creator.id }}{% else %}{{ user.id }}{% endif %}" />
+		<input type="hidden" name="changed_date" value="{% now "Y-m-d" %}" />
+		<input type="hidden" name="changed_time" value="{% now "H:i:s" %}" />
+		<input type="hidden" name="added_date" value="{% if object %}{{ object.added|date:"Y-m-d" }}{% else %}{% now "Y-m-d" %}{% endif %}" />
+		<input type="hidden" name="added_time" value="{% if object %}{{ object.added|date:"H:i:s" }}{% else %}{% now "H:i:s" %}{% endif %}" />
+		<input type="submit" value="submit" />
+		
+	</form>
+{% endblock content %}
+{% block sidebar %}
+<div>
+	<p><a href="{% url journal.staff.views.user_logout %}">Logout</a><br/><a href="{% url journal.staff.requests.views.user_index %}">View all requests</a></p>
+	<p>All dates should be formatted YYYY-MM-DD. All times should be formatted HH:MM, 24-hour clock.</p>
+	<p>Always check with the photo editors in person as well as using this system.</p>
+	<p>Problems? Talk to the webmaster.</p>
+</div>
+{% endblock sidebar %}

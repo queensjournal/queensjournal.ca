@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="338"
+   name=""
+   committed-date="2007-10-10T02:07:23.275929Z"
+   url="http://svn.starkcontrast.net/portia/trunk/staff/templates/staff/requests"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="338"
+   name="photorequest_list.html"
+   text-time="2007-10-10T04:03:54.000000Z"
+   committed-date="2007-10-10T02:07:23.275929Z"
+   checksum="6e3d1d77f21d9ec32a27845c889ed98d"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:54.000000Z"/>
+<entry
+   committed-rev="338"
+   name="photorequest_detail.html"
+   text-time="2007-10-10T04:03:54.000000Z"
+   committed-date="2007-10-10T02:07:23.275929Z"
+   checksum="fb6eeab15eb24589230542e2068698cf"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:54.000000Z"/>
+<entry
+   committed-rev="338"
+   name="photorequest_form.html"
+   text-time="2007-10-10T04:03:54.000000Z"
+   committed-date="2007-10-10T02:07:23.275929Z"
+   checksum="8202575d9922f208c2cc1338f4169fe2"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:54.000000Z"/>
+</wc-entries>

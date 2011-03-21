@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="338"
+   name=""
+   committed-date="2007-10-10T02:07:23.275929Z"
+   url="http://svn.starkcontrast.net/portia/trunk/staff/requests"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="338"
+   name="views.py"
+   text-time="2007-10-10T04:03:54.000000Z"
+   committed-date="2007-10-10T02:07:23.275929Z"
+   checksum="7638d3bdb7a5112ff063c3cda121e998"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-10-10T04:03:54.000000Z"/>
+<entry
+   committed-rev="102"
+   name="__init__.py"
+   text-time="2007-08-03T06:57:29.000000Z"
+   committed-date="2007-04-24T07:45:35.620079Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:29.000000Z"/>
+<entry
+   committed-rev="303"
+   name="models.py"
+   text-time="2007-09-09T04:47:07.000000Z"
+   committed-date="2007-09-09T04:46:38.889466Z"
+   checksum="3bdd63d3bd61dfe2e37075c7a5115e68"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-09-09T04:47:07.000000Z"/>
+<entry
+   committed-rev="228"
+   name="urls.py"
+   text-time="2007-08-03T06:57:29.000000Z"
+   committed-date="2007-07-23T05:24:28.735265Z"
+   checksum="2c615c91c0bb99b5dc0a4bddfc04aa3f"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:29.000000Z"/>
+<entry
+   committed-rev="232"
+   name="forms.py"
+   text-time="2007-08-03T06:57:29.000000Z"
+   committed-date="2007-07-23T05:54:44.488557Z"
+   checksum="0a1e3ba2dec563a425b7d5130ee91751"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:29.000000Z"/>
+</wc-entries>
