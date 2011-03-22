@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="239"
+   name=""
+   committed-date="2007-07-24T00:36:34.637565Z"
+   url="http://svn.starkcontrast.net/portia/trunk/comment_utils/templatetags"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="239"
+   name="__init__.py"
+   text-time="2007-08-03T06:57:27.000000Z"
+   committed-date="2007-07-24T00:36:34.637565Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:27.000000Z"/>
+<entry
+   committed-rev="239"
+   name="comment_utils.py"
+   text-time="2007-08-03T06:57:27.000000Z"
+   committed-date="2007-07-24T00:36:34.637565Z"
+   checksum="5aff347e7493d8636e5dfe7b1f7bc368"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-08-03T06:57:27.000000Z"/>
+</wc-entries>
