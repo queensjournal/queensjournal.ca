@@ -4,8 +4,7 @@
 {% load custom_html %}
 {% load sanitize %}
 {% load comparison %}
-{% load comments.comments %}
-{% load comment_utils %}
+{% load comments %}
 {% load polls %}
 {% load flash %}
 {% load lists %}
@@ -41,7 +40,7 @@
 	{% endblock menu-stories %}
 		
 {% block layout-type %}narrow-1col{% endblock layout-type %}
-	{% block breadcrumb %}<a href="{% url journal.stories.views.index_front story.issue.pub_date %}">{% current_issue as issue %}{% ifequal issue.pub_date story.issue.pub_date %}Current issue{% else %}Back issue{% endifequal %}</a> &raquo; <a href="{% url journal.stories.views.index_section story.issue.pub_date,story.section.slug %}">{{ story.section.name }}</a> &raquo; {% firstof story.label "Story" %}{% endblock breadcrumb %}
+	{% block breadcrumb %}{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="/media/global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
 	{% endblock actions %}
@@ -140,9 +139,18 @@
 				{% endfor %}
 			{% endif %}
 
-			{% get_public_free_comment_count for stories.story story.id as comment_count %}
+			{% get_comment_list for story as cmt_list %}
+			    {% for comment in cmt_list %}
+			    <div class="comment">
+			        <p><a href="{{ comment.user_url }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}</p>
+			        {{ comment.comment }}
+			    </div>
+			    {% endfor %}
 			
-			<h3><a href="{% url journal.stories.views.comment_story story.issue.pub_date,story.section.slug,story.slug %}">Discuss this story {% ifnotequal comment_count 0 %}({{ comment_count }} comment{{ comment_count|pluralize }}){% endifnotequal %}</a></h3>
+				<div class="comment_form">
+				        {% render_comment_form for story %}
+				    </div>
+			
 			</div>
 		</div>
 	{% endblock content %}
