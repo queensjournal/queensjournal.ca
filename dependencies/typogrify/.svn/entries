@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="5"
+   name=""
+   committed-date="2007-05-29T16:40:43.593380Z"
+   url="http://typogrify.googlecode.com/svn/trunk/typogrify"
+   last-author="mintxian"
+   kind="dir"
+   uuid="a37c9311-d62f-0410-a16a-c50513983d21"
+   repos="http://typogrify.googlecode.com/svn"
+   revision="5"/>
+<entry
+   committed-rev="3"
+   name="__init__.py"
+   text-time="2007-08-03T07:02:53.000000Z"
+   committed-date="2007-05-28T20:13:50.507023Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="mintxian"
+   kind="file"
+   prop-time="2007-08-03T07:02:53.000000Z"/>
+<entry
+   name="templatetags"
+   kind="dir"/>
+</wc-entries>

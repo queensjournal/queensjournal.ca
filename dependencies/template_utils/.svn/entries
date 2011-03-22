@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="81"
+   name=""
+   committed-date="2007-06-11T01:59:56.393563Z"
+   url="http://django-template-utils.googlecode.com/svn/trunk/template_utils"
+   last-author="ubernostrum"
+   kind="dir"
+   uuid="d6b9e1ad-042d-0410-a639-15a354c1509c"
+   repos="http://django-template-utils.googlecode.com/svn"
+   revision="81"/>
+<entry
+   committed-rev="45"
+   name="__init__.py"
+   text-time="2007-06-25T23:05:36.000000Z"
+   committed-date="2007-04-10T04:18:48.892376Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="ubernostrum"
+   kind="file"
+   prop-time="2007-06-25T23:05:36.000000Z"/>
+<entry
+   committed-rev="45"
+   name="markup.py"
+   text-time="2007-06-25T23:05:36.000000Z"
+   committed-date="2007-04-10T04:18:48.892376Z"
+   checksum="cdf487e72aaa7644ed559395b30a9207"
+   last-author="ubernostrum"
+   kind="file"
+   prop-time="2007-06-25T23:05:36.000000Z"/>
+<entry
+   name="templatetags"
+   kind="dir"/>
+<entry
+   committed-rev="45"
+   name="context_processors.py"
+   text-time="2007-06-25T23:05:36.000000Z"
+   committed-date="2007-04-10T04:18:48.892376Z"
+   checksum="9dee430ee65cf7a9a2d62fadc6cf1c93"
+   last-author="ubernostrum"
+   kind="file"
+   prop-time="2007-06-25T23:05:36.000000Z"/>
+</wc-entries>
