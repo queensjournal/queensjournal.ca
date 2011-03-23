@@ -26,7 +26,7 @@
 		<div id="stories-other">
 			{% for pwrapper in story.storyphoto_set.all %}
 				{% if forloop.first %}
-				<img src="{{ pwrapper.photo.get_photo_url }}" class="story-photo" style="width: {% spaceless %}{% if_greater_or_equal pwrapper.photo.get_photo_width 390 %}390px; margin-left: 0{% else %}{{ pwrapper.photo.get_photo_width }}px{% endif_greater_or_equal %}{% endspaceless %}" />
+				<img src="{{ MEDIA_URL }}{{ pwrapper.photo.photo }}" class="story-photo" style="width: {% spaceless %}{% if_greater_or_equal pwrapper.photo.get_photo_width 390 %}390px; margin-left: 0{% else %}{{ pwrapper.photo.get_photo_width }}px{% endif_greater_or_equal %}{% endspaceless %}" />
 				<p class="story-caption" style="width: {% spaceless %}{% if_greater_or_equal pwrapper.photo.get_photo_width 390 %}390px; margin-left: 0{% else %}{{ pwrapper.photo.get_photo_width }}px{% endif_greater_or_equal %}{% endspaceless %}">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
 				{% endif %}
 			{% endfor %}

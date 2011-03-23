@@ -4,7 +4,8 @@
 {% load custom_html %}
 {% load sanitize %}
 {% load comparison %}
-{% load comments %}
+{% load disqus_tags %}
+{% disqus_dev %}
 {% load polls %}
 {% load flash %}
 {% load lists %}
@@ -51,7 +52,7 @@
 			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>
 			{% for pwrapper in story.storyphoto_set.all %}
-				<img src="{{ pwrapper.photo.get_photo_url }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
+				<img src="{{ MEDIA_URL }}{{ pwrapper.photo.photo }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
 				<p class="story-caption" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
 			{% endfor %}
 			
@@ -116,7 +117,7 @@
 				</div>
 			{% endif %}
 			<div class="story-content">
-			{{ story.content|typogrify|convert_entities|linebreakswithcode }}
+			{{ story.content|typogrify|convert_entities|linebreakswithcode|safe }}
 			{% if story.gallery_set.all %}
 				{% for gallery in story.gallery_set.all %}
 					<div class="inline-container gallery clearfix">
@@ -139,17 +140,7 @@
 				{% endfor %}
 			{% endif %}
 
-			{% get_comment_list for story as cmt_list %}
-			    {% for comment in cmt_list %}
-			    <div class="comment">
-			        <p><a href="{{ comment.user_url }}">{{ comment.user_name }}</a> - {{ comment.submit_date }}</p>
-			        {{ comment.comment }}
-			    </div>
-			    {% endfor %}
-			
-				<div class="comment_form">
-				        {% render_comment_form for story %}
-				    </div>
+			{% disqus_show_comments %}
 			
 			</div>
 		</div>

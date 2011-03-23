@@ -19,7 +19,7 @@
 
 {% block layout-type %}wide-2cols{% endblock layout-type %}
 	{% block breadcrumb %}
-		<a href="{% url journal.stories.views.index_latest %}">Home</a> &raquo; {% if not active %}<a href="{% url all_blogs %}">Blogs</a> &raquo; Archived blogs{% else %}Blogs{% endif %}
+	
 	{% endblock breadcrumb %}
 	{% block actions %}
 		{% if active %}<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/allblogs/">Latest blogs RSS <img src="{{ MEDIA_URL }}global/icon_rss.gif" /></a></span></p></div>{% endif %}
