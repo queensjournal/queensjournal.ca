@@ -1,6 +1,6 @@
 from django import template
-from journal.structure.models import Issue, Volume, FrontConfig
-from journal.stories.models import Story
+from structure.models import Issue, Volume, FrontConfig
+from stories.models import Story
 
 register = template.Library()
 

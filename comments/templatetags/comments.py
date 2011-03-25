@@ -1,6 +1,6 @@
-from journal.comments.models import Comment, FreeComment
-from journal.comments.models import PHOTOS_REQUIRED, PHOTOS_OPTIONAL, RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
-from journal.comments.models import MIN_PHOTO_DIMENSION, MAX_PHOTO_DIMENSION
+from comments.models import Comment, FreeComment
+from comments.models import PHOTOS_REQUIRED, PHOTOS_OPTIONAL, RATINGS_REQUIRED, RATINGS_OPTIONAL, IS_PUBLIC
+from comments.models import MIN_PHOTO_DIMENSION, MAX_PHOTO_DIMENSION
 from django import template
 from django.template import loader
 from django.core.exceptions import ObjectDoesNotExist

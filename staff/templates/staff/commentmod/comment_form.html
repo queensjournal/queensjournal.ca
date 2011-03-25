@@ -26,7 +26,7 @@
 		<fieldset id="form-parent">
 			<legend>Parent object</legend>
 			<div class="form-field"><label for="id_story_head">Article:</label><br/><a href="{{ parent.get_absolute_url }}">{% firstof parent.head parent.title %}</a> ({% if parent.head %}Story, {% else %}Blog entry, {% endif %}{% firstof parent.section.name, parent.blog.title %}, {% firstof parent.issue.pub_date, parent.date_published %})<br/>
-			<a class="form-parent-comments" href="{% url journal.staff.commentmod.views.comment_index %}?ctype={{ object.content_type.id }}&objid={{ object.object_id }}">View all comments for this story</a><br/>
+			<a class="form-parent-comments" href="{% url staff.commentmod.views.comment_index %}?ctype={{ object.content_type.id }}&objid={{ object.object_id }}">View all comments for this story</a><br/>
 			<span class="form-parent-comments">Comments are currently <strong>{% if parent.enable_comments %}open{% else %}closed{% endif %}</strong>. You can {% if not parent.enable_comments %}open{% else %}close{% endif %} them using the general admin interface.</span></div>
 		</fieldset>
 		
@@ -42,7 +42,7 @@
 {% endblock content %}
 {% block sidebar %}
 <div>
-	<p><a href="{% url journal.staff.views.user_logout %}">Logout</a><br/><a href="{% url journal.staff.commentmod.views.comment_index %}">View all comments</a></p>
+	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.commentmod.views.comment_index %}">View all comments</a></p>
 	<p>Problems? Talk to the webmaster.</p>
 </div>
 {% endblock sidebar %}

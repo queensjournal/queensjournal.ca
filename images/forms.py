@@ -1,5 +1,5 @@
 from django import newforms as forms
-from journal.images.models import Image
+from images.models import Image
 
 class ImageForm(forms.Form):
     name = forms.CharField()

@@ -1,5 +1,5 @@
 from django import template
-from journal.sidelinks.models import SidebarLinkset
+from sidelinks.models import SidebarLinkset
 
 register = template.Library()
 

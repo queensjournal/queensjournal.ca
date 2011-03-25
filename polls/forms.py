@@ -1,5 +1,5 @@
 from django import forms
-from journal.polls.models import Choice
+from polls.models import Choice
 
 class PollVotingForm(forms.Form):
     """

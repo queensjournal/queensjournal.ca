@@ -4,8 +4,8 @@ import datetime
 from django.template.loader import render_to_string
 from django.contrib.sessions.models import Session
 from django.conf import settings
-from journal.polls.models import Poll
-from journal.polls.forms import PollVotingForm
+from myproject.polls.models import Poll
+from myproject.polls.forms import PollVotingForm
 
 register = template.Library()
 

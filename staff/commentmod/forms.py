@@ -1,5 +1,5 @@
 from django import newforms as forms
-from journal.comments.models import FreeComment
+from comments.models import FreeComment
 
 class SingleQuickActionForm(forms.Form):
     action = forms.CharField()

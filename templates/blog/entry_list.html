@@ -12,7 +12,7 @@
 {% block title %}{{ block.super }}{% endblock title %}
 
 	{% block breadcrumb %}
-		<a href="{% url journal.stories.views.index_latest %}">Home</a> &raquo; <a href="{% url journal.blog.views.all_blogs %}">Blogs</a> &raquo; {{ blog.title }}
+		<a href="{% url stories.views.index_latest %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; {{ blog.title }}
 	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/">Latest posts RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>

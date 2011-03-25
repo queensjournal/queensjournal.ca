@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 from django.contrib.syndication.feeds import Feed
-from journal.structure.models import Issue, Section, FlatPlanConfig
-from journal.stories.models import Story
-from journal.sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
-from journal.blog.models import Blog, Entry, AuthorProfile
+from structure.models import Issue, Section, FlatPlanConfig
+from stories.models import Story
+from sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
+from blog.models import Blog, Entry, AuthorProfile
 
 
 class LatestStories(Feed):

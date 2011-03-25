@@ -20,7 +20,7 @@
 	{% endif %}
 	{% endif %}
 {% endblock header %}
-{% block actions %}{% if add_request %}<a href="{% url journal.staff.requests.views.request_add %}" id="add-request">Make a photo request</a>{% endif %}{% endblock actions %}
+{% block actions %}{% if add_request %}<a href="{% url staff.requests.views.request_add %}" id="add-request">Make a photo request</a>{% endif %}{% endblock actions %}
 
 {% block content %}
 <table id="objects-list">
@@ -45,7 +45,7 @@
 				<p class="list-date">{% if object.time %}{{ object.time|date:"F j, Y - P" }} ({{ object.time|timeuntil }}){% else %}(not yet arranged or no set time){% endif %}</p></td>
 			<td class="list-status">{{ object.get_status_display }}</td>
 			<td class="list-deadline">{{ object.deadline|date:"F j, Y" }}</td>
-			{% if edit_request %}<td class="list-edit"><a href="{% url journal.staff.requests.views.request_edit object.id %}">Edit</a></td>{% endif %}
+			{% if edit_request %}<td class="list-edit"><a href="{% url staff.requests.views.request_edit object.id %}">Edit</a></td>{% endif %}
 		</tr>
 	{% endfor %}
 	</tbody>
@@ -64,7 +64,7 @@
 {% block sidebar %}
 <div>
 {% if status or query or section %}
-	<p><a href="{% url journal.staff.requests.views.user_index %}">View all requests</a></p>
+	<p><a href="{% url staff.requests.views.user_index %}">View all requests</a></p>
 {% endif %}
 </div>
 <div id="search">

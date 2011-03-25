@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.mail import send_mail, mail_managers
 from django.contrib.auth.models import User
 from django.template import Context, loader
-from journal.structure.models import Section
+from structure.models import Section
 
 class RequestsManager(models.Manager):
     def unassigned(self):

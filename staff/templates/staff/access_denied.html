@@ -3,5 +3,5 @@
 {% block title %} - Access denied{% endblock %}
 {% block header %}Wot's this then?{% endblock header %}
 {% block content %}
-<p>You're not allowed to {{ missing }} {{ staffapp }}. <a href="{% url journal.staff.views.index %}">Back to the staff site.</a></p>
+<p>You're not allowed to {{ missing }} {{ staffapp }}. <a href="{% url staff.views.index %}">Back to the staff site.</a></p>
 {% endblock %}

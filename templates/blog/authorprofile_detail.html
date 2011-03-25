@@ -16,7 +16,7 @@
 
 {% block layout-type %}wide-2cols{% endblock layout-type %}
 	{% block breadcrumb %}
-		<a href="{% url journal.stories.views.index_latest %}">Home</a> &raquo; <a href="{% url journal.blog.views.all_blogs %}">Blogs</a> &raquo; Author Profile
+		<a href="{% url stories.views.index_latest %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; Author Profile
 	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blog-author/{{ object.id }}/">Posts by author RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>

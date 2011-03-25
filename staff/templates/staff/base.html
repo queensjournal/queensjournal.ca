@@ -9,7 +9,7 @@
 <div id="header-banner">
 	<div id="header-container" class="header-container clearfix">
 		<a href="/staff/"><img src="/media/global/journal-internal-logo.jpg" id="logo" /></a>
-		<div id="userinfo">{% ifnotequal user.username '' %}Logged in as <strong>{{ user.username }}</strong> - <a href="{% url journal.staff.views.user_logout %}">Logout</a>{% else %}Not logged in{% endifnotequal %}</div>
+		<div id="userinfo">{% ifnotequal user.username '' %}Logged in as <strong>{{ user.username }}</strong> - <a href="{% url staff.views.user_logout %}">Logout</a>{% else %}Not logged in{% endifnotequal %}</div>
 		<div id="dateline">{% block staffapp %}{% endblock staffapp %}<br/>{% now "F j, Y" %} - {% now "P" %}</div>
 	</div>
 </div>

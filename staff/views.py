@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth import logout, login, authenticate
-from journal.staff.forms import LoginForm
+from staff.forms import LoginForm
 
 def user_login(request):
     if request.method != "POST":

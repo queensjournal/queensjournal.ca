@@ -10,8 +10,8 @@ root URLConf to include this URLConf for any URL begninning with
 from django.conf.urls.defaults import *
 ##from django.views.generic.simple import direct_to_template
 ##from django.contrib.auth.views import login, logout
-##from journal.requests.views import activate, register
-from journal.staff.requests.views import *
+##from requests.views import activate, register
+from staff.requests.views import *
 
 urlpatterns = patterns('',
                        # Activation keys get matched by \w+ instead of the more specific

@@ -62,7 +62,7 @@ class Story(models.Model):
 		return self.head
 		
 	def get_absolute_url(self):
-		return ('journal.stories.views.detail_story', (), {
+		return ('stories.views.detail_story', (), {
 			'datestring': self.pub_date.strftime("%Y-%m-%d"),
 			'section': self.section.slug,
 			'slug': self.slug})
@@ -151,7 +151,7 @@ class FeaturedStory(models.Model):
 		return 'Featured Story: %s' % (self.story,)
 		
 class FrontPageTopTierStory(models.Model):
-	from journal.structure.models import FrontPageConfig
+	from structure.models import FrontPageConfig
 	story = models.ForeignKey(Story, default=None)
 	headline = models.CharField('Optional frontpage headline', max_length=160, blank=True)
 	front_page = models.ForeignKey(FrontPageConfig)
@@ -160,11 +160,6 @@ class FrontPageTopTierStory(models.Model):
 		verbose_name = 'Top Tier Story (headline only)'
 		verbose_name_plural = 'Top Tier Story (headline only)'
 		order_with_respect_to = 'front_page'
-		
-
-
-
-
 
 class FrontPageTopStory(models.Model):
 	story = models.ForeignKey(Story, default=None)

@@ -3,7 +3,7 @@ from django.views.generic.list_detail import object_detail, object_list
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
-from journal.blog.models import Blog, Entry, Category, AuthorProfile
+from blog.models import Blog, Entry, Category, AuthorProfile
 
 def all_blogs(request, active=True):
     """

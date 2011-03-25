@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from journal.blog.views import *
+from blog.views import *
 
 urlpatterns = patterns('',
     url(r'^archived/$', all_blogs, {'active': False}, name='all_blogs_archived'),

@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from journal.images.views import *
+from images.views import *
 
 urlpatterns = patterns('',
                        (r'^add/$', images_add),

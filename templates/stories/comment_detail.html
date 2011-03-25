@@ -32,7 +32,7 @@
 	{% endblock menu-stories %}
 		
 {% block layout-type %}narrow-1col{% endblock layout-type %}
-	{% block breadcrumb %}<a href="{% url journal.stories.views.index_front story.issue.pub_date %}">{% current_issue as issue %}{% ifequal issue.pub_date story.issue.pub_date %}Current issue{% else %}Back issue{% endifequal %}</a> &raquo; <a href="{% url journal.stories.views.index_section story.issue.pub_date,story.section.slug %}">{{ story.section.name }}</a> &raquo; <a href="{% url journal.stories.views.detail_story story.issue.pub_date,story.section.slug,story.slug %}">{% firstof story.label "Story" %}</a> &raquo; Comments{% endblock breadcrumb %}
+	{% block breadcrumb %}<a href="{% url stories.views.index_front story.issue.pub_date %}">{% current_issue as issue %}{% ifequal issue.pub_date story.issue.pub_date %}Current issue{% else %}Back issue{% endifequal %}</a> &raquo; <a href="{% url stories.views.index_section story.issue.pub_date,story.section.slug %}">{{ story.section.name }}</a> &raquo; <a href="{% url stories.views.detail_story story.issue.pub_date,story.section.slug,story.slug %}">{% firstof story.label "Story" %}</a> &raquo; Comments{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="/media/global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
 	{% endblock actions %}
@@ -40,7 +40,7 @@
 		<div id="story" class="story clearfix">
 			<h1 class="story-head">{{ story.head|stripspace|widont }}</h1>
 			<div class="story-content">
-			<p>{{ story.summary|typogrify|convert_entities }} <a href="{% url journal.stories.views.detail_story story.issue.pub_date,story.section.slug,story.slug %}">(back to story...)</a></p>
+			<p>{{ story.summary|typogrify|convert_entities }} <a href="{% url stories.views.detail_story story.issue.pub_date,story.section.slug,story.slug %}">(back to story...)</a></p>
 
 			{% get_public_free_comment_list for stories.story story.id as comment_list %}
 			{% get_public_free_comment_count for stories.story story.id as comment_count %}

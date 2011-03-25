@@ -93,7 +93,7 @@ class Entry(models.Model):
         return '%s (%s)' % (self.title, self.author)
 
     def get_absolute_url(self):
-        return('journal.blog.views.blog_detail', (), {
+        return('blog.views.blog_detail', (), {
             'blog': self.blog.slug,
             'year': self.date_published.year,
             'month': self.date_published.strftime('%m'),

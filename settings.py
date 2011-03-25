@@ -43,7 +43,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.auth.context_processors.auth",
-	"journal.context_processors.media_url",
+	"context_processors.media_url",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
-ROOT_URLCONF = 'journal.urls'
+ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
     'django.contrib.auth',

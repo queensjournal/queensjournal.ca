@@ -6,7 +6,7 @@ inheit from.
 
 
 from django.db import backend, connection, models
-from journal.comments import models as comment_models
+from comments import models as comment_models
 from django.contrib.contenttypes.models import ContentType
 
 

@@ -1,6 +1,6 @@
 from django.db import models
-from journal.stories.models import Story, Photo
-from journal.polls.models import Poll
+from stories.models import Story, Photo
+from polls.models import Poll
 
 
 class Factbox(models.Model):

@@ -6,7 +6,7 @@
 		{% else %}
 			<li>
 		{% endifequal %}
-		<a href="{% url journal.stories.views.index_section sect_obj.section.slug %}">
+		<a href="{% url stories.views.index_section sect_obj.section.slug %}">
 		{% if sect_obj.section.short_name %}
 			{{ sect_obj.section.short_name }}
 		{% else %}

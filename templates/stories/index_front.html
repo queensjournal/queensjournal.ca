@@ -103,7 +103,7 @@
 				</li>
 				{% endfor %}
 			{% else %}
-			<form action="{% url journal.polls.views.poll_vote config.poll.id %}" method="post">
+			<form action="{% url polls.views.poll_vote config.poll.id %}" method="post">
 				{% poll_form config.poll.id as form %}
 				{{ form.choice }}
 				<input type="hidden" name="url" value="{{ request.get_full_path }}" />

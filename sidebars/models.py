@@ -1,9 +1,9 @@
 import datetime
 from django.db import models
 from django.db.models import Q
-from journal.structure.models import Issue
-from journal.stories.models import Story, Photo
-from journal.polls.models import Poll
+from structure.models import Issue
+from stories.models import Story, Photo
+from polls.models import Poll
 
 class PreviousStories:
     """

@@ -6,9 +6,9 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
 from django.contrib.contenttypes.models import ContentType
-from journal.stories.models import Story
-from journal.comments.models import FreeComment
-from journal.staff.commentmod.forms import SingleQuickActionForm
+from stories.models import Story
+from comments.models import FreeComment
+from staff.commentmod.forms import SingleQuickActionForm
 
 def comment_index(request):
     if not request.user.is_authenticated():

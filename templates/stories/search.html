@@ -14,7 +14,7 @@
 {% block content %}
 	<div class="story">
 	{% for object in object_list %}
-		<p class="story-label"><a href="{{ object.issue.get_absolute_url }}">{{ object.issue.pub_date|date:"F jS, Y" }}</a> &ndash; <a href="{% url journal.stories.views.index_section object.issue.volume.volume,object.issue.issue,object.section.slug %}">{{ object.section.name }}</a></p>
+		<p class="story-label"><a href="{{ object.issue.get_absolute_url }}">{{ object.issue.pub_date|date:"F jS, Y" }}</a> &ndash; <a href="{% url stories.views.index_section object.issue.volume.volume,object.issue.issue,object.section.slug %}">{{ object.section.name }}</a></p>
 		<h3 class="story-head"><a href="{{ object.get_absolute_url }}">{{ object.head|stripspace|convert_entities|widont }}</a></h3>
 		<p class="story-summary">{{ object.summary|convert_entities }}</p>
 	{% endfor %}

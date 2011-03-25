@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
-from journal.staff.requests.models import PhotoRequest
+from staff.requests.models import PhotoRequest
 
 def user_index(request):
     if not request.user.is_authenticated():

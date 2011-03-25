@@ -1,9 +1,9 @@
 from datetime import datetime
 from django import template
-from journal.stories.models import Story
-from journal.structure.models import Section, Issue
-from journal.sidebars.models import NewsCalendarItem, ArtsCalendarItem, TalkingHeadsItem, SportsCalendarItem
-from journal.sidebars.settings import *
+from stories.models import Story
+from structure.models import Section, Issue
+from sidebars.models import NewsCalendarItem, ArtsCalendarItem, TalkingHeadsItem, SportsCalendarItem
+from sidebars.settings import *
 
 register = template.Library()
 

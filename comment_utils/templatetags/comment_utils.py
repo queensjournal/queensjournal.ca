@@ -8,8 +8,8 @@ moderation.
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import get_model
-from journal.comments.models import Comment, FreeComment
-from journal.comments.templatetags import comments
+from comments.models import Comment, FreeComment
+from comments.templatetags import comments
 from django.contrib.contenttypes.models import ContentType
 
 

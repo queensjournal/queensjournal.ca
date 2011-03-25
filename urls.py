@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 	(r'^story/', include('stories.urls')),
 	(r'^$', 'stories.views.index_front'),
 	(r'^blogs/', include('blog.urls')),
-	(r'^staff/', include('journal.staff.urls')),
+	(r'^staff/', include('staff.urls')),
 	#(r'^rss/(?P<url>.*)/', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
 	
 	# Uncomment the admin/doc line below to enable admin documentation:
@@ -29,5 +29,5 @@ urlpatterns = patterns('',
 	# Uncomment the next line to enable the admin:
 	(r'^admin/', include(admin.site.urls)),
 	
-	(r'^(?P<section>[-\w]+)/', 'journal.stories.views.index_section'),
+	(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
 )

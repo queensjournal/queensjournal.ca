@@ -5,8 +5,8 @@ from django.template import Context, RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.views.generic.list_detail import object_list
-from journal.stories.models import Story
-from journal.structure.models import *
+from stories.models import Story
+from structure.models import *
 
 def parse_date(datestring):
 	return date(*[int(x) for x in datestring.split('-')])

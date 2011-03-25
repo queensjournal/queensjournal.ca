@@ -8,7 +8,7 @@ root URLConf to include this URLConf for any URL begninning with
 """
 
 from django.conf.urls.defaults import *
-from journal.staff.commentmod.views import *
+from staff.commentmod.views import *
 
 urlpatterns = patterns('',
     (r'^$', comment_index),

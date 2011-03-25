@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from journal.stories.models import Story, Photo
+from stories.models import Story, Photo
 
 class Gallery(models.Model):
     name = models.CharField(max_length=255)
