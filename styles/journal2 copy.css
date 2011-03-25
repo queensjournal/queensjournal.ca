@@ -20,12 +20,43 @@
 
 /* Global typography */
 body {
-	background-color: white;
-	font-family: Georgia, Times, "Times New Roman", serif;
+	background-color: #fff;
+	font-family: "Adobe Garamond", Garamond, "Times New Roman", Times, serif;
 	font-size: 12px;
 	margin: 0;
 	padding: 0;
 }
+.hr hr {
+	border-bottom: 1px solid #000;
+	clear: both;
+	display: block;
+	font-size: 1px;
+	height: 0px;
+	line-height: 0;
+	margin: 10px auto;
+	max-height: 0px;
+	padding: 0px;
+	position: relative;
+	width: 100%;
+	}
+	
+.hr-horiz hr {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-left: none;
+	border-right: none;
+	clear: both;
+	display: block;
+	font-size: 1px;
+	height: 5px;
+	line-height: 0px;
+	margin: 10px auto;
+	max-height: 0px;
+	padding-top: 3px;
+	position: relative;
+	width: 100%;
+	}
+
 p{
 	font-size: 1em;
 	line-height: 1.5em;
@@ -41,17 +72,17 @@ li {
 	line-height: 1.5em;
 }
 h1 {
-	font-size: 2.5em;
+	font-size: 3.5em;
 	font-weight: normal;
-	line-height: 1.1667em;
+	line-height: 1.5em;
 }
 h2 {
-	font-size: 2em;
+	font-size: 2.5em;
 	line-height: 1.25em;
 }
 h3 {
-	font-size: 1.5em;
-	line-height: 1.286em;
+	font-size: 2em;
+	line-height: 1.4em;
 }
 h4 {
 	font-size: 1.1667em;
@@ -62,17 +93,86 @@ h5 {
 	line-height: 1.5em;
 }
 a {
-	color: #c30;
+	color: #2d81ab;
 	text-decoration: none;
-}
-a:hover {
-	text-decoration: underline;
 }
 a img {
 	border: 0;
 }
 
 /* Global layout */
+
+/* =GLOBAL-CONTENT+MENU */
+#container {
+	-moz-box-shadow: 3px 5px 10px #888;
+	-webkit-box-shadow: 3px 5px 10px #888;
+	box-shadow: 3px 5px 10px #888;
+	width: 960px;
+	padding: 1px 10px;
+	margin: 0 auto;
+}
+	#header-ad {
+		position: relative;
+		margin: 10px auto 0 auto;
+	}
+	
+	#content-ad {
+	height: 60px;
+	margin-top: 0px;
+	margin-bottom: 7px;
+	}
+	
+	#topbar a, .menu a, #footer-container a {
+		color: #2d81ab;
+	}
+	#actions {
+			width: 100%;
+			clear: both;
+			display: table;
+		}
+		#actions ul {
+			display: table-row;
+			list-style-type: none;
+		}
+		#actions ul li {
+			display: table-cell;
+			text-align: left;
+			padding-left: 5px;
+		}
+		#actions a {
+			color: white;
+		}
+		#actions img {
+			position: relative;
+			top: 4px;
+			}
+		#actions input, .menu select {
+			margin: 0.5em 0;
+			padding: 2px;
+			width: 140px;
+		}
+	.story-label, .menu-label, .blog-label {
+		font-size: 1.2em;
+		font-weight: bold;
+		letter-spacing: 1px;
+		line-height: 1.2em;
+		margin: 0;
+		text-transform: uppercase;
+	}
+	.story-label, .blog-label {
+		color: #0192cd;
+	}
+	.story-head a, .otherstory-head a {
+		font-weight:normal;
+		color: #000;
+	}
+	.story-head a:hover, .otherstory-head a:hover {
+		color: #2d81ab;
+	}
+	.story-head {
+		margin-top: -0.17em;
+	}
+	
 /* =GLOBAL-HEADERS */
 #header-banner {
 	background-color: #069;
@@ -80,23 +180,57 @@ a img {
 }
 .header-container {
 	margin: 0 auto;
+	padding: 10px;
 	position: relative;
-	width: 900px;
+	background-color: #0b67a3;
+	color: white;
 }
+
+	#header-left {
+		float: left;
+		width: 520px;
+		}
+	#header-right {
+		float: right;
+		width: 420px;
+		}
 	#dateline, #issueline {
-		color: white;
 		font-weight: bold;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;
 	}
+	#dateline {
+		float: left;
+		}
+	#issueline {
+		float: right;
+		}
+	#hr-header hr {
+		border-bottom: 2px solid #fff;
+		clear: both;
+		display: block;
+		font-size: 1px;
+		height: 0px;
+		line-height: 0;
+		margin: 10px auto;
+		max-height: 0px;
+		padding: 0px;
+		position: relative;
+		width: 100%;
+	}
 	#logo-print {
 		display: none;
 	}
+	#header-slogan {
+		padding-top: 10px;
+		font-size: 1.3em;
+		font-variant: small-caps;
+		}
 
 /* =GLOBAL-FOOTERS */
 #footer-container {
 	margin: 0 auto;
-	width: 900px;
+	clear: both;
 }
 #footer-ad {
 	width: 900px;
@@ -116,32 +250,6 @@ a img {
 		#footer-container #address p#nameplate {
 			font-weight: bold;
 		}
-
-/* =GLOBAL-CONTENT+MENU */
-#body-container {
-	margin: 0 auto;
-	padding: 0 1em 2em;
-	width: 900px;
-}
-	#content-ad {
-	height: 60px;
-	margin-top: 0px;
-	margin-bottom: 7px;
-	}
-	
-	#topbar a, .menu a, #footer-container a {
-		color: #2d81ab;
-	}
-	.story-label, .menu-label, .blog-label {
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 0.91667em;
-		font-weight: bold;
-		letter-spacing: 1px;
-		line-height: 1.2em;
-		margin: 0;
-		text-transform: uppercase;
-	}
-
 
 /* =GLOBAL-CONTENT */
 .content {
@@ -164,21 +272,6 @@ a img {
 			margin: 0;
 			text-transform: uppercase;
 		}
-		#actions {
-			border-left: 3px solid white;
-			float: right;
-			height: 100%;
-			padding: 1.5em 10px 5px;
-		}
-		#actions p {
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 1em;
-			font-weight: bold;
-			line-height: 18px;
-			margin: 0;
-			text-transform: uppercase;
-		}
-	
 	#issue-banner {
 		background-color: #96c0d5;
 		border: 1px solid #2d81ab;
@@ -197,7 +290,7 @@ a img {
 		}
 	
 	.story {
-		margin: 1em 0 2em 0;
+		margin: 1em 0 0 0;
 		width: 100%;
 	}
 		.story-photo {
@@ -209,10 +302,10 @@ a img {
 		.story-caption {
 			clear: right;
 			float: right;
-			font-family: Arial, Helvetica, sans-serif;
-			font-size: 0.91667em;
+			font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+			font-size: 1em;
 			line-height: 1.2em;
-			margin: 0.5em 0 0 1em;
+			margin: 0.5em 0 0 0;
 		}
 		.story table {
 			border-spacing: 5px;
@@ -230,33 +323,14 @@ a img {
 .menu {
 	float: right;
 	font-family: Arial, Helvetica, sans-serif;
-	margin-left: 20px;
 }
-	#menu-social-media, #menu-sections, #menu-online-sections, #menu-archives, #menu-static {
+	#menu-social-media, #menu-archives, #menu-static {
 		background-color: #d5e6ee;
 		padding: 0.75em 10px;
 		margin-bottom: 3px;
 	}
-	.menu ul {
-		list-style-type: none;
-	}
-	.menu #menu-sections, .menu #menu-online-sections {
-		padding: 1em 0 0.75em;
-	}
-	#menu-sections li, #menu-online-sections li {
-		font-size: 1.1667em;
-		font-weight: bold;
-		line-height: 1.286em;
-		padding: 0 10px;
-		text-transform: uppercase;
-	}
 	#menu-sections li#section-current {
-		background-color: #96c0d5;
-	}
-	.menu input, .menu select {
-		margin: 0.5em 0;
-		padding: 2px;
-		width: 140px;
+		background-color: #fff;
 	}
 	#menu-social-media li {
 		vertical-align:middle;
@@ -266,12 +340,14 @@ a img {
 		line-height: 0.8em;
 		text-transform: uppercase;
 		width:140px;
+		list-style-type: none;
 	}
 	#menu-static li {
 		font-size: 1em;
 		font-weight: bold;
 		line-height: 1.5em;
 		text-transform: uppercase;
+		list-style-type: none;
 	}
 	#menu-ad {
 		width: 100%;
@@ -282,9 +358,34 @@ a img {
 	#menu-ad2 {
 		margin-top: 20px;
 	}
+	
+.menu-bar {
+	width: 100%;
+	clear: both;
+	display: table;
+	}
+	
+	.menu-bar ul {
+		display: table-row;
+		list-style-type: none;
+	}
+	
+	.menu-bar ul li {
+		padding: 5px;
+		font-size: 1.2em;
+		text-transform: uppercase;
+		display: table-cell;
+		text-align: center;
+		/*border: 5px solid white;*/
+		background-color: #c9d7ee;
+	}
+	
+	.menu-bar ul li a {
+		color: black;
+		}
 
 /* Template-specific layout */
-/* =SECTIONALS-HEADERS */
+/* =SECTIONALS-HEADERS 
 #header-container-primary {
 }
 	#header-container-primary #logo {
@@ -301,8 +402,9 @@ a img {
 		right: 0;
 		bottom: 5px;
 	}
+	*/
 
-/* =SINGLES-HEADERS */
+/* =SINGLES-HEADERS
 #header-container-secondary {
 }
 	#header-container-secondary #logo {
@@ -316,15 +418,14 @@ a img {
 	#header-container-secondary #issueline {
 		display: none;
 	}
+	
+	*/
 
 /* =SECTIONALS-CONTENT */
 #content-wide-2cols {
 	float: left;
 	width: 700px;
 }
-	#topstory {
-		border-bottom: 1px solid #ccc;
-	}
 	#topstory .story-summary {
 		font-size: 1.1667em;
 		line-height: 1.428em;
@@ -370,14 +471,18 @@ a img {
 	#stories-other .story-caption {
 		margin-bottom: 1.8em;
 	}
+	.otherstory-head {
+	}
+	.story-head-sidebar a {
+		color: #000;
+		font-weight: bold;
+		}
 
 /* =SINGLES-CONTENT */
 #content-narrow-1col {
 	float: left;
 	width: 650px;
 }
-	#story {
-	}
 		#story .story-caption {
 			margin-bottom: 1.8em;
 		}
@@ -763,6 +868,10 @@ a img {
 		margin-top: 1.5em;
 		padding: 12px;
 	}			
+	#content-sidebar h4.story-head {
+		font-weight: bold;
+	}
+
 
 
 /* =SECTIONALS-MENU */
