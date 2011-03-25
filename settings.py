@@ -9,6 +9,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AUTH_USER_PROFILE = 'structure.Author'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -39,6 +41,11 @@ TEMPLATE_LOADERS = (
 	#'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.contrib.auth.context_processors.auth",
+	"journal.context_processors.media_url",
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -46,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'journal.urls'
@@ -57,11 +65,16 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
 	'django.contrib.comments',
-	'django_evolution',
 	
+	#'comments',
+    #'comment_utils',
+
 	# Dependencies
-	'threadedcomments',
+	'custom',
+	'dependencies.template_utils',
+	'typogrify',
 	'imagekit',
+	'tagging',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -70,4 +83,18 @@ INSTALLED_APPS = (
 	'polls',
 	'stories',
 	'structure',
+	'sidebars',
+	'sidelinks',
+	'blog',
+	'staff',
+	'images',
+	'inlines',
+	'galleries',
+	
+	'disqus',
+	#Django south
+	'south',
 )
+
+DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
+DISQUS_WEBSITE_SHORTNAME = "queensjournal"

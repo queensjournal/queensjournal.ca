@@ -23,25 +23,39 @@ def index_latest(request):
 		issue = FrontPageConfig.objects.latest('pub_date')
 	return index_front(request, issue.pub_date.strftime("%Y-%m-%d"))
 	
-def index(request):
-	front_config = get_object_or_404
+def index_section(request, section):
+	section_config = get_object_or_404(SectionFrontConfig.objects.filter(section__slug__iexact=section))
+	front_config = get_object_or_404(FrontConfig.objects.latest('pub_date'))
+	first_story = get_object_or_404(Story.objects.filter(section__slug__iexact=section, featured=True, status='p').order_by('-pub_date')[:1])
+	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')[:10]
+	if request.session.get('vote') is None:
+		request.session['vote'] = []
+	return render_to_response('stories/index_section.html',
+							{'story': first_story,
+							'latest': story_set,
+							'config': section_config},
+							context_instance=RequestContext(request))
+							
+def index_front(request):
+	front_config = get_object_or_404(FrontConfig.objects.latest('pub_date'))
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('stories/index_front.html',
-								{'featured': front_config.frontpagestory_set.all()[0],
-								'config': front_config},
-								context_instance=RequestContext(request))
-	
-def index_front(request, section):
-	front_config = get_object_or_404(FrontPageConfig.objects.latest('pub_date'))
-	if request.session.get('vote') is None:
-		request.session['vote'] = []
-	return render_to_response('stories/index_front.html',
-							{'story': front_config.frontpagetopstory.all()[0],
+							{'featured': front_config.featuredstory_set.all(),
 							'config': front_config},
 							context_instance=RequestContext(request))
 							
-def index_section(request, datestring, section):
+def index_issue_front(request, datestring):
+	issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
+	front_config = get_object_or_404(FrontPageConfig, issue=issue)
+	if request.session.get('vote') is None:
+		request.session['vote'] = []
+	return render_to_response('stories/index_front.html',
+							  {'story': front_config.frontpagetopstory_set.all()[0],
+							   'config': front_config},
+							  context_instance=RequestContext(request))
+						
+def index_issue_section(request, datestring, section):
 	first_story = get_object_or_404(Story, issue__pub_date=parse_date(datestring), section__slug__iexact=section, section_order=1)
 	story_set = Story.objects.filter(issue__pub_date=parse_date(datestring), section__slug__iexact=section).order_by('section_order')
 	if request.session.get('vote') is None:
@@ -50,7 +64,7 @@ def index_section(request, datestring, section):
 								{'story': first_story,
 								'story_set': story_set},
 								context_instance=RequestContext(request))		
-
+'''
 def index_section_latest(request, section):
 	try:
 		config = FlatPlanConfig.objects.filter(flatplansection__section__slug=section)
@@ -58,7 +72,7 @@ def index_section_latest(request, section):
 	except Issue.DoesNotExist, FlatPlanConfig.DoesNotExist:
 		raise Http404
 	return HttpResponseRedirect('/story/%s/%s/' % (issue.pub_date.strftime("%Y-%m-%d"), section))
-	
+'''	
 def detail_story(request, datestring, section, slug):
 	story_selected = get_object_or_404(Story, issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
 	if request.session.get('vote') is None:

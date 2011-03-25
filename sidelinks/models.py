@@ -10,7 +10,6 @@ class SidebarLinkset(models.Model):
     def __unicode__(self):
         return self.name
     
-
 class Link(models.Model):
     text = models.CharField(max_length=255, help_text='The text of the sidebar link.')
     url = models.URLField(max_length=255, verify_exists=False, help_text='The URL of the sidebar link.')

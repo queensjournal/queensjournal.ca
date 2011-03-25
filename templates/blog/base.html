@@ -4,7 +4,6 @@
 {% load navigation %}
 {% load sidebartags %}
 {% load comparison %}
-{% load comment_utils %}
 {% load more %}
 {% load images %}
 {% load archives %}
@@ -23,7 +22,7 @@
 		<div id="blog-column">
 			<h1 class="blog-head">{{ blog.title }}</h1>
 			{% block blog-filter %}{% endblock blog-filter %}
-			{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="/media/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
+			{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ MEDIA_URL }}/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
 
 			<div class="blog-sidebar">
 				<p class="blog-label">About the blog</p>

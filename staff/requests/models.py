@@ -1,4 +1,4 @@
-import datetime, random, re, sha
+import datetime, random, re, hashlib
 from django.db import models
 from django.conf import settings
 from django.core.mail import send_mail, mail_managers

@@ -7,8 +7,8 @@ from imagekit import processors
 class ResizeDisplay(processors.Resize):
 	width = 700
 	height = 300
+	crop = True
 
 # and our display spec
 class Display(ImageSpec):
-	increment_count = True
 	processors = [ResizeDisplay]

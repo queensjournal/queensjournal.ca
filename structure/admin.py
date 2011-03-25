@@ -1,5 +1,5 @@
 from structure.models import *
-from stories.models import FeaturedStory
+from stories.models import FeaturedStory, FeaturedPhoto, Section, Story
 from django.contrib import admin
 
 class IssueAdmin(admin.ModelAdmin):
@@ -23,15 +23,22 @@ class VolumeAdmin(admin.ModelAdmin):
 
 admin.site.register(Volume, VolumeAdmin)
 
+class FlatPlanSectionInline(admin.TabularInline):
+	model = FlatPlanSection
+
 class FlatPlanConfigAdmin(admin.ModelAdmin):
 	list_display = ('name', 'list_sections')
+	inlines = [
+		FlatPlanSectionInline,
+	]
 	
 admin.site.register(FlatPlanConfig, FlatPlanConfigAdmin)
 
 class FeaturedInline(admin.TabularInline):
 	model = FeaturedStory
+	ordering = ['pub_date']
 
-class FrontPageConfigAdmin(admin.ModelAdmin):
+class FrontConfigAdmin(admin.ModelAdmin):
 	inlines = [
 		FeaturedInline,
 	]
@@ -42,4 +49,15 @@ class FrontPageConfigAdmin(admin.ModelAdmin):
 	]
 	"""
 	
-admin.site.register(FrontPageConfig, FrontPageConfigAdmin)
+admin.site.register(FrontConfig, FrontConfigAdmin)
+	
+class SectionFrontConfigAdmin(admin.ModelAdmin):
+	"""
+	fieldsets = [
+		(None, {'fields': ('pub_date', 'announce_head', 'announce_body', 'poll')}),
+		('Featured', {'fields': ('featured')})
+	]
+	"""
+	actions = None
+	
+admin.site.register(SectionFrontConfig, SectionFrontConfigAdmin)
