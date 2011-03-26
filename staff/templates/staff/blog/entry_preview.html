@@ -1,0 +1,25 @@
+{% load comments.comments %}
+{% load comment_utils %}
+{% load custom_html %}
+{% load humanize %}
+{% load typogrify %}
+{% load more %}
+{% load images %}
+{% if display_head %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/media/styles/journal.css" />
+</head>
+<body>Click the preview button to load the latest preview.</body>
+</html>
+{% else %}
+<div id="blog-single-entry" class="blog-content">
+	<div class="blog-container clearfix">
+		<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+		<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.user.get_full_name }}</a> on {{ object.date_published|date:"F j, Y" }}</h5>
+		<p>Categories: {% for category in object.categories %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+		<div class="blog-post-content">{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode }}</div>
+	</div>
+</div>
+{% endif %}
