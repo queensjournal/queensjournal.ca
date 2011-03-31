@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load navigation %}
+{% load tags %}
+
+{% block content %}
+<h1>Article Tag Search</h1>
+<p>You searched the blog entries for the tag <span class="highlight">{{ tag }}</span>.</p>
+{% if stories %}
+{% for story in stories %}
+<div class="row-{% cycle odd,even %}">
+<h2><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
+<h3>{{ story.pub_date|date:"jS F Y" }}</h3>
+{{ story.summary|safe|linebreaks }}
+{% if story.content %}
+{% endif %}
+</div><!-- row end -->
+{% endfor %}
+{% else %}
+<p>No articles have that tag</p>
+{% endif %}
+{% endblock content %}
