@@ -4,11 +4,11 @@
 {% load custom_html %}
 {% load sanitize %}
 {% load comparison %}
-{% load disqus_tags %}
-{% disqus_dev %}
 {% load polls %}
 {% load flash %}
 {% load lists %}
+{% load tags %}
+
 {% block head-code %}
 <link rel="alternate stylesheet" type="text/css" href="/media/styles/journal_print_preview.css" media="screen" title="Print Preview" />
 <link rel="stylesheet" type="text/css" href="/media/styles/journal_print.css" media="print" />
@@ -25,9 +25,10 @@
 {% block header-type %}secondary{% endblock header-type %}
 	{% block header-img %}logo_inside.gif{% endblock header-img %}
 	{% block dateline %}{{ story.issue.pub_date|date:"F j, Y" }}{% endblock dateline %}
-	{% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
+	{% if story.issue %}
+		{% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
+	{% endif %}
 
-{% block menu-type %}wide{% endblock menu-type %}
 	{% block menu-stories %}
 		{% other_stories story.section story.issue %}
 		{% if other_stories %}
@@ -40,19 +41,20 @@
 		</ul>
 	{% endblock menu-stories %}
 		
-{% block layout-type %}narrow-1col{% endblock layout-type %}
+	{% block layout-type %} span-18 colborder{% endblock %}
 	{% block breadcrumb %}{% endblock breadcrumb %}
 	{% block actions %}
-		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="/media/global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
+		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}global/icon_print.gif" /></a></span></p></div>
 	{% endblock actions %}
 	{% block content %}
 		<!-- google_ad_section_start -->
 		<div id="story" class="story clearfix">
 			<h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
-			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
+			<h4 class="story-deck">{{ story.kick|stripspace|convert_entities|widont }}</h4>
+			{{ story.pub_date|date:"jS F Y" }}
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>
 			{% for pwrapper in story.storyphoto_set.all %}
-				<img src="{{ MEDIA_URL }}{{ pwrapper.photo.photo }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
+				<img src="{{ pwrapper.photo.display.url }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
 				<p class="story-caption" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
 			{% endfor %}
 			
@@ -117,7 +119,20 @@
 				</div>
 			{% endif %}
 			<div class="story-content">
-			{{ story.content|typogrify|convert_entities|linebreakswithcode|safe }}
+			{{ story.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+			
+			{% tags_for_object story as tags %}
+			<ul>
+			{% for tag in tags %}
+				<li><a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a></li>
+			{% endfor %}
+			</ul>
+			
+			{% load shorturl %}
+			<a href="{% shorturl story %}">Short URL</a>
+			{% revcanonical story %}
+			
+			
 			{% if story.gallery_set.all %}
 				{% for gallery in story.gallery_set.all %}
 					<div class="inline-container gallery clearfix">
@@ -139,6 +154,9 @@
 				{% endif %}
 				{% endfor %}
 			{% endif %}
+			
+			{% load disqus_tags %}
+			{% disqus_dev %}
 
 			{% disqus_show_comments %}
 			

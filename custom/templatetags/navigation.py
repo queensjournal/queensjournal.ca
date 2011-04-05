@@ -59,6 +59,7 @@ def menu_sections(context):
 	else:
 		params['show_section_link'] = True
 	params['sections'] = latest_issue.sections
+	params['config'] = context.get('config')
 	return params
 
 class OtherStoriesListNode(template.Node):

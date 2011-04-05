@@ -19,8 +19,8 @@
 
 			{% for result in page.object_list %}
 				<h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.head }}</a></h3>
-				<p>{% ifnotequal story.list_authors '[no author]' %}By {{ result.object.list_authors }}{% endifnotequal %}
-				<p>{{ result.object.summary }}</p>
+				<p>{% ifnotequal result.object.list_authors '[no author]' %}By {{ result.object.list_authors }}{% endifnotequal %}
+				<p>{{ result.object.summary|safe }}</p>
 			{% empty %}
 				<p>No results found.</p>
 			{% endfor %}

@@ -1,19 +1,11 @@
-{% spaceless %}
-	<ul>
-	{% for sect_obj in sections.flatplansection_set.all %}
-		{% ifequal sect_obj.section.slug current.slug %}
-			<li id="section-current">
+<ul>{% for sect_obj in sections.flatplansection_set.all %}
+		{% spaceless %}
+		{% ifequal sect_obj.section.slug config.section.slug %}
+			<li class="section-current">
 		{% else %}
-			<li>
+			<li class="section-other">
 		{% endifequal %}
-		<a href="{% url stories.views.index_section sect_obj.section.slug %}">
-		{% if sect_obj.section.short_name %}
-			{{ sect_obj.section.short_name }}
-		{% else %}
-			{{ sect_obj.section.name }}
-		{% endif %}
-			</a></li>
-	{% endfor %}
-		<li><a href="{% url all_blogs %}">Blogs</a></li>
-	</ul>
-{% endspaceless %}
+		<a href="{% url stories.views.index_section sect_obj.section.slug %}"><span>{% if sect_obj.section.short_name %}{{ sect_obj.section.short_name }}{% else %}{{ sect_obj.section.name }}{% endif %}</span>
+		</a></li>
+		{% endspaceless %}
+	{% endfor %}<li class="section-special"><a href="/blogs/"><span>Blogs</span></a></li></ul>

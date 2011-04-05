@@ -1,5 +1,6 @@
 from django import forms
-from blog.models import Blog, Entry, Category, AuthorProfile
+from blog.models import Blog, Entry, Category
+from structure.models import Author
 
 class AjaxPreviewForm(forms.Form):
     blog = forms.ChoiceField(choices=[(x.id,x.title) for x in Blog.objects.all()])
@@ -10,7 +11,7 @@ class AjaxPreviewForm(forms.Form):
 
     def clean_author(self):
         try:
-            AuthorProfile.objects.get(pk=self.cleaned_data['author'])
+            Author.objects.get(pk=self.cleaned_data['author'])
             return self.cleaned_data['author']
         except:
             raise ValidationError(u'Improper author specified!')

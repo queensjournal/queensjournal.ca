@@ -1,1 +1,10 @@
-{{ obj.summary }} (published {{ obj.issue.pub_date|date:"F j, Y" }})
+{% load typogrify %}
+{% load custom_html %}
+
+{% for pwrapper in obj.storyphoto_set.all|slice:":2" %}
+	<img src="{{ pwrapper.photo.display.url }}"/>
+	<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+{% endfor %}
+{% if obj.storyphoto_set.all|length > 2 %}<a href="{{ obj.get_absolute_url }}">More Photos...</a>{% endif %}
+
+{{ obj.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}

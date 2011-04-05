@@ -7,7 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
-from blog.models import Blog, Entry, AuthorProfile, Category
+from blog.models import Blog, Entry, Category
+from structure.models import Author
 from staff.blog.forms import AjaxPreviewForm, ProfileForm
 
 def has_blog_access(user, blog):
@@ -28,7 +29,7 @@ def has_blog_access(user, blog):
         return True
     ## blog authors only have access to blogs to which they are assigned
     else:
-        if user.authorprofile_set.all()[0] in blog_obj.bloggers.all():
+        if user.author_set.all()[0] in blog_obj.bloggers.all():
             return True
         else:
             return False
@@ -37,7 +38,7 @@ def all_blogs(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
     else:
-        author = request.user.authorprofile_set.all()[0]
+        author = request.user.author_set.all()[0]
         ## blog admins always have access
         if request.user.has_perms(['blog.add_blog','blog.change_blog','blog.delete_blog']):
             blogs = Blog.objects.all()
@@ -70,7 +71,7 @@ def profile_edit(request, blog):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
     else:
-        profile = AuthorProfile.objects.get(user=request.user)
+        profile = Author.objects.get(user=request.user)
         c = {'profile': profile,
              'add_entry': request.user.has_perm('blog.add_entry'),
              'blog': Blog.objects.get(slug__exact=blog)}
@@ -88,7 +89,7 @@ def profile_edit(request, blog):
                     user_obj.set_password(form.cleaned_data['password2'])
                 # save User object
                 user_obj.save()
-                # save AuthorProfile fields
+                # save Author fields
                 if form.cleaned_data.get('homepage'):
                     profile.homepage = form.cleaned_data['homepage']
                 if form.cleaned_data.get('bio'):
@@ -97,7 +98,7 @@ def profile_edit(request, blog):
                 if form.cleaned_data.get('portrait'):
                     profile.portrait = form.cleaned_data['portrait'].filename
                     profile.save_portrait_file(profile.get_portrait_filename(),form.cleaned_data['portrait'].content)
-                # save AuthorProfile object
+                # save Author object
                 profile.save()
                 # set flash
                 request.session['flash_msg'] = 'Profile successfully edited.'
@@ -147,7 +148,7 @@ def entries_index(request, blog):
             author = request.GET.get("author", "")
             qs = Entry.objects.filter(blog__slug__exact=blog, author__user__username__exact=author)
             try:
-                c['author'] = AuthorProfile.objects.get(user__username__exact=author)
+                c['author'] = Author.objects.get(user__username__exact=author)
             except ObjectDoesNotExist:
                 c['author'] = ''
         # filter by category
@@ -181,7 +182,7 @@ def entries_index(request, blog):
         c['full_list'] = Entry.objects.all()
         c['dates_list'] = Entry.objects.dates('date_published','month',order='DESC')
         c['category_list'] = Category.objects.order_by('name')
-        c['author_list'] = AuthorProfile.objects.select_related(depth=1).order_by('auth_user.first_name')
+        c['author_list'] = Author.objects.select_related(depth=1).order_by('auth_user.first_name')
         if request.session.get('flash_params') and (request.session['flash_params'].get('action') == 'add' or request.session['flash_params'].get('action') == 'edit') and Entry.objects.count() > 0:
             request.session['flash_params']['new'] = Entry.objects.order_by('-id')[0]
         return object_list(request, qs, extra_context=c, allow_empty=True, paginate_by=30, template_name='staff/blog/entry_list.html')
@@ -230,7 +231,7 @@ def entry_add(request, blog):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
     elif has_blog_access(request.user, blog) and request.user.has_perm('blog.add_entry'):
-        c = {'author': AuthorProfile.objects.get(user__username=request.user.username),
+        c = {'author': Author.objects.get(user__username=request.user.username),
              'moderate_entry': request.user.has_perm('blog.moderate_entry'),
              'blog': Blog.objects.get(slug__exact=blog)}
         if request.POST:
@@ -257,7 +258,7 @@ def entry_ajax_preview(request):
             preview = {
                 'blog': form.cleaned_data['blog'],
                 'title': form.cleaned_data['title'],
-                'author': AuthorProfile.objects.get(pk=form.cleaned_data['author']),
+                'author': Author.objects.get(pk=form.cleaned_data['author']),
                 'categories': Category.objects.filter(id__in=form.cleaned_data['categories']),
                 'content': form.cleaned_data['content'],
                 'date_published': datetime.now(),

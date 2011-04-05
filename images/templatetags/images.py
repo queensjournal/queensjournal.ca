@@ -2,7 +2,7 @@ import re
 from django import template
 from django.template import Context, Template
 from django.template.loader import get_template
-from images.models import Image
+from myproject.images.models import Image
 
 register = template.Library()
 

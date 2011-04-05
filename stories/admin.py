@@ -1,24 +1,48 @@
 from django.contrib import admin
-from stories.models import Story, StoryPhoto, FeaturedPhoto, Photo
+import settings
+from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
+from inlines.models import Factbox, Document, StoryPoll
+
+class FactboxInline(admin.TabularInline):
+	model = Factbox
+	extra = 1
+	
+class DocumentInline(admin.TabularInline):
+	model = Document
+	extra = 1
+	
+class StoryPollInline(admin.TabularInline):
+	model = StoryPoll
+	extra = 1
 
 class StoryPhotoInline(admin.TabularInline):
 	model = StoryPhoto
+	
+class StoryAuthorInline(admin.TabularInline):
+	model = StoryAuthor
 
 class StoryAdmin(admin.ModelAdmin):
 	fieldsets = [
-		(None,				 {'fields': ['head', 'kick', 'slug', 'label']}),
+		(None,				 {'fields': ['head', 'deck', 'slug', 'label', 'tags', 'summary']}),
 		('Date information', {'fields': ['pub_date']}),
-		('Content', {'fields': ['summary','content']}),
-		('Organizational', {'fields': ['status', 'section', 'issue', 'featured', 'tags']})
+		('Content', {'fields': ['content'], 'classes': ['richedit']}),
+		('Organizational', {'fields': ['status', 'section', 'issue', 'featured',]})
 	]
 	inlines = [
 		StoryPhotoInline,
+		StoryAuthorInline,
+		FactboxInline,
+		DocumentInline,
+		StoryPollInline,
 	]
-	prepopulated_fields = {'slug': ('head',)}
+	prepopulated_fields = {'slug': ('head',),}
 	list_display = ('head', 'summary', 'pub_date', 'issue')
 	list_filter = ['pub_date', 'section', 'issue']
-	search_fields = ['question']
+	search_fields = ['head', 'deck', 'content']
 	actions = ['make_published', 'make_featured', 'remove_featured']
+	
+	class Media:
+		js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
 	
 	def make_published(self, request, queryset):
 		rows_updated = queryset.update(featured=True)
@@ -51,6 +75,7 @@ admin.site.register(Story, StoryAdmin)
 
 class PhotoAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name',)}
+	search_fields = ['photo', 'name']
 	
 admin.site.register(Photo, PhotoAdmin)
 

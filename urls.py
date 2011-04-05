@@ -2,11 +2,11 @@ from django.conf.urls.defaults import *
 from feeds import *
 
 feeds = {
-    'latest': LatestStories,
-    'section': LatestStoriesSection,
-    'allblogs': LatestPostsAllBlogs,
-    'blogs': LatestPostsSingleBlog,
-    'blog-author': LatestPostsSingleAuthor,
+    'latest': LatestStories(),
+    'section': LatestStoriesSection(),
+    'allblogs': LatestPostsAllBlogs(),
+    'blogs': LatestPostsSingleBlog(),
+    'author': LatestPostsSingleAuthor(),
 ##    'calendar': LatestCalendar,
 }
 
@@ -22,7 +22,10 @@ urlpatterns = patterns('',
 	(r'^blogs/', include('blog.urls')),
 	(r'^staff/', include('staff.urls')),
 	(r'^search/', include('haystack.urls')),
-	(r'^rss/(?P<url>.*)/', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+	(r'^author/(?P<author>[a-zA-Z0-9_.-]+)/$', 'stories.views.detail_author'),
+	
+	# Feeds
+	(r'^rss/latest/$', LatestStories()),
 	
 	# Uncomment the admin/doc line below to enable admin documentation:
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -36,8 +39,9 @@ urlpatterns = patterns('',
 	
 	('^s/', include('shorturls.urls')),
 	
-	#(r'^grappelli/', include('grappelli.urls')),
+	(r'^tinymce/', include('tinymce.urls')),
 	
+	#(r'^grappelli/', include('grappelli.urls')),
 	
 	# Because I have the URL regexing words as sections, this pattern needs to be last.
 	# If you put anything after, the CONF will think it's a section and you won't get anywhere.

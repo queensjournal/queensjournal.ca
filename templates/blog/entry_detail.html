@@ -2,8 +2,6 @@
 {% load typogrify %}
 {% load humanize %}
 {% load custom_html %}
-{% load comment_utils %}
-{% load comments %}
 {% load more %}
 {% load images %}
 
@@ -11,17 +9,14 @@
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
 {% endblock head-code %}
 
-{% block title %}{{ block.super }}{% endblock title %}
+{% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
 
 {% block header-type %}secondary{% endblock header-type %}
 	{% block header-img %}logo_inside.gif{% endblock header-img %}
 	{% block dateline %}Journal blogs{% endblock dateline %}
 
-{% block menu-type %}narrow{% endblock menu-type %}
-
-{% block layout-type %}wide-2cols{% endblock layout-type %}
 	{% block breadcrumb %}
-		<a href="{% url stories.views.index_latest %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; <a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a> &raquo; Post
+		<a href="{% url stories.views.index_front %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; <a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a> &raquo; Post
 	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/">Latest posts RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
@@ -36,30 +31,19 @@
 			<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
 			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.user.get_full_name }}</a> on {{ object.date_published|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in object.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-			<div class="blog-post-content">{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode }}</div>
+			<div class="blog-post-content">{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>
-		{% get_public_free_comment_list for blog.entry object.id as comments %}
-		{% if comments %}
-		<div id="comments" class="blog-container">
-			<h3 id="comments-number">{{ comments|length|apnumber|capfirst }} comment{{ comments|length|pluralize }}</h3>
-			{% for comment in comments %}
-			<div id="comment-{{ comment.id }}" class="blog-comment{% if forloop.last %} final{% endif %}">
-				<a id="c{{ comment.id }}"></a>
-				{{ comment.comment|escape|urlizetrunc:40|linebreaks }}
-				<p class="comment-meta">
-					<strong>{{ comment.person_name|escape }}</strong><br/>
-					{{ comment.person_location|escape }}<br/>
-					<a href="#c{{ comment.id }}">{{ comment.submit_date|date:"F j, Y" }} at {{ comment.submit_date|date:"P" }}</a>
-				</p>
-			</div>
-			{% endfor %}
-		</div>
-		{% endif %}
 		
 		<div class="blog-container">
 			<h3>Post a comment</h3>
 			{% if object.enable_comments %}
-				{% free_comment_form for blog.entry object.id %}
+			
+			{% load disqus_tags %}
+			{% disqus_dev %}
+			
+			<div id="comments" class="blog-container">
+				{% disqus_show_comments %}
+			</div>
 			
 				<a name="policy"></a><h3><em>Journal</em> comments policy</h3>
 				<p>The comments on this website do not represent the views or opinions of the <em>Queen&apos;s Journal</em>, but of the comment-writer alone.  

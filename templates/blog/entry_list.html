@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load typogrify %}
 {% load custom_html %}
-{% load comment_utils %}
+{% load disqus_tags %}
 {% load more %}
 {% load images %}
 
@@ -12,7 +12,7 @@
 {% block title %}{{ block.super }}{% endblock title %}
 
 	{% block breadcrumb %}
-		<a href="{% url stories.views.index_latest %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; {{ blog.title }}
+		<a href="{% url stories.views.index_front %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; {{ blog.title }}
 	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/">Latest posts RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
@@ -38,10 +38,10 @@
 			<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
 			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.user.get_full_name }}</a> on {{ entry.date_published|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in entry.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-			<div class="blog-post-content">{{ entry.content|more:entry.id|images:435|removetags:"font"|typogrify|linebreakswithcode }}</div>
+			<div class="blog-post-content">{{ entry.content|more:entry.id|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 
-			{% get_public_free_comment_count for blog.entry entry.id as comment_count %}
-			<p class="blog-post-commentlink"><a href="{{ entry.get_absolute_url }}#comments">{% ifequal comment_count 0 %}No{% else %}{{ comment_count }}{% endifequal %} comment{{ comment_count|pluralize }}</a></p>
+			<a href="{{ entry.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ entry.id }}">View Comments</a>
+			{% disqus_num_replies %}
 		</div>
 		{% endfor %}
 	</div>

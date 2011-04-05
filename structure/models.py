@@ -1,10 +1,33 @@
 from django.db import models
 from django.contrib.auth.models import User
+from imagekit.models import ImageModel
 from polls.models import Poll
 from datetime import datetime
 
+class Headshot(ImageModel):
+	name = models.CharField(max_length=64)
+	headshot = models.ImageField(upload_to="headshots/", help_text='Please crop all photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
+	
+	class IKOptions:
+		spec_module = 'structure.headshot_specs'
+		cache_fir = 'photo_cache'
+		image_field = 'headshot'
+		
+	def __unicode__(self):
+		return self.name
+
 class Author(models.Model):
 	name = models.CharField(max_length=64, unique=True)
+	slug = models.SlugField()
+	user = models.ForeignKey(User, null=True, blank=True)
+	headshot = models.ForeignKey(Headshot, null=True, blank=True)
+	homepage = models.URLField(blank=True, null=True)
+	bio = models.TextField(blank=True, null=True)
+		
+	def get_absolute_url(self):
+		return ('stories.views.detail_author', (), {
+			'slug': self.slug})
+	get_absolute_url = models.permalink(get_absolute_url)
 	
 	def get_latest_role(self):
 		if self.authorrole_set:
@@ -41,6 +64,9 @@ class AuthorRole(models.Model):
 	class Meta:
 		get_latest_by = 'start_date'
 		ordering = ['-start_date']
+		
+	def __unicode__(self):
+		return self.author.name
 		
 class Volume(models.Model):
 	volume = models.PositiveSmallIntegerField(unique=True)
@@ -142,23 +168,10 @@ class FlatPlanSection(models.Model):
 	def __unicode__(self):
 		return self.section
 		
-class FrontPageConfig(models.Model):
-	poll = models.ForeignKey(Poll, blank=True, null=True)
-	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
-	announce_body = models.TextField("Announcement text", blank=True)
-	issue = models.ForeignKey(Issue)
-	
-	class Meta:
-		verbose_name = 'Old Front Page Layouts'
-		
-	def __unicode__(self):
-		return self.pub_date.strftime("%Y-%m-%d")
-		
 class SectionFrontConfig(models.Model):
 	poll = models.ForeignKey(Poll, blank=True, null=True)
 	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
 	announce_body = models.TextField("Announcement text", blank=True)
-	pub_date = models.DateTimeField(default=datetime.now)
 	section = models.ForeignKey(Section, unique=True)
 	
 	class Meta:
@@ -171,11 +184,12 @@ class FrontConfig(models.Model):
 	poll = models.ForeignKey(Poll, blank=True, null=True)
 	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
 	announce_body = models.TextField("Announcement text", blank=True)
-	pub_date = models.DateTimeField(default=datetime.now)
+	pub_date = models.DateTimeField(default=datetime.now())
 	sections = models.ForeignKey(FlatPlanConfig)
 	
 	class Meta:
 		verbose_name = "Front Layout"
-		
+		ordering = ['-pub_date']
+	
 	def __unicode__(self):
-		return self.pub_date.strftime("%Y-%m-%d")
+		return self.pub_date.strftime("%A, %b %d, %Y - %I:%M %p")

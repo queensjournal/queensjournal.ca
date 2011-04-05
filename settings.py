@@ -4,7 +4,7 @@
 from settings_local import *
 
 ADMINS = (
-    ('tyler', 'tyler@tylerball.net'),
+	('tyler', 'tyler@tylerball.net'),
 )
 
 MANAGERS = ADMINS
@@ -36,22 +36,27 @@ USE_L10N = True
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+	'django.template.loaders.filesystem.Loader',
+	'django.template.loaders.app_directories.Loader',
 	#'django.template.loaders.eggs.Loader',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.auth.context_processors.auth",
 	"context_processors.media_url",
+	
+	# required by grappelli
+	#"django.core.context_processors.request",
+	# required to render correct templates (grappelli+admin-tools or grappelli "standalone")
+	#"grappelli.context_processors.admin_template_path",
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
@@ -59,26 +64,34 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-	'django.contrib.comments',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.sites',
+	'django.contrib.messages',
+	#'django.contrib.comments',
+	'django.contrib.humanize',
 	
 	#'comments',
-    #'comment_utils',
+	#'comment_utils',
 
 	# Dependencies
+	
+	'haystack',
 	'custom',
 	'dependencies.template_utils',
 	'typogrify',
 	'imagekit',
 	'tagging',
-    # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    'django.contrib.admindocs',
+	'shorturls',
+	'tinymce',
+	
+	#'grappelli',
+	
+	# Uncomment the next line to enable the admin:
+	'django.contrib.admin',
+	# Uncomment the next line to enable admin documentation:
+	'django.contrib.admindocs',
 	'django.contrib.flatpages',
 	'polls',
 	'stories',
@@ -93,8 +106,16 @@ INSTALLED_APPS = (
 	
 	'disqus',
 	#Django south
-	'south',
+	#'south',
 )
+
+SHORTEN_MODELS = {
+            's': 'stories.story',
+            'b': 'blog.entry',
+        }
 
 DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
 DISQUS_WEBSITE_SHORTNAME = "queensjournal"
+
+HAYSTACK_SITECONF = 'search_sites'
+HAYSTACK_SEARCH_ENGINE = 'xapian'

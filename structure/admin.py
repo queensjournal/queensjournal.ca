@@ -1,5 +1,5 @@
 from structure.models import *
-from stories.models import FeaturedStory, FeaturedPhoto, Section, Story
+from stories.models import FeaturedStory, Section, Story
 from django.contrib import admin
 
 class IssueAdmin(admin.ModelAdmin):
@@ -36,7 +36,6 @@ admin.site.register(FlatPlanConfig, FlatPlanConfigAdmin)
 
 class FeaturedInline(admin.TabularInline):
 	model = FeaturedStory
-	ordering = ['pub_date']
 
 class FrontConfigAdmin(admin.ModelAdmin):
 	inlines = [
@@ -58,6 +57,29 @@ class SectionFrontConfigAdmin(admin.ModelAdmin):
 		('Featured', {'fields': ('featured')})
 	]
 	"""
-	actions = None
+	list_display = ('section',)
 	
 admin.site.register(SectionFrontConfig, SectionFrontConfigAdmin)
+
+class AuthorRoleInline(admin.TabularInline):
+	model = AuthorRole
+
+class AuthorAdmin(admin.ModelAdmin):
+	inlines = [
+		AuthorRoleInline,
+	]
+	list_display = ('name',)
+	prepopulated_fields = {'slug': ('name',)}
+	search_fields = ['name', 'bio',]
+	
+admin.site.register(Author, AuthorAdmin)
+
+class HeadshotAdmin(admin.ModelAdmin):
+	pass
+	
+admin.site.register(Headshot, HeadshotAdmin)
+
+class AuthorRoleAdmin(admin.ModelAdmin):
+	pass
+	
+admin.site.register(AuthorRole, AuthorRoleAdmin)

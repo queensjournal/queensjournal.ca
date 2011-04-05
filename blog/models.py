@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.db.models import permalink
+from structure.models import Author
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
@@ -9,7 +10,7 @@ class Blog(models.Model):
 	title = models.CharField(max_length=255, help_text='Short name for the blog.', unique=True)
 	slug = models.SlugField(unique=True)
 	description = models.TextField(blank=True, help_text="Description of the blog's content.")
-	bloggers = models.ManyToManyField('AuthorProfile')
+	bloggers = models.ManyToManyField(Author)
 	active = models.BooleanField('Blog is active?', default=True, help_text='You can disable blogs that are no longer being updated. They will be filed under the Archived Blogs page.')
 
 	class Meta:
@@ -50,7 +51,7 @@ class Entry(models.Model):
 	title = models.CharField(max_length=255, help_text='Title of the blog post.')
 	blog = models.ForeignKey(Blog)
 	slug = models.SlugField()
-	author = models.ForeignKey('AuthorProfile')
+	author = models.ForeignKey(Author)
 	categories = models.ManyToManyField('Category')
 	content = models.TextField()
 	is_published = models.BooleanField('Published', default=True, help_text='When you want to publish a blog post, make sure this box is checked; if you just want to save a draft, leave this unchecked.')
@@ -88,7 +89,7 @@ class Entry(models.Model):
 		super(Entry, self).save()
 
 	def __unicode__(self):
-		return '%s (%s)' % (self.title, self.author)
+		return '%s' % (self.title)
 
 	def get_absolute_url(self):
 		return('blog.views.blog_detail', (), {
@@ -117,27 +118,4 @@ class Category(models.Model):
 	def get_absolute_url(self):
 		return('blog_archive_category_front', (), {
 			'cat_slug': self.slug})
-	get_absolute_url = permalink(get_absolute_url)
-
-
-class AuthorProfile(models.Model):
-	user = models.ForeignKey(User, unique=True)
-	title = models.CharField(max_length=64, blank=True, help_text='For Journal staff, their current position (ex. Features editor).')
-	order = models.PositiveSmallIntegerField(help_text='Defines the display order (ex. who shows up first) on the About page and the Bloggers page.')
-	bio_active = models.BooleanField(default=True, help_text='Determines whether the bio/picture shows up on the bloggers page or not.')
-	homepage = models.URLField(blank=True, null=True)
-	portrait = models.ImageField(upload_to='bloggers/', blank=True, null=True)
-	bio = models.TextField(blank=True)
-
-	class Admin:
-		pass
-
-	class Meta:
-		ordering			= ('order',)
-
-	def __unicode__(self):
-		return '%s %s (%s)' % (self.user.first_name, self.user.last_name, self.user.username)
-
-	def get_absolute_url(self):
-		return('blog_author', (), {'author_id': self.id})
 	get_absolute_url = permalink(get_absolute_url)

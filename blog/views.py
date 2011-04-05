@@ -3,7 +3,8 @@ from django.views.generic.list_detail import object_detail, object_list
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
-from blog.models import Blog, Entry, Category, AuthorProfile
+from blog.models import Blog, Entry, Category
+from structure.models import Author
 
 def all_blogs(request, active=True):
     """
@@ -81,7 +82,7 @@ def blog_archive_author(request, blog, author_id, page=1):
     """
     Author archives. Displays all blog posts for a given author. Paginated.
     """
-    author = get_object_or_404(AuthorProfile, pk=author_id)
+    author = get_object_or_404(Author, pk=author_id)
     qs = Entry.objects.get_author_on_blog(blog, author_id)
     if qs.count() > 0:
         c = {'blog': Blog.objects.get(slug=blog),
@@ -116,7 +117,7 @@ def blog_author(request, author_id):
     """
     Author profile. Displays the profile of the selected author.
     """
-    qs = AuthorProfile.objects.all()
+    qs = Author.objects.all()
     entries = Entry.objects.published().filter(author__id=author_id).order_by('-date_published')[:10]
     return object_detail(request, queryset=qs, object_id=author_id, extra_context={'entries': entries})
 
@@ -124,7 +125,7 @@ def blog_all_authors(request, blog):
     """
     All author profiles for an individual blog on one page. Whee!
     """
-    qs = AuthorProfile.objects.select_related(depth=2).filter(entry__blog__slug__exact=blog)
+    qs = Author.objects.select_related(depth=2).filter(entry__blog__slug__exact=blog)
     c = {'blog': Blog.objects.get(slug=blog)}
     return object_list(request, queryset=qs, extra_context=c)
 

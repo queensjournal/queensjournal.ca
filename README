@@ -15,7 +15,7 @@ CHANGES FROM PREVIOUS VERSION
 
 	- Issue-based structure to Time-based structure. This is the biggest
 	ideological change in the site. In the old site, all stories belonged
-	to an issue, so even "web updates" and breaking stories needed to be 
+	to an issue, so even "web updates" and breaking news needed to be 
 	either tacked onto the previous issue or put into a new "extra" issue.
 	
 	This looked stupid. Also, loading a <select> with a list of all the issues
@@ -58,7 +58,7 @@ CHANGES FROM PREVIOUS VERSION
 DJANGO
 ======
 
-The site runs on Django 1.2.4 FINAL. The stable release at the time
+The site runs on Django 1.3. The stable release at the time
 of development. I'm not as well-versed as Wes Fok is in the Django
 codebase, but I don't foresee any major security problems in the near
 future with this site. I'll keep an eye on it.
@@ -76,9 +76,31 @@ These are readily available through the Python Package Index
 (http://pypi.python.org/pypi) if you ever need to update them. I've
 installed pip on the server, so you'll be able to update these packages
 easily.
-	- django-imagekit: 
-	- django-disqus: was used only for exporting comments to Disqus. 
-	- django-tagging:
+	- django-imagekit: This powers all the photo resizing for the site.
+	It requires the Python Image Library.
+	- django-disqus: I used this to export the old comments to disqus
+	- django-tagging: Provides the tagging infrastructure. 
+	It needs django-tagging-autocomplete: https://github.com/agarzola/jQueryAutocompletePlugin
+	
+	- django-haystack: For the Search. I'm using xapian as the backend, which
+	is really easy to install on Webfaction using these instructions:
+	http://forum.webfaction.com/viewtopic.php?pid=14394#p14394
+	This is somewhat of a pain in the ass to get set up, but it was worth having
+	integrated search over the old Google site search.
+	
+	
+	
+	
+	
+DEPLOYMENT
+The following symbolic links need to be made (remember, ABSOLUTE PATHS, 
+not relative paths):
+
+ln -s JOURNAL_PROJECT_DIR/media/* MEDIA_DIR/ (make the MEDIA_DIR before you do this)
+ln -s 
+
+Also, you'll need to make a settings_local.py (easiest way is to copy the template in the repository). MAKE SURE YOUR MEDIA_URL HAS A TRAILING SLASH. I cannot stress this enough; if you don't have the trailing slash after the URL then urlparse.urljoin fucks with you every time you call the get_FIELD_url() method on any FileField or ImageFIeld.
+	
 	
 	
 
