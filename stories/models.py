@@ -3,7 +3,6 @@ import time
 from django.db import models
 from structure.models import Issue, Section, FrontConfig, SectionFrontConfig, Author
 from imagekit.models import ImageModel
-from tagging_autocomplete.models import TagAutocompleteField
 from tagging.fields import TagField
 from tagging.models import Tag
 from django.utils.encoding import force_unicode

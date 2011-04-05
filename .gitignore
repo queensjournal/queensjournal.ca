@@ -1,5 +1,5 @@
 *settings_local.py
-*.pyc*
+*.pyc
 *.json
 *.svn*
 *.sql*
