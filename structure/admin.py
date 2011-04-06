@@ -83,3 +83,9 @@ class AuthorRoleAdmin(admin.ModelAdmin):
 	pass
 	
 admin.site.register(AuthorRole, AuthorRoleAdmin)
+
+
+class FrontPageConfigAdmin(admin.ModelAdmin):
+	pass
+	
+admin.site.register(FrontPageConfig, FrontPageConfigAdmin)

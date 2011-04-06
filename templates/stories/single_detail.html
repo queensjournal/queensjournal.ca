@@ -54,8 +54,8 @@
 			{{ story.pub_date|date:"jS F Y" }}
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>
 			{% for pwrapper in story.storyphoto_set.all %}
-				<img src="{{ pwrapper.photo.display.url }}" class="story-photo" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}" />
-				<p class="story-caption" style="width: {% spaceless %}{% if_greater pwrapper.photo.get_photo_width 390 %}390{% else %}{{ pwrapper.photo.get_photo_width }}{% endif_greater %}px{% endspaceless %}">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+				<img src="{{ pwrapper.photo.display.url }}" class="story-photo" />
+				<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
 			{% endfor %}
 			
 			{% if story.has_inlines %}

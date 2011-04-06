@@ -5,7 +5,7 @@
 {% load sidebartags %}
 {% load comparison %}
 {% load more %}
-{% load images %}
+{% load image_tags %}
 {% load archives %}
 
 {% block title %}{{ blog.title }} - {{ block.super }}{% endblock title %}
@@ -23,11 +23,6 @@
 			<div class="blog-sidebar">
 				<p class="blog-label">About the blog</p>
 				<p>{{ blog.description }}</p>
-				<p class="blog-label">About the author{{ blog.bloggers.count|pluralize }}</p>
-				{% for blogger in blog.bloggers.all %}
-					<h5>{{ blogger.user.get_full_name }}</h5>
-					<p>{{ blogger.bio }}</p>
-				{% endfor %}
 				<p class="blog-label">Archives by date</p>
 				<ul>
 				{% blog_dates blog.slug as dates %}

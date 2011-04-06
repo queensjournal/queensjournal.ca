@@ -1,7 +1,12 @@
 # ImageKit options for story photos
 
 from imagekit.specs import ImageSpec 
-from imagekit import processors 
+from imagekit import processors
+
+## Make sure you use this first for any ImageSpec
+## Should preserve color errors when converting from CMYK
+class MakeRGB(processors.Adjustment):
+	color = 1.0
 
 # first we define our thumbnail resize processor 
 class ResizeThumb(processors.Resize): 
@@ -11,7 +16,9 @@ class ResizeThumb(processors.Resize):
 
 # now we define a display size resize processor
 class ResizeDisplay(processors.Resize):
-	width = 500
+	width = 475
+	height = 300
+	crop = True
 
 class ResizeFront(processors.Resize):
 	width = 225
@@ -27,14 +34,14 @@ class EnchanceThumb(processors.Adjustment):
 class Thumbnail(ImageSpec): 
 	access_as = 'thumbnail_image' 
 	pre_cache = True
-	processors = [ResizeThumb, EnchanceThumb] 
+	processors = [MakeRGB, ResizeThumb, EnchanceThumb] 
 
 # and our display spec
 class Display(ImageSpec):
 	quality = 100
-	processors = [ResizeDisplay]
+	processors = [MakeRGB, ResizeDisplay]
 
 class Front(ImageSpec):
 	quality = 90
 	access_as = "front_image"
-	processors = [ResizeFront]
+	processors = [MakeRGB, ResizeFront]

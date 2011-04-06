@@ -2,6 +2,11 @@ from django.contrib import admin
 import settings
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
 from inlines.models import Factbox, Document, StoryPoll
+from galleries.models import Gallery
+
+class GalleryInline(admin.TabularInline):
+	model = Gallery
+	extra = 1
 
 class FactboxInline(admin.TabularInline):
 	model = Factbox
@@ -34,10 +39,11 @@ class StoryAdmin(admin.ModelAdmin):
 		FactboxInline,
 		DocumentInline,
 		StoryPollInline,
+		GalleryInline,
 	]
 	prepopulated_fields = {'slug': ('head',),}
-	list_display = ('head', 'summary', 'pub_date', 'issue')
-	list_filter = ['pub_date', 'section', 'issue']
+	list_display = ('head', 'summary', 'pub_date', 'issue', 'featured', 'status')
+	list_filter = ['pub_date', 'section', 'issue', 'status']
 	search_fields = ['head', 'deck', 'content']
 	actions = ['make_published', 'make_featured', 'remove_featured']
 	
@@ -76,6 +82,7 @@ admin.site.register(Story, StoryAdmin)
 class PhotoAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name',)}
 	search_fields = ['photo', 'name']
+	list_display = ('name', 'issue', 'photographer', 'caption')
 	
 admin.site.register(Photo, PhotoAdmin)
 

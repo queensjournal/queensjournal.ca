@@ -1,5 +1,5 @@
 from django import template
-from structure.models import Issue, Volume, FrontConfig
+from structure.models import Issue, Volume, FrontConfig, FrontPageConfig
 from stories.models import Story
 
 register = template.Library()
@@ -53,12 +53,20 @@ def menu_sections(context):
 	Returns the HTML code for the sections menu of a given issue.
 	"""
 	params = {}
-	latest_issue = FrontConfig.objects.latest('pub_date')
+	back_issue = context.get('back_issue')
+	if back_issue is True:
+		params['back_issue'] = back_issue
+		try:
+			curr_issue = FrontConfig.objects.get(issue=context.get('issue'))
+		except FrontConfig.DoesNotExist:
+			curr_issue = context.get('issue')
+	else:
+		curr_issue = FrontConfig.objects.latest('pub_date')
 	if context.get('story_set'):
 		params['show_section_link'] = False
 	else:
 		params['show_section_link'] = True
-	params['sections'] = latest_issue.sections
+	params['sections'] = curr_issue.sections
 	params['config'] = context.get('config')
 	return params
 

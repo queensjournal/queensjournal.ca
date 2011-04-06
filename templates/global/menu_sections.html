@@ -5,7 +5,7 @@
 		{% else %}
 			<li class="section-other">
 		{% endifequal %}
-		<a href="{% url stories.views.index_section sect_obj.section.slug %}"><span>{% if sect_obj.section.short_name %}{{ sect_obj.section.short_name }}{% else %}{{ sect_obj.section.name }}{% endif %}</span>
+		<a href="{% if back_issue %}{% url stories.views.index_issue_section config.issue.pub_date sect_obj.section.slug %}{% else %}{% url stories.views.index_section sect_obj.section.slug %}{% endif %}"><span>{% if sect_obj.section.short_name %}{{ sect_obj.section.short_name }}{% else %}{{ sect_obj.section.name }}{% endif %}</span>
 		</a></li>
 		{% endspaceless %}
 	{% endfor %}<li class="section-special"><a href="/blogs/"><span>Blogs</span></a></li></ul>

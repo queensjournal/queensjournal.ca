@@ -3,6 +3,11 @@
 from imagekit.specs import ImageSpec 
 from imagekit import processors 
 
+## Make sure you use this first for any ImageSpec
+## Should preserve color errors when converting from CMYK
+class MakeRGB(processors.Adjustment):
+	color = 1.0
+
 # now we define a display size resize processor
 class ResizeDisplay(processors.Resize):
 	width = 475
@@ -12,4 +17,4 @@ class ResizeDisplay(processors.Resize):
 # and our display spec
 class Display(ImageSpec):
 	quality = 100
-	processors = [ResizeDisplay]
+	processors = [MakeRGB, ResizeDisplay]

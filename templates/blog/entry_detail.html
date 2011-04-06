@@ -3,7 +3,7 @@
 {% load humanize %}
 {% load custom_html %}
 {% load more %}
-{% load images %}
+{% load image_tags %}
 
 {% block head-code %}
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
@@ -29,7 +29,7 @@
 	<div id="blog-single-entry" class="blog-content">
 		<div class="blog-container">
 			<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
-			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.user.get_full_name }}</a> on {{ object.date_published|date:"F j, Y @ h:i a T" }}</h5>
+			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.name }}</a> on {{ object.date_published|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in object.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 			<div class="blog-post-content">{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>

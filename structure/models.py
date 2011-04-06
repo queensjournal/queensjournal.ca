@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from imagekit.models import ImageModel
 from polls.models import Poll
 from datetime import datetime
+import settings
 
 class Headshot(ImageModel):
 	name = models.CharField(max_length=64)
@@ -23,11 +24,11 @@ class Author(models.Model):
 	headshot = models.ForeignKey(Headshot, null=True, blank=True)
 	homepage = models.URLField(blank=True, null=True)
 	bio = models.TextField(blank=True, null=True)
-		
+	
+	@models.permalink
 	def get_absolute_url(self):
 		return ('stories.views.detail_author', (), {
 			'slug': self.slug})
-	get_absolute_url = models.permalink(get_absolute_url)
 	
 	def get_latest_role(self):
 		if self.authorrole_set:
@@ -124,6 +125,9 @@ class Issue(models.Model):
 	is_published = models.CharField('Publish status', max_length=3, choices=PUBLISH_STATUS_CHOICES, default='NPB')
 	objects = IssueManager()
 	
+	class Meta:
+		ordering = ['pub_date']
+	
 	def __unicode__(self):
 		if self.extra != "":
 			return 'Vol. %s, %s (special issue)' % (self.volume, self.extra)
@@ -169,13 +173,14 @@ class FlatPlanSection(models.Model):
 		return self.section
 		
 class SectionFrontConfig(models.Model):
-	poll = models.ForeignKey(Poll, blank=True, null=True)
 	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
 	announce_body = models.TextField("Announcement text", blank=True)
 	section = models.ForeignKey(Section, unique=True)
+	template = models.FilePathField(path=settings.TEMPLATE_DIRS + "sections/", match=".*\.html$", blank=True, null=True, help_text="Name of a custom Section Front Page template. Do not touch unless you know what you're doing. Store in templates/<name of file.html>")
 	
 	class Meta:
 		verbose_name = "Section Front Page Layout"
+		ordering = ['section']
 		
 	def __unicode__(self):
 		return self.section.name
@@ -186,6 +191,7 @@ class FrontConfig(models.Model):
 	announce_body = models.TextField("Announcement text", blank=True)
 	pub_date = models.DateTimeField(default=datetime.now())
 	sections = models.ForeignKey(FlatPlanConfig)
+	issue = models.ForeignKey(Issue, blank=True, null=True)
 	
 	class Meta:
 		verbose_name = "Front Layout"
@@ -193,3 +199,22 @@ class FrontConfig(models.Model):
 	
 	def __unicode__(self):
 		return self.pub_date.strftime("%A, %b %d, %Y - %I:%M %p")
+	
+"""
+---------- LEGACY ISSUE-BASED MODELS. KEEPS OLD URLS WORKING -------------
+"""			
+		
+class FrontPageConfig(models.Model):
+	issue = models.ForeignKey(Issue, unique=True)
+	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
+	announce_body = models.TextField("Announcement text", blank=True)
+	poll = models.ForeignKey(Poll, blank=True, null=True)
+
+	class Admin:
+		pass
+
+	class Meta:
+		verbose_name		= 'Front Page Layout'
+
+	def __unicode__(self):
+		return self.issue.__unicode__()

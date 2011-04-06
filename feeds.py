@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
 from django.contrib.syndication.views import Feed
+from django.shortcuts import get_object_or_404
 from structure.models import Issue, Section, FlatPlanConfig
 from stories.models import Story
 from sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
 from blog.models import Blog, Entry
 from structure.models import Author
-
 
 class LatestStories(Feed):
 	title = "Queen's Journal: Latest stories"
@@ -55,26 +55,24 @@ class LatestPostsAllBlogs(Feed):
 	title = "Queen's Journal: Latest posts from all blogs"
 	link = "/blogs/"
 	description = "All the latest blog posts from the Queen's Journal."
+	description_template = 'feeds/blogs_description.html'
 
 	def items(self):
 		return Entry.objects.select_related().filter(is_published=True).order_by('-date_published')[:15]
 
 	def item_author_name(self, item):
-		return item.author.user.get_full_name()
+		return item.author.name
 
 	def item_pubdate(self, item):
 		return item.date_published
 
-
 class LatestPostsSingleBlog(Feed):
-	def get_object(self, bits):
-		"""
-		/rss/blogs/<blog>/: latest posts from <blog>
-		"""
-		if len(bits) != 1:
-			raise ObjectDoesNotExist
-		else:
-			return Blog.objects.get(slug__exact=bits[0])
+	"""
+	/rss/blogs/<blog>/: latest posts from <blog>
+	"""
+	description_template = 'feeds/blogs_description.html'
+	def get_object(self, request, blog):
+		return get_object_or_404(Blog, slug=blog)
 		
 	def title(self, obj):
 		return "Queen's Journal: Latest blog posts in %s" % obj.title
@@ -89,7 +87,7 @@ class LatestPostsSingleBlog(Feed):
 		return Entry.objects.select_related().filter(blog__slug=obj.slug, is_published=True).order_by('-date_published')[:15]
 
 	def item_author_name(self, item):
-		return item.author.user.get_full_name()
+		return item.author.name
 
 	def item_pubdate(self, item):
 		return item.date_published

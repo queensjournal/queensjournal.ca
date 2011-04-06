@@ -22,7 +22,7 @@ class Story(models.Model):
 	label = models.CharField(max_length=255, blank=True, null=True)
 	content = models.TextField()
 	summary = models.TextField(help_text='Sum up the story in a single paragraph.')
-	section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).")
+	section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).", editable=False)
 	enable_comments = models.BooleanField(default=True)
 	show_headshots = models.BooleanField(default=False, help_text="Check when you want to display headshots. For Ops pieces and Signed Eds.")
 	tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
@@ -55,6 +55,12 @@ class Story(models.Model):
 			authors.append('Journal Staff')
 		return ' '.join(authors)
 	list_authors.short_description = 'Author(s)'
+	
+	def first_photo(self):
+		return StoryPhoto.objects.filter(story=self)[0]
+	
+	def related_photos(self):
+		return StoryPhoto.objects.filter(story=self)
 		
 	def set_tags(self, tags):
 		Tag.objects.update_tags(self, tags)
@@ -64,13 +70,13 @@ class Story(models.Model):
 	
 	def __unicode__(self):
 		return self.head
-		
+	
+	@models.permalink	
 	def get_absolute_url(self):
 		return ('stories.views.detail_story', (), {
 			'datestring': self.pub_date.strftime("%Y-%m-%d"),
 			'section': self.section.slug,
 			'slug': self.slug})
-	get_absolute_url = models.permalink(get_absolute_url)
 	
 class StoryAuthor(models.Model):
 	author = models.ForeignKey(Author, default=None)

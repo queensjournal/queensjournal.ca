@@ -1,14 +1,4 @@
 from django.conf.urls.defaults import *
-from feeds import *
-
-feeds = {
-    'latest': LatestStories(),
-    'section': LatestStoriesSection(),
-    'allblogs': LatestPostsAllBlogs(),
-    'blogs': LatestPostsSingleBlog(),
-    'author': LatestPostsSingleAuthor(),
-##    'calendar': LatestCalendar,
-}
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,10 +12,8 @@ urlpatterns = patterns('',
 	(r'^blogs/', include('blog.urls')),
 	(r'^staff/', include('staff.urls')),
 	(r'^search/', include('haystack.urls')),
-	(r'^author/(?P<author>[a-zA-Z0-9_.-]+)/$', 'stories.views.detail_author'),
-	
-	# Feeds
-	(r'^rss/latest/$', LatestStories()),
+	(r'^author/(?P<author>[\w-]+)/$', 'stories.views.detail_author'),
+	(r'^rss/', include('feed_urls')),
 	
 	# Uncomment the admin/doc line below to enable admin documentation:
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),

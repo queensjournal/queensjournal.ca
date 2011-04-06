@@ -1,6 +1,11 @@
 from imagekit.specs import ImageSpec 
 from imagekit import processors
 
+## Make sure you use this first for any ImageSpec
+## Should preserve color errors when converting from CMYK
+class MakeRGB(processors.Adjustment):
+	color = 1.0
+
 class ResizeThumb(processors.Resize): 
 	width = 100 
 	height = 100 
@@ -18,7 +23,7 @@ class EnchanceThumb(processors.Adjustment):
 class Thumbnail(ImageSpec): 
 	access_as = 'thumbnail_image' 
 	pre_cache = True
-	processors = [ResizeThumb, EnchanceThumb] 
+	processors = [MakeRGB, ResizeThumb, EnchanceThumb] 
 
 class Display(ImageSpec):
-	processors = [ResizeDisplay]
+	processors = [MakeRGB, ResizeDisplay]

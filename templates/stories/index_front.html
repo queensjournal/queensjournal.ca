@@ -3,8 +3,8 @@
 {% load sidebartags %}
 {% load custom_html %}
 {% load typogrify %}
-{% load poll_tags %}
 {% load flash %}
+{% load poll_tags %}
 {% load lists %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest stories feed (RSS 2.0)" href="/rss/latest/" />
@@ -60,8 +60,7 @@
 			<hr>
 			<ul>
 			{% for story in latest_stories %}
-				<li><p class="label">{% if story.label %}<a href="/tag/{{story.label|striplabel|slugify}}/">
-	{{ story.label|striplabel }}</a>{% else %}Story{% endif %}</p>
+				<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
 					<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
 					<p class="pub_date">{{ story.pub_date|date_diff }}</p>
 				</li>
@@ -79,8 +78,8 @@
 			
 			{% for story in latest_section %}
 			<div class="latest-section">
-				<p class="label section-label"><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</p>
-				{% if story.storyphoto_set.all|length > 0 %}{% for pwrapper in story.storyphoto_set.all|slice:":1" %}<img src="{{ pwrapper.photo.front_image.url }}" />{% endfor %}{% endif %}
+				<p class="label section-label"><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></p>
+				{% if story.storyphoto_set.all|length > 0 %}{% for pwrapper in story.storyphoto_set.all|slice:":1" %}<a href="{{ story.get_absolute_url }}"><img src="{{ pwrapper.photo.front_image.url }}" /></a>{% endfor %}{% endif %}
 				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 				<p class="latest-section-summary">{{ story.summary }}</p>
 			</div>

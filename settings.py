@@ -45,8 +45,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.auth.context_processors.auth",
 	"context_processors.media_url",
 	
-	# required by grappelli
-	#"django.core.context_processors.request",
+	"django.core.context_processors.request",
+	
 	# required to render correct templates (grappelli+admin-tools or grappelli "standalone")
 	#"grappelli.context_processors.admin_template_path",
 )
