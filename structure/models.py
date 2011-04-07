@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from imagekit.models import ImageModel
 from polls.models import Poll
 from datetime import datetime
+from django.utils.encoding import force_unicode
 import settings
 
 class Headshot(ImageModel):
@@ -85,6 +86,7 @@ class Section(models.Model):
 	name = models.CharField(max_length=100, unique=True)
 	short_name = models.CharField(max_length=16, help_text='For use in site navigation like section menus, breadcrumb, etc. Optional.', blank=True, null=True)
 	slug = models.SlugField()
+	
 	def __unicode__(self):
 		return self.name
 
@@ -147,14 +149,14 @@ class FlatPlanConfig(models.Model):
 		        sections.append(section_wrapper.section.name)
 		return ' '.join(sections)
 	list_sections.short_description = 'Section order'
-'''
+
 	def array_sections(self):
 		sections = []
 		section_qset = list(self.flatplansection_set.all())
 		for section_wrapper in section_qset:
-		    sections.append(section_wrapper.section)
+		    sections.append(section_wrapper.section.name)
 		return sections
-'''		
+	
 	class Meta:
 		verbose_name = 'Issue Configuration'
 		verbose_name_plural = 'Issue Configurations'
@@ -170,7 +172,7 @@ class FlatPlanSection(models.Model):
 		order_with_respect_to = 'config'
 		
 	def __unicode__(self):
-		return self.section
+		return self.section.name
 		
 class SectionFrontConfig(models.Model):
 	announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
