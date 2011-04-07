@@ -51,7 +51,7 @@ class StoryAdmin(admin.ModelAdmin):
 		js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
 	
 	def make_published(self, request, queryset):
-		rows_updated = queryset.update(featured=True)
+		rows_updated = queryset.update(status='p')
 		if rows_updated == 1:
 			message_bit = "1 story was"
 		else:
@@ -60,7 +60,7 @@ class StoryAdmin(admin.ModelAdmin):
 	make_published.short_description = "Mark selected stories as published"
 	
 	def make_draft(self, request, queryset):
-		rows_updated = queryset.update(featured=True)
+		rows_updated = queryset.update(status='d')
 		if rows_updated == 1:
 			message_bit = "1 story was"
 		else:
