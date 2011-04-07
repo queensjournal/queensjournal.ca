@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+
+{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
+<script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery.masonry.js" type="text/javascript"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}global/styles/nivo-slider.css" type="text/css" media="screen" />
+{% endblock headcode %}
+
+{% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
+	
+	{% block actions %}
+		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/section/{{ story.section.slug }}/">Latest {% firstof story.section.short_name story.section.name %} RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
+	{% endblock actions %}
+	
+	{% block content-class %} span-19 front-content{% endblock %}	
+	
+	{% block content %}
+	<div class="section-header">
+		<h1>{{ config.section.name }}</h1>
+	</div>
+	
+	<div class="hr dblmargin"><hr></div>
+		
+	<div class="block">	
+			
+		<div class="featured column span-16 colborder"><!--featured box-->
+			
+				<div id="slider-wrapper">
+
+		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
+					{% for story in featured %}
+		                <img src="{{ story.first_photo.photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+		            {% endfor %}
+		            </div>
+					{% for story in featured %}
+		            <div id="caption{{ story.id }}" class="nivo-html-caption">
+		                <p class="slider-story label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
+			{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+						<h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+						{{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
+		            </div>
+					{% endfor %}
+	       
+				</div>
+			
+		</div><!--featured box-->
+	
+		<div id="stories-other" class="latest column span-7 last">
+			<h3>Latest Stories <span class="feed"><a href="/rss/section/{{ story.section.slug }}/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+			<hr>
+			<ul>
+			{% for story in latest_stories %}
+				<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+					<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
+					<p class="pub_date">{{ story.pub_date|date_diff }}</p>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+		
+	</div><!--block-->
+	
+	<div class="hr dblmargin"><hr></div>
+	
+	<div class="block">
+		
+		<div id="other-stories" class="column span-24 last">
+		
+			{% for story in other_stories %}
+			<div class="latest-section">
+				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+				{% if story.storyphoto_set.all|length > 0 %}<a href="{{ story.get_absolute_url }}"><img src="{{ story.first_photo.photo.front_image.url }}" /></a>{% endif %}
+				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
+				<p class="latest-section-summary">{{ story.summary|safe }}</p>
+			</div>
+			{% endfor %}
+			
+		</div>
+		
+	</div>
+		
+		<div id="content-sidebar">
+			
+		</div>
+	{% endblock content %}
+
+{% block footercode %}
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+			directionNav:true,
+			controlNav:false,
+			effect:'slideInLeft',
+			pauseOnHover:true,
+			pauseTime:5000,
+			captionOpacity:1,
+		});
+    });
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#other-stories').masonry({
+ 			singleMode: true,
+			columnWidth: 247,
+			itemSelector: '.latest-section' 
+		});
+	});
+</script>
+{% endblock footercode %}
