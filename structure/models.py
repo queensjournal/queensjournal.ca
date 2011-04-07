@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from imagekit.models import ImageModel
 from polls.models import Poll
 from datetime import datetime
-from django.utils.encoding import force_unicode
 import settings
 
 class Headshot(ImageModel):

@@ -41,7 +41,7 @@ def index_section(request, section):
 							context_instance=RequestContext(request))
 							
 def index_front(request):
-	front_config = get_object_or_404(FrontConfig.objects.latest('pub_date'))
+	front_config = get_object_or_404(FrontConfig.objects.all().order_by('-pub_date')[0])
 	latest_stories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
 	latest_entries = Entry.objects.filter(is_published=True).order_by('-date_published')[:10]
 	latest_section = []

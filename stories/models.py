@@ -158,4 +158,5 @@ class FeaturedStory(models.Model):
 		ordering = ['story__pub_date']
 		
 	def __unicode__(self):
+		from django.utils.encoding import force_unicode
 		return 'Featured Story: %s' % (force_unicode(self.story.head))

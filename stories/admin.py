@@ -42,7 +42,7 @@ class StoryAdmin(admin.ModelAdmin):
 		GalleryInline,
 	]
 	prepopulated_fields = {'slug': ('head',),}
-	list_display = ('head', 'summary', 'pub_date', 'issue', 'featured', 'status')
+	list_display = ('head', 'summary', 'pub_date', 'issue', 'section', 'featured', 'status')
 	list_filter = ['pub_date', 'section', 'issue', 'status']
 	search_fields = ['head', 'deck', 'content']
 	actions = ['make_published', 'make_featured', 'remove_featured', 'make_draft']
