@@ -136,7 +136,7 @@ class Issue(models.Model):
 
 class FlatPlanConfig(models.Model):
 	name = models.CharField(max_length=255, help_text='Descriptive name for the flatplan configuration (ex. \'Vol. 135 standard\', \'Vol. 135 with Supplement\', \'Vol. 136 Extra\'.')
-	
+
 	def list_sections(self):
 		sections = []
 		section_qset = list(self.flatplansection_set.all())
@@ -147,14 +147,14 @@ class FlatPlanConfig(models.Model):
 		        sections.append(section_wrapper.section.name)
 		return ' '.join(sections)
 	list_sections.short_description = 'Section order'
-
+'''
 	def array_sections(self):
 		sections = []
 		section_qset = list(self.flatplansection_set.all())
 		for section_wrapper in section_qset:
 		    sections.append(section_wrapper.section)
 		return sections
-		
+'''		
 	class Meta:
 		verbose_name = 'Issue Configuration'
 		verbose_name_plural = 'Issue Configurations'

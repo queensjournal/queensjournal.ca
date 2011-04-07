@@ -30,7 +30,7 @@ def index_section(request, section):
 	featured = Story.objects.filter(section__slug__iexact=section, featured=True, status='p').exclude(storyphoto__isnull=True).order_by('-pub_date')[:5]
 	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')
 	latest_stories = story_set[:5]
-	other_stories = story_set[5:14]
+	other_stories = story_set[5:13]
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('stories/index_section.html',

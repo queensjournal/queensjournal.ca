@@ -466,6 +466,9 @@ a img {
 		}
 		
 	/*=LATEST-SECTION */
+	.section-header h1 {
+		margin-bottom: 0px !important;
+	}
 	.latest-section {
 		width: 230px;
 		border-bottom: 1px #999 solid;
