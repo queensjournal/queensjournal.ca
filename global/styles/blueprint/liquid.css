@@ -87,6 +87,9 @@
 	margin: 0 0.833em 0 0;
 	overflow: hidden;
 }
+div.nomarg {
+	margin: 0;
+}
 
 /* Add these to a column to append empty cols. */
 .append-1   { padding-right: 4%; }

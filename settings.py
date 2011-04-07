@@ -114,6 +114,9 @@ SHORTEN_MODELS = {
             'b': 'blog.entry',
         }
 
+SHORT_BASE_URL = "http://qjrnl.net/"
+SHORTEN_FULL_BASE_URL = "http://www.queensjournal.ca/"
+
 DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
 DISQUS_WEBSITE_SHORTNAME = "queensjournal"
 

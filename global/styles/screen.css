@@ -311,14 +311,18 @@ a img {
 	<![endif]-->
 	
 	/*=DISQUS-WIDGET */
-	#dsq-combo-widget {
-		margin-right: 0;
+	#disqus-widget {
+		margin-right: 0 !important;
 	}
 	#dsq-combo-logo {
 		display: none;
 	}
 	#dsq-combo-tabs li a {
 		color: black;
+	}
+	/*=FACEBOOK-WIDGET */
+	#facebook-widget {
+		margin-bottom: 1.5em;
 	}
 	
 
@@ -529,15 +533,7 @@ a img {
 		margin: 1em 0 0 0;
 		width: 100%;
 	}
-		.story-photo {
-			border: 1px solid black;
-			clear: right;
-			float: right;
-			margin-left: 1em;
-		}
 		.story-caption {
-			clear: right;
-			float: right;
 			font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
 			font-size: 1em;
 			line-height: 1.2em;
@@ -558,19 +554,28 @@ a img {
 
 /* =SINGLES-CONTENT */
 
+		#slider-wrapper.story {
+			height: 375px;
+			float: right;
+			margin: 0 0 0 10px;
+		}
+		#slider-wrapper.single {
+			width: 475px;
+			padding: 10px;
+		}
+		#story-socmedia {
+			clear: right;
+			float: right;
+			margin: 10px 0 10px 10px;
+			padding: 10px;
+			border: 1px solid #999;
+		}
+		#story-socmedia h4 {
+			margin: 1em 0 5px 0;
+		}
+
 		#story .story-caption {
 			margin-bottom: 1.8em;
-		}
-		/*
-		The following rule works in concert with the template code, as we're now setting
-		the width of the photo and the caption in the Django template. It's a crappy
-		workaround but it's the best we've got if we don't want to screw with the data
-		models and introduce a bunch of one-off booleans for "this is a headshot," "this is
-		a slightly-narrower-than-normal photo," etc.
-		*/
-		#story .story-photo, #story .story-caption {
-			max-width: 390px;
-			width: expression(this.width > 395 ? "390px" : "auto")
 		}
 		.story-deck {
 			width: 450px;
