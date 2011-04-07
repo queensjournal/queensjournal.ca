@@ -45,7 +45,7 @@ class StoryAdmin(admin.ModelAdmin):
 	list_display = ('head', 'summary', 'pub_date', 'issue', 'featured', 'status')
 	list_filter = ['pub_date', 'section', 'issue', 'status']
 	search_fields = ['head', 'deck', 'content']
-	actions = ['make_published', 'make_featured', 'remove_featured']
+	actions = ['make_published', 'make_featured', 'remove_featured', 'make_draft']
 	
 	class Media:
 		js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
@@ -58,6 +58,15 @@ class StoryAdmin(admin.ModelAdmin):
 			message_bit = "%s stories were" % rows_updated
 		self.message_user(request, "%s successfully marked as published." % message_bit)
 	make_published.short_description = "Mark selected stories as published"
+	
+	def make_draft(self, request, queryset):
+		rows_updated = queryset.update(featured=True)
+		if rows_updated == 1:
+			message_bit = "1 story was"
+		else:
+			message_bit = "%s stories were" % rows_updated
+		self.message_user(request, "%s successfully marked as draft." % message_bit)
+	make_draft.short_description = "Mark selected stories as draft"
 		
 	def make_featured(self, request, queryset):
 		rows_updated = queryset.update(featured=True)
