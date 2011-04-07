@@ -26,7 +26,7 @@ def index_latest(request):
 	return index_front(request, issue.pub_date.strftime("%Y-%m-%d"))
 	
 def index_section(request, section):
-	section_config = get_object_or_404(SectionFrontConfig.objects.filter(section__slug__iexact=section))
+	section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
 	featured = Story.objects.filter(section__slug__iexact=section, featured=True, status='p').exclude(storyphoto__isnull=True).order_by('-pub_date')[:5]
 	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')
 	latest_stories = story_set[:5]
@@ -41,7 +41,7 @@ def index_section(request, section):
 							context_instance=RequestContext(request))
 							
 def index_front(request):
-	front_config = get_object_or_404(FrontConfig.objects.all().order_by('-pub_date')[0])
+	front_config = FrontConfig.objects.latest('pub_date')
 	latest_stories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
 	latest_entries = Entry.objects.filter(is_published=True).order_by('-date_published')[:10]
 	latest_section = []
