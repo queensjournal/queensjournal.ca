@@ -7,6 +7,7 @@ class IssueAdmin(admin.ModelAdmin):
 		(None, {'fields': ('issue', 'volume', 'pub_date')}),
 		('Structure', {'fields': ('sections', 'extra')})
 	]
+	list_display = ('issue', 'pub_date', 'extra')
 	
 admin.site.register(Issue, IssueAdmin)
 	

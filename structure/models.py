@@ -128,7 +128,7 @@ class Issue(models.Model):
 	objects = IssueManager()
 	
 	class Meta:
-		ordering = ['pub_date']
+		ordering = ['-pub_date']
 	
 	def __unicode__(self):
 		if self.extra != "":
