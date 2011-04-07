@@ -34,7 +34,8 @@
 			<img src="{{ MEDIA_URL }}global/journal-print-logo.gif" id="logo-print" width="1" height="1" />
 			<div id="hr-header"><hr></div>
 			<div id="actions">
-				<form action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" />
+				<!--<form action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" />-->
+				<form action="http://www.google.com/search" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search via Google';" onfocus="if(this.value=='Search via Google') this.value = '';" value="Search via Google" />
 					<input type="hidden" name="sitesearch" value="queensjournal.ca" />
 				</form>
 				<div id="connect">

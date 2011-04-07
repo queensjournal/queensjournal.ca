@@ -1,11 +1,11 @@
-from datetime import datetime
+import datetime
 import time
 from django.db import models
 from structure.models import Issue, Section, FrontConfig, SectionFrontConfig, Author
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
-from django.utils.encoding import force_unicode
+from django.db.models import Q
 
 STATUS_CHOICES = (
 	('d', 'Draft'),
@@ -27,7 +27,7 @@ class Story(models.Model):
 	show_headshots = models.BooleanField(default=False, help_text="Check when you want to display headshots. For Ops pieces and Signed Eds.")
 	tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
 	featured = models.BooleanField()
-	pub_date = models.DateTimeField(default=datetime.now(), unique=True)
+	pub_date = models.DateTimeField(default=datetime.datetime.now(), unique=True)
 	status = models.CharField(max_length=1, choices=STATUS_CHOICES)
 
 	class Meta:
@@ -97,7 +97,7 @@ class Photo(ImageModel):
 	caption = models.TextField(blank=True)
 	photographer = models.ForeignKey(Author, blank=True, null=True)
 	credit = models.CharField("Optional credit", max_length=255, help_text="For special photo credits not involving a staff photographer, ex. 'Photo supplied by Queen's Alumni Services,' 'Journal File Photo,' etc.", blank=True)
-	creation_date = models.DateField(default=datetime.now())
+	creation_date = models.DateField(default=datetime.date.today())
 
 	class IKOptions:
 		# Defining ImageKit options
@@ -122,7 +122,7 @@ class Photo(ImageModel):
 		return self.name
 		
 class StoryPhoto(models.Model):
-	photo = models.ForeignKey(Photo, default=None)
+	photo = models.ForeignKey(Photo, default=None, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
 	story = models.ForeignKey(Story)
 	
 	class Meta:
