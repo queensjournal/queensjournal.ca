@@ -34,7 +34,7 @@ def index_section(request, section):
 	featured = Story.objects.filter(section__slug__iexact=section, featured=True, status='p').exclude(storyphoto__isnull=True, gallery__isnull=True).order_by('-pub_date')[:5]
 	for story in featured:
 		if story.gallery_set.all:
-			story.first_photo = Photo.objects.filter(gallery__story=story)
+			story.first_photo = Photo.objects.filter(gallery__story=story)[0]
 	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')
 	latest_stories = story_set[:5]
 	other_stories = story_set[5:13]
