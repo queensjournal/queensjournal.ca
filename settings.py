@@ -84,7 +84,6 @@ INSTALLED_APPS = (
 	'imagekit',
 	'tagging',
 	'shorturls',
-	'tinymce',
 	
 	#'grappelli',
 	

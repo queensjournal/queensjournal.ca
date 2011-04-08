@@ -91,7 +91,7 @@ admin.site.register(Story, StoryAdmin)
 class PhotoAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name',)}
 	search_fields = ['photo', 'name']
-	list_display = ('name', 'issue', 'photographer', 'caption')
+	list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption', 'photo_stories')
 	
 admin.site.register(Photo, PhotoAdmin)
 

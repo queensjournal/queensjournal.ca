@@ -105,6 +105,23 @@ class Photo(ImageModel):
 		cache_dir = 'photo_cache'
 		image_field = 'photo'
 		
+	def thumbnail(self):
+		return '<img src="%s"/>' % (self.thumbnail_image.url)
+	thumbnail.short_description = 'Image thumbnail'
+	thumbnail.allow_tags = True
+	
+	def photo_stories(self):
+		from django.core import urlresolvers
+		storyp_set = StoryPhoto.objects.filter(photo=self)
+		sections = []
+		for storyp in storyp_set:
+			url = urlresolvers.reverse('admin:stories_story_change', args=(storyp.story.id,))
+			head = storyp.story.head
+			sections.append('<a href="%s">%s</a>' % (url, head))
+		return ", ".join(sections)
+	photo_stories.short_description = 'Locations'
+	photo_stories.allow_tags = True
+		
 	def list_photographer(self):
 		if self.photographer is not None:
 			return self.photographer
