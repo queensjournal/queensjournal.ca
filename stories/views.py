@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.views.generic.list_detail import object_list
 from tagging.models import Tag, TaggedItem
-from stories.models import Story, StoryAuthor
+from stories.models import Story, StoryAuthor, Photo
 from blog.models import Entry
 from structure.models import *
 
@@ -27,13 +27,20 @@ def index_latest(request):
 	
 def index_section(request, section):
 	section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
-	featured = Story.objects.filter(section__slug__iexact=section, featured=True, status='p').exclude(storyphoto__isnull=True).order_by('-pub_date')[:5]
+	if section_config.template:
+		template = section_config.template
+	else:
+		template = 'stories/index_section.html'
+	featured = Story.objects.filter(section__slug__iexact=section, featured=True, status='p').exclude(storyphoto__isnull=True, gallery__isnull=True).order_by('-pub_date')[:5]
+	for story in featured:
+		if story.gallery_set.all:
+			story.first_photo = Photo.objects.filter(gallery__story=story)
 	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')
 	latest_stories = story_set[:5]
 	other_stories = story_set[5:13]
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
-	return render_to_response('stories/index_section.html',
+	return render_to_response(template,
 							{'featured': featured,
 							'latest_stories': latest_stories,
 							'other_stories': other_stories,

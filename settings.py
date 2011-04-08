@@ -112,6 +112,7 @@ INSTALLED_APPS = (
 SHORTEN_MODELS = {
             's': 'stories.story',
             'b': 'blog.entry',
+			'v': 'stories.video',
         }
 
 SHORT_BASE_URL = "http://qjrnl.net/"

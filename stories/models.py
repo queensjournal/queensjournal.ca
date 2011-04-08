@@ -121,6 +121,29 @@ class Photo(ImageModel):
 	def __unicode__(self):
 		return self.name
 		
+class Video(ImageModel):
+	name = models.CharField(max_length=255)
+	slug = models.SlugField()
+	pub_date = models.DateTimeField(default=datetime.date.today())
+	embed = models.TextField(help_text="Insert Embed code for video.")
+	tags = TagField()
+	caption = models.TextField()
+	photographer = models.ForeignKey(Author, blank=True, null=True)
+	photo = models.ImageField(upload_to='video_thumbs/%Y/%m/%d', help_text='Please convert all images to RGB JPEGs.')
+	
+	class IKOptions:
+		# Defining ImageKit options
+		spec_module = 'stories.video_specs'
+		cache_dir = 'video_thumbs'
+		image_field = 'thumb'
+	
+	@models.permalink	
+	def get_absolute_url(self):
+		return ('stories.views.detail_video', (), {
+			'datestring': self.pub_date.strftime("%Y-%m-%d"),
+			'slug': self.slug})
+	
+		
 class StoryPhoto(models.Model):
 	photo = models.ForeignKey(Photo, default=None, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
 	story = models.ForeignKey(Story)

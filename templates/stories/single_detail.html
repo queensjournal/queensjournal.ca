@@ -18,10 +18,10 @@
 <link rel="stylesheet" href="{{ MEDIA_URL }}global/styles/nivo-slider.css" type="text/css" media="screen" />
 {% endif %}
 {% if story.gallery_set.all %}
-<link rel="stylesheet" type="text/css" href="/media/js/thickbox/thickbox.css" media="screen" />
-<script type="text/javascript" src="/media/js/thickbox/thickbox-compressed.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" src="{{ MEDIA_URL }}js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 {% endif %}
-<script type="text/javascript" src="/media/js/print_preview.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/print_preview.js"></script>
 {% endblock headcode %}
 
 {% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
@@ -74,7 +74,7 @@
 			{% endif %}
 			
 			{% if story.storyphoto_set.all|length = 1 %}
-			<div id="slider-wrapper" class="story single">
+			<div id="slider-single-wrapper" class="story">
 				{% for pwrapper in story.storyphoto_set.all %}
 					<img src="{{ pwrapper.photo.display.url }}" class="story-photo" />
 					<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
@@ -171,11 +171,13 @@
 			
 			{% if story.gallery_set.all %}
 				{% for gallery in story.gallery_set.all %}
-					<div class="inline-container gallery clearfix">
+					<div class="gallery-container clearfix">
 						<h4>{{ gallery.name|widont }}</h4>
+						<div class="thumbs-container">
 						{% for image in gallery.images.all %}
-						<a href="{{ image.get_photo_url }}" title="{{ image.caption|escape }} ({{ image.list_photographer }})" class="thickbox" rel="{{ gallery.name|slugify }}"><img src="{{ image.get_thumbnail_url }}" alt="{{ image.caption }}"/></a>
+						<a class="gallery" rel="{{ gallery.name|slugify }}" href="{{ image.gallery_image.url }}"{% if image.caption %} title="{{ image.caption|escape }} ({{ image.list_photographer }})"{% endif %}><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
 						{% endfor %}
+						</div>
 					</div>
 				{% endfor %}
 			{% endif %}
@@ -193,7 +195,6 @@
 			
 			{% load disqus_tags %}
 			{% disqus_dev %}
-
 			{% disqus_show_comments %}
 			
 			</div>
@@ -201,20 +202,30 @@
 	{% endblock content %}
 	<!-- google_ad_section_end -->
 
-{% if story.storyphoto_set.all|length > 1 %}
+
 {% block footercode %}
+{% if story.storyphoto_set.all|length > 1 %}
 <script type="text/javascript">
     $(window).load(function() {
         $('#slider').nivoSlider({
 			directionNav:true,
+			directionNavHide:false,
+			manualAdvance:true,
 			controlNav:false,
 			effect:'slideInLeft',
-			pauseOnHover:true,
-			pauseTime:5000,
 			captionOpacity:1,
 		});
     });
 </script>
-{% endblock footercode %}
 {% endif %}
-
+{% if story.gallery_set.all %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("a.gallery").fancybox({
+		'titlePosition'  : 'inside'
+	});
+	$("div.thumbs-container a:nth-child(6n)").addClass('last')
+});
+</script>
+{% endif %}
+{% endblock footercode %}

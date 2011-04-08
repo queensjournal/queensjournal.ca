@@ -559,23 +559,21 @@ a img {
 			float: right;
 			margin: 0 0 0 10px;
 		}
-		#slider-wrapper.single {
+		#slider-single-wrapper {
 			width: 475px;
 			padding: 10px;
+			background-color: #eee;
+			float: right;
 		}
 		#story-socmedia {
 			clear: right;
 			float: right;
 			margin: 10px 0 10px 10px;
 			padding: 10px;
-			border: 1px solid #999;
+			background-color: #eee;
 		}
 		#story-socmedia h4 {
 			margin: 1em 0 5px 0;
-		}
-
-		#story .story-caption {
-			margin-bottom: 1.8em;
 		}
 		.story-deck {
 			width: 450px;
@@ -614,9 +612,8 @@ a img {
 			list-style-type: lower-alpha;
 		}
 		.inline-container {
-			background-color: #ddd;
-			border: 1px solid #ccc;
-			padding: 12px;
+			clear: both;
+			background-color: #eee;
 		}			
 		.story-inlines {
 			clear: right;
@@ -629,7 +626,6 @@ a img {
 		}
 		.story-content .inline-container {
 			margin: 0 0 1em 0;
-			width: 624px;
 		}
 		.inline-container p {
 			font-family: Helvetica, Arial, sans-serif;
@@ -665,18 +661,23 @@ a img {
 		.document ul {
 			margin: 0;
 		}
-		.gallery a {
-			background-color: #ccc;
+		.gallery-container {
+			clear: both;
+			width: 660px;
+			margin: 4em auto 2em auto;
+			padding: 10px 0 0 10px;
+			background-color: #eee;
+		}
+		.gallery .last {
+			margin-right: 0px;
+		}
+		.gallery {
 			display: block;
 			float: left;
-			height: 79px;
+			height: 100px;
 			margin: 0 10px 10px 0;
 			overflow: hidden;
-			padding: 8px;
-			width: 79px;
-		}
-		.gallery a img {
-			border: 2px solid #c30;
+			width: 100px;
 		}
 		#story h1.story-head {
 			line-height: 1.2em;

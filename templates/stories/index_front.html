@@ -82,6 +82,7 @@
 				{% if story.storyphoto_set.all|length > 0 %}{% for pwrapper in story.storyphoto_set.all|slice:":1" %}<a href="{{ story.get_absolute_url }}"><img src="{{ pwrapper.photo.front_image.url }}" /></a>{% endfor %}{% endif %}
 				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 				<p class="latest-section-summary">{{ story.summary }}</p>
+				<p class="pub_date">Posted {{ story.pub_date|date_diff }}</p>
 			</div>
 			{% endfor %}
 			
