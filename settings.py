@@ -102,6 +102,7 @@ INSTALLED_APPS = (
 	'images',
 	'inlines',
 	'galleries',
+	'masthead',
 	
 	'disqus',
 	#Django south

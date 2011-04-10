@@ -74,7 +74,7 @@
 	
 	<div class="block">
 		
-		<div id="section-stories" class="column span-17">
+		<div id="section-stories" class="column span-24 last">
 			
 			{% for story in latest_section %}
 			<div class="latest-section">
@@ -98,27 +98,27 @@
 				{% endfor %}
 			{% endif %}
 			
-		</div>
-		
-		<div id="latest-entries" class="latest column span-7 last">
+			<div id="latest-entries" class="latest">
 
-			{% if config.announce_head and config.announce_body %}
-			<div class="announcement">
-				<h4>{{ config.announce_head|stripspace|convert_entities|widont }}</h4>
-				{{ config.announce_body|linebreaks|convert_entities|typogrify }}
+				{% if config.announce_head and config.announce_body %}
+				<div class="announcement">
+					<h4>{{ config.announce_head|stripspace|convert_entities|widont }}</h4>
+					{{ config.announce_body|linebreaks|convert_entities|typogrify }}
+				</div>
+				{% endif %}
+				{% front_sidebar %}
+
+				<ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+				{% for entry in latest_entries %}
+					<li>
+					<p class="label">{{ entry.blog.title }}</p>
+					<h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
+					<p class="pub_date">{{ entry.date_published|date_diff }}</p>
+					</li>
+				{% endfor %}
+				</ul>
+
 			</div>
-			{% endif %}
-			{% front_sidebar %}
-			
-			<ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
-			{% for entry in latest_entries %}
-				<li>
-				<p class="label">{{ entry.blog.title }}</p>
-				<h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
-				<p class="pub_date">{{ entry.date_published|date_diff }}</p>
-				</li>
-			{% endfor %}
-			</ul>
 			
 		</div>
 		
@@ -179,7 +179,7 @@
     });
 </script>
 <script type="text/javascript">
-	$(document).load(function(){
+	$(window).load(function(){
 		$('#section-stories').masonry({
  			singleMode: true,
 			columnWidth: 260,

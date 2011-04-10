@@ -440,6 +440,10 @@ a img {
 		list-style-type:none;
 		background-color: #eee;
 	}
+	#latest-entries {
+		float: right;
+		width: 220px;
+	}
 	/*.latest ul li :hover {
 		background-color: #fff;
 	}*/
