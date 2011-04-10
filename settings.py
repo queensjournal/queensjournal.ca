@@ -43,9 +43,8 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.auth.context_processors.auth",
-	"context_processors.media_url",
-	
 	"django.core.context_processors.request",
+	"stories.context_processors.media_url",
 	
 	# required to render correct templates (grappelli+admin-tools or grappelli "standalone")
 	#"grappelli.context_processors.admin_template_path",

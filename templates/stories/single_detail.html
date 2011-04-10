@@ -102,7 +102,7 @@
 				<br/>
 				Short URL:
 				<form action="" method="get">
-					<input type="text" name="url" value="{% shorturl story %}" />
+					<input type="text" id="shorturl" name="shorturl" value="{% shorturl story %}" />
 				</form>
 				{% revcanonical story %}
 
@@ -208,8 +208,8 @@
 
 
 {% block footercode %}
-{% if story.storyphoto_set.all|length > 1 %}
 <script type="text/javascript">
+{% if story.storyphoto_set.all|length > 1 %}
     $(window).load(function() {
         $('#slider').nivoSlider({
 			directionNav:true,
@@ -220,16 +220,18 @@
 			captionOpacity:1,
 		});
     });
-</script>
 {% endif %}
 {% if story.gallery_set.all %}
-<script type="text/javascript">
 $(document).ready(function() {
 	$("a.gallery").fancybox({
 		'titlePosition'  : 'inside'
 	});
 	$("div.thumbs-container a:nth-child(6n)").addClass('last')
 });
-</script>
 {% endif %}
+$("#shorturl").focus(function(){
+    // Select input field contents
+    this.select();
+});
+</script>
 {% endblock footercode %}

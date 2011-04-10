@@ -6,6 +6,7 @@ from galleries.models import Gallery
 
 class GalleryInline(admin.TabularInline):
 	model = Gallery
+	filter_horizontal = ['images']
 	extra = 1
 
 class FactboxInline(admin.TabularInline):

@@ -1,5 +1,6 @@
 # Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
 from django.http import Http404
 from django.views.generic.list_detail import object_list
 from structure.models import Volume
@@ -49,7 +50,8 @@ def masthead(request, vol_num):
 ##    names.sort(lambda x, y: section_order(x,y,sections))
     return render_to_response('masthead/index.html',
                               {'names': names,
-                               'years': yearstring})
+                               'years': yearstring},
+								context_instance=RequestContext(request))
 
 
 def masthead_list(request):
