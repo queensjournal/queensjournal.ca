@@ -26,7 +26,7 @@ urlpatterns = patterns('',
 	(r'^tag/(?P<tag>[a-zA-Z0-9_.-]+)/$','stories.views.with_tag'),
 	(r'^tag/(?P<tag>[a-zA-Z0-9_.-]+)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
 	
-	('^s/', include('shorturls.urls')),
+	(r'^s/', include('shorturls.urls')),
 	
 	(r'^tinymce/', include('tinymce.urls')),
 	
@@ -35,6 +35,6 @@ urlpatterns = patterns('',
 	# Because I have the URL regexing words as sections, this pattern needs to be last.
 	# If you put anything after, the CONF will think it's a section and you won't get anywhere.
 	## THE FOLLOWING LINE MUST BE THE LAST URL IN THE CONF
-	(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
+	#(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
 	## DO NOT ADD ANY URLS AFTER THIS LINE
 )

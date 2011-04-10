@@ -99,8 +99,11 @@
 				{% endfor %}
 				</ul>
 				{% endif %}
-
-				<a href="{% shorturl story %}">Short URL</a>
+				<br/>
+				Short URL:
+				<form action="" method="get">
+					<input type="text" name="url" value="{% shorturl story %}" />
+				</form>
 				{% revcanonical story %}
 
 			</div>
@@ -193,8 +196,10 @@
 				{% endfor %}
 			{% endif %}
 			
-			{% load disqus_tags %}
-			{% disqus_show_comments %}
+			{% if story.enable_comments %}
+				{% load disqus_tags %}
+				{% disqus_show_comments %}
+			{% endif %}
 			
 			</div>
 		</div>

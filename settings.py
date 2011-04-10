@@ -112,11 +112,11 @@ INSTALLED_APPS = (
 SHORTEN_MODELS = {
             's': 'stories.story',
             'b': 'blog.entry',
-			'v': 'stories.video',
+			#'V': 'stories.video',
         }
 
 SHORT_BASE_URL = "http://qjrnl.net/"
-SHORTEN_FULL_BASE_URL = "http://www.queensjournal.ca/"
+SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"
 
 DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
 DISQUS_WEBSITE_SHORTNAME = "queensjournal"
