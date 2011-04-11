@@ -9,6 +9,15 @@
 {% load tags %}
 {% load shorturl %}
 
+{% block facebook %}
+<meta property="og:title" content="{{ video.name }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{% shorturl video %}" />
+<meta property="og:image" content="{{ video.thumbnail_image.url }}" />
+<meta property="og:site_name" content="The Queen&#039;s Journal" />
+<meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
+
 {% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
 
 	{% block menu-stories %}

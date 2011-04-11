@@ -10,13 +10,16 @@
 {% load tags %}
 {% load shorturl %}
 
-{% block headcode %}
+{% block facebook %}
 <meta property="og:title" content="{{ story.head }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{% shorturl story %}" />
-<meta property="og:image" content="{{ story.first_photo.photo.thumbnail_image.url }}" />
+<meta property="og:image" content="{{ story.first_photo.thumbnail_image.url }}" />
 <meta property="og:site_name" content="The Queen&#039;s Journal" />
 <meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
+
+{% block headcode %}
 <script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
 <link rel="alternate stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/journal_print_preview.css" media="screen" title="Print Preview" />
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/journal_print.css" media="print" />
