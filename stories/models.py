@@ -58,6 +58,12 @@ class Story(models.Model):
 	
 	def first_photo(self):
 		from galleries.models import Gallery
+		if self.show_headshots is True:
+			try:
+				sa = StoryAuthor.objects.filter(story=self)[0]
+				return sa.author.headshot
+			except IndexError:
+				return False
 		if self.gallery_set.all():
 			try:
 				gallery = Gallery.objects.filter(story=self)[0]

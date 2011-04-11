@@ -25,6 +25,9 @@ class Author(models.Model):
 	homepage = models.URLField(blank=True, null=True)
 	bio = models.TextField(blank=True, null=True)
 	
+	class Meta:
+		ordering = ['name']
+	
 	@models.permalink
 	def get_absolute_url(self):
 		return ('stories.views.detail_author', (), {

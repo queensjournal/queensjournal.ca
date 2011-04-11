@@ -128,6 +128,7 @@ def index_section_latest(request, section):
 '''	
 def detail_story(request, datestring, section, slug):
 	story_selected = get_object_or_404(Story, issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+	section_config = SectionFrontConfig.objects.get(section__slug=section)
 	try:
 		author = StoryAuthor.objects.filter(story__slug__exact=slug)[0]
 		author_role = author.author.get_role(story_selected.pub_date)
@@ -137,7 +138,8 @@ def detail_story(request, datestring, section, slug):
 		request.session['vote'] = []
 	return render_to_response('stories/single_detail.html',
 								{'story': story_selected,
-								'author_role': author_role,},
+								'author_role': author_role,
+								'config': section_config},
 								context_instance=RequestContext(request))
 								
 def detail_author(request, author):
