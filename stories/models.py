@@ -19,7 +19,7 @@ class Story(models.Model):
 	slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting. If a story with the same slug already exists for the given issue and section, just change the slug slightly so it doesn\'t conflict.')
 	section = models.ForeignKey(Section)
 	issue = models.ForeignKey(Issue, null=True, blank=True)
-	label = models.CharField(max_length=255, blank=True, null=True)
+	label = models.CharField(max_length=255, blank=True, null=True, editable=False)
 	content = models.TextField()
 	summary = models.TextField(help_text='Sum up the story in a single paragraph.')
 	section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).", editable=False)
@@ -57,7 +57,16 @@ class Story(models.Model):
 	list_authors.short_description = 'Author(s)'
 	
 	def first_photo(self):
-		return StoryPhoto.objects.filter(story=self)[0]
+		from galleries.models import Gallery
+		if self.gallery_set.all():
+			try:
+				gallery = Gallery.objects.filter(story=self)[0]
+				return gallery.images.all()[0]
+			except IndexError:
+				return False
+		else:
+			sp = StoryPhoto.objects.filter(story=self)[0]
+			return sp.photo
 	
 	def related_photos(self):
 		return StoryPhoto.objects.filter(story=self)

@@ -75,8 +75,8 @@
 			{% for story in other_stories %}
 			<div class="latest-section">
 				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-				{% if story.storyphoto_set.all|length > 0 %}<a href="{{ story.get_absolute_url }}"><img src="{{ story.first_photo.photo.front_image.url }}" /></a>{% endif %}
-				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
+				<a href="{{ story.get_absolute_url }}">{% if story.first_photo %}<img src="{{ story.first_photo.front_image.url }}" />{% endif %}
+				<h2 class="latest-section-head">{{ story.head }}</h2></a>
 				<p class="latest-section-summary">{{ story.summary|safe }}</p>
 			</div>
 			{% endfor %}

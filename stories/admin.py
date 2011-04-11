@@ -29,7 +29,7 @@ class StoryAuthorInline(admin.TabularInline):
 
 class StoryAdmin(admin.ModelAdmin):
 	fieldsets = [
-		(None,				 {'fields': ['head', 'deck', 'slug', 'label', 'tags', 'summary']}),
+		(None,				 {'fields': ['head', 'deck', 'slug', 'tags', 'summary']}),
 		('Date information', {'fields': ['pub_date']}),
 		('Content', {'fields': ['content'], 'classes': ['richedit']}),
 		('Organizational', {'fields': ['status', 'section', 'issue', 'featured',]})
