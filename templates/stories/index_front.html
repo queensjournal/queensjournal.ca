@@ -86,18 +86,6 @@
 			</div>
 			{% endfor %}
 			
-			{% for otherstory in config.frontpagefirsttierstory_set.all %}
-				<p class="label story-label">{% firstof otherstory.label otherstory.story.label "Story" %}</p>
-				<h3 class="otherstory-head"><a href="{{ otherstory.story.get_absolute_url }}">{{ otherstory.story.head|stripspace|convert_entities|widont }}</a></h3>
-				<p class="otherstory-summary">{{ otherstory.story.summary|stripspace|convert_entities|widont }}</p>
-			{% endfor %}
-			{% if config.frontpagesecondtierstory_set.all %}
-				<p class="label story-label">Other stories</p>
-				{% for otherstory in config.frontpagesecondtierstory_set.all %}
-					<h5 class="otherstory-head"><a href="{{ otherstory.story.get_absolute_url }}">{{ otherstory.story.head|stripspace|convert_entities|widont }}</a></h5>
-				{% endfor %}
-			{% endif %}
-			
 			<div id="latest-entries" class="latest">
 
 				{% if config.announce_head and config.announce_body %}
