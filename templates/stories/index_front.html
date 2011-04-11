@@ -154,7 +154,6 @@
 	{% endblock poll %}
 	
 {% block footercode %}
-<script type="text/javascript">
     $(window).load(function() {
         $('#slider').nivoSlider({
 			directionNav:true,
@@ -165,8 +164,6 @@
 			captionOpacity:1,
 		});
     });
-</script>
-<script type="text/javascript">
 	$(window).load(function(){
 		$('#section-stories').masonry({
  			singleMode: true,
@@ -174,5 +171,4 @@
 			itemSelector: '.latest-section' 
 		});
 	});
-</script>
 {% endblock footercode %}

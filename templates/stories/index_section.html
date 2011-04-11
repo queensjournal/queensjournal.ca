@@ -91,7 +91,6 @@
 	{% endblock content %}
 
 {% block footercode %}
-<script type="text/javascript">
     $(window).load(function() {
         $('#slider').nivoSlider({
 			directionNav:true,
@@ -102,14 +101,11 @@
 			captionOpacity:1,
 		});
     });
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
+	$(window).load(function(){
 		$('#other-stories').masonry({
  			singleMode: true,
 			columnWidth: 247,
 			itemSelector: '.latest-section' 
 		});
 	});
-</script>
 {% endblock footercode %}
