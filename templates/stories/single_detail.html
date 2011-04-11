@@ -217,7 +217,6 @@
 
 
 {% block footercode %}
-<script type="text/javascript">
 {% if story.storyphoto_set.all|length > 1 %}
     $(window).load(function() {
         $('#slider').nivoSlider({
@@ -242,5 +241,4 @@ $("#shorturl").focus(function(){
     // Select input field contents
     this.select();
 });
-</script>
 {% endblock footercode %}
