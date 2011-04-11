@@ -16,14 +16,24 @@ class ResizeDisplay(processors.Resize):
 	height = 100
 	crop = True
 	
-class EnchanceThumb(processors.Adjustment): 
+class ResizeFront(processors.Resize):
+	width = 225
+	height = 150
+	crop = True
+	
+class EnhanceThumb(processors.Adjustment): 
 	contrast = 1.2 
 	sharpness = 1.1
+	
+class FrontImage(ImageSpec):
+	access_as = 'front_image'
+	pre_cache = True
+	processors = [MakeRGB, ResizeFront, EnhanceThumb]
 	
 class Thumbnail(ImageSpec): 
 	access_as = 'thumbnail_image' 
 	pre_cache = True
-	processors = [MakeRGB, ResizeThumb, EnchanceThumb] 
+	processors = [MakeRGB, ResizeThumb, EnhanceThumb] 
 
 class Display(ImageSpec):
 	processors = [MakeRGB, ResizeDisplay]
