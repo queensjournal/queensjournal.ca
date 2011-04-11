@@ -65,8 +65,11 @@ class Story(models.Model):
 			except IndexError:
 				return False
 		else:
-			sp = StoryPhoto.objects.filter(story=self)[0]
-			return sp.photo
+			try:
+				sp = StoryPhoto.objects.filter(story=self)[0]
+				return sp.photo
+			except IndexError:
+				return False
 	
 	def related_photos(self):
 		return StoryPhoto.objects.filter(story=self)
