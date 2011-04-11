@@ -1,6 +1,0 @@
-{% load typogrify %}
-{% for item in items %}
-	<p class="story-label">{{ item.section.name }}</p>
-	<h4 class="story-head"><a href="{{ item.get_absolute_url }}">{{ item.head }}</a></h4>
-	<p class="story-summary">{{ item.summary|widont }}</p>
-{% endfor %}

@@ -83,6 +83,7 @@ INSTALLED_APPS = (
 	'imagekit',
 	'tagging',
 	'shorturls',
+	'oembed',
 	
 	#'grappelli',
 	
@@ -102,6 +103,7 @@ INSTALLED_APPS = (
 	'inlines',
 	'galleries',
 	'masthead',
+	'video',
 	
 	'disqus',
 	#Django south
@@ -111,7 +113,7 @@ INSTALLED_APPS = (
 SHORTEN_MODELS = {
             's': 'stories.story',
             'b': 'blog.entry',
-			#'V': 'stories.video',
+			'v': 'video.video',
         }
 
 SHORT_BASE_URL = "http://qjrnl.net/"

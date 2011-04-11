@@ -3,6 +3,9 @@ from django.conf.urls.defaults import *
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+import oembed
+oembed.autodiscover()
 	
 urlpatterns = patterns('',
 	(r'^polls/', include('polls.urls')),
@@ -10,6 +13,7 @@ urlpatterns = patterns('',
 	(r'^story/', include('stories.urls')),
 	(r'^$', 'stories.views.index_front'),
 	(r'^blogs/', include('blog.urls')),
+	(r'^video/', include('video.urls')),
 	(r'^staff/', include('staff.urls')),
 	(r'^masthead/', include('masthead.urls')),
 	(r'^search/', include('haystack.urls')),
@@ -35,6 +39,6 @@ urlpatterns = patterns('',
 	# Because I have the URL regexing words as sections, this pattern needs to be last.
 	# If you put anything after, the CONF will think it's a section and you won't get anywhere.
 	## THE FOLLOWING LINE MUST BE THE LAST URL IN THE CONF
-	#(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
+	(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
 	## DO NOT ADD ANY URLS AFTER THIS LINE
 )

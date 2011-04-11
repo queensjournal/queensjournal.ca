@@ -1,6 +1,6 @@
 from django.contrib import admin
 import settings
-from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto, Video
+from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
 from inlines.models import Factbox, Document, StoryPoll
 from galleries.models import Gallery
 
@@ -100,10 +100,3 @@ class FeaturedPhotoAdmin(admin.ModelAdmin):
 	prepopulated_fields = {'slug': ('name',)}
 	
 admin.site.register(FeaturedPhoto, FeaturedPhotoAdmin)
-
-class VideoAdmin(admin.ModelAdmin):
-	prepopulated_fields = {'slug': ('name',),}
-	search_fields = ['name', 'caption', 'photographer']
-	list_display = ('name', 'photographer', 'pub_date', 'tags',)
-	
-admin.site.register(Video, VideoAdmin)

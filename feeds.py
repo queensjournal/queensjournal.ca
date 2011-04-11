@@ -6,6 +6,7 @@ from stories.models import Story
 from sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
 from blog.models import Blog, Entry
 from structure.models import Author
+from video.models import Video
 
 class LatestStories(Feed):
 	title = "Queen's Journal: Latest stories"
@@ -120,4 +121,18 @@ class LatestPostsSingleAuthor(Feed):
 
 	def item_pubdate(self, item):
 		return item.date_published
+		
+class LatestVideo(Feed):
+	title = "Queen's Journal: Latest Video"
+	link = "/video/"
+	description = "All the video from the Queen's Journal."
+	description_template = 'feeds/video_description.html'
 
+	def items(self):
+		return Video.objects.filter(published=True).order_by('-pub_date')[:10]
+
+	def item_author_name(self, item):
+		return item.photographer.name
+
+	def item_pubdate(self, item):
+		return item.pub_date

@@ -1,0 +1,5 @@
+{% load typogrify %}
+{% load custom_html %}
+{% load embed %}
+{{ obj.link|embed:720|safe }}
+{{ obj.caption|typogrify|urlizetrunc:50|linebreakswithcode|safe }}

@@ -7,18 +7,6 @@ from sidebars.settings import *
 
 register = template.Library()
 
-def front_sidebar(context):
-    params = {}
-    if context.get('story'):
-        sections = context.get('story').story.issue.sections.flatplansection_set.all()
-        issue = context.get('story').story.issue
-	params['items'] = []
-	for section in sections:
-		if section.section.slug != 'news':
-			params['items'].extend(Story.objects.filter(issue=issue.id,section=section.section)[:1])
-	return params
-
-
 class SidebarItemsByIssueNode(template.Node):
     """
     Returns sidebar items for a specific issue date.
@@ -82,6 +70,5 @@ register.tag('sidebar', do_section_sidebar)
 ##        params['is_empty'] = True
 ##    return params
 
-register.inclusion_tag('sidebars/front_sidebar.html', takes_context=True)(front_sidebar)
 ##register.inclusion_tag('sidebars/news_sidebar.html')(news_sidebar)
 ##register.inclusion_tag('sidebars/arts_sidebar.html')(arts_sidebar)

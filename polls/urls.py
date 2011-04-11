@@ -1,13 +1,10 @@
 from django.conf.urls.defaults import *
+from django.views.generic.list_detail import object_detail
 from polls.models import Poll
-
-info_dict = {
-	'queryset': Poll.objects.all(),
-}
+from polls.views import *
 
 urlpatterns = patterns('',
-	(r'^$', 'django.views.generic.list_detail.object_list', info_dict),
-	(r'^(?P<object_id>\d+)/$', 'django.views.generic.list_detail.object_detail', info_dict),
-	url(r'^(?P<object_id>\d+)/results/$', 'django.views.generic.list_detail.object_detail', dict(info_dict, template_name='polls/results.html'), 'poll_results'),
-	(r'^(?P<poll_id>\d+)/vote/$', 'polls.views.vote'),
+	(r'^debug/$', poll_cookie_debug),
+	(r'^vote/(?P<poll>[0-9]+)/$', poll_vote),
+	url(r'^view/(?P<object_id>[0-9]+)/$', object_detail, {'queryset': Poll.objects.all()}, name='poll_results'),
 )

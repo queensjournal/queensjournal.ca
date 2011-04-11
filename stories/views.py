@@ -6,7 +6,8 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.views.generic.list_detail import object_list
 from tagging.models import Tag, TaggedItem
-from stories.models import Story, StoryAuthor, Photo, Video
+from stories.models import Story, StoryAuthor, Photo
+from video.models import Video
 from blog.models import Entry
 from structure.models import *
 
@@ -134,14 +135,6 @@ def detail_story(request, datestring, section, slug):
 	return render_to_response('stories/single_detail.html',
 								{'story': story_selected,
 								'author_role': author_role,},
-								context_instance=RequestContext(request))
-								
-def detail_video(request, datestring, slug):
-	video_selected = get_object_or_404(Video, pub_date=parse_date(datestring), slug__exact=slug)
-	if request.session.get('vote') is None:
-		request.session['vote'] = []
-	return render_to_response('stories/video_detail.html',
-								{'video': video_selected},
 								context_instance=RequestContext(request))
 								
 def detail_author(request, author):

@@ -1,4 +1,6 @@
 from structure.models import *
+import datetime
+from django.forms import ModelForm
 from stories.models import FeaturedStory, Section, Story
 from django.contrib import admin
 
@@ -35,29 +37,27 @@ class FlatPlanConfigAdmin(admin.ModelAdmin):
 	
 admin.site.register(FlatPlanConfig, FlatPlanConfigAdmin)
 
+class FeaturedInlineForm(ModelForm):
+	'''
+	Limits the choices in the Featured Story Inline to cut down on database calls
+	'''
+	def __init__(self, *args, **kwargs):
+		super(FeaturedInlineForm, self).__init__(*args, **kwargs)
+		start_date = datetime.datetime.today() - datetime.timedelta(150)
+		self.fields['story'].queryset = Story.objects.filter(pub_date__range=(start_date, datetime.datetime.today())).order_by('-pub_date')
+
 class FeaturedInline(admin.TabularInline):
+	form = FeaturedInlineForm
 	model = FeaturedStory
 
 class FrontConfigAdmin(admin.ModelAdmin):
 	inlines = [
 		FeaturedInline,
 	]
-	"""
-	fieldsets = [
-		(None, {'fields': ('pub_date', 'announce_head', 'announce_body', 'poll')}),
-		('Featured', {'fields': ('featured')})
-	]
-	"""
 	
 admin.site.register(FrontConfig, FrontConfigAdmin)
 	
 class SectionFrontConfigAdmin(admin.ModelAdmin):
-	"""
-	fieldsets = [
-		(None, {'fields': ('pub_date', 'announce_head', 'announce_body', 'poll')}),
-		('Featured', {'fields': ('featured')})
-	]
-	"""
 	list_display = ('section',)
 	
 admin.site.register(SectionFrontConfig, SectionFrontConfigAdmin)

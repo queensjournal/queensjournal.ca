@@ -90,11 +90,22 @@
 
 				{% if config.announce_head and config.announce_body %}
 				<div class="announcement">
-					<h4>{{ config.announce_head|stripspace|convert_entities|widont }}</h4>
+					<h3>{{ config.announce_head|stripspace|convert_entities|widont }}</h3>
 					{{ config.announce_body|linebreaks|convert_entities|typogrify }}
+					<hr>
 				</div>
 				{% endif %}
-				{% front_sidebar %}
+				
+				<div id="latest-video">
+					<h3>Latest Video: <span class="feed"><a href="{% url video.views.index_video %}">More Videos &gt;&gt;</a></span></h3>
+					<hr>
+					<div class="video-thumb">
+						<a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" /><span class="play-img"><img src="{{MEDIA_URL}}global/styles/images/play.png"></span>
+						<h2 class="latest-section-head">{{ latest_video.name }}</h2></a>
+					</div>
+					<p class="latest-section-summary">{{ latest_video.caption|convert_entities|truncatewords:18|safe }}</p>
+					<p class="pub_date">Posted {{ latest_video.pub_date|date_diff }}</p>
+				</div>
 
 				<ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
 				{% for entry in latest_entries %}
