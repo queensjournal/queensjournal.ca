@@ -154,6 +154,11 @@ class StoryPhoto(models.Model):
 	photo = models.ForeignKey(Photo, default=None, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
 	story = models.ForeignKey(Story)
 	
+	def thumbnail(self):
+		return '<img src="%s"/>' % (self.photo.thumbnail_image.url)
+	thumbnail.short_description = 'Image thumbnail'
+	thumbnail.allow_tags = True
+	
 	class Meta:
 		verbose_name = "Story photos"
 		verbose_name_plural = "Story photos"

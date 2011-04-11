@@ -612,10 +612,15 @@ a img {
 		}
 		.headshot {
 			float: left;
+			clear: left;
 			margin: 0 10px 1em 0;
 		}
 		.headshot img {
 			margin-bottom: 5px;
+		}
+		.headshot a {
+			color: black;
+			text-decoration: underline;
 		}
 		.story-content p {
 			-webkit-font-smoothing: antialiased;

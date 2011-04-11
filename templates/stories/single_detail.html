@@ -71,7 +71,7 @@
 			{% if story.show_headshots %}
 				{% for author in story.storyauthor_set.all %}
 					<div class="headshot"><img src="{{ author.author.headshot.display.url }}" /><br/>
-					{{ author.author.name }}</div>
+					<a href="{{ author.author.get_absolute_url }}">{{ author.author.name }}</a></div>
 				{% endfor %}
 			{% endif %}
 				

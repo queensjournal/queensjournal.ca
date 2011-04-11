@@ -6,7 +6,7 @@ from datetime import datetime
 import settings
 
 class Headshot(ImageModel):
-	name = models.CharField(max_length=64)
+	name = models.SlugField()
 	headshot = models.ImageField(upload_to="headshots/", help_text='Please crop all photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
 	
 	class IKOptions:
