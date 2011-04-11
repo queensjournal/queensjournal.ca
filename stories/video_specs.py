@@ -15,7 +15,7 @@ class ResizeThumb(processors.Resize):
 	crop = True
 
 class ResizeFront(processors.Resize):
-	width = 225
+	width = 200
 	height = 150
 	crop = True
 

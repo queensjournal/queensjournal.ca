@@ -6,7 +6,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.sites.models import Site
 from django.views.generic.list_detail import object_list
 from tagging.models import Tag, TaggedItem
-from stories.models import Story, StoryAuthor, Photo
+from stories.models import Story, StoryAuthor, Photo, Video
 from blog.models import Entry
 from structure.models import *
 
@@ -53,7 +53,8 @@ def index_section(request, section):
 def index_front(request):
 	front_config = FrontConfig.objects.latest('pub_date')
 	latest_stories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
-	latest_entries = Entry.objects.filter(is_published=True).order_by('-date_published')[:10]
+	latest_entries = Entry.objects.filter(is_published=True).order_by('-date_published')[:5]
+	latest_video = Video.objects.latest('pub_date')
 	latest_section = []
 	for section in front_config.sections.flatplansection_set.all():
 		latest_section.extend(Story.objects.filter(section=section.section, featured=True)[:1])
@@ -64,6 +65,7 @@ def index_front(request):
 							'latest_stories': latest_stories,
 							'latest_entries': latest_entries,
 							'latest_section': latest_section,
+							'latest_video': latest_video,
 							'config': front_config},
 							context_instance=RequestContext(request))
 							
@@ -131,15 +133,26 @@ def index_section_latest(request, section):
 '''	
 def detail_story(request, datestring, section, slug):
 	story_selected = get_object_or_404(Story, issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+	author = StoryAuthor.objects.filter(story__slug__exact=slug)[0]
+	author_role = author.author.get_role(story_selected.pub_date)
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('stories/single_detail.html',
-								{'story': story_selected},
+								{'story': story_selected,
+								'author_role': author_role,},
+								context_instance=RequestContext(request))
+								
+def detail_video(request, datestring, slug):
+	video_selected = get_object_or_404(Video, pub_date=parse_date(datestring), slug__exact=slug)
+	if request.session.get('vote') is None:
+		request.session['vote'] = []
+	return render_to_response('stories/video_detail.html',
+								{'video': video_selected},
 								context_instance=RequestContext(request))
 								
 def detail_author(request, author):
 	curr_author = get_object_or_404(Author, slug__exact=author)
-	story_set = StoryAuthor.objects.filter(author__slug__exact=author).order_by('-pub_date')
+	story_set = StoryAuthor.objects.filter(author__slug__exact=author).order_by('story__pub_date')
 	entry_set = Entry.objects.filter(author__slug__exact=author).order_by('-date_published')
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
