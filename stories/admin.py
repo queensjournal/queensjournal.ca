@@ -31,7 +31,7 @@ class StoryAdmin(admin.ModelAdmin):
 	fieldsets = [
 		(None,				 {'fields': ['head', 'deck', 'slug', 'tags', 'summary']}),
 		('Date information', {'fields': ['pub_date']}),
-		('Content', {'fields': ['content'], 'classes': ['richedit']}),
+		('Content', {'fields': ['content', 'show_headshots'], 'classes': ['richedit']}),
 		('Organizational', {'fields': ['status', 'section', 'issue', 'featured',]})
 	]
 	inlines = [

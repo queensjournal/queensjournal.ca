@@ -399,6 +399,7 @@ a img {
 			left:15px;
 		}
 		.nivo-caption {
+			font: 1.1em "Myriad Pro", Helvetica, Arial, sans-serif;
 			padding-top: 10px;
 		    text-shadow:none;
 			vertical-align:baseline;
@@ -584,6 +585,7 @@ a img {
 			padding: 10px;
 			background-color: #eee;
 			float: right;
+			margin: 0 0 10px 10px;
 		}
 		#story-socmedia {
 			clear: right;
@@ -607,6 +609,13 @@ a img {
 			margin-top: 0.5em;
 			text-align: right;
 			text-transform: uppercase;
+		}
+		.headshot {
+			float: left;
+			margin: 0 10px 1em 0;
+		}
+		.headshot img {
+			margin-bottom: 5px;
 		}
 		.story-content p {
 			-webkit-font-smoothing: antialiased;

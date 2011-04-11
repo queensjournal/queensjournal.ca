@@ -68,6 +68,13 @@
 			{{ story.pub_date|date:"jS F Y" }}
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>	  
 			
+			{% if story.show_headshots %}
+				{% for author in story.storyauthor_set.all %}
+					<div class="headshot"><img src="{{ author.author.headshot.display.url }}" /><br/>
+					{{ author.author.name }}</div>
+				{% endfor %}
+			{% endif %}
+				
 			{% if story.storyphoto_set.all|length > 1 %}
 			<div id="slider-wrapper" class="story">
 				<div id="slider" class="nivoSlider" style="margin-right: 0px;">
