@@ -103,6 +103,11 @@ a img {
 
 /* Global layout */
 
+/*=ADS=*/
+#top-ad {
+	background-color: #eee;
+}
+
 /* =GLOBAL-CONTENT */
 #container {
 	-moz-box-shadow: 3px 5px 10px #888;
@@ -240,8 +245,8 @@ a img {
 		text-align: center;
 		
 	    box-shadow: inset 0 0 3px #000;
-		box-shadow: #999 0 2px 5px
-		-moz-box-shadow: inset 0 0 3px #aaa;
+		box-shadow: #999 0 2px 5px;
+		-moz-box-shadow: inset 0 0 2px #aaa;
 		-webkit-box-shadow: inset 0 0 3px #000;
 	    -webkit-box-shadow: #999 0 2px 5px;
 	
@@ -265,14 +270,14 @@ a img {
 		height: 16px;
 		width: 100%;
 	}
-	li.section-other {
+	.section-other {
 		background-color: #DEE4F6;
 
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#DEE4F6'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#DEE4F6)); /* for webkit browsers */
 		background: -moz-linear-gradient(top, #fff, #fff 25%, #DEE4F6); /* for firefox 3.6+ */
 	}
-	li.section-other:hover {
+	.section-other:hover {
 		color: #555;
 		background-color: #CAD2E4;
 
@@ -280,7 +285,7 @@ a img {
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#CAD2E4)); /* for webkit browsers */
 		background: -moz-linear-gradient(top,  #fff, #CAD2E4); /* for firefox 3.6+ */
 	}
-	li.section-current {
+	.section-current {
 		background-color: #fff;
 		text-shadow: 0px 1px 0px #fff;
 		
@@ -288,7 +293,7 @@ a img {
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.6, #C5D4ED), to(#7C92CF)); /* for webkit browsers */
 		background: -moz-linear-gradient(top, #fff, #7C92CF); /* for firefox 3.6+ */
 	}
-	li.section-current:hover {
+	.section-current:hover {
 		background-color: #fff;
 		text-shadow: 0px 1px 0px #fff;
 		
@@ -296,14 +301,14 @@ a img {
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.6, #C5D4ED), to(#7C92CF)); /* for webkit browsers */
 		background: -moz-linear-gradient(top, #fff, #9AA7CD); /* for firefox 3.6+ */
 	}
-	li.section-special {
-		background-color: #DEE4F6;
+	.section-special {
+		background-color: #F2D4AD;
 		
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#F2D4AD'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.75, #F2EADE), to(#F2D4AD)); /* for webkit browsers */
 		background: -moz-linear-gradient(top,  #fff,  #F2D4AD); /* for firefox 3.6+ */
 	}
-	.menu-bar ul li.section-special:hover {
+	.section-special:hover {
 		color: #555;
 		background-color: #EFC582;
 
