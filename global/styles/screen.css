@@ -118,10 +118,6 @@ a img {
 	margin: 0 auto;
 	background-color: #fff;
 }
-	#header-ad {
-		position: relative;
-		margin: 10px auto 0 auto;
-	}
 	
 	#content-ad {
 	height: 60px;
@@ -146,7 +142,7 @@ a img {
 			top: 4px;
 			margin-left: 5px;
 		}
-		#actions input, .menu select {
+		#search input, .menu select {
 			float: left;
 			margin: 0.5em 0;
 			padding: 2px;
@@ -205,9 +201,40 @@ a img {
 		}
 		
 /* =GLOBAL-MENU */
-.menu {
+	#menu-social-media {
+		margin: 1em 0 1em 0;
+	}
+	#menu-social-media ul {
+		padding: 0;
+		margin-right: 0;
+	}
+	#menu-social-media li {
+		list-style-type: none;
+		-moz-border-radius: 7px;
+	    -webkit-border-radius: 7px;
+	    border-radius: 7px;
+		background-color: #eee;
+		padding: 3px 5px 5px 5px;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+	#menu-social-media li:hover {
+		background-color: #ddd;
+	}
+	#menu-social-media a {
+		color: black;
+	}
+	#menu-social-media span {
+		display: block;
+		width: 100%;
+		height: 21px;
+	}
+	#menu-social-media img {
+		position: relative;
+		top: 3px;
+		margin: 0 10px 0 5px;
+	}
 	
-}
 	#menu-ad {
 		width: 100%;
 		height 600px;
@@ -269,7 +296,7 @@ a img {
 
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#DEE4F6'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#DEE4F6)); /* for webkit browsers */
-		background: -moz-linear-gradient(top, #fff, #fff 25%, #DEE4F6); /* for firefox 3.6+ */
+		background: -moz-linear-gradient(top, #fff, #DEE4F6); /* for firefox 3.6+ */
 	}
 	.section-other:hover {
 		color: #555;
@@ -285,7 +312,7 @@ a img {
 		
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#7C92CF'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.6, #C5D4ED), to(#7C92CF)); /* for webkit browsers */
-		background: -moz-linear-gradient(top, #fff, #7C92CF); /* for firefox 3.6+ */
+		background: -moz-linear-gradient(top, #fff, #C5D4ED 60%, #7C92CF); /* for firefox 3.6+ */
 	}
 	.section-current:hover {
 		background-color: #fff;
@@ -293,16 +320,31 @@ a img {
 		
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#7C92CF'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.6, #C5D4ED), to(#7C92CF)); /* for webkit browsers */
-		background: -moz-linear-gradient(top, #fff, #9AA7CD); /* for firefox 3.6+ */
+		background: -moz-linear-gradient(top, #fff, #C5D4ED 60%, #7C92CF); /* for firefox 3.6+ */
 	}
 	.section-special {
 		background-color: #F2D4AD;
 		
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#F2D4AD'); /* for IE */
 		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.75, #F2EADE), to(#F2D4AD)); /* for webkit browsers */
-		background: -moz-linear-gradient(top,  #fff,  #F2D4AD); /* for firefox 3.6+ */
+		background: -moz-linear-gradient(top, #fff, #F2EADE 75%, #F2D4AD); /* for firefox 3.6+ */
 	}
 	.section-special:hover {
+		color: #555;
+		background-color: #EFC582;
+
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#EFC582'); /* for IE */
+		background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#EFC582)); /* for webkit browsers */
+		background: -moz-linear-gradient(top,  #fff,  #EFC582); /* for firefox 3.6+ */
+	}
+	.section-more-special {
+		background-color: #EF9161;
+		
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#EF9161'); /* for IE */
+		background: -webkit-gradient(linear, left top, left bottom, from(#fff), color-stop(0.75, #F0DB87), to(#F0BD63)); /* for webkit browsers */
+		background: -moz-linear-gradient(top, #fff, #F0DB87 75%, #F0BD63); /* for firefox 3.6+ */
+	}
+	.section-more-special:hover {
 		color: #555;
 		background-color: #EFC582;
 
@@ -316,14 +358,19 @@ a img {
 	<![endif]-->
 	
 	/*=DISQUS-WIDGET */
-	#disqus-widget {
-		margin-right: 0 !important;
+	#disqus-plugin {
+		margin-right: 0;
 	}
 	#dsq-combo-logo {
 		display: none;
 	}
 	#dsq-combo-tabs li a {
 		color: black;
+	}
+	#dsq-combo-content {
+		box-shadow: 1px 2px 6px #888;
+		-moz-box-shadow: 1px 2px 6px #888;
+		-webkit-box-shadow: 1px 2px 6px #888;
 	}
 	/*=FACEBOOK-WIDGET */
 	#facebook-widget {
@@ -350,7 +397,7 @@ a img {
 	
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#666666'); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(0.05, #444), color-stop(0.7, #555), to(#666)); /* for webkit browsers */
-	background: -moz-linear-gradient(top, #fff, #fff 25%, #DEE4F6); /* for firefox 3.6+ */
+	background: -moz-linear-gradient(top, #000, #444 5%, #555 70%, #666); /* for firefox 3.6+ */
 }
 	#address {
 		font: 1.05em 'Myriad Pro', 'Myriad', Helvetica, Arial, Verdana, sans-serif;
@@ -380,12 +427,16 @@ a img {
 		float: right;
 		padding: 0 0 0 4em;
 		margin-top: 1em;
+		height: 100%;
 	}
 	#footlinks li {
 		list-style-type: none;
 	}
 	#footlinks a {
 		color: #aaa;
+	}
+	#footlinks a:hover {
+		color: #ccc;
 	}
 	#footlinks .col1 {
 		border-right: 1px solid #000;
@@ -405,6 +456,11 @@ a img {
 			height: 420px;
 			background-color: #EEEEEE;
 			padding: 10px 0 0 10px;
+			margin-bottom: 6px;
+			
+			box-shadow: 1px 2px 6px #aaa;
+			-moz-box-shadow: 1px 2px 6px #aaa;
+			-webkit-box-shadow: 1px 2px 6px #aaa;
 		}
 		#slider {
 			position:relative;
@@ -564,18 +620,17 @@ a img {
 	
 	#breadcrumb {
 		height: 28px;
-		margin: 0 1.5em 3em 0;
+		margin: 0 0em 3em 0;
 		background-color: #D2DDEF;
-		-moz-border-radius: 7px;
-	    -webkit-border-radius: 7px;
-	    border-radius: 7px;
-		padding: 0 10px 0 10px;
+		-moz-border-radius: 8px;
+	    -webkit-border-radius: 8px;
+	    border-radius: 8px;
+		padding: 0 15px 0 15px;
 		font-family: Helvetica, Arial, sans-serif;
 		font-weight: bold;
 		line-height: 18px;
 		text-transform: uppercase;
 	}
-	
 	#breadcrumb span.divider {
 		display: inline-block;
 		width: 14px;
@@ -635,6 +690,9 @@ a img {
 			background-color: #eee;
 			float: right;
 			margin: 0 0 10px 10px;
+		}
+		#story-actions {
+			float: right;
 		}
 		#story-socmedia {
 			clear: right;
@@ -1034,11 +1092,8 @@ a img {
 
 
 /* =SECTIONALS-MENU */
-#menu-narrow {
-	width: 180px;
-}
 	#menu-poll {
-		background-color: #ddd;
+		background-color: #eee;
 		padding: 0.75em 10px;
 		margin-bottom: 3px;
 	}
@@ -1063,8 +1118,11 @@ a img {
 		}
 
 /* =POLLS-CONTENT */
-.poll {
-}
+	.poll {
+		box-shadow: 1px 2px 6px #888;
+		-moz-box-shadow: 1px 2px 6px #888;
+		-webkit-box-shadow: 1px 2px 6px #888;
+	}
 	.poll #poll-question {
 		margin: 0;
 	}
@@ -1091,22 +1149,45 @@ a img {
 		margin: 0;
 	}
 	.result-bar {
-		background-color: #999;
-		border: 1px solid #666;
-		height: 0.5em;
-		margin: 0.5em 0;
+		background-color: #D6E7EF;
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D6E7EF', endColorstr='#5394DC'); /* for IE */
+		background: -webkit-gradient(linear, left top, left bottom, from(#AECFFC), color-stop(0.4, #67A8F5), color-stop(0.5, #2F5EA1), color-stop(0.65, #5394DC), color-stop(0.8, #7AC4D6), to(#1D3D79)); /* for webkit browsers */
+		background: -moz-linear-gradient(top, #fff, #fff 25%, #DEE4F6); /* for firefox 3.6+ */
+		
+		-moz-border-radius: 7px;
+	    -webkit-border-radius: 7px;
+		border-radius: 7px;
+	
+		box-shadow: inset 0 2px 8px #000;
+		-moz-box-shadow: inset 0 2px 8px #000;
+		-webkit-box-shadow: inset 0 2px 8px #000;
+		box-shadow: 2px 0 4px #000;
+		-moz-box-shadow: 2px 0 4px #000;
+		-webkit-box-shadow: 2px 0 4px #000;
+	    
+		height: 15px;
+		margin: 0;
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 2px;
+		left: 2px;
 	}
 	.result-bar-back {
-		background-color: #eee;
+		box-shadow: inset 0 2px 6px #000;
+		-moz-box-shadow: inset 0 2px 6px #000;
+		-webkit-box-shadow: inset 0 2px 6px #000;
+		-moz-border-radius: 8px;
+	    -webkit-border-radius: 8px;
+	    border-radius: 8px;
+		background-color: #555;
 		float: left;
 		position: relative;
 		width: 120px;
 	}
+	.result-bar-back .last-bar {
+		border-right: 0;
+	}
 	.result-bar-interval {
-		border-right: 1px solid #ddd;
+		border-right: 1px solid #000;
 		float: left;
 		height: 19px;
 		width: 29px;

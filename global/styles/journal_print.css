@@ -73,41 +73,34 @@ a img {
 /* =PRINT-STYLES */
 #header-banner {
 }
-	#header-banner .header-container {
+	.header-container {
 		background-color: transparent;
 		position: relative;
 	}
-	#header-banner .header-container #logo {
+	#logo {
 		display: none;
 	}
-	#header-banner .header-container #logo-print {
+	#logo-print {
 		display: block;
 		float: left;
 		height: 50px;
 		margin-right: 1.5em;
 		width: 350px;
 	}
-	#header-banner .header-container #issueline {
+	.header-container #issueline {
 		display: none;
 	}
-	#header-banner .header-container #dateline {
+	.header-container #dateline {
 		bottom: 11px;
 		font-weight: bold;
 		left: 368px;
 		position: absolute;
 		text-transform: uppercase;
 	}
-#body-container {
-	clear: left;
-	margin-top: 1.5em;
-}
-	#body-container #topbar, #body-container .menu {
-		display: none;
-	}
-	#body-container #story {
-		width: auto;
-		margin: 0;
-		padding: 0;
+#story {
+	width: 960px;
+	margin: 0;
+	padding: 0;
 	}
 		.story-photo {
 			border: 1px solid black;
@@ -202,40 +195,6 @@ a img {
 			font-weight: bold;
 		}
 
-		/* =COMMENTS-CONTENT */
-		.comment-odd, .comment-even {
-			border-bottom: 1px solid #ccc;
-			clear: left;
-			font-size: 1em;
-			margin: 1.5em 0;
-		}
-			#comment-header, #comment-policy-header {
-				margin-top: 2em;
-			}
-			#comment-policy {
-				color: #999;
-				font-family: Arial, Helvetica, sans-serif;
-				font-size: 0.91667em;
-				font-weight: bold;
-				line-height: 1.8em;
-			}
-			.comment-meta {
-				float: right;
-				font-family: Arial, Helvetica, sans-serif;
-				font-size: 0.91667em;
-				line-height: 1.8em;
-				margin: 0 0 3.6em 1.8em;
-				width: 200px;
-			}
-			.comment-body {
-				font-family: Arial, Helvetica, sans-serif;
-				margin-bottom: 1.5em;
-				width: 420px;
-			}
-			#comment-form {
-				display: none;
-			}
-
 		/* =MASTHEAD-CONTENT */
 		#masthead {
 		}
@@ -275,6 +234,6 @@ a img {
 				width: 200px;
 			}
 
-#footer-container {
-	display: none;
+#footer, #top-ad, #menu-ad, #footer-ad, #menu-social-media, #disqus-widget, #facebook-widget, #connect, #search, #disqus-widget, #menu-sections, #header-slogan {
+	display: none !important;
 }
