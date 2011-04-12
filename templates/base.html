@@ -80,11 +80,11 @@ GA_googleFetchAds();
 
 		<div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
 
-			{% block breadcrumb %}{% endblock breadcrumb %}
 			<!-- google_ad_section_start -->
 			{% block issue-banner %}
 			{% endblock issue-banner %}
 			{% block content %}
+			{% block breadcrumb %}{% endblock breadcrumb %}
 			{% endblock content %}
 			<!-- google_ad_section_end -->
 			
@@ -97,7 +97,7 @@ GA_googleFetchAds();
 			</div>
 			
 			<div id="facebook-widget">
-				<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="true"></fb:activity>
+				<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
 			</div>
 			
 			<div id="menu-social-media">
@@ -110,16 +110,8 @@ GA_googleFetchAds();
 			
 			<div id="menu-actions">
 				{% block actions %}
+				<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/latest/">Latest stories RSS <img src="{{ MEDIA_URL }}global/icon_rss.gif" /></a></span></p></div>
 				{% endblock actions %}
-			</div>
-
-			<div id="menu-static">
-				{% linkset 'main' as links %}
-				<ul>
-					{% for link in links %}
-						<li><a href="{{ link.url }}">{{ link.text }}</a></li>
-					{% endfor %}
-				</ul>
 			</div>
 
 			{% block poll %}{% endblock poll %}
@@ -138,27 +130,41 @@ GA_googleFetchAds();
 		</div> <!--menu-->
 		
 	</div><!--content block -->
-
-	<div id="footer-container" class="clearfix">
-		<div id="footer-ad">	
-			<center>	
-				<!-- QJ-Leaderboard-728x90 -->
-				<script type='text/javascript'>
-				GA_googleFillSlot("QJ-Leaderboard-728x90");
-				</script>
-			</center>
-		</div>
-		<div id="address" class="clearfix">
-			<p id="nameplate">The Queen's Journal</p>
-			<p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4</p>
-			<p>Editorial office: (613) 533-2800<br/>Business office: (613) 533-6711<br/>Fax: (613) 533-6728</p>
-			<p>For <strong>website inquiries</strong> only:<br/><a href="mailto:journal_web@ams.queensu.ca">journal_web@ams.queensu.ca</a><br />See the <a href="http://www.queensjournal.ca/masthead/">Masthead</a> page for a full list of contacts.</p>
-		</div>
-	</div><!--footer-container-->
+	
+	<div id="footer-ad">	
+		<center>	
+			<!-- QJ-Leaderboard-728x90 -->
+			<script type='text/javascript'>
+			GA_googleFillSlot("QJ-Leaderboard-728x90");
+			</script>
+		</center>
+	</div>
 
 	<div class="hr"><hr></div>
 
 </div><!--container-->
+
+<div id="footer" class="container">
+	<div id="address" class="clearfix">
+		<p id="nameplate">The Queen's Journal</p>
+		<p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4<br/>
+		Editorial office: (613) 533-2800<br/>Business office: (613) 533-6711<br/>Fax: (613) 533-6728</p>
+	</div>
+	<div id="footlinks">
+		{% linkset 'main' as links %}
+		<ul class="col2">
+			{% for link in links %}
+				<li><a href="{{ link.url }}">{{ link.text }}</a></li>
+			{% endfor %}
+		</ul>
+		<ul class="col1">
+		
+			{% for link in links %}
+				<li><a href="{{ link.url }}">{{ link.text }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div><!--footer-container-->
 
 	<!-- Google Analytics -->
 	<script type="text/javascript">

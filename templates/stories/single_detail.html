@@ -38,7 +38,7 @@
 
 {% block header-type %}secondary{% endblock header-type %}
 	{% block header-img %}logo_inside.gif{% endblock header-img %}
-	{% block dateline %}{{ story.issue.pub_date|date:"F j, Y" }}{% endblock dateline %}
+	{% block dateline %}{{ story.pub_date|date:"F j, Y" }}{% endblock dateline %}
 	{% if story.issue %}
 		{% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
 	{% endif %}
@@ -55,23 +55,23 @@
 		</ul>
 	{% endblock menu-stories %}
 		
-	{% block layout-type %} span-18 colborder{% endblock %}
-	{% block breadcrumb %}{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/icon_email.gif" /></a>&emsp;<a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}global/icon_print.gif" /></a></span></p></div>
 	{% endblock actions %}
 	{% block content %}
 		<!-- google_ad_section_start -->
 		<div id="story" class="story clearfix">
+			{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %} <a href="{% url stories.views.index_issue_front story.issue.pub_date %}" class="issue">{{ story.issue }} - {{ story.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
+			
 			<h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
-			<h4 class="story-deck">{{ story.kick|stripspace|convert_entities|widont }}</h4>
+			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
 			{{ story.pub_date|date:"jS F Y" }}
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors }}{% endifnotequal %}</p>	  
 			
 			{% if story.show_headshots %}
-				{% for author in story.storyauthor_set.all %}
-					<div class="headshot"><img src="{{ author.author.headshot.display.url }}" /><br/>
-					<a href="{{ author.author.get_absolute_url }}">{{ author.author.name }}</a></div>
+				{% for sauthor in story.storyauthor_set.all %}
+					<div class="headshot"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
+					<a href="{{ sauthor.author.get_absolute_url }}">{{ author.author.name }}</a></div>
 				{% endfor %}
 			{% endif %}
 				
@@ -191,7 +191,7 @@
 			{% if story.gallery_set.all %}
 				{% for gallery in story.gallery_set.all %}
 					<div class="gallery-container clearfix">
-						<h4>{{ gallery.name|widont }}</h4>
+						<h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
 						<div class="thumbs-container">
 						{% for image in gallery.images.all %}
 						<a class="gallery" rel="{{ gallery.name|slugify }}" href="{{ image.gallery_image.url }}"{% if image.caption %} title="{{ image.caption|escape }} ({{ image.list_photographer }})"{% endif %}><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>

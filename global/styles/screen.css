@@ -182,12 +182,6 @@ a img {
 	color: white;
 	font-family: ClassGaramond, Garamond, Times, serif;
 }
-
-	#dateline, #issueline {
-		font-weight: bold;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-	}
 	#hr-header hr {
 		border-bottom: 2px solid #fff;
 		display: block;
@@ -338,28 +332,69 @@ a img {
 	
 
 /* =GLOBAL-FOOTERS */
-#footer-container {
-	margin: 0 auto;
-	clear: both;
-}
 #footer-ad {
-	width: 900px;
-	height: 90px;
-	margin-bottom: 20px;
+	background-color: #eee;
+	padding: 1em 0 1em 0;
+	margin-top: 1em;
 }
-	#footer-container #address {
-		background-color: #d5e6ee;
-		padding-bottom: 3em;
+#footer {
+	width: 930px;
+	min-width: 930px;
+	margin: 0 auto;
+	background-color: #444;
+	padding: 2em 2em 3em 2em;
+	
+	box-shadow: inset 0 5px 10px #000;
+	-moz-box-shadow: inset 0 5px 10px #000;
+	-webkit-box-shadow: inset 0 5px 10px #000;
+	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#666666'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(0.05, #444), color-stop(0.7, #555), to(#666)); /* for webkit browsers */
+	background: -moz-linear-gradient(top, #fff, #fff 25%, #DEE4F6); /* for firefox 3.6+ */
+}
+	#address {
+		font: 1.05em 'Myriad Pro', 'Myriad', Helvetica, Arial, Verdana, sans-serif;
+		text-shadow: 0px -1px 1px #000;
+		filter: dropshadow(color=#000,offX=0,offY=-1);
+		color: #aaa;
+		line-height: 1.5em;
+		float: left;
 	}
-		#footer-container #address p {
-			float: left;
-			font-family: Helvetica, Arial, sans-serif;
-			line-height: 1.5em;
-			margin: 1em 1em 0 2em;
+		#nameplate {
+			text-shadow: 0px -2px 0px #000;
+			filter: dropshadow(color=#000,offX=0,offY=-2);
+			font: 2em ClassGaramond, Garamond, Times, serif bold;
+			text-transform: uppercase;
+			margin-bottom: 0.25em;
 		}
-		#footer-container #address p#nameplate {
-			font-weight: bold;
-		}
+	#footlinks {
+		font: 1.1em ClassGaramond, Garamond, Times, serif bold;
+		text-shadow: 0px -1px 1px #000;
+		filter: dropshadow(color=#000,offX=0,offY=-1);
+		text-transform: uppercase;
+		color: #aaa;
+		text-align: right;
+		overflow: hidden;
+	}
+	#footlinks ul {
+		float: right;
+		padding: 0 0 0 4em;
+		margin-top: 1em;
+	}
+	#footlinks li {
+		list-style-type: none;
+	}
+	#footlinks a {
+		color: #aaa;
+	}
+	#footlinks .col1 {
+		border-right: 1px solid #000;
+		padding-right: 4em;
+		margin: 1em 0 0 0;
+	}
+	#footlinks .col2 {
+		border-left: 1px solid #888;
+	}
 		
 /* =FRONT-PAGES */
 
@@ -527,37 +562,46 @@ a img {
 	
 /* =GLOBAL-CONTENT */
 	
-		#breadcrumb {
-			margin: 1em 0 0 0;
-		}
-		#breadcrumb p {
-			font-family: Helvetica, Arial, sans-serif;
-			font-size: 1.1667em;
-			font-weight: bold;
-			line-height: 18px;
-			margin: 0;
-			text-transform: uppercase;
-		}
-	#issue-banner {
-		background-color: #96c0d5;
-		border: 1px solid #2d81ab;
-		margin: 2em 0;
+	#breadcrumb {
+		height: 28px;
+		margin: 0 1.5em 3em 0;
+		background-color: #D2DDEF;
+		-moz-border-radius: 7px;
+	    -webkit-border-radius: 7px;
+	    border-radius: 7px;
+		padding: 0 10px 0 10px;
+		font-family: Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		line-height: 18px;
+		text-transform: uppercase;
 	}
-		#issue-banner h1 {
-			float: left;
-			font-variant: small-caps;
-			margin: 5px;
-		}
-		#issue-banner h4 {
-			font-style: italic;
-			float: right;
-			line-height: 2.571em;
-			margin: 5px;
-		}
+	
+	#breadcrumb span.divider {
+		display: inline-block;
+		width: 14px;
+		height: 28px;
+		background-image: url('images/bc-divider.png');
+		margin: 0 10px 0 10px;
+		
+	}
+	#breadcrumb a {
+		position: relative;
+		bottom: 10px;
+		color: #0B67A3;
+	}
+	#breadcrumb a:hover {
+		color: black;
+	}
+	#breadcrumb span.current {
+		position: relative;
+		bottom: 10px;
+	}
+	.story #breadcrumb {
+		margin-right: 0;
+	}
 	
 	.story {
 		margin: 1em 0 0 0;
-		width: 100%;
 	}
 		.story-caption {
 			font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
@@ -601,9 +645,6 @@ a img {
 		}
 		#story-socmedia h4 {
 			margin: 1em 0 5px 0;
-		}
-		.story-deck {
-			width: 450px;
 		}
 		.story-byline {
 			border-top: 1px solid #ccc;

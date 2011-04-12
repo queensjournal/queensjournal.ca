@@ -21,6 +21,7 @@
 	{% block content-class %} span-19 front-content{% endblock %}	
 	
 	{% block content %}
+	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ config.section }}</span></div>{% endblock %}
 	<div class="section-header">
 		<h1>{{ config.section.name }}</h1>
 	</div>

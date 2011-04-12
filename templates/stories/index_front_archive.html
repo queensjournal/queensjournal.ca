@@ -15,10 +15,6 @@
 {% endblock headcode %}
 
 	{% block title %}{{ config.issue.pub_date|date:"F j, Y" }} - {{ config.issue }} - {{ block.super }}{% endblock title %}
-
-	{% block actions %}
-		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/latest/">Latest stories RSS <img src="{{ MEDIA_URL }}global/icon_rss.gif" /></a></span></p></div>
-	{% endblock actions %}
 	
 	{% block issue-banner %}
 		{% if config.issue.extra %}
@@ -31,9 +27,10 @@
 	{% block content-class %} span-19 front-content{% endblock %}
 	
 	{% block content %}
-	<div class="section-header">
-		<h1>{{ config.issue }} <span class="issue-date"> - {{ config.issue.pub_date|date:"F j, Y" }}</span></h1>
-	</div>
+	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
+		<div class="section-header">
+			<h1>Issue {{ config.issue.issue }} - {{ config.issue.pub_date|date:"F j, Y" }}</h1>
+		</div>
 
 	<div class="hr dblmargin"><hr></div>
 	
@@ -45,7 +42,7 @@
 
 		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
 					{% for story in featured %}
-		                <img src="{{ story.first_photo.photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+		                <img src="{{ story.first_photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
 		            {% endfor %}
 		            </div>
 					{% for story in featured %}
@@ -54,7 +51,6 @@
 			{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
 						<h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
 						{{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
-						<!--<p class="slider-readmore"><a href="{{ story.story.get_absolute_url }}">Full Story</a></p>-->
 		            </div>
 					{% endfor %}
 		       
@@ -150,7 +146,6 @@
 	{% endblock poll %}
 	
 {% block footercode %}
-<script type="text/javascript">
     $(window).load(function() {
         $('#slider').nivoSlider({
 			directionNav:true,
@@ -161,14 +156,11 @@
 			captionOpacity:1,
 		});
     });
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
+	$(window).load(function(){
 		$('#section-stories').masonry({
  			singleMode: true,
 			columnWidth: 248,
 			itemSelector: '.latest-section' 
 		});
 	});
-</script>
 {% endblock footercode %}

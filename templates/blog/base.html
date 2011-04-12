@@ -10,12 +10,8 @@
 
 {% block title %}{{ blog.title }} - {{ block.super }}{% endblock title %}
 
-{% block header-type %}secondary{% endblock header-type %}
-	{% block dateline %}Journal blogs{% endblock dateline %}
-
 	<!-- google_ad_section_start -->
 	{% block content %}
-		<div id="blog-column">
 			<h1 class="blog-head">{{ blog.title }}</h1>
 			{% block blog-filter %}{% endblock blog-filter %}
 			{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ MEDIA_URL }}/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
@@ -39,7 +35,6 @@
 					{% endifnotequal %}
 				{% endfor %}
 				</ul>
-			</div>
 			{% block blog-content %}{% endblock blog-content %}
 		</div>
 	{% endblock content %}
