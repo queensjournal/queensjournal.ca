@@ -127,7 +127,7 @@ def index_section_latest(request, section):
 	return HttpResponseRedirect('/story/%s/%s/' % (issue.pub_date.strftime("%Y-%m-%d"), section))
 '''	
 def detail_story(request, datestring, section, slug):
-	story_selected = get_object_or_404(Story, pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+	story_selected = get_object_or_404(Story, section__slug__exact=section, slug__exact=slug)
 	section_config = SectionFrontConfig.objects.get(section__slug=section)
 	try:
 		author = StoryAuthor.objects.filter(story__slug__exact=slug)[0]
