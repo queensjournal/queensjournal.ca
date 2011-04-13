@@ -1,4 +1,4 @@
-from django import newforms as forms
+from django import forms
 from images.models import Image
 
 class ImageForm(forms.Form):
