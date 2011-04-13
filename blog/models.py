@@ -2,9 +2,19 @@ from datetime import datetime
 from django.db import models
 from django.db.models import permalink
 from structure.models import Author
+from imagekit.models import ImageModel
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
+class BlogImage(ImageModel):
+	slug = models.SlugField()
+	image = models.ImageField(upload_to="blogs/", help_text="Bigger is better. Jpeg.")
+	
+	class IKOptions:
+		# Defining ImageKit options
+		spec_module = 'blog.blog_specs'
+		cache_dir = 'photo_cache'
+		image_field = 'image'
 
 class Blog(models.Model):
 	title = models.CharField(max_length=255, help_text='Short name for the blog.', unique=True)
@@ -12,6 +22,8 @@ class Blog(models.Model):
 	description = models.TextField(blank=True, help_text="Description of the blog's content.")
 	bloggers = models.ManyToManyField(Author)
 	active = models.BooleanField('Blog is active?', default=True, help_text='You can disable blogs that are no longer being updated. They will be filed under the Archived Blogs page.')
+	image = models.ForeignKey(BlogImage, blank=True, null=True)
+	order = models.IntegerField(help_text="Order that the Blog will show up on the Blog page.")
 
 	class Meta:
 		ordering			= ('title',)
