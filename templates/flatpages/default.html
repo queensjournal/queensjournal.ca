@@ -2,19 +2,21 @@
 {% load navigation %}
 {% load custom_html %}
 {% load typogrify %}
-{% current_issue as issue %}
+{% load media_url %}
 
 {% block title %}{{ flatpage.title }} - Queen's Journal{% endblock title %}
-{% block breadcrumb %}<a href="/">Home</a> &raquo; {{ flatpage.title }}{% endblock breadcrumb %}
-{% block actions %}
-	<div id="actions"><p><a href="javascript:print_preview()">print <img src="/media/global/icon_print.gif" /></a></span></p></div>
-{% endblock actions %}
+
 {% block content %}
+
+{% block breadcrumb %}<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ flatpage.title }}</span></div>{% endblock breadcrumb %}
 	<div class="story">
+		{% block story-actions %}
+		<div id="story-actions"><p><a href="javascript:print_preview()">Print <img src="{{ MEDIA_URL }}global/icon_print.gif" /></a></span></p></div>
+		{% endblock story-actions %}
 		<h1 class="story-head">{{ flatpage.title|typogrify }}</h1>
 		<p class="story-byline"></p>
 		<div class="story-content">		
-		{{ flatpage.content|linebreakswithcode|typogrify }}
+		{{ flatpage.content|linebreakswithcode|typogrify|media_url }}
 		</div>
 	</div>
 {% endblock content %}
