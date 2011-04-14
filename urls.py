@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from feeds import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -6,6 +7,15 @@ admin.autodiscover()
 
 import oembed
 oembed.autodiscover()
+
+feeds = {
+    'latest': LatestStories,
+    'section': LatestStoriesSection,
+    'allblogs': LatestPostsAllBlogs,
+    'blogs': LatestPostsSingleBlog,
+    'blog-author': LatestPostsSingleAuthor,
+##    'calendar': LatestCalendar,
+}
 	
 urlpatterns = patterns('',
 	(r'^polls/', include('polls.urls')),
@@ -15,10 +25,12 @@ urlpatterns = patterns('',
 	(r'^blogs/', include('blog.urls')),
 	(r'^video/', include('video.urls')),
 	(r'^staff/', include('staff.urls')),
+	(r'^images/', include('images.urls')),
 	(r'^masthead/', include('masthead.urls')),
 	(r'^search/', include('haystack.urls')),
 	(r'^author/(?P<author>[\w-]+)/$', 'stories.views.detail_author'),
-	(r'^rss/', include('feed_urls')),
+	(r'^rss/(?P<url>.*)/', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
+	(r'^archives/', include('stories.archive_urls')),
 	
 	# Uncomment the admin/doc line below to enable admin documentation:
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
