@@ -4,7 +4,7 @@
 {% block content %}
 <ul id="staff-apps">
 	{% for blog in blogs %}
-		<li><a href="{% url journal.staff.blog.views.entries_index blog.slug %}"><h3>{{ blog.title }}</h3></a></li>
+		<li><a href="{% url staff.blog_admin.views.entries_index blog.slug %}"><h3>{{ blog.title }}</h3></a></li>
 	{% endfor %}
 </ul>
 {% endblock content %}

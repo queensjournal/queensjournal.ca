@@ -19,7 +19,7 @@
 		
 		<fieldset id="form-details">
 			<legend>Details</legend>
-			<div id="form-creator" class="display-field"><label for="id_creator">Request creator:</label><br/>{{ object.creator.first_name|escape }} {{ object.creator.last_name|escape }} ({{ object.creator.username|escape }})</div>
+			<div id="form-creator" class="display-field"><label for="id_creator">Request creator:</label><br/>{{ object.creator.name|escape }} ({{ object.creator.username|escape }})</div>
 			<div id="form-section" class="display-field"><label for="id_section">Section:</label><br/>{{ object.section.name|escape }}</div>
 			<div id="form-notes" class="display-field"><label for="id_notes">Notes:</label><br/>
 			<blockquote>{{ object.notes|default:"(none)"|escape|linebreaks }}</blockquote>

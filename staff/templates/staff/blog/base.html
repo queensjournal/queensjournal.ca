@@ -2,11 +2,11 @@
 {% block menu %}			
 <div id="menu" class="clearfix">
 	<ul>
-		<li><a href="{% url journal.staff.blog.views.all_blogs %}">Your blogs</a></li>
-		<li><a href="{% url journal.staff.blog.views.dashboard blog.slug %}">Dashboard</a></li>
-		<li><a href="{% url journal.staff.blog.views.entries_index blog.slug %}">Manage</a></li>
-		<li><a href="{% url journal.staff.blog.views.entry_add blog.slug %}">Write</a></li>
-		<li><a href="{% url journal.staff.blog.views.profile_edit blog.slug %}">Profile</a></li>
+		<li><a href="{% url staff.blog_admin.views.all_blogs %}">Your blogs</a></li>
+		<li><a href="{% url staff.blog_admin.views.dashboard blog.slug %}">Dashboard</a></li>
+		<li><a href="{% url staff.blog_admin.views.entries_index blog.slug %}">Manage</a></li>
+		<li><a href="{% url staff.blog_admin.views.entry_add blog.slug %}">Write</a></li>
+		<li><a href="{% url staff.blog_admin.views.profile_edit blog.slug %}">Profile</a></li>
 	</ul>
 </div>
 {% endblock menu %}

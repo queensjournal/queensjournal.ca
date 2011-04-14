@@ -16,21 +16,12 @@
 <div class="flash {{ params.type }}">{{ msg }}{% if params.new %} <a href="{{ params.new.get_absolute_url }}">View post &raquo;</a>{% endif %}</div>
 {% endflash %}
 <div id="dashboard-entries" class="dashboard-box">
-<h3>Entries (<a href="{% url journal.staff.blog.views.entries_index blog.slug %}">more</a>)</h3>
+<h3>Entries (<a href="{% url staff.blog_admin.views.entries_index blog.slug %}">more</a>)</h3>
 {% latest_entries blog.slug 5 as entries %}
 <ul>
 {% for entry in entries %}
 	<li><h4><a href="{{ entry.get_absolute_url }}" target="_blank">{{ entry.title }}</a> by {{ entry.author.user.get_full_name }}</h4>
 	<p>{{ entry.content|striptags|truncatewords:20|wordwrap:20 }}</p></li>
-{% endfor %}
-</ul>
-</div>
-<div id="dashboard-comments" class="dashboard-box">
-<h3>Comments (<a href="{% url journal.staff.commentmod.views.comment_index %}">more</a>)</h3>
-{% latest_comments blog.slug 10 as comments %}
-<ul>
-{% for comment in comments %}
-	<li><a href="{{ comment.get_absolute_url }}" target="_blank">{{ comment.person_name }}</a> on <a href="{{ comment.get_content_object.get_absolute_url }}">{{ comment.get_content_object.title }}</a></li>
 {% endfor %}
 </ul>
 </div>
