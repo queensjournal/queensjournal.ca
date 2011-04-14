@@ -1,5 +1,4 @@
 from django import template
-from django.contrib.comments.models import FreeComment
 from django.contrib.contenttypes.models import ContentType
 from blog.models import Entry
 import feedparser
@@ -17,22 +16,7 @@ class LatestEntriesNode(template.Node):
 
     def render(self, context):
         blog_slug = template.resolve_variable(self.blog, context)
-        context[self.varname] = Entry.objects.published_on_blog(blog_slug).order_by('-date_published')[:self.num]
-        return ''
-
-
-class LatestCommentsNode(template.Node):
-    """
-    Returns a context dictionary containing the last x comments.
-    """
-    def __init__(self, varname, blog, num):
-        self.varname = varname
-        self.blog = blog
-        self.num = int(num)
-
-    def render(self, context):
-        blog_slug = template.resolve_variable(self.blog, context)
-        context[self.varname] = FreeComment.objects.filter(content_type=ContentType.objects.get_for_model(Entry),object_id__in=[x.id for x in Entry.objects.published_on_blog(blog_slug)])[:self.num]
+        context[self.varname] = Entry.objects.published_on_blog(blog_slug).order_by('-pub_date')[:self.num]
         return ''
 
 
@@ -49,18 +33,6 @@ class LatestLinksNode(template.Node):
         feed = feedparser.parse(self.url)
         context[self.varname] = feed.entries[:self.num]
         return ''
-
-        
-def do_latest_comments(parser, token):
-    """
-    {% latest_comments blog.slug 10 as entries %}
-    """
-    bits = token.contents.split()
-    if len(bits) != 5:
-        raise template.TemplateSyntaxError, "'%s' tag takes three arguments" % bits[0]
-    if bits[3] != 'as':
-        raise template.TemplateSyntaxError, "Second argument to '%s' tag must be 'as'" % bits[0]
-    return LatestCommentsNode(bits[4], bits[1], bits[2])
 
 def do_latest_entries(parser, token):
     """
@@ -85,5 +57,4 @@ def do_latest_links(parser, token):
     return LatestLinksNode(bits[4], bits[2], bits[1])
 
 register.tag('latest_entries', do_latest_entries)
-register.tag('latest_comments', do_latest_comments)
 register.tag('latest_links', do_latest_links)

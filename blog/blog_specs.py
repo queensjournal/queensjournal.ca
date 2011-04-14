@@ -17,7 +17,7 @@ class ResizeThumb(processors.Resize):
 # now we define a display size resize processor
 class ResizeHeader(processors.Resize):
 	width = 720
-	height = 300
+	height = 150
 	crop = True
 
 class ResizeFront(processors.Resize):

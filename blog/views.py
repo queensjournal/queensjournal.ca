@@ -5,16 +5,18 @@ from django.http import Http404
 from django.db.models import Q
 from blog.models import Blog, Entry, Category
 from structure.models import Author
+from tagging.models import Tag
+from tagging.utils import calculate_cloud
 
 def all_blogs(request, active=True):
 	"""
 	List of all blogs. Defaults to listing active blogs.
 	"""
-	qs = Blog.objects.filter(active=active).order_by('title')
+	qs = Blog.objects.filter(active=active).order_by('order')
 	featured = []
 	for blog in qs:
-		featured.extend(Entry.objects.filter(blog=blog, is_published=True).order_by('-date_published')[:1])
-	latest = Entry.objects.filter(is_published=True).order_by('-date_published')[:5]
+		featured.extend(Entry.objects.has_photos(blog)[:1])
+	latest = Entry.objects.filter(pub_date__lte=datetime.now()).order_by('-pub_date')[:5]
 	c = {'active': active,
 		 'archives': Blog.objects.filter(active=False).count() > 0,
 		'featured': featured,
@@ -26,9 +28,12 @@ def blog_index(request, blog, page=1):
 	Blog front page. Displays latest blog posts, excluding future posts.
 	Paginated.
 	"""
+	blog_tags = Tag.objects.usage_for_model(Entry, counts=True, filters=dict(blog__slug=blog))
+	cloud = calculate_cloud(blog_tags)
 	blog_obj = get_object_or_404(Blog, slug=blog)
-	qs = Entry.objects.published_on_blog(blog).order_by('-date_published')
-	c = {'blog': blog_obj}
+	qs = Entry.objects.published_on_blog(blog).order_by('-pub_date')
+	c = {'blog': blog_obj,
+		'blog_tags': cloud}
 	return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, page=page, extra_context=c)
 
 def blog_archive_month(request, blog, year, month, page=1):
@@ -124,7 +129,7 @@ def blog_author(request, author_id):
 	Author profile. Displays the profile of the selected author.
 	"""
 	qs = Author.objects.all()
-	entries = Entry.objects.published().filter(author__id=author_id).order_by('-date_published')[:10]
+	entries = Entry.objects.published().filter(author__id=author_id).order_by('-pub_date')[:10]
 	return object_detail(request, queryset=qs, object_id=author_id, extra_context={'entries': entries})
 
 def blog_all_authors(request, blog):
