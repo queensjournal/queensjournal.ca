@@ -43,15 +43,16 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<img src="{{ image.get_image_url }}" class="widget-image" />
+<img src="{{ image.thumbnail_image.url }}" class="widget-image" />
 <div class="widget-markup">
 	<h1>{{ image.name }}</h1>
 	<span>Uploaded {{ image.date_added|date:"F j, Y" }}</span>
 	<div id="noscript">
 		<p><strong>Copy the following markup and paste it into your blog post:</strong></p>
 		<input type="text" value="&lt;!--image:&quot;{{ image.slug }}&quot;--&gt;" style="width: 400px" />
+		{% csrf_token %}
 	</div>
-	<p><a href="{% url ]images.views.images_add %}">Add another image</a></p>
+	<p><a href="{% url images.views.images_add %}">Add another image</a></p>
 	<span style="display: none" id="slug">{{ image.slug }}</span>
 </div>
 </body>
