@@ -94,7 +94,7 @@ class Story(models.Model):
 		
 	def save(self, *args, **kwargs):
 		if self.status is 'p':
-			super(Story, self).is_published = True
+			self.is_published = True
 		super(Story, self).save(*args, **kwargs)
 	
 	@models.permalink	
