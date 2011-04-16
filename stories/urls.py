@@ -1,5 +1,4 @@
 from django.conf.urls.defaults import *
-from stories.models import Story
 
 urlpatterns = patterns('',
 	(r'^(?P<datestring>\d{4}-\d{1,2}-\d{1,2})/$', 'stories.views.index_issue_front'),

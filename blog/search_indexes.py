@@ -2,6 +2,7 @@ import datetime
 from haystack.indexes import *
 from haystack import site
 from blog.models import Entry
+from tagging.models import Tag, TaggedItem
 
 class EntryIndex(SearchIndex):
 	text = CharField(document=True, use_template=True)
@@ -13,9 +14,10 @@ class EntryIndex(SearchIndex):
 		return Entry.objects.filter(pub_date__lte=datetime.datetime.now())
 		
 	def prepare_tags(self, obj):
-		try:
-			return [tag for tag in obj.tags]
-		except TypeError:
-			return False
+		tags = Tag.objects.get_for_object(Entry.objects.filter(pub_date=self.prepared_data['pub_date'])[0])
+		if not tags is None:
+			return tags
+		else:
+			return u'No Tags'
 		
 site.register(Entry, EntryIndex)

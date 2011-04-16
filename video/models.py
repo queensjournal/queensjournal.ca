@@ -14,7 +14,8 @@ class Video(ImageModel):
 	caption = models.TextField()
 	photographer = models.ForeignKey(Author, blank=True, null=True)
 	screenshot = models.ImageField(upload_to='video_thumbs/%Y/%m/%d', help_text='Please convert all images to RGB JPEGs.')
-	published = models.BooleanField()
+	is_published = models.BooleanField()
+	is_tweeted = models.BooleanField(editable=False, default=False)
 	
 	class IKOptions:
 		# Defining ImageKit options
@@ -30,6 +31,9 @@ class Video(ImageModel):
 		return ('video.views.detail_video', (), {
 			'datestring': self.pub_date.strftime("%Y-%m-%d"),
 			'slug': self.slug})
+			
+	def get_twitter_message(self):
+		return u'Video: %s: %s' % (self.name)
 			
 	def __unicode__(self):
 		return self.name

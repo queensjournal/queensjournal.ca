@@ -7,6 +7,11 @@ from imagekit import processors
 ## Should preserve color errors when converting from CMYK
 class MakeRGB(processors.Adjustment):
 	color = 1.0
+	
+class HeaderColor(processors.Adjustment):
+	color = 0.3
+	contrast = 0.8
+	
 
 # first we define our thumbnail resize processor 
 class ResizeThumb(processors.Resize): 
@@ -17,7 +22,7 @@ class ResizeThumb(processors.Resize):
 # now we define a display size resize processor
 class ResizeHeader(processors.Resize):
 	width = 720
-	height = 150
+	height = 100
 	crop = True
 
 class ResizeFront(processors.Resize):
@@ -40,7 +45,7 @@ class Thumbnail(ImageSpec):
 class Header(ImageSpec):
 	quality = 85
 	access_as = "header_image"
-	processors = [MakeRGB, ResizeHeader]
+	processors = [HeaderColor, ResizeHeader]
 
 class Front(ImageSpec):
 	quality = 85

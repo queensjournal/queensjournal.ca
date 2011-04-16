@@ -10,6 +10,7 @@ from django.db.models.query import QuerySet
 from images.models import Image
 from tagging.fields import TagField
 from tagging.models import Tag
+from dependencies.twitter_update import post_to_twitter
 
 class BlogImage(ImageModel):
 	slug = models.SlugField()
@@ -101,6 +102,7 @@ class Entry(models.Model):
 	date_saved = models.DateTimeField(editable=False, default=datetime.now)
 	date_draft_or_publish = models.DateTimeField(editable=False, default=datetime.now)
 	pub_date = models.DateTimeField(default=datetime.now, blank=True, null=True, help_text='If you wish to keep a post hidden until some time in the future, check the Published box and change this date to when you want the post to go live.')
+	is_tweeted = models.BooleanField(editable=False, default=False)
 	objects = EntryManager()
 	
 	class Meta:
@@ -148,6 +150,11 @@ class Entry(models.Model):
 			'month': self.pub_date.strftime('%m'),
 			'slug': self.slug})
 	get_absolute_url = permalink(get_absolute_url)
+	
+	def get_twitter_message(self):
+		return u'%s: %s' % (self.title, self.content)
+
+models.signals.pre_save.connect(post_to_twitter, sender=Entry)
 	
 
 class Category(models.Model):

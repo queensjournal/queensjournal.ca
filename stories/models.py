@@ -6,6 +6,7 @@ from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
 from django.db.models import Q
+from dependencies.twitter_update import post_to_twitter
 
 STATUS_CHOICES = (
 	('d', 'Draft'),
@@ -16,7 +17,7 @@ STATUS_CHOICES = (
 class Story(models.Model):
 	head = models.CharField(max_length=255)
 	deck = models.CharField(max_length=255, blank=True, null=True)
-	slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting. If a story with the same slug already exists for the given issue and section, just change the slug slightly so it doesn\'t conflict.')
+	slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting. If a story with the same slug already exists for the given issue and section, just change the slug slightly so it doesn\'t conflict.', unique=True)
 	section = models.ForeignKey(Section)
 	issue = models.ForeignKey(Issue, null=True, blank=True)
 	label = models.CharField(max_length=255, blank=True, null=True, editable=False)
@@ -29,7 +30,9 @@ class Story(models.Model):
 	featured = models.BooleanField()
 	pub_date = models.DateTimeField(default=datetime.datetime.now(), unique=True)
 	status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-
+	is_tweeted = models.BooleanField(editable=False, default=False)
+	is_published = models.BooleanField(editable=False)
+	
 	class Meta:
 		verbose_name_plural = "Stories"
 		get_latest_by = 'pub_date'
@@ -42,9 +45,9 @@ class Story(models.Model):
 		# byline names
 		for wrapper in author_qset:
 			if (author_num > 1 and wrapper != author_qset[-2]) or author_num == 1:
-				authors.append(wrapper.author.name + ',')
+				authors.append('<a href="/author/%s/">%s</a>, ' % (wrapper.author.slug, wrapper.author.name))
 			else:
-				authors.append(wrapper.author.name)
+				authors.append('<a href="/author/%s/">%s</a>' % (wrapper.author.slug, wrapper.author.name))
 		# byline titles
 		if author_num > 1:
 			authors.insert(-1, 'and')
@@ -88,6 +91,11 @@ class Story(models.Model):
 	
 	def __unicode__(self):
 		return self.head
+		
+	def save(self, *args, **kwargs):
+		if self.status is 'p':
+			super(Story, self).is_published = True
+		super(Story, self).save(*args, **kwargs)
 	
 	@models.permalink	
 	def get_absolute_url(self):
@@ -95,6 +103,11 @@ class Story(models.Model):
 			'datestring': self.pub_date.strftime("%Y-%m-%d"),
 			'section': self.section.slug,
 			'slug': self.slug})
+			
+	def get_twitter_message(self):
+		return u'%s: %s' % (self.head, self.summary)
+			
+models.signals.pre_save.connect(post_to_twitter, sender=Story)
 	
 class StoryAuthor(models.Model):
 	author = models.ForeignKey(Author, default=None)

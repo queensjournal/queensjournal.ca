@@ -5,7 +5,7 @@ from stories.views import parse_date
 
 def detail_video(request, datestring, slug):
 	video_selected = get_object_or_404(Video, slug__exact=slug)
-	latest_videos = Video.objects.filter(published=True).exclude(slug=slug)[:2]
+	latest_videos = Video.objects.filter(is_published=True).exclude(slug=slug)[:2]
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('video/detail_video.html',
