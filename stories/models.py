@@ -93,7 +93,7 @@ class Story(models.Model):
 		return self.head
 		
 	def save(self, *args, **kwargs):
-		if super(Story, self).status is 'p':
+		if self.status is 'p':
 			super(Story, self).is_published = True
 		super(Story, self).save(*args, **kwargs)
 	
@@ -107,7 +107,7 @@ class Story(models.Model):
 	def get_twitter_message(self):
 		return u'%s: %s' % (self.head, self.summary)
 			
-models.signals.pre_save.connect(post_to_twitter, sender=Story)
+models.signals.post_save.connect(post_to_twitter, sender=Story)
 	
 class StoryAuthor(models.Model):
 	author = models.ForeignKey(Author, default=None)

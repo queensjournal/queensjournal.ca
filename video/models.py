@@ -4,6 +4,7 @@ from imagekit.models import ImageModel
 from structure.models import Author
 from tagging.fields import TagField
 from tagging.models import Tag
+from dependencies.twitter_update import post_to_twitter
 
 class Video(ImageModel):
 	name = models.CharField(max_length=255)
@@ -37,3 +38,5 @@ class Video(ImageModel):
 			
 	def __unicode__(self):
 		return self.name
+		
+models.signals.post_save.connect(post_to_twitter, sender=Video)

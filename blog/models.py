@@ -154,7 +154,7 @@ class Entry(models.Model):
 	def get_twitter_message(self):
 		return u'%s: %s' % (self.title, self.content)
 
-models.signals.pre_save.connect(post_to_twitter, sender=Entry)
+models.signals.post_save.connect(post_to_twitter, sender=Entry)
 	
 
 class Category(models.Model):
