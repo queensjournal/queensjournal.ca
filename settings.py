@@ -2,6 +2,7 @@
 # Import settings_local.py for site-specific vars
 # (keeps everything nice and tidy in the repository!)
 from settings_local import *
+import os
 
 ADMINS = (
 	('tyler', 'tyler@tylerball.net'),
@@ -111,10 +112,10 @@ INSTALLED_APPS = (
 )
 
 SHORTEN_MODELS = {
-            's': 'stories.story',
-            'b': 'blog.entry',
-			'v': 'video.video',
-        }
+	's': 'stories.story',
+	'b': 'blog.entry',
+	'v': 'video.video',
+	}
 
 SHORT_BASE_URL = "http://qjrnl.net/"
 SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"
@@ -124,3 +125,15 @@ DISQUS_WEBSITE_SHORTNAME = "queensjournal"
 
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 15
+
+TINYMCE_JS_URL = os.path.join(MEDIA_ROOT, "js/tiny_mce/tiny_mce.js")
+TINYMCE_JS_ROOT = os.path.join(MEDIA_ROOT, "js/tiny_mce")
+TINYMCE_DEFAULT_CONFIG = {
+	'plugins': "table,spellchecker,paste,searchreplace",
+	'theme': "advanced",
+	'cleanup_on_startup': True,
+	'custom_undo_redo_levels': 10,
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
