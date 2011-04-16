@@ -93,7 +93,7 @@ class Story(models.Model):
 		return self.head
 		
 	def save(self, *args, **kwargs):
-		if self.status is 'p':
+		if super(Story, self).status is 'p':
 			super(Story, self).is_published = True
 		super(Story, self).save(*args, **kwargs)
 	
@@ -123,7 +123,7 @@ class Photo(ImageModel):
 	name = models.CharField(max_length=255, unique=True)
 	slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting.')
 	photo = models.ImageField(upload_to='story_photos/%Y/%m/%d', help_text='Please convert all images to RGB JPEGs.')
-	thumbnail = models.ImageField(upload_to='thumbs/', editable=False)
+	thumbnail = models.ImageField(upload_to='thumbs/', editable=False, null=True, default='')
 	issue = models.ForeignKey(Issue, blank=True, null=True)
 	caption = models.TextField(blank=True)
 	photographer = models.ForeignKey(Author, blank=True, null=True)
