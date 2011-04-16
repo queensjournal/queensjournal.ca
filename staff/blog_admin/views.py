@@ -38,7 +38,10 @@ def all_blogs(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
 	else:
-		author = Author.objects.get(user=request.user)
+		try:
+			profile = Author.objects.get(user=request.user)
+		except Author.DoesNotExist:
+			return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
 		## blog admins always have access
 		if request.user.has_perms(['blog.add_blog','blog.change_blog','blog.delete_blog']):
 			blogs = Blog.objects.all()
@@ -71,7 +74,10 @@ def profile_edit(request, blog):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
 	else:
-		profile = Author.objects.get(user=request.user)
+		try:
+			profile = Author.objects.get(user=request.user)
+		except Author.DoesNotExist:
+			return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
 		c = {'profile': profile,
 			 'add_entry': request.user.has_perm('blog.add_entry'),
 			 'blog': Blog.objects.get(slug__exact=blog)}
@@ -178,7 +184,7 @@ def entries_index(request, blog):
 			c['view_own_drafts'] = True
 			c['view_all_drafts'] = False
 		c['full_list'] = Entry.objects.all()
-		c['dates_list'] = Entry.objects.dates('date_published','month',order='DESC')
+		c['dates_list'] = Entry.objects.dates('pub_date','month',order='DESC')
 		c['category_list'] = Category.objects.order_by('name')
 		c['author_list'] = Author.objects.select_related(depth=1).filter(user__is_staff=True).order_by('name')
 		if request.session.get('flash_params') and (request.session['flash_params'].get('action') == 'add' or request.session['flash_params'].get('action') == 'edit') and Entry.objects.count() > 0:
@@ -259,7 +265,7 @@ def entry_ajax_preview(request):
 				'author': Author.objects.get(pk=form.cleaned_data['author']),
 				'categories': Category.objects.filter(id__in=form.cleaned_data['categories']),
 				'content': form.cleaned_data['content'],
-				'date_published': datetime.now(),
+				'pub_date': datetime.now(),
 				}
 			return render_to_response('staff/blog/entry_preview.html',
 									  {'object': preview,

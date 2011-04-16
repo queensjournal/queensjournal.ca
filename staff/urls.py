@@ -6,5 +6,5 @@ urlpatterns = patterns('',
 	(r'^login/$', user_login),
 	(r'^logout/$', user_logout),
 	(r'^requests/', include('staff.requests.urls')),
-	(r'^blogs/', include('staff.blog.urls')),
+	(r'^blogs/', include('staff.blog_admin.urls')),
 	)
