@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load highlight %}
+{% load search_dates %}
 
 {% block content %}
 {% block breadcrumb %}<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Search</span></div>{% endblock %}
@@ -7,46 +8,56 @@
 	<h1>Search</h1>
 	<hr>
 
-	<form name="mainsearch" method="get" action=".">
-		<table>
-			{{ form.as_table }}
-			<tr>
-				<td>&nbsp;</td>
-				<td>
-					<input type="submit" value="Search">
-				</td>
-			</tr>
-		</table>
+	<form name="mainsearch" method="get" action="." class="search-page">
+		{{ form.non_field_errors }}
+		<div class="search-input">	
+			{{ form.q_errors }}
+			{{ form.q }}
+		</div>
+		<div>
+			Search in:
+		</div>
+		<div class="model-select">
+			{{ form.model_errors }}
+			{{ form.models }}
+		</div>
+		<div class="search-submit">
+			<input type="submit" value="Search">
+		</div>
+	</form>
 
 		{% if query %}
-			<h2>Results</h2>
-			
 			<div class="facet-group">
 			      <dl>
 			            {% if facets.fields.author %}
-			                <dt>Author</dt>
-			                {# Provide only the top 5 authors #}
-			                {% for author in facets.fields.author|slice:":5" %}
-			                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
-			                {% endfor %}
+			            <dt>Author</dt>
+		                {# Provide only the top 5 authors #}
+		                {% for author in facets.fields.author|slice:":5" %}
+		                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
+		                {% endfor %}
 			            {% endif %}
 			        </dl>
-			    </div>
-			
-			<div class="facet-group">
-			      <dl>
+			      	<dl>
 			            {% if facets.fields.tags %}
-			                <dt>Tags</dt>
-			                {# Provide only the top 5 authors #}
-			                {% for tags in facets.fields.tags|slice:":5" %}
-			                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=tags_exact:{{ tags.0|urlencode }}">{{ tags.0 }}</a> ({{ tags.1 }})</dd>
-			                {% endfor %}
+		               	<dt>Tags</dt>
+		                {# Provide only the top 5 authors #}
+		                {% for tags in facets.fields.tags|slice:":5" %}
+		                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=tags_exact:{{ tags.0|urlencode }}">{{ tags.0 }}</a> ({{ tags.1 }})</dd>
+		                {% endfor %}
 			            {% endif %}
 			        </dl>
-			    </div>
-			
+					<dl>
+						<dt>Published</dt>	
+						<dd><a href="{{ request.get_full_path }}{% this_week %}">This week</a></dd>
+						<dd><a href="{{ request.get_full_path }}{% last_week %}">Last week</a></dd>
+						<dd><a href="{{ request.get_full_path }}{% this_month %}">This month</a></dd>
+						<dd><a href="{{ request.get_full_path }}{% last_month %}">Last month</a></dd>
+					</dl>
+			</div>
 
 			<div id="resultlist">
+				
+			<h2>Results</h2>
 			{% for result in page.object_list %}
 				<div class="{% cycle 'search1' 'search2' %}">
 				{% ifequal result.model_name 'story' %}
