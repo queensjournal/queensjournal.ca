@@ -1,0 +1,77 @@
+{% extends 'stories/index_section.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+
+{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
+<script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery.nivo.slider.pack.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery.masonry.js" type="text/javascript"></script>
+<link rel="stylesheet" href="{{ MEDIA_URL }}global/styles/nivo-slider.css" type="text/css" media="screen" />
+{% endblock headcode %}
+
+{% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }} - {{ block.super }}{% endblock title %}
+	
+	{% block actions %}
+		<li><a href="/rss/section/{{ section_config.section.slug }}/"><span><img src="{{ MEDIA_URL }}global/2.0/feed.png" />Latest {{ section_config.section.slug }} RSS</a></span></li>
+	{% endblock actions %}
+	
+	{% block content-class %} span-19 front-content{% endblock %}	
+	
+	{% block content %}
+	<div class="section-header">
+		<h1>{{ section_config.section.name }}<span class="issue-date-section"><a href="{% url stories.views.index_issue_front issue.pub_date %}">{{ config.issue }}</a> - {{ config.issue.pub_date|date:"F j, Y" }}</span></h1>
+	</div>
+	
+	<div class="hr dblmargin"><hr></div>
+		
+	<div class="block">	
+			
+		<div id="other-stories" class="featured column span-24 last"><!--featured box-->
+			{% if featured %}
+				<div id="slider-wrapper" class="brick">
+	                <img src="{{ featured.first_photo.display.url }}" alt="{{ featured.head }}" class="slideshow-featured-img"/>
+					<div class="nivo-caption">
+		                <p class="slider-story label">{% if featured.tags %}<a href="/tag/{{featured.label|striplabel|slugify}}/">
+			{{ featured.tags|striplabel }}</a>{% else %}{% firstof featured.label "Story" %}{% endif %}</p>
+						<h2><a href="{{ featured.get_absolute_url }}">{{ featured.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+						{{ featured.summary|stripspace|convert_entities|truncatewords:38|safe }}
+					</div>
+				</div>
+			{% endif %}
+			{% for story in other_stories %}
+				<div class="latest-section brick"><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+					{% if story.storyphoto_set.all|length > 0 %}{% for pwrapper in story.storyphoto_set.all|slice:":1" %}<a href="{{ story.get_absolute_url }}"><img src="{{ pwrapper.photo.front_image.url }}" /></a>{% endfor %}{% endif %}
+					<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
+					<p class="latest-section-summary">{{ story.summary }}</p>
+				</div>
+			{% endfor %}
+				<div id="latest-stories" class="latest-section brick">
+					<h3>Previously in {{ section_config.section.name }}</h3>
+					<ul>{% for story in older_stories %}
+						<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+						<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
+						<p class="pub_date">{{ story.pub_date|date_diff }}</p>	
+						</li>
+					{% endfor %}</ul>
+				</div>
+		</div>
+		
+	</div><!--block-->
+		
+		<div id="content-sidebar">
+			
+		</div>
+	{% endblock content %}
+
+{% block footercode %}
+	$(window).load(function(){
+		$('#other-stories').masonry({
+ 			singleMode: true,
+			columnWidth: 247,
+			itemSelector: '.latest-section' 
+		});
+	});
+{% endblock footercode %}
