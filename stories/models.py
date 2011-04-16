@@ -93,7 +93,7 @@ class Story(models.Model):
 		return self.head
 		
 	def save(self, *args, **kwargs):
-		if self.status is 'p':
+		if self.status == 'p':
 			self.is_published = True
 		super(Story, self).save(*args, **kwargs)
 	
