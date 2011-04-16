@@ -4,7 +4,23 @@
 {% for pwrapper in obj.storyphoto_set.all|slice:":2" %}
 	<img src="{{ pwrapper.photo.display.url }}"/>
 	<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+	<hr>
 {% endfor %}
 {% if obj.storyphoto_set.all|length > 2 %}<a href="{{ obj.get_absolute_url }}">More Photos...</a>{% endif %}
 
+{% if obj.show_headshots %}
+	{% for sauthor in obj.storyauthor_set.all %}
+		<div class="headshot"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
+		<a href="{{ sauthor.author.get_absolute_url }}">{{ author.author.name }}</a></div>
+	{% endfor %}
+{% endif %}
+
 {{ obj.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+
+{% if obj.gallery_set.all %}
+	{% for pwrapper in obj.gallery_set.all|slice:":4" %}
+		<img src="{{ pwrapper.photo.display.url }}"/>
+		<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+	{% endfor %}
+{% endif %}
+{% if obj.gallery_set.all|length > 4 %}<a href="{{ obj.get_absolute_url }}">More Photos...</a>{% endif %}

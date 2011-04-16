@@ -1,3 +1,4 @@
+{% load linkset %}
 <ul>{% for sect_obj in sections.flatplansection_set.all %}
 		{% spaceless %}
 		{% ifequal sect_obj.section.slug config.section.slug %}
@@ -9,6 +10,10 @@
 		</a></li>
 		{% endspaceless %}
 	{% endfor %}
-	<li class="section-other"><a href="/archive/"><span>Archive</span></a></li>
-	<li class="section-special"><a href="/blogs/"><span>Blogs</span></a></li>
-	<li class="section-special"><a href="/video/"><span>Video</span></a></li></ul>
+	{% linkset 'menu-sections' as links %}
+	{% for link in links %}
+		{% if link.active %}
+		<li class="{% ifequal section_config.section.slug link.text %}section-current{% else %}{% firstof link.css_class 'section-other' %}{% endifequal %}"><a href="{{ link.url }}"><span>{{ link.text }}</span></a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
