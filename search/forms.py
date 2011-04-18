@@ -12,10 +12,14 @@ class SuperSearchForm(ModelSearchForm):
 		if hasattr(self, 'cleaned_data') and self.cleaned_data['selected_facets']:
 			sqs = sqs.narrow(self.cleaned_data['selected_facets'])
 			
-		if self.cleaned_data['start_date']:
-			sqs = sqs.filter(pub_date__gte=self.cleaned_data['start_date'])
+		try:
+			if self.cleaned_data['start_date']:
+				sqs = sqs.filter(pub_date__gte=self.cleaned_data['start_date'])
 			
-		if self.cleaned_data['end_date']:
-			sqs = sqs.filter(pub_date__lte=self.cleaned_data['end_date'])
+			if self.cleaned_data['end_date']:
+				sqs = sqs.filter(pub_date__lte=self.cleaned_data['end_date'])
+		#Fallback in case someone accesses /search/ directly with no query
+		except AttributeError:
+			setattr(self, 'cleaned_data', '')	
 		
 		return sqs.models(*self.get_models())
