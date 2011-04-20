@@ -12,6 +12,8 @@ from blog.models import Entry
 from structure.models import *
 from itertools import chain
 from operator import attrgetter
+from django.db.models import Q
+from dependencies.multiquery import QuerySetChain
 
 def parse_date(datestring):
 	return date(*[int(x) for x in datestring.split('-')])
@@ -38,20 +40,23 @@ def index_section(request, section):
 	story_set = Story.objects.filter(section__slug__iexact=section, status='p').order_by('-pub_date')
 	latest_stories = story_set[:5]
 	other_stories = story_set[5:13]
+	latest_issue = Issue.objects.latest('pub_date')
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response(template,
 							{'featured': featured,
 							'latest_stories': latest_stories,
 							'other_stories': other_stories,
-							'config': section_config},
+							'config': section_config,
+							'latest_issue': latest_issue,},
 							context_instance=RequestContext(request))
 							
 def index_front(request):
 	front_config = FrontConfig.objects.latest('pub_date')
-	latest_stories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
+	lstories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
 	latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
 	latest_video = Video.objects.latest('pub_date')
+	latest_stories = QuerySetChain(lstories, latest_entries, latest_video)[:5]
 	latest_section = []
 	for section in front_config.sections.flatplansection_set.all():
 		latest_section.extend(Story.objects.filter(section=section.section, featured=True)[:1])
@@ -120,7 +125,7 @@ def index_issue_front(request, datestring):
 		front_config = FrontPageConfig.objects.get(issue=issue)
 	except FrontPageConfig.DoesNotExist:
 		front_config = FrontConfig.objects.get(issue=issue)
-	featured = Story.objects.filter(status='p', issue=issue, section_order=1).exclude(storyphoto__isnull=True).order_by('-pub_date')[:5]
+	featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', issue=issue, storyphoto__isnull=False)[:5]
 	latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
 	back_issue = True
 	latest_section = []
@@ -190,3 +195,6 @@ def index_archive_volume(request, volume):
 							{'volume': volume,
 							'issues': issues,},
 							context_instance=RequestContext(request))
+							
+def server_error(request, template_name='500.html'):
+	return render_to_response(template_name, context_instance = RequestContext(request))
