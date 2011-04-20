@@ -54,3 +54,5 @@ urlpatterns = patterns('',
 	(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
 	## DO NOT ADD ANY URLS AFTER THIS LINE
 )
+
+handler500 = 'stories.views.server_error'
