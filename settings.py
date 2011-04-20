@@ -44,6 +44,9 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.auth.context_processors.auth",
+	"django.core.context_processors.debug",
+	"django.core.context_processors.i18n",
+	"django.core.context_processors.media",
 	"django.core.context_processors.request",
 	"stories.context_processors.media_url",
 	
@@ -52,18 +55,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 	'django.middleware.common.CommonMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
+	'django.contrib.redirects',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
@@ -71,6 +75,7 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	#'django.contrib.comments',
 	'django.contrib.humanize',
+	
 	
 	#'comments',
 	#'comment_utils',
