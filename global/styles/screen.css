@@ -1,11 +1,3 @@
-/* Hacks */
-.clearfix:after {
-	clear:both;
-	content:".";
-	display:block;
-	height:0pt;
-	visibility:hidden;
-}
 /* Global typography */
 
 /* Load in the headline font */
@@ -545,7 +537,7 @@ a img {
 		list-style-type:none;
 		background-color: #eee;
 	}
-	#latest-entries {
+	#sidebar {
 		float: right;
 		width: 220px;
 	}
@@ -639,6 +631,24 @@ a img {
 		-moz-transition: opacity 0.5s ease-in-out;
 		-o-transition: opacity 0.5s ease-in-out;
 		transition: opacity 0.5s ease-in-out;
+	}
+	
+	/*=ARCHIVE-SECTION=*/
+	#featured-wrapper {
+		width: 485px;
+		background-color: #EEEEEE;
+		padding: 10px 0 10px 10px;
+		margin: 0 0 50px 0;
+		
+		box-shadow: 1px 2px 6px #aaa;
+		-moz-box-shadow: 1px 2px 6px #aaa;
+		-webkit-box-shadow: 1px 2px 6px #aaa;
+	}
+	#featured-wrapper .caption {
+		padding: 5px 10px 0 0;
+	}
+	#featured-wrapper .caption h2 {
+		margin-bottom: 0.5em;
 	}
 	
 /* =GLOBAL-CONTENT */
@@ -965,11 +975,9 @@ a img {
 }
 
 /*= ARCHIVES */
-ul.volumes li {
-	
-}
-ul.issues li {
-	
+.issuu-embed {
+	margin: 1em 0 1em 0 !important;
+	padding: 1em;
 }
 
 /* =MASTHEAD-CONTENT */
@@ -1043,40 +1051,27 @@ ul.issues li {
 	}
 	
 /* =SECTIONALS-CONTENT-SIDEBAR */
+.masonfix {
+	clear: right;
+	height: 100%;
+}
 #content-sidebar {
 	border-left: 1px solid #ccc;
+	padding: 0 1em 0 2em;
 	float: right;
 	font-family: Helvetica, Arial, sans-serif;
-	padding-left: 20px;
-	width: 268px;
+	width: 180px;
+	overflow: visible;
 }
 	#content-sidebar h3 {
-		color: #ccc;
-		text-align: right;
+		text-align: center;
 		text-transform: uppercase;
+		padding-bottom: 5px;
+		border-bottom: 1px solid black;
+		margin-bottom: 0.5em;
 	}
 	#content-sidebar p {
 		display: relative;
-	}
-	#content-sidebar .announcement {
-		background-color: #96c0d5;
-		border: 1px solid #2d81ab;
-		margin-bottom: 1.5em;
-	}
-	#content-sidebar .announcement h4 {
-		background-color: #2d81ab;
-		color: white;
-		text-align: center;
-		text-transform: uppercase;
-		padding: 5px;
-	}
-	#content-sidebar .announcement p {
-		font-style: italic;
-		margin: 1.5em 0.75em;
-	}
-	#content-sidebar .announcement a {
-		color: #2d81ab;
-		font-weight: bold;
 	}
 	#content-sidebar .sidebar-calendar-date {
 		font-family: Helvetica, Arial, sans-serif;
@@ -1107,40 +1102,38 @@ ul.issues li {
 		margin: 0;
 	}
 	#content-sidebar .sidebar-heads-answer {
-		clear: left;
-		margin: 0 0 1.5em;
+		text-align: center;
 	}
 	#content-sidebar .sidebar-heads-location {
 		font-size: 0.91667em;
-		line-height: 1.5em;
 		text-align: right;
 	}
 	#content-sidebar .sidebar-heads-question {
+		font: 1.5em Georgia, Times, 'Times New Roman', serif;
+		font-style: italic;
 		margin: 0 0 1.5em;
 	}
 	#content-sidebar .sidebar-heads-image {
 		border: 1px solid black;
-		float: left;
-		height: 90px;
-		margin-right: 1em;
+		height: 100px;
 		width: 100px;
+		margin-bottom: 0.5em;
 	}
 	#content-sidebar .sidebar-heads-quote {
-		float: right;
 		margin-bottom: 0.5em;
-		width: 150px;
 	}
 	#content-sidebar .sidebar-heads-person {
 		clear: right;
 		float: right;
 		font-size: 0.91667em;
 		line-height: 1.5em;
-		margin: 0;
+		margin: 0 0 1em;
 		text-align: right;
 		text-transform: uppercase;
 		width: 125px;
 	}
 	#content-sidebar .sidebar-heads-credits {
+		clear: right;
 		font-size: 0.91667em;
 		font-style: italic;
 		line-height: 1.5em;
@@ -1197,8 +1190,7 @@ ul.issues li {
 		margin-bottom: 1.5em;
 	}
 	#sidebar-poll {
-		background-color: #ddd;
-		border: 1px solid #ccc;
+		background-color: #eee;
 		margin-top: 1.5em;
 		padding: 12px;
 	}			
@@ -1211,6 +1203,7 @@ ul.issues li {
 		box-shadow: 1px 2px 6px #888;
 		-moz-box-shadow: 1px 2px 6px #888;
 		-webkit-box-shadow: 1px 2px 6px #888;
+		padding: 10px;
 	}
 	.poll #poll-question {
 		margin: 0;
