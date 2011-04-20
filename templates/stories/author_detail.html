@@ -5,7 +5,9 @@
 <h1>{{ author.name }}</h1>
 {% if author.homepage %}<a href="{{ author.homepage }}">Website</a>{% endif %}
 
+{% if author.headshot %}
 <img src="{{ author.headshot.display.url }}" alt="{{ author.name }}" />
+{% endif %}
 
 <p>{{ author.bio|safe }}</p>
 
