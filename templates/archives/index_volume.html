@@ -9,10 +9,15 @@
 {% block breadcrumb %}
 <div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="/archives/">Archives</a><span class="divider"></span></div>
 {% endblock %}
-<div id="section-header">
+<div class="section-header">
 	<h1>Volume {{ volume }}</h1>
 </div>
 <hr>
+{% if volume.issuu_embed %}
+<div class="issuu-embed">
+{{ volume.issuu_embed|safe }}
+</div>
+{% endif %}
 <ul class="issues">
 	{% for issue in issues %}
 	<li><a href="{% url stories.views.index_issue_front issue.pub_date %}">{{ issue }}</a> - {{ issue.pub_date|date:"F j, Y" }}</li>

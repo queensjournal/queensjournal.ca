@@ -1,8 +1,8 @@
 {% load typogrify %}
-<h3>Get Out There</h3>
 {% if is_empty %}
-	<h5>No items.</h5>
 {% else %}
+	<div id="content-sidebar">
+	<h3>Get Out There</h3>
 	{% regroup items|dictsort:"event_type.event_type" by event_type as types %}
 	{% for type in types %}
 		<p class="sidebar-calendar-date">{{ type.grouper }}</p>
@@ -24,4 +24,5 @@
 			</div>
 		{% endfor %}
 	{% endfor %}
+	</div>
 {% endif %}

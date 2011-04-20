@@ -1,7 +1,7 @@
 {% load typogrify %}
 {% if is_empty %}
-	<h5>No items.</h5>
 {% else %}
+	<div id="content-sidebar">
 	{% regroup items|dictsortreversed:"is_played" by is_played as times %}
 	{% for time in times %}
 		{% if time.grouper %}
@@ -63,4 +63,5 @@
 			{% endfor %}
 		{% endif %}
 	{% endfor %}
+	</div>
 {% endif %}

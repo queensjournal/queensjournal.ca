@@ -1,7 +1,8 @@
 {% extends "stories/single_detail.html" %}
+{% load navigation %}
 
-{% block breadcrumb %}<a href="/">Home</a>{% endblock breadcrumb %}
-{% block actions %}<p>&nbsp;</p>{% endblock actions %}
+{% block title %}Error {{ block.super }}{% endblock %}
+{% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span></div>{% endblock breadcrumb %}
 {% block content %}
 	<div class="story">
 	<h2 style="margin-bottom: 0.5em">500 - Server error</h2>

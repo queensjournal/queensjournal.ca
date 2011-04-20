@@ -2,6 +2,7 @@
 {% load navigation %}
 {% current_issue as issue %}
 
+{% block title %}Page not found {{ block.super }}{% endblock %}
 {% block breadcrumb %}<a href="/">Home</a>{% endblock breadcrumb %}
 {% block actions %}<p>&nbsp;</p>{% endblock actions %}
 {% block content %}
@@ -15,4 +16,24 @@ webmaster</a> with the link that led you to this page. Otherwise,
 feel free to search the archives or select an issue from the sidebar 
 on the right.</p>
 	</div>
+	<form name="mainsearch" method="get" action="/search/" class="search-page">
+
+			<div class="search-input">	
+
+				<input type="text" name="q" id="id_q" />
+			</div>
+			<div>
+				Search in:
+			</div>
+			<div class="model-select">
+
+				<ul>
+	<li><label for="id_models_0"><input type="checkbox" name="models" value="blog.entry" id="id_models_1" /> Entries</label></li>
+	<li><label for="id_models_1"><input type="checkbox" name="models" value="stories.story" id="id_models_2" /> Stories</label></li>
+	</ul>
+			</div>
+			<div class="search-submit">
+				<input type="submit" value="Search">
+			</div>
+		</form>
 {% endblock content %}

@@ -1,7 +1,7 @@
-<h3>Talking Heads</h3>
 {% if is_empty %}
-	<h5>No items.</h5>
 {% else %}
+	<div id="content-sidebar">
+		<h3>Talking Heads</h3>
 	{% for item in items %}
 		<p class="sidebar-heads-location">...at {{ item.location }}</p>
 		<h4 class="sidebar-heads-question">{{ item.question }}</h4>
@@ -11,4 +11,5 @@
 			<p class="sidebar-heads-quote">{{ answer.quote }}</p>
 		{% endfor %}
 	{% endfor %}
+	</div>
 {% endif %}

@@ -1,21 +1,30 @@
 {% load typogrify %}
 {% load poll_tags %}
 {% load lists %}
-<h3>Talking Heads</h3>
+
 {% if is_empty %}
-	<h5>No items.</h5>
 {% else %}
+	<div id="content-sidebar">
+	<h3>Talking Heads</h3>
 	{% for item in items %}
 		<p class="sidebar-heads-location">...{{ item.location|typogrify }}</p>
 		<h4 class="sidebar-heads-question">{{ item.question|typogrify }}</h4>
 		{% for answer in item.talkingheadsanswer_set.all %}
 		<div class="sidebar-heads-answer clearfix">
-			<img src="{{ answer.photo.get_photo_url }}" class="sidebar-heads-image"/>
+			{% if answer.photo %}
+			<img src="{{ answer.photo.thumbnail_image.url }}" class="sidebar-heads-image"/>
+			{% else %}
+			<img src="{{ answer.thumbnail_image.url }}" class="sidebar-heads-image"/>
+			{% endif %}
 			<p class="sidebar-heads-quote">{{ answer.quote|typogrify }}</p>
 			<p class="sidebar-heads-person">{{ answer.name|typogrify }}</p>
 		</div>
 		{% endfor %}
+		{% if item.photos_by %}
+		<p class="sidebar-heads-credits">Photos by {{ item.photos_by.name|typogrify }}</p>
+		{% else %}
 		<p class="sidebar-heads-credits">Photos by {{ item.list_photographers|typogrify }}</p>
+		{% endif %}
 		{% if item.poll %}
 			<div id="sidebar-poll" class="poll">
 				<p class="menu-label">Poll</p>
@@ -53,4 +62,5 @@
 			</div>
 		{% endif %}
 	{% endfor %}
+	</div>
 {% endif %}
