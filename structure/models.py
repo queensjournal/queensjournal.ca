@@ -75,6 +75,7 @@ class AuthorRole(models.Model):
 		
 class Volume(models.Model):
 	volume = models.PositiveSmallIntegerField(unique=True)
+	issuu_embed = models.TextField(null=True, blank=True)
 	
 	def get_years(self):
 		"""
@@ -92,13 +93,6 @@ class Section(models.Model):
 	
 	def __unicode__(self):
 		return self.name
-
-class Volume(models.Model):
-	volume = models.PositiveSmallIntegerField(unique=True)
-	def get_years(self):
-		return self.issue_set.dates('pub_date', 'year')
-	def __unicode__(self):
-		return '%i' % (self.volume,)
 		
 class IssueManager(models.Manager):
 	def published(self):
@@ -132,6 +126,7 @@ class Issue(models.Model):
 	
 	class Meta:
 		ordering = ['-pub_date']
+		get_latest_by = 'pub_date'
 	
 	def __unicode__(self):
 		if self.extra != "":
