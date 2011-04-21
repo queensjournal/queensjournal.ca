@@ -1052,6 +1052,7 @@ a img {
 	
 /* =SECTIONALS-CONTENT-SIDEBAR */
 .masonfix {
+	float: right;
 	clear: right;
 	height: 100%;
 }
@@ -1062,6 +1063,8 @@ a img {
 	font-family: Helvetica, Arial, sans-serif;
 	width: 180px;
 	overflow: visible;
+	height: 100%;
+	z-index: 1;
 }
 	#content-sidebar h3 {
 		text-align: center;

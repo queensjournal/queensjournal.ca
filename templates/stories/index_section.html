@@ -71,22 +71,18 @@
 	
 	<div class="hr dblmargin"><hr></div>
 	
-	<div class="block">
-		
-		<div id="other-stories" class="column span-24 last">
+	{% sidebar config.section latest_issue 5 %}
+	
+	<div id="other-stories" class="block">
 		
 			{% for story in other_stories %}
-			<div class="latest-section">
+			<div class="latest-section brick">
 				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
 				<a href="{{ story.get_absolute_url }}">{% if story.first_photo %}<img src="{{ story.first_photo.front_image.url }}" /></a>{% endif %}
 				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 				<p class="latest-section-summary">{{ story.summary|safe }}</p>
 			</div>
 			{% endfor %}
-			
-			{% sidebar config.section latest_issue 5 %}
-			
-		</div>
 		
 	</div>
 	{% endblock content %}
@@ -144,8 +140,8 @@
 	$(window).load(function(){
 		$('#other-stories').masonry({
  			singleMode: false,
-			columnWidth: 247,
-			itemSelector: '.latest-section' 
+			columnWidth: 255,
+			itemSelector: '.brick' 
 		});
 	});
 {% endblock footercode %}

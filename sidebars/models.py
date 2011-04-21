@@ -146,7 +146,7 @@ class TalkingHeadsAnswer(ImageModel):
 	name = models.CharField(max_length=255)
 	quote = models.TextField()
 	photo = models.ForeignKey(Photo, help_text="Photos should be 100 pixels square. JPEGs only, please.", editable=False, null=True)
-	image = models.ImageField(upload_to='talking_heads/', help_text="Photos should be square. JPEGs only, please.")
+	image = models.ImageField(upload_to='talking_heads/%Y/%m/%d/', help_text="Photos should be square. JPEGs only, please.")
 	question = models.ForeignKey(TalkingHeadsItem)
 	
 	class IKOptions:
