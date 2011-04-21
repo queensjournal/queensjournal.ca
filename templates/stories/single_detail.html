@@ -62,7 +62,7 @@
 	{% block content %}
 		<!-- google_ad_section_start -->
 		<div id="story" class="story clearfix">
-			{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %} <a href="{% url stories.views.index_issue_front story.issue.pub_date %}" class="issue">{{ story.issue }} - {{ story.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
+			{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %} <a href="{% url stories.views.index_archive_volume story.issue.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }} &#151; {{ story.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
 			
 			<h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
 			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
@@ -196,7 +196,7 @@
 			
 			{% if story.gallery_set.all %}
 				{% for gallery in story.gallery_set.all %}
-					<div class="gallery-container clearfix">
+					<div class="gallery-container">
 						<h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
 						<div class="thumbs-container">
 						{% for image in gallery.images.all %}
