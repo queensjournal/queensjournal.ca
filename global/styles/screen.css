@@ -854,6 +854,7 @@ a img {
 			margin: 4em auto 2em auto;
 			padding: 10px 0 0 10px;
 			background-color: #eee;
+			overflow: hidden;
 		}
 		.gallery .last {
 			margin-right: 0px;
@@ -865,6 +866,9 @@ a img {
 			margin: 0 10px 10px 0;
 			overflow: hidden;
 			width: 100px;
+		}
+		.thumbs-container {
+			overflow: hidden;
 		}
 		#story h1.story-head {
 			line-height: 1.2em;
