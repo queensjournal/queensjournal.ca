@@ -59,6 +59,8 @@ def post_to_twitter(sender, instance, *args, **kwargs):
 	if instance.is_tweeted is False:
 		instance.is_tweeted = True
 		instance.save()
+	else:
+		return False
 			
 	# check if there's a twitter account configured
 	try:
