@@ -5,19 +5,15 @@
 {% load more %}
 {% load image_tags %}
 
-{% block head-code %}
+{% block headcode %}
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
-{% endblock head-code %}
+{% endblock headcode %}
 
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
 
 {% block header-type %}secondary{% endblock header-type %}
 	{% block header-img %}logo_inside.gif{% endblock header-img %}
 	{% block dateline %}Journal blogs{% endblock dateline %}
-
-	{% block breadcrumb %}
-		<a href="{% url stories.views.index_front %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; <a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a> &raquo; Post
-	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/">Latest posts RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
 	{% endblock actions %}
@@ -25,13 +21,26 @@
 		<p><a href="{{ blog.get_absolute_url }}">Return to {{ blog.title }} front page</a><br/>
 		<a href="/rss/blogs/{{ blog.slug }}/"><img src="/media/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>
 	{% endblock blog-actions %}
+	{% block content %}
+		{% block breadcrumb %}
+			<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Blogs</a><span class="divider"></span><a href="{% url blog_index_front blog.slug %}" class="current">{{ blog.title }}</a></div>
+		{% endblock breadcrumb %}
+		<div class="blog-header">
+			<div class="blog-header-grad">
+				<h1><a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a></h1>
+			</div>
+			<div class="blog-image"><img src="{{ blog.image.header_image.url }}" /></div>
+		</div>
+		<hr>
 	{% block blog-content %}
 	<div id="blog-single-entry" class="blog-content">
 		<div class="blog-container">
 			<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
-			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.name }}</a> on {{ object.date_published|date:"F j, Y @ h:i a T" }}</h5>
+			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.name }}</a> on {{ object.pub_date|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in object.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-			<div class="blog-post-content">{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
+			<div class="blog-post-content">
+				
+				{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>
 		
 		<div class="blog-container">
@@ -59,4 +68,5 @@
 		</div>
 	</div>
 	{% endblock blog-content %}
+	{% endblock content %}
 

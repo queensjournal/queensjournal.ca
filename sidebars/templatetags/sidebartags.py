@@ -38,7 +38,10 @@ class SidebarItemsByIssueNode(template.Node):
 		if Issue.objects.published().latest() == issue_obj:
 			context['items'] = manager.get_future()
 		else:
-			context['items'] = manager.get_by_issue(issue_obj)
+			try:
+				context['items'] = manager.get_by_issue(issue_obj)
+			except IndexError:
+				context['items'] = manager.get_future()
 		if len(list(context['items'])) == 0:
 			context['is_empty'] = True
 		# render sidebar template

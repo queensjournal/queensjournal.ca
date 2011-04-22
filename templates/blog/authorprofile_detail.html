@@ -3,7 +3,6 @@
 {% load custom_html %}
 {% load navigation %}
 {% load sidebartags %}
-{% load comparison %}
 {% load comment_utils %}
 
 {% block title %}Journal blog author: {{ object.user.get_full_name }} - {{ block.super }}{% endblock title %}
@@ -27,7 +26,7 @@
 			<p><a href="/rss/blog-author/{{ object.id }}/"><img src="/media/global/feed-icon-10x10.gif">&ensp;Latest posts from this author (RSS 2.0)</a></p>
 
 			<div id="author-bio" class="blog-container clearfix">
-				<h2>About {{ object.user.first_name }}</h2>
+				<h2>About {{ object.user.name }}</h2>
 				{% if object.portrait %}<img src="{{ object.get_portrait_url }}" class="author-headshot" />{% endif %}
 				{{ object.bio|linebreakswithcode|typogrify }}
 			</div>
@@ -37,7 +36,7 @@
 				<ul>
 				{% for entry in entries %}
 					<li><h5><a href="{{ entry.get_absolute_url }}">{{ entry.title|typogrify }}</a></h5>
-					Posted in <a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog.title }}</a> on {{ entry.date_published|date:"F j, Y" }}</li>
+					Posted in <a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog.title }}</a> on {{ entry.pub_date|date:"F j, Y" }}</li>
 				{% endfor %}
 				</ul>
 			</div>

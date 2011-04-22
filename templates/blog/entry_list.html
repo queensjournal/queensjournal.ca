@@ -5,15 +5,12 @@
 {% load more %}
 {% load image_tags %}
 
-{% block head-code %}
+{% block headcode %}
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
-{% endblock head-code %}
+{% endblock headcode %}
 
 {% block title %}{{ block.super }}{% endblock title %}
 
-	{% block breadcrumb %}
-		<a href="{% url stories.views.index_front %}">Home</a> &raquo; <a href="{% url blog.views.all_blogs %}">Blogs</a> &raquo; {{ blog.title }}
-	{% endblock breadcrumb %}
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/">Latest posts RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
 	{% endblock actions %}
@@ -31,12 +28,23 @@
 		</h3>{% endif %}
 		{% endspaceless %}
 	{% endblock blog-filter %}
+	{% block content %}
+		{% block breadcrumb %}
+			<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Blogs</a><span class="divider"></span></div>
+		{% endblock breadcrumb %}
+		<div class="blog-header">
+			<div class="blog-header-grad">
+				<h1>{{ blog.title }}</h1>
+			</div>
+			<div class="blog-image"><img src="{{ blog.image.header_image.url }}" /></div>
+		</div>
+		<hr>
 	{% block blog-content %}
 	<div id="blog-entries" class="blog-content">
 		{% for entry in object_list %}
 		<div id="entry-{{ entry.id }}" class="blog-container">
 			<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
-			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.user.get_full_name }}</a> on {{ entry.date_published|date:"F j, Y @ h:i a T" }}</h5>
+			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.user.get_full_name }}</a> on {{ entry.pub_date|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in entry.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 			<div class="blog-post-content">{{ entry.content|more:entry.id|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 
@@ -74,4 +82,4 @@
 	{% endif %}
 
 	{% endblock blog-content %}
-
+	{% endblock content %}
