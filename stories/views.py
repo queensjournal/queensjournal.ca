@@ -63,7 +63,7 @@ def index_front(request):
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('stories/index_front.html',
-							{'featured': front_config.featuredstory_set.all(),
+							{'featured': front_config.featuredstory_set.all().order_by('-story__pub_date'),
 							'latest_stories': latest_stories,
 							'latest_entries': latest_entries,
 							'latest_section': latest_section,
@@ -121,10 +121,10 @@ def with_tag(request, tag, object_id=None, page=1):
 
 def index_issue_front(request, datestring):
 	issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-	try:
-		front_config = FrontPageConfig.objects.get(issue=issue)
-	except FrontPageConfig.DoesNotExist:
-		front_config = FrontConfig.objects.get(issue=issue)
+	#try:
+	front_config = FrontPageConfig.objects.get(issue=issue)
+	#except FrontPageConfig.DoesNotExist:
+	#	front_config = FrontConfig.objects.get(issue=issue)
 	featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', issue=issue, storyphoto__isnull=False)[:5]
 	latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
 	back_issue = True
