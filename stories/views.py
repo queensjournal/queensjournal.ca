@@ -59,7 +59,7 @@ def index_front(request):
 	latest_stories = QuerySetChain(lstories, latest_entries, latest_video)[:5]
 	latest_section = []
 	for section in front_config.sections.flatplansection_set.all():
-		latest_section.extend(Story.objects.filter(section=section.section, featured=True)[:1])
+		latest_section.extend(Story.objects.filter(section=section.section, featured=True, storyphoto__isnull=False)[:1])
 	if request.session.get('vote') is None:
 		request.session['vote'] = []
 	return render_to_response('stories/index_front.html',
