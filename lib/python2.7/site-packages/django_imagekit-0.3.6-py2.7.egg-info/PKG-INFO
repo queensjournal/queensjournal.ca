@@ -1,0 +1,18 @@
+Metadata-Version: 1.0
+Name: django-imagekit
+Version: 0.3.6
+Summary: Automated image processing for Django models.
+Home-page: http://github.com/jdriscoll/django-imagekit/
+Author: Bryan Veloso
+Author-email: bryan@revyver.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Framework :: Django
+Classifier: Topic :: Utilities

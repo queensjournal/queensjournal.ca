@@ -1,3 +1,0 @@
-{{ object.head }}
-{{ object.author.name }}
-{{ object.content }}
