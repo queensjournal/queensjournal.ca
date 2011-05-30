@@ -1,15 +1,13 @@
-from fabric.api import env, local, run, require, cd
+from fabric.api import *
 
-fab_user='3781lanru0j'
-fab_hosts=['queensjournal.ca']
-root='/home/3781lanru0j/webapps/'
-site='journal'
+env.hosts=['3781lanru0j@queensjournal.ca']
+root='/home/3781lanru0j/webapps/journal'
 
 def deploy():
     local('git push origin master')
-    run('cd $(root)$(site)')
-    run('git pull origin master')
+    with cd(root):
+        run('git pull origin master')
     restart()
     
 def restart():
-    run('$(root)$(site)/apache2/bin/restart')
+    run('%s/apache2/bin/restart' % (root))
