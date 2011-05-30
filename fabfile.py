@@ -5,7 +5,6 @@ root='/home/3781lanru0j/webapps/journal'
 
 def deploy():
     local('git push origin master')
-    local('source bin/activate; pip freeze > requirements.txt')
     with cd(root):
         run('git pull origin master')
         run('source bin/activate; pip install -r requirements.txt')
