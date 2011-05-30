@@ -20,7 +20,7 @@ class Headshot(ImageModel):
 class Author(models.Model):
 	name = models.CharField(max_length=64, unique=True)
 	slug = models.SlugField()
-	email = models.EmailField()
+	email = models.EmailField(null=True, blank=True)
 	user = models.ForeignKey(User, null=True, blank=True)
 	headshot = models.ForeignKey(Headshot, null=True, blank=True)
 	homepage = models.URLField(blank=True, null=True)

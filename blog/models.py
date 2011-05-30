@@ -22,6 +22,10 @@ class BlogImage(ImageModel):
 		cache_dir = 'photo_cache'
 		image_field = 'image'
 		
+	class Meta:
+		verbose_name = 'Blog Header Image'
+		verbose_name_plural = 'Blog Header Images'
+		
 	def __unicode__(self):
 		return self.slug
 

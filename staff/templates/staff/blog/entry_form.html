@@ -78,7 +78,7 @@ $(document).ready(function() {
 {% endblock content %}
 {% block sidebar %}
 <div>
-	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.blog_admin.views.entries_index object.blog.id %}">View all blog entries</a></p>
+	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.blog_admin.views.entries_index blog.id %}">View all blog entries</a></p>
 	<p>Problems? Talk to the webmaster.</p>
 </div>
 {% endblock sidebar %}

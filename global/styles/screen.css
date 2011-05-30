@@ -1290,6 +1290,28 @@ a img {
 	}
 
 /* =BLOG-GLOBAL-CONTENT */
+		.blog-sidebar ul {
+			margin-bottom: 1.5em;
+		}
+		.blog-sidebar ul li {
+			list-style-type: none;
+		}
+	.blog-content {
+	}
+		.blog-content .content-image {
+			background-color: white;
+			border: 1px solid #ccc;
+			padding: 4px;
+		}
+		.blog-content .image-caption {
+			font-size: 0.91667em;
+			font-weight: bold;
+			line-height: 1.5em;
+			margin: -1.5em 5px 1.5em;
+			text-align: right;
+		}
+
+/* =BLOG-INDEX-CONTENT */
 .blog-header {
 	width: 720px;
 	height: 100px;
@@ -1325,58 +1347,6 @@ a img {
 	width: 720px;
 	background-color: #D1DBEC;
 }
-
-#blog-column {
-	position: relative;
-}
-	.blog-container, .blog-sidebar {
-		font-family: Helvetica, Arial, sans-serif;
-		font-size: 1em;
-		line-height: 1.5em;
-	}
-	.blog-container {
-		background: #eee url('/media/global/blogs-individual-background.png');
-		background-repeat: repeat-x;
-		border-top: 1px solid #ccc;
-		margin: 1.5em 0;
-		padding: 0.75em;
-	}
-	.blog-sidebar {
-		float: right;
-		margin-right: 1.5em;
-		width: 200px;
-	}
-		.blog-sidebar ul {
-			margin-bottom: 1.5em;
-		}
-		.blog-sidebar ul li {
-			list-style-type: none;
-		}
-	.blog-content {
-	}
-		.blog-content .blog-container {
-			width: 450px;
-		}
-		.blog-content .content-image {
-			background-color: white;
-			border: 1px solid #ccc;
-			padding: 4px;
-		}
-		.blog-content .image-caption {
-			font-size: 0.91667em;
-			font-weight: bold;
-			line-height: 1.5em;
-			margin: -1.5em 5px 1.5em;
-			text-align: right;
-		}
-
-/* =BLOG-INDEX-CONTENT */
-#blogs-index {
-}
-	.blog-description {
-		float: left;
-		width: 390px;
-	}
 		.blog-bloggers {
 			font-size: 0.91667em;
 			letter-spacing: 1px;
@@ -1392,13 +1362,16 @@ a img {
 				max-width: 150px;
 				width: expression(this.width > 155 ? "150px" : "auto")
 			}
-	.blog-recent-posts {
-		
-	}
 
 /* =BLOG-ENTRYLIST-CONTENT */
-#blog-entries {
-}
+	.entry {
+		padding: 0 5px 1em 5px;
+		border-bottom: #eee 1px solid;
+		margin-bottom: 2em;
+	}
+	.grey {
+		background-color: #efefef;
+	}
 	.blog-post-commentlink {
 		font-weight: bold;
 		text-align: right;

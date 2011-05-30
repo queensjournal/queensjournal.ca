@@ -4,6 +4,7 @@
 {% load navigation %}
 {% load sidebartags %}
 {% load comparison %}
+{% load oembed_tags %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
 <script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
@@ -32,8 +33,9 @@
 		<div class="featured column span-16 colborder"><!--featured box-->
 			
 			<div id="latest-video-wrapper">
-				{% load embed %}
-				{{ latest_video.link|embed:475|safe }}
+				{% oembed 475x400 %}
+				{{ latest_video.link|safe }}
+				{% endoembed %}
 	             <p class="label">{% if latest_video.tags %}<a href="/tag/{{latest_video.label|striplabel|slugify}}/">{{ latest_video.tags|striplabel }}</a>{% endif %}</p>
 				<h2><a href="{{ latest_video.get_absolute_url }}">{{ latest_video.name|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
 				{{ latest_video.caption|stripspace|convert_entities|truncatewords:38|safe }}

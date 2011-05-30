@@ -90,6 +90,10 @@ INSTALLED_APPS = (
 	'tagging',
 	'shorturls',
 	'oembed',
+	#'djcelery',
+	#'ghettoq',
+	#'djkombu',
+	'disqus',
 	
 	#'grappelli',
 	
@@ -110,10 +114,6 @@ INSTALLED_APPS = (
 	'galleries',
 	'masthead',
 	'video',
-	
-	'disqus',
-	#Django south
-	#'south',
 )
 
 SHORTEN_MODELS = {
@@ -132,13 +132,5 @@ HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 15
 
-TINYMCE_JS_URL = os.path.join(MEDIA_ROOT, "js/tiny_mce/tiny_mce.js")
-TINYMCE_JS_ROOT = os.path.join(MEDIA_ROOT, "js/tiny_mce")
-TINYMCE_DEFAULT_CONFIG = {
-	'plugins': "table,spellchecker,paste,searchreplace",
-	'theme': "advanced",
-	'cleanup_on_startup': True,
-	'custom_undo_redo_levels': 10,
-}
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
+# Setting for CELERY.
+CARROT_BACKEND = "ghettoq.taproot.Database"

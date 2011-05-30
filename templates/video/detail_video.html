@@ -37,8 +37,10 @@
 			<p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>	  
 			
 			<div id="video-wrapper">
-				{% load embed %}
-				{{ video.link|embed:720|safe }}
+				{% load oembed_tags %}
+				{% oembed %}
+				{{ video.link|safe }}
+				{% endoembed %}
 			</div>
 			
 			<div class="block">

@@ -5,9 +5,6 @@ from feeds import *
 from django.contrib import admin
 admin.autodiscover()
 
-import oembed
-oembed.autodiscover()
-
 feeds = {
     'latest': LatestStories,
     'section': LatestStoriesSection,
@@ -43,8 +40,6 @@ urlpatterns = patterns('',
 	(r'^tag/(?P<tag>[a-zA-Z0-9_.-]+)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
 	
 	(r'^s/', include('shorturls.urls')),
-	
-	(r'^tinymce/', include('tinymce.urls')),
 	
 	#(r'^grappelli/', include('grappelli.urls')),
 	

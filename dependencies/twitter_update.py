@@ -26,29 +26,6 @@ from shorturls.baseconv import base62
 TWITTER_MAXLENGTH = getattr(settings, 'TWITTER_MAXLENGTH', 140)
 
 def post_to_twitter(sender, instance, *args, **kwargs):
-	""" 
-	Post new saved objects to Twitter.
-
-	Example:
-		from django.db import models
-
-		class MyModel(models.Model):
-			text = models.CharField(max_length=255)
-			link = models.CharField(max_length=255)
-
-			def __unicode__(self):
-				return u'%s' % self.text
-
-			def get_absolute_url(self):
-				return self.link
-
-			# the following method is optional
-			def get_twitter_message(self):
-				return u'my-custom-twitter-message: %s - %s' \
-						% (self.text, self.link)
-
-		models.signals.post_save.connect(post_to_twitter, sender=MyModel)
-	"""
 		
 	# Check if item is to be posted to Twitter. Make sure it's published.
 	if instance.is_published is False:
