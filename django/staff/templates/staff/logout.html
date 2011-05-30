@@ -1,0 +1,7 @@
+{% extends "staff/base.html" %}
+
+{% block title %} - Logged out{% endblock %}
+{% block header %}You've been logged out.{% endblock header %}
+{% block content %}
+<p><a href="{% url staff.views.user_login %}">Login</a> or go to <a href="/">the Journal public site.</a></p>
+{% endblock %}

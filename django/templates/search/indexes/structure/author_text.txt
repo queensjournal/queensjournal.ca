@@ -1,0 +1,3 @@
+{{ object.name }}
+{{ object.get_latest_role }}
+{{ object.bio }}

@@ -1,0 +1,91 @@
+{% extends 'staff/base.html' %}
+{% block title %} - Viewing 
+	{% if not query and not status and not section %}all photo requests
+	{% else %}{% if query %}photo request search results for "{{ query|escape }}"
+	{% else %}{% if status %}{{ status_display|escape }} photo requests
+	{% else %}{% if section %}{{ section_display|escape }} photo requests
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+{% endblock title %}
+{% block staffapp %}Photo request board{% endblock staffapp %}
+{% block header %}
+	{% if not query and not status and not section %}All photo requests
+	{% else %}{% if query %}Search results for "{{ query|escape }}"
+	{% else %}{% if status %}{{ status_display|escape|capfirst }} photo requests
+	{% else %}{% if section %}{{ section_display|escape|capfirst }} photo requests
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+{% endblock header %}
+{% block actions %}{% if add_request %}<a href="{% url staff.requests.views.request_add %}" id="add-request">Make a photo request</a>{% endif %}{% endblock actions %}
+
+{% block content %}
+<table id="objects-list">
+	<thead>
+		{% if is_paginated %}
+		<tr>
+			<td colspan="4">page {{ page }} of {{ pages }}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td class="list-request">Request</td>
+			<td class="list-status">Status</td>
+			<td class="list-deadline">Deadline</td>
+			{% if edit_request %}<td class="list-edit">Actions</td>{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+	{% for object in object_list %}
+		<tr {% ifequal object.get_status_display 'Unassigned' %}class="not-assigned{% if object.urgent %}-urgent{% endif %}"{% endifequal %}>
+			<td class="list-request">
+				<p class="list-subject"><a href="{{ object.get_absolute_url }}">{{ object.subject }}</a>{% if object.location %} @ {{ object.location }}{% endif %}</p>
+				<p class="list-date">{% if object.time %}{{ object.time|date:"F j, Y - P" }} ({{ object.time|timeuntil }}){% else %}(not yet arranged or no set time){% endif %}</p></td>
+			<td class="list-status">{{ object.get_status_display }}</td>
+			<td class="list-deadline">{{ object.deadline|date:"F j, Y" }}</td>
+			{% if edit_request %}<td class="list-edit"><a href="{% url staff.requests.views.request_edit object.id %}">Edit</a></td>{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="4" class="clearfix">
+				{% if has_previous %}
+				<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ previous }}" id="nav-previous">&laquo; previous</a>{% endif %}
+				{% if has_next %}<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ next }}" id="nav-next">next &raquo;</a>{% endif %}
+			</td>
+		</tr>
+	</tfoot>
+</table>
+{% endblock content %}
+
+{% block sidebar %}
+<div>
+{% if status or query or section %}
+	<p><a href="{% url staff.requests.views.user_index %}">View all requests</a></p>
+{% endif %}
+</div>
+<div id="search">
+	<form action="" method="get">
+		<input type="text" name="s" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" />
+	</form>
+</div>
+<div id="filter-status" class="filters">
+	<p class="filter-type">By status</p>
+	<ul>
+	{% for object in full_list|dictsort:"status" %}
+		{% ifchanged object.status %}<li{% ifequal status object.status %} class="selected"{% endifequal %}><a href="?status={{ object.status }}">{{ object.get_status_display }}</a></li>{% endifchanged %}
+	{% endfor %}
+	</ul>
+</div>
+<div id="filter-section" class="filters">
+	<p class="filter-type">By section</p>
+	<ul>
+	{% for object in full_list|dictsort:"section.slug" %}
+		{% ifchanged object.section %}<li{% ifequal section object.section.slug %} class="selected"{% endifequal %}><a href="?section={{ object.section.slug }}">{{ object.section.name }}</a></li>{% endifchanged %}
+	{% endfor %}
+	</ul>
+</div>
+{% endblock sidebar %}

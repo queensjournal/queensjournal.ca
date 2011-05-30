@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="287"
+   name=""
+   committed-date="2007-08-24T06:03:26.267549Z"
+   url="http://svn.starkcontrast.net/portia/trunk/polls/templatetags"
+   last-author="chrominance"
+   kind="dir"
+   uuid="eab18352-ae2b-0410-9f6a-d0625d815829"
+   repos="http://svn.starkcontrast.net/portia"
+   revision="364"/>
+<entry
+   committed-rev="287"
+   name="polls.py"
+   text-time="2007-09-01T06:09:42.000000Z"
+   committed-date="2007-08-24T06:03:26.267549Z"
+   checksum="2ad3303494ccf1ed7c73c19032007662"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-09-01T06:09:42.000000Z"/>
+<entry
+   committed-rev="283"
+   name="__init__.py"
+   text-time="2007-09-01T06:09:42.000000Z"
+   committed-date="2007-08-22T22:50:22.078412Z"
+   checksum="d41d8cd98f00b204e9800998ecf8427e"
+   last-author="chrominance"
+   kind="file"
+   prop-time="2007-09-01T06:09:42.000000Z"/>
+</wc-entries>

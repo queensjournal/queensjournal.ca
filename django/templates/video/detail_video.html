@@ -1,0 +1,137 @@
+{% extends 'stories/single_detail.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load sanitize %}
+{% load comparison %}
+{% load poll_tags %}
+{% load flash %}
+{% load lists %}
+{% load tags %}
+{% load shorturl %}
+
+{% block facebook %}
+<meta property="og:title" content="{{ video.name }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{% shorturl video %}" />
+<meta property="og:image" content="{{ video.thumbnail_image.url }}" />
+<meta property="og:site_name" content="The Queen&#039;s Journal" />
+<meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
+
+{% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
+
+	{% block menu-stories %}
+
+	{% endblock menu-stories %}
+		
+	{% block layout-type %} span-18 colborder{% endblock %}
+	{% block breadcrumb %}{% endblock breadcrumb %}
+	{% block actions %}
+		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/icon_email.gif" /></a></span></p></div>
+	{% endblock actions %}
+	{% block content %}
+		<!-- google_ad_section_start -->
+		<div id="story" class="story clearfix">
+			<h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
+			{{ video.pub_date|date:"jS F Y" }}
+			<p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>	  
+			
+			<div id="video-wrapper">
+				{% load oembed_tags %}
+				{% oembed %}
+				{{ video.link|safe }}
+				{% endoembed %}
+			</div>
+			
+			<div class="block">
+				
+				<div class="column span-16 colborder">
+			
+					<div id="story-socmedia" class="video">
+						<p class="label">Share<p>
+							<hr>
+						<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl video %}" layout="button_count" show_faces="false" width="100" font=""></fb:like>
+						<br/>
+						<a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl video %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+						{% tags_for_object video as tags %}
+						{% if tags %}
+						<h4>Video tags:</h4>
+						<ul>
+						{% for tag in tags %}
+							<li><a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a></li>
+						{% endfor %}
+						</ul>
+						{% endif %}
+						<br/>
+						Short URL:
+						<form action="" method="get">
+							<input type="text" id="shorturl" name="shorturl" value="{% shorturl video %}" />
+						</form>
+						{% revcanonical story %}
+
+					</div>
+			
+					<div class="video-caption">
+				
+					{{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
+			
+					</div>
+					
+				</div>
+				
+				<div class="column span-7 last">
+					
+					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+					<hr> 
+					{% for video in latest_videos %}
+					<div class="latest-section videos">
+						<div class="video-thumb">
+							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{MEDIA_URL}}global/styles/images/play.png"></span>
+							<h2 class="latest-section-head">{{ video.name }}</h2></a>
+						</div>
+						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+						<p class="pub_date">Posted {{ video.pub_date|date_diff }}</p>
+					</div>
+					{% endfor %}
+					
+				</div>
+				
+			</div><!--end block-->
+			
+			{% load disqus_tags %}
+			{% disqus_show_comments %}
+				
+		</div>
+	{% endblock content %}
+	<!-- google_ad_section_end -->
+
+
+{% block footercode %}
+<script type="text/javascript">
+{% if story.storyphoto_set.all|length > 1 %}
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+			directionNav:true,
+			directionNavHide:false,
+			manualAdvance:true,
+			controlNav:false,
+			effect:'slideInLeft',
+			captionOpacity:1,
+		});
+    });
+{% endif %}
+{% if story.gallery_set.all %}
+$(document).ready(function() {
+	$("a.gallery").fancybox({
+		'titlePosition'  : 'inside'
+	});
+	$("div.thumbs-container a:nth-child(6n)").addClass('last')
+});
+{% endif %}
+$("#shorturl").focus(function(){
+    // Select input field contents
+    this.select();
+});
+</script>
+{% endblock footercode %}

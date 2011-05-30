@@ -1,0 +1,28 @@
+{% load typogrify %}
+{% if is_empty %}
+{% else %}
+	<div id="content-sidebar">
+	<h3>Get Out There</h3>
+	{% regroup items|dictsort:"event_type.event_type" by event_type as types %}
+	{% for type in types %}
+		<p class="sidebar-calendar-date">{{ type.grouper }}</p>
+		{% regroup type.list|dictsort:"location" by location as venues %}
+		{% for venue in venues %}
+			<div class="sidebar-artscalendar-item">
+			<h5 class="sidebar-calendar-name">{{ venue.grouper }}</h5>
+			{% regroup venue.list|dictsort:"name" by name as events %}
+			{% for event in events %}
+				<p class="sidebar-artscalendar-eventname">{{ event.grouper }}</p>
+				{% for item in event.list|dictsort:"start_time" %}
+					{% ifchanged item.description %}<p class="sidebar-calendar-details">{{ item.description|widont }}</p>{% endifchanged %}
+					<p class="sidebar-artscalendar-time">{{ item.start_time|date:"F j" }}{% if item.end_time %} &ndash; {{ item.end_time|date:"F j" }}{% endif %}{% if item.artscalendarshowtime_set.all %}: {% endif %}
+					{% for showtime in item.artscalendarshowtime_set.all %}
+						{{ showtime.time|time:"P"|widont }}{% if not forloop.last %},{% endif %}
+					{% endfor %}</p>
+				{% endfor %}
+			{% endfor %}
+			</div>
+		{% endfor %}
+	{% endfor %}
+	</div>
+{% endif %}

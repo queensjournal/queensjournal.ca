@@ -1,0 +1,30 @@
+{% extends 'stories/single_detail.html' %}
+
+{% block title %}Journal staff for {{ years }}{% endblock title %}
+{% block menu-stories %}{% endblock menu-stories %}
+{% block breadcrumb %}<a href="/">Home</a> &raquo; Masthead{% endblock breadcrumb %}
+{% block actions %}
+	<div id="actions"><p><a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}/media/global/icon_print.gif" /></a></span></p></div>
+{% endblock actions %}
+
+{% block content %}
+<div id="masthead">
+	<h1>Journal staff, {{ years }}</h1>
+	<p><a href="{% url masthead_archives %}">Mastheads for previous years</a></p>
+	{% regroup names by section as sections %}
+	<ul>
+	{% for section in sections %}
+		<li><h4>{{ section.grouper.name }}{% if section.grouper.email %} (<a href="{{ section.grouper.email }}">{{ section.grouper.email }}</a>){% endif %}</h4></li>
+		<ul class="clearfix">
+		{% for name in section.list %}
+			<li>
+				<p class="name">{{ name.name }}</p>
+				<p class="position">{{ name.position }}</p>
+				<p class="email">{% if name.individual_email %} <a href="mailto:{{ name.individual_email }}">{{ name.individual_email }}</a>{% else %}&nbsp;{% endif %}</p>
+			</li>
+		{% endfor %}
+		</ul>
+	{% endfor %}
+	</ul>
+</div>
+{% endblock content %}

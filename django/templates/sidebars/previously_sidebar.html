@@ -1,0 +1,12 @@
+{% load typogrify %}
+{% if is_empty %}
+{% else %}
+	<div id="content-sidebar">
+	<h3>Previously</h3>
+	{% for item in items %}
+		<p class="sidebar-previous-date">{{ item.issue.pub_date|date:"F j, Y" }}</p>
+		<h4 class="sidebar-previous-head"><a href="{{ item.get_absolute_url }}">{{ item.head }}</a></h4>
+		<p class="sidebar-previous-summary">{{ item.summary|widont }}</p>
+	{% endfor %}
+	</div>
+{% endif %}

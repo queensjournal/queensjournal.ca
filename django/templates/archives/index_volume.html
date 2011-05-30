@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block headcode %}
+<script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery.columns.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+{% block breadcrumb %}
+<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="/archives/">Archives</a><span class="divider"></span></div>
+{% endblock %}
+<div class="section-header">
+	<h1>Volume {{ volume }}</h1>
+</div>
+<hr>
+{% if volume.issuu_embed %}
+<div class="issuu-embed">
+{{ volume.issuu_embed|safe }}
+</div>
+{% endif %}
+<ul class="issues">
+	{% for issue in issues %}
+	<li><a href="{% url stories.views.index_issue_front issue.pub_date %}">{{ issue }}</a> - {{ issue.pub_date|date:"F j, Y" }}</li>
+	{% endfor %}
+</ul>
+
+{% endblock content %}
+
+{% block footercode %}
+$(document).ready(function($){
+	$('.issues').makeacolumnlists({cols: 2});
+});
+$(document).ready(function() {
+	var is_visible = false;
+	
+	$('.toggleLink').click(function (){
+		
+		/*$(this).html( (!is_visible) ? showText : hideText);*/
+		
+		$(this).next('.toggle').toggle('slow');
+		
+		return false;
+	});
+});
+{% endblock footercode %}
+

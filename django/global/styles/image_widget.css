@@ -1,0 +1,75 @@
+/* TYPOGRAPHY */
+body {
+	background-color: white;
+	color: black;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 12px;
+}
+p {
+	font-size: 1em;
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+}
+li {
+	font-size: 1em;
+	line-height: 1.5em;
+}
+td {
+	font-size: 1em;
+	line-height: 1.5em;
+}
+h1 {
+	font-family: Georgia, Times, "Times New Roman", serif;
+	font-size: 2em;
+	font-weight: normal;
+	line-height: 1.5em;
+	margin-bottom: 0.75em;
+}
+
+/* ELEMENTS */
+.widget-field {
+	padding: 5px;
+}
+.error-field {
+	background-color: #fdc;
+	border: 1px solid #ecb;
+}
+.error-text {
+	color: #a22;
+	font-weight: bold;
+}
+div.widget-field p.help-text {
+	font-size: 0.917em;
+	line-height: 1.8em;
+	margin-left: 100px;
+}
+.widget-image {
+	float: left;
+	margin-right: 10px;
+	max-width: 200px;
+	width: expression(this.width > 205 ? "250px" : "auto");
+}
+.widget-markup {
+	margin-left: 210px;
+}
+div.widget-field p {
+	margin: 0;
+}
+h1 {
+	margin-bottom: 0;
+}
+label {
+	display: block;
+	float: left;
+	margin-right: 10px;
+	text-align: right;
+	width: 90px;
+}
+input, textarea, select {
+	background-color: #eee;
+	border: 1px solid #ccc;
+	padding: 3px;
+}
+button.form-button {
+	margin-left: 100px;
+}

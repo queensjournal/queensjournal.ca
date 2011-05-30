@@ -1,0 +1,34 @@
+{% extends 'staff/base.html' %}
+{% block title %} - Viewing photo request for {{ object.subject|escape }}{% endblock title %}
+{% block staffapp %}Photo request board{% endblock staffapp %}
+{% block header %}Viewing photo request for {{ object.subject|escape }}{% endblock header %}
+{% block content %}
+		<fieldset id="form-basics">
+			<legend>Basic information</legend>
+			<div id="form-subject" class="display-field"><label for="id_subject">Shoot subject:</label><br/>{{ object.subject|escape }}</div>
+			<div id="form-location" class="display-field"><label for="id_location">Shoot location:</label><br/>{{ object.location|escape }}</div>
+			<div id="form-time" class="display-field"><label for="id_time">Shoot time:</label><br/>{{ object.time|date:"F j, Y - P" }} (in {{ object.time|timeuntil }})</div>
+		</fieldset>
+
+		<fieldset id="form-workflow">
+			<legend>Workflow management</legend>
+			<div id="form-status" class="display-field"><label for="id_status">Status:</label><br/>{{ object.get_status_display|escape }}</div>
+			<div id="form-photographer" class="display-field"><label for="id_photographer">Photographer:</label><br/>{{ object.photographer|escape|default:"(none assigned)" }}</div>
+			<div id="form-deadline" class="display-field"><label for="id_deadline">Deadline:</label><br/>{{ object.deadline|date:"F j, Y" }}</div>
+		</fieldset>
+		
+		<fieldset id="form-details">
+			<legend>Details</legend>
+			<div id="form-creator" class="display-field"><label for="id_creator">Request creator:</label><br/>{{ object.creator.name|escape }} ({{ object.creator.username|escape }})</div>
+			<div id="form-section" class="display-field"><label for="id_section">Section:</label><br/>{{ object.section.name|escape }}</div>
+			<div id="form-notes" class="display-field"><label for="id_notes">Notes:</label><br/>
+			<blockquote>{{ object.notes|default:"(none)"|escape|linebreaks }}</blockquote>
+		</fieldset>
+{% endblock content %}
+{% block sidebar %}
+<div>
+	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.requests.views.user_index %}">View all requests</a></p>
+	<p>Always check with the photo editors in person as well as using this system.</p>
+	<p>Problems? Talk to the webmaster.</p>
+</div>
+{% endblock sidebar %}

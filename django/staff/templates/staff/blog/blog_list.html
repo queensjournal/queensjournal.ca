@@ -1,0 +1,10 @@
+{% extends 'staff/base.html' %}
+{% block staffapp %}Blogs index{% endblock staffapp %}
+{% block header %}List of blogs{% endblock header %}
+{% block content %}
+<ul id="staff-apps">
+	{% for blog in blogs %}
+		<li><a href="{% url staff.blog_admin.views.entries_index blog.slug %}"><h3>{{ blog.title }}</h3></a></li>
+	{% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% if is_empty %}
+{% else %}
+	<div id="content-sidebar">
+		<h3>Talking Heads</h3>
+	{% for item in items %}
+		<p class="sidebar-heads-location">...at {{ item.location }}</p>
+		<h4 class="sidebar-heads-question">{{ item.question }}</h4>
+		{% for answer in item.talkingheadsanswer_set.all %}
+			<img src="{{ answer.photo.get_photo_url }}" class="sidebar-heads-image"/>
+			<h5 class="sidebar-heads-person">{{ answer.name }}</h5>
+			<p class="sidebar-heads-quote">{{ answer.quote }}</p>
+		{% endfor %}
+	{% endfor %}
+	</div>
+{% endif %}

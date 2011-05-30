@@ -1,0 +1,51 @@
+{% extends 'staff/blog/base.html' %}
+{% load flash %}
+{% load custom_html %}
+{% block scripts %}
+<script type="text/javascript" src="{{ MEDIA_URL }}jquery/jquery-1.1.3.1.pack.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_form_formatter.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	attachFormatter($('#id_bio'), false);
+});
+</script>
+{% endblock scripts %}
+{% block title %} - Editing profile for {{ profile.user.get_full_name }}{% endblock title %}
+{% block header %}Editing profile for {{ profile.user.get_full_name }}{% endblock header %}
+{% block content %}
+{% flash %}
+<div class="flash {{ params.type }}">{{ msg }}{% if params.new and params.new.is_published %} <a href="{{ params.new.get_absolute_url }}">View post &raquo;</a>{% endif %}</div>
+{% endflash %}
+
+	<form enctype="multipart/form-data" action="" method="post">
+		{% csrf_token %}
+		{% if form.has_errors %}
+		<div class="flash failure">There were errors in the submission. Please check below for details.</div>
+		{% endif %}
+		<fieldset id="form-content">
+			<legend>Profile</legend>
+		
+			{% for field in form %}
+			
+				{% ifnotequal field.label 'Portrait' %}{% ifnotequal field.label 'New password' %}{% ifnotequal field.label 'Repeat new password' %}
+				<div class="form-field{% if field.errors %} form-errors{% endif %}"><label for="id_{{ field.name }}">{{ field.label }}</label><br/>{{ field }}{% if field.errors %}<br/><span>{{ field.errors|join:", " }}</span>{% endif %}</div>
+				{% endifnotequal %}{% endifnotequal %}{% endifnotequal %}
+	
+			{% endfor %}
+		</fieldset>
+
+		<fieldset id="form-categories">
+			<legend>Change password</legend>
+			<div class="form-field{% if form.password1.errors %} form-errors{% endif %}"><label for="id_password1">{{ form.password1.label }}</label><br/>{{ form.password1 }}{% if form.password1.errors %}<br/><span>{{ form.password1.errors|join:", " }}</span>{% endif %}</div>
+			<div class="form-field{% if form.password2.errors %} form-errors{% endif %}"><label for="id_password2">{{ form.password2.label }}</label><br/>{{ form.password2 }}{% if form.password2.errors %}<br/><span>{{ form.password2.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+
+		<button id="form-submit" type="submit">Save profile</button>
+	</form>
+{% endblock content %}
+{% block sidebar %}
+<div>
+	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.blog_admin.views.all_blogs %}">View all blog entries</a></p>
+	<p>Problems? Talk to the webmaster.</p>
+</div>
+{% endblock sidebar %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Shameless add image widget</title>
+<link rel="stylesheet" type="text/css" href="/media/styles/image_widget.css" />
+<script type="text/javascript" src="/media/js/jquery/jquery-1.2.1.min.js"></script>
+<script type="text/javascript">
+function insertImageTag(document, textarea, slug) {
+	// check for IE
+	if(document.selection) {
+		var range = document.selection.createRange();
+		if(range.parentElement() == textarea) {
+			document.selection.createRange().text = '<!--image:"' + slug + '"-->' + range.text;
+		}
+	}
+	else if(textarea.selectionStart <= textarea.selectionEnd) {
+		// get initial textarea status
+		var finalCursor = textarea.selectionEnd + 11;
+		var scrollTop = textarea.scrollTop;
+		var scrollLeft = textarea.scrollLeft;
+		
+		var textPrefix = textarea.value.substr(0, textarea.selectionStart);
+		var textSuffix = textarea.value.substr(textarea.selectionEnd);
+		var range = textarea.value.substr(textarea.selectionStart, textarea.selectionEnd - textarea.selectionStart);
+		textarea.value = textPrefix + '<!--image:"' + slug + '"-->' + range + textSuffix;
+		textarea.focus();
+		textarea.setSelectionRange(finalCursor, finalCursor);
+		textarea.scrollTop = scrollTop;
+		textarea.scrollLeft = scrollLeft;
+	}
+}
+
+$(document).ready(function() {
+	textfield = $(parent.document).find('#id_content');
+	// replace copy and paste elements with "Send to editor" function
+	$('#noscript').hide();
+	button = $(document.createElement('button')).html('Send to editor &raquo;').bind('click', function() {
+		insertImageTag(parent.document, textfield.get(0), $('#slug').text());
+	});
+	newDiv = $(document.createElement('div')).append('<p><strong>Place the text cursor where you want to insert the image, and click "Send to Editor."</strong></p>');
+	$('#noscript').after(newDiv.append(button));
+});
+</script>
+</head>
+<body>
+<img src="{{ image.thumbnail_image.url }}" class="widget-image" />
+<div class="widget-markup">
+	<h1>{{ image.name }}</h1>
+	<span>Uploaded {{ image.date_added|date:"F j, Y" }}</span>
+	<div id="noscript">
+		<p><strong>Copy the following markup and paste it into your blog post:</strong></p>
+		<input type="text" value="&lt;!--image:&quot;{{ image.slug }}&quot;--&gt;" style="width: 400px" />
+		{% csrf_token %}
+	</div>
+	<p><a href="{% url images.views.images_add %}">Add another image</a></p>
+	<span style="display: none" id="slug">{{ image.slug }}</span>
+</div>
+</body>

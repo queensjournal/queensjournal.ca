@@ -1,0 +1,67 @@
+{% load typogrify %}
+{% if is_empty %}
+{% else %}
+	<div id="content-sidebar">
+	{% regroup items|dictsortreversed:"is_played" by is_played as times %}
+	{% for time in times %}
+		{% if time.grouper %}
+			<h3>Scoreboard</h3>
+			{% regroup time.list|dictsort:"sport.name" by sport as sports %}
+			{% for sport in sports %}
+				<p class="sidebar-calendar-date">{{ sport.grouper }}</p>
+				{% for item in sport.list %}
+					{% ifchanged item.start_time.date %}
+						<p class="sidebar-sports-date">{{ item.start_time|date:"F j" }}</p>
+					{% endifchanged %}
+					<div class="sidebar-sports-item">
+					{% if item.sportsteamgamescore_set.all %}
+						{% for score in item.sportsteamgamescore_set.all %}
+							{% ifequal score.home_score None %}
+								<p class="sidebar-sports-teams">{{ score.home_team }} vs. {{ score.away_team }}: results pending</p>
+							{% else %}
+								<p class="sidebar-sports-teams">{{ score.home_team }} {{ score.home_score }}, {{ score.away_team }} {{ score.away_score }}</p>
+							{% endifequal %}
+						{% endfor %}
+					{% else %}
+						{% if item.sportsindividualscore_set.all %}
+							{% regroup item.sportsindividualscore_set.all by event_detail as ind_events %}
+							{% for ind_event in ind_events %}
+								<div class="sidebar-sports-item">
+								<p class="sidebar-sports-eventdetail">{{ ind_event.grouper }}</p>
+								{% for result in ind_event.list %}
+									<p class="sidebar-sports-indresult{%if result.home_team %}-queens{% endif %}">{{ result.place }}. {{ result.name }}, {% if result.home_team %}Queen's{% else %}{{ result.school }}{% endif %} {% if result.result_detail %}({{ result.result_detail }}){% endif %}</p>
+								{% endfor %}
+								</div>
+							{% endfor %}
+						{% else %}
+							<p class="sidebar-sports-teams">Results pending</p>
+						{% endif %}
+					{% endif %}
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% else %}
+			<h3>Upcoming Games</h3>
+			{% regroup time.list|dictsort:"sport.name" by sport as sports %}
+			{% for sport in sports %}
+				<p class="sidebar-calendar-date">{{ sport.grouper }}</p>
+				{% for item in sport.list %}
+					{% ifchanged item.start_time.date %}
+						<p class="sidebar-sports-date">{{ item.start_time|date:"F j" }}</p>
+					{% endifchanged %}
+					<div class="sidebar-sports-item">
+					{% if item.sportsteamgamescore_set.all %}
+						{% for score in item.sportsteamgamescore_set.all %}
+							<p class="sidebar-sports-teams">{{ score.home_team }} vs. {{ score.away_team }}</p>
+						{% endfor %}
+					{% endif %}
+					{% if item.ticket_info %}<p class="sidebar-sports-description">{{ item.ticket_info }}</p>{% endif %}
+					<p class="sidebar-sports-location">{{ item.location }}</p>
+					<p class="sidebar-sports-time">{{ item.start_time|date:"P" }}</p>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+	</div>
+{% endif %}

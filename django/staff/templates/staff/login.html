@@ -1,0 +1,15 @@
+{% extends "staff/base.html" %}
+
+{% block title %}- Login{% endblock %}
+{% block header %}Journal staff login{% endblock header %}
+{% block content %}
+<form method="post" action="{% if next %}?next={{ next }}{% endif %}">
+<fieldset>{% csrf_token %}
+{% if login_failed %}<p class="form-error">{{ login_failed }}</p>{% endif %}
+<div id="form-username" class="form-field{% if form.username.errors %} form-error{% endif %}"><label for="id_username">Username:</label><br/>{{ form.username }}{% if form.username.errors %} <span>{{ form.username.errors|join:", " }}</span>{% endif %}</div>
+<div id="form-password" class="form-field{% if form.password.errors %} form-error{% endif %}"><label for="id_password">Password:</label><br/>{{ form.password }}{% if form.password.errors %} <span>{{ form.password.errors|join:", " }}</span>{% endif %}</div>
+</fieldset>
+<input type="submit" value="Log in" />
+</form>
+{% endblock %}
+

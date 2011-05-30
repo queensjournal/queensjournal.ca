@@ -1,0 +1,84 @@
+{% extends 'staff/blog/base.html' %}
+{% load custom_html %}
+{% block scripts %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery/jquery-1.2.1.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_form_formatter.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_categories.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_publish_buttons.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_live_preview.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	attachFormatter($('#id_content'));
+	categoryPicker();
+	publishButtons();
+	livePreviewSetup();
+});
+</script>
+{% endblock scripts %}
+{% block title %} - {% if edit_entry %}Editing &ldquo;{{ object.title|escape }}&rdquo;{% else %}Adding new entry{% endif %}{% endblock title %}
+{% block header %}{% if edit_entry %}Editing &ldquo;{{ object.title|escape }}&rdquo;{% else %}Adding new entry{% endif %}{% endblock header %}
+{% block content %}
+	<form action="" method="post">
+		{% csrf_token %}
+		{% if form.has_errors %}
+		<div class="flash failure">There were errors in the submission. Please check below for details.</div>
+		{% endif %}
+		<fieldset id="form-content">
+			<legend>Content</legend>
+			<div class="form-field{% if form.title.errors %} form-errors{% endif %}"><label for="id_title">Title</label><br/>{{ form.title }}{% if form.title.errors %}<br/><span>{{ form.title.errors|join:", " }}</span>{% endif %}</div>
+			<div class="form-field{% if form.content.errors %} form-errors{% endif %}" style="clear: left"><label for="id_content">Entry content</label><br/>{{ form.content }}{% if form.content.errors %}<br/><span>{{ form.content.errors|join:", " }}</span>{% endif %}</div>
+			<span id="preview_url" style="display: none"></span>
+			<span id="current_status" style="display: none">{% if object %}{{ object.is_published }}{% else %}0{% endif %}</span>
+		</fieldset>
+		
+		<fieldset id="form-uploads">
+			<legend>Upload photos</legend>
+			
+			<iframe src="{% url images.views.images_add %}" id="frame-image-upload" frameborder="0"></iframe>
+			
+		</fieldset>
+
+		<fieldset id="form-tags">
+			<legend>Tags</legend>
+			<div class="form-field{% if form.tags.errors %} form-errors{% endif %}"><label for="id_tags">Tags (Post Tags and Label. Use this to apply tags to the post. Use commas to separate tags. The first tag will be the post's label. For example: "Student Ghetto, EngSoc, Town-Gown, Aberdeen)</label><br/>{{ form.tags }}{% if form.tags.errors %}<br/><span>{{ form.tags.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+
+		<fieldset id="form-preview">
+			<legend>Preview</legend>
+			<strong>Iframe and Javascript support are required for on-demand preview.</strong>
+		</fieldset>
+
+		<fieldset id="form-status">
+			<legend>Publish settings</legend>
+			<div class="form-field"><label for="id_is_published">Published?</label> {{ form.is_published }}</div>
+			<div class="form-field{% if form.pub_date_date.errors or form.pub_date_time.errors %} form-errors{% endif %}"><label for="id_pub_date">Publish date (YYYY-MM-DD), (HH:MM:SS)</label><br/>{{ form.pub_date_date }} {{ form.pub_date_time }}<br/>{% if form.pub_date_date.errors or form.pub_date_time.errors %}<br/><span>{{ form.pub_date.errors|join:", " }}</span>{% endif %}</div>
+		</fieldset>
+		
+		{% if moderate_entry %}
+		<fieldset id="form-discussion">
+			<legend>Discussion settings</legend>
+			<div class="form-field"><label for="id_enable_comments">Enable comments?</label> {{ form.enable_comments }}</div>
+		</fieldset>
+		{% else %}
+			<input type="hidden" name="enable_comments" id="id_enable_comments" value="{% ifequal object.enable_comments 0 %}off{% else %}on{% endifequal %}" />
+		{% endif %}
+
+		{% if object.id and not object.is_published %}
+		<fieldset id="form-delete">
+			<legend>Delete this draft</legend>
+			<div class="form-field"><label for="form-delete">Deleting a draft is permanent; there is no undo.</label> <button id="form-delete" name="draft-delete" value="1">Delete entry</button></div>
+		</fieldset>
+		{% endif %}
+
+		<input type="hidden" name="author" id="id_author" value="{% if object.author.id %}{{ object.author.id }}{% else %}{{ author.id }}{% endif %}" />
+		<input type="hidden" name="slug" value="{% firstof object.slug "slug-not-set" %}" />
+		<input type="hidden" name="blog" id="id_blog" value="{% if object.blog.id %}{{ object.blog.id }}{% else %}{{ blog.id }}{% endif %}" />
+		<button id="form-submit" type="submit">Save entry</button>
+	</form>
+{% endblock content %}
+{% block sidebar %}
+<div>
+	<p><a href="{% url staff.views.user_logout %}">Logout</a><br/><a href="{% url staff.blog_admin.views.entries_index blog.id %}">View all blog entries</a></p>
+	<p>Problems? Talk to the webmaster.</p>
+</div>
+{% endblock sidebar %}

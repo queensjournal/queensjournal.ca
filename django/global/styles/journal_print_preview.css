@@ -1,0 +1,25 @@
+@import "journal_print.css";
+
+body {
+	padding: 10px;
+	position: relative;
+}
+#overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	background-color: black;
+	opacity: 0.2;
+	-moz-opacity: 0.2;
+	filter: alpha(opacity:20);
+}
+#print-preview-dialog {
+	position: absolute;
+	z-index: 10;
+	background-color: white;
+	border: 1px solid black;
+	padding: 1.5em;
+}
+
+	

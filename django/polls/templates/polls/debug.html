@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+{% for item in request.session.items %}
+	<p>{{ item }}</p>
+{% endfor %}
+<p>{{ remote_addr }}</p>
+<p>{{ sessionid }}</p>
+{% for item in request.META.items %}
+	<p> {{ item }}</p>
+{% endfor %}
+</body>

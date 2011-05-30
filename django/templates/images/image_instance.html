@@ -1,0 +1,9 @@
+{% load comparison %}
+{% spaceless %}
+{% if image %}
+	<a href="{{ image.display.url }}"><img src="{{ image.display.url }}" class="content-image" alt="{{ image.name }}" title="{{ image.name }}{% if image.credit %} ({{ image.credit }}){% endif %}" style="width: {% if_greater image.get_image_width max_width %}{{ max_width }}{% else %}{{ image.get_image_width }}{% endif_greater %}px" /></a>
+	{% if image.caption %}
+		<p class="image-caption" style="width: {% if_greater image.get_image_width max_width %}{{ max_width }}{% else %}{{ image.get_image_width }}{% endif_greater %}px">{{ image.caption }}{% if image.credit %} ({{ image.credit }}){% endif %}</p>
+	{% endif %}
+{% endif %}
+{% endspaceless %}

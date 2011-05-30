@@ -1,0 +1,96 @@
+{% extends 'stories/index_section.html' %}
+{% load custom_html %}
+
+{% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
+	
+	{% block actions %}
+		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/section/{{ story.section.slug }}/">Latest {% firstof story.section.short_name story.section.name %} RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
+	{% endblock actions %}
+	
+	{% block content-class %} span-19 front-content{% endblock %}	
+	
+	{% block content %}
+	<div class="section-header">
+		<h1>{{ config.section.name }}</h1>
+	</div>
+
+	<div class="hr dblmargin"><hr></div>
+		
+	<div class="block">	
+			
+		<div class="featured column span-16 colborder"><!--featured box-->
+			
+				<div id="slider-wrapper">
+
+		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
+					{% for story in featured %}
+		                <img src="{{ story.first_photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+		            {% endfor %}
+		            </div>
+					{% for story in featured %}
+		            <div id="caption{{ story.id }}" class="nivo-html-caption">
+		                <p class="slider-story label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
+			{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Gallery" %}{% endif %}</p>
+						<h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+						{{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
+		            </div>
+					{% endfor %}
+	       
+				</div>
+			
+		</div><!--featured box-->
+	
+		<div id="stories-other" class="latest column span-7 last">
+			<h3>Latest Galleries <span class="feed"><a href="/rss/section/{{ story.section.slug }}/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+			<hr>
+			<ul>
+			{% for story in latest_stories %}
+				<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+					<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
+					<p class="pub_date">{{ story.pub_date|date_diff }}</p>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+		
+	</div><!--block-->
+	
+	<div class="hr dblmargin"><hr></div>
+	
+	<div class="block">
+		
+		<div id="other-stories" class="column span-24 last">
+		
+			{% for story in other_stories %}
+			<div class="latest-section">
+				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Gallery" %}{% endif %}</p>
+				<a href="{{ story.get_absolute_url }}">{% if story.first_photo %}<img src="{{ story.first_photo.front_image.url }}" />{% endif %}
+				<h2 class="latest-section-head">{{ story.head }}</h2></a>
+				<p class="latest-section-summary">{{ story.summary|safe }}</p>
+			</div>
+			{% endfor %}
+			
+		</div>
+		
+	</div>
+	{% endblock content %}
+
+{% block footercode %}
+    $(window).load(function() {
+        $('#slider').nivoSlider({
+			directionNav:true,
+			controlNav:false,
+			effect:'slideInLeft',
+			pauseOnHover:true,
+			pauseTime:5000,
+			captionOpacity:1,
+		});
+    });
+	$(window).load(function(){
+		$('#other-stories').masonry({
+ 			singleMode: true,
+			columnWidth: 247,
+			itemSelector: '.latest-section' 
+		});
+	});
+{% endblock footercode %}

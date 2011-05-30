@@ -1,0 +1,16 @@
+{% extends 'staff/base.html' %}
+{% block menu %}			
+<div id="menu" class="clearfix">
+	<ul>
+		<li><a href="{% url staff.blog_admin.views.all_blogs %}">Your blogs</a></li>
+		<li><a href="{% url staff.blog_admin.views.dashboard blog.slug %}">Dashboard</a></li>
+		<li><a href="{% url staff.blog_admin.views.entries_index blog.slug %}">Manage</a></li>
+		<li><a href="{% url staff.blog_admin.views.entry_add blog.slug %}">Write</a></li>
+		<li><a href="{% url staff.blog_admin.views.profile_edit blog.slug %}">Profile</a></li>
+	</ul>
+</div>
+{% endblock menu %}
+{% block header-topline %}
+	<div id="blog_name">Current blog: <strong>{{ blog.title }}</strong></div>
+{% endblock header-topline %}
+{% block staffapp %}Blog editor{% endblock staffapp %}

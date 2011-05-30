@@ -1,0 +1,14 @@
+{% load typogrify %}
+{% if is_empty %}
+{% else %}
+	<div id="content-sidebar">
+	<h3>Campus Calendar</h3>
+	{% for item in items %}
+		{% ifchanged item.start_time.date %}<p class="sidebar-calendar-date">{{ item.start_time.date|date:"F j" }}</p>{% endifchanged %}
+		<h5 class="sidebar-calendar-name">{{ item.name }}</h5>
+		<p class="sidebar-calendar-details">{{ item.description|widont }}</p>
+		<p class="sidebar-calendar-location">{{ item.location }}</p>
+		<p class="sidebar-calendar-time">{{ item.start_time|date:"P" }}{% if item.end_time %}-{{ item.end_time|date:"P" }}{% endif %}</p>
+	{% endfor %}
+	</div>
+{% endif %}

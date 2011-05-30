@@ -1,0 +1,154 @@
+{% extends 'staff/blog/base.html' %}
+{% load flash %}
+{% load custom_html %}
+{% block scripts %}
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery/jquery-1.2.1.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}js/blog/entry_list.js"></script>
+{% endblock scripts %}
+{% block title %} - Viewing 
+	{% if not query and not status and not author and not category and not date %}all blog entries
+	{% else %}{% if query %}blog entry search results for "{{ query|escape }}"
+	{% else %}{% if status %}{{ status|escape }} blog entries
+	{% else %}{% if author %}entries by {{ author.user.name }}
+	{% else %}{% if category %}entries in the &ldquo;{{ category.name }}&rdquo; category
+	{% else %}{% if date %}entries from {{ date|date:"F Y" }}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+{% endblock title %}
+{% block header %}
+	{% if not query and not status and not author and not category and not date %}All blog entries
+	{% else %}{% if query %}Search results for "{{ query|escape }}"
+	{% else %}{% if status %}{{ status|escape|capfirst }} blog entries
+	{% else %}{% if author %}Blog entries by {{ author.user.name }}
+	{% else %}{% if category %}Blog entries in the &ldquo;{{ category.name }}&rdquo; category
+	{% else %}{% if date %}Blog entries from {{ date|date:"F Y" }}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+{% endblock header %}
+{% block actions %}{% if add_entry %}<a href="{% url staff.blog_admin.views.entry_add blog.slug %}" id="add-request">Write a blog entry</a>{% endif %}{% endblock actions %}
+{% block content %}
+{% flash %}
+<div class="flash {{ params.type }}">{{ msg }}{% if params.new and params.new.is_published %} <a href="{{ params.new.get_absolute_url }}">View post &raquo;</a>{% endif %}</div>
+{% endflash %}
+<table id="objects-list">
+	<thead>
+		{% if is_paginated %}
+		<tr>
+			<td colspan="{% if edit_all_entries or edit_own_entries %}5{% else %}4{% endif %}">page {{ page }} of {{ pages }}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td class="list-author">Author</td>
+			<td class="list-title">Title</td>
+			<td class="list-categories">Categories</td>
+			<td class="list-edit"{% if edit_all_entries or edit_own_entries %} colspan="2"{% endif %}>Actions</td>
+		</tr>
+	</thead>
+	<tbody>
+	{% if object_list|length_is:0 %}
+		<tr class="object-row"><td colspan="{% if edit_all_entries or edit_own_entries %}5{% else %}4{% endif %}">There are no entries.</td></tr>
+	{% else %}
+		{% regroup object_list|dictsort:"is_published" by is_published as drafts %}
+		{% for post_lists in drafts %}
+			{% ifequal post_lists.grouper 0 %}
+				<tr class="list-date-divider"><td colspan="{% if edit_all_entries or edit_own_entries %}5{% else %}4{% endif %}">Drafts</td></tr>
+			{% endifequal %}
+				
+			{% for object in post_lists.list|dictsortreversed:"pub_date" %}
+				{% ifchanged object.pub_date.date %}
+					<tr class="list-date-divider"><td colspan="{% if edit_all_entries or edit_own_entries %}5{% else %}4{% endif %}">{% if object.pub_date %}{{ object.pub_date|date:"F j, Y" }}{% else %}Drafts{% endif %}</td></tr>
+				{% endifchanged %}
+				<tr class="object_row {% if object.is_published %}published{% else %}draft{% endif %}">
+					<td class="list-author">{{ object.author.user.name }}</td>
+					<td class="list-title">
+						{% if not edit_all_entries and not edit_own_entries %}
+						{{ object.title }}
+						{% else %}{% if edit_all_entries %}
+						<a href="{% url staff.blog_admin.views.entry_edit blog.slug,object.id %}">{{ object.title }}</a>
+						{% else %}{% if edit_own_entries %}{% ifequal user object.author.user %}
+						<a href="{% url staff.blog_admin.views.entry_edit blog.slug,object.id %}">{{ object.title }}</a>
+						{% else %}{{ object.title }}
+						{% endifequal %}{% endif %}{% endif %}{% endif %}
+					</td>
+					<td class="list-categories">
+						{% for category in object.categories.all %}
+							<a href="{{ request.path }}?category={{ category.slug }}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
+						{% endfor %}
+					</td>
+					<td class="list-view">
+						{% if object.is_published or view_all_drafts %}
+						<a href="{% if object.is_published %}{{ object.get_absolute_url }}{% else %}{% url staff.blog_admin.views.entry_edit object.blog.id object.id %}{% endif %}">View</a>
+						{% else %}{% if not object.is_published and not view_all_drafts and view_own_drafts %}{% ifequal user object.author.user %}
+						<a href="{% if object.is_published %}{{ object.get_absolute_url }}{% else %}{% url staff.blog_admin.views.entry_edit object.blog.id object.id %}{% endif %}">View</a>
+						{% endifequal %}{% endif %}{% endif %}
+					</td>
+						
+					{% if edit_all_entries %}
+						<td class="list-edit"><a href="{% url staff.blog_admin.views.entry_edit blog.slug,object.id %}">Edit</a></td>
+					{% else %}{% if edit_own_entries %}
+						{% ifequal user object.author.user %}
+							<td class="list-edit"><a href="{% url staff.blog_admin.views.entry_edit blog.slug,object.id %}">Edit</a></td>
+						{% else %}
+							<td class="list-edit"></td>
+						{% endifequal %}{% endif %}
+					{% endif %}
+				</tr>
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="{% if edit_all_entries or edit_own_entries %}5{% else %}4{% endif %}" class="clearfix">
+				{% if has_previous %}
+				<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ previous }}" id="nav-previous">&laquo; previous</a>{% endif %}
+				{% if has_next %}<a href="{{ request.path }}?{% for param in request.GET.items %}{% ifnotequal param.0 "page" %}{{ param.0 }}={{ param.1 }}&{% endifnotequal %}{% endfor %}page={{ next }}" id="nav-next">next &raquo;</a>{% endif %}
+			</td>
+		</tr>
+	</tfoot>
+</table>
+{% endblock content %}
+
+{% block sidebar %}
+<div>
+{% if status or query or author or category or date %}
+	<p><a href="{% url staff.blog_admin.views.entries_index blog.slug %}">View all blog entries</a><br/><a href="{% url staff.blog_admin.views.profile_edit blog.slug %}">Edit your blogger profile</a></p>
+{% endif %}
+</div>
+<div id="search">
+	<form action="" method="get">
+		<input type="text" name="s" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" />
+	</form>
+</div>
+<div id="filter-status" class="filters">
+	<p class="filter-type">By status</p>
+	<ul>
+		<li{% ifequal status 'published' %} class="selected"{% endifequal %}><a href="?status=published">Published</a></li>
+		<li{% ifequal status 'draft' %} class="selected"{% endifequal %}><a href="?status=draft">Draft</a></li>
+	</ul>
+</div>
+<div id="filter-status" class="filters">
+	<p class="filter-type">By date</p>
+	<ul>
+		{% for month in dates_list %}
+			<li{% ifequal month date %} class="selected"{% endifequal %}><a href="?date={{ month|date:"Y-m" }}">{{ month|date:"F Y" }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+<div id="filter-author" class="filters">
+	<p class="filter-type">By author</p>
+	<ul>
+		{% for author_item in author_list %}
+			<li{% ifequal author author_item %} class="selected"{% endifequal %}><a href="?author={{ author_item.user.username }}">{{ author_item.name }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock sidebar %}

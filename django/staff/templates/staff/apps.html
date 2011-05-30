@@ -1,0 +1,9 @@
+{% extends 'staff/base.html' %}
+{% block staffapp %}Staff site index{% endblock staffapp %}
+{% block header %}Journal staff area{% endblock header %}
+{% block content %}
+<ul id="staff-apps">
+	{% if perms.requests %}<li><a href="{% url staff.requests.views.user_index %}"><h3>Photo request board</h3></a></li>{% endif %}
+	{% if perms.blog %}<li><a href="{% url staff.blog_admin.views.all_blogs %}"><h3>Blog administration</h3></a></li>{% endif %}
+</ul>
+{% endblock content %}
