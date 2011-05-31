@@ -3,3 +3,5 @@
 *.json
 *.svn*
 *.sql*
+lib/
+*.sass-cache/

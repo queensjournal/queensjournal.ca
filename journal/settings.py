@@ -65,7 +65,7 @@ MIDDLEWARE_CLASSES = (
 	'pagination.middleware.PaginationMiddleware',
 )
 
-ROOT_URLCONF = 'journal.urls'
+ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
 	'django.contrib.redirects',
