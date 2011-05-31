@@ -130,6 +130,15 @@ def striplabel(value, delimiter=','):
 		return value
 	else:
 		return value
+		
+def possessive(value): 
+    """ 
+    Returns a possessive form of a name according to English rules 
+    Mike returns Mike's, while James returns James' 
+    """ 
+    if value[-1] == 's': 
+        return "%s'" % value 
+    return "%s's" % value
 
 register.filter(convert_entities)
 register.filter(linebreakswithcode)
@@ -137,3 +146,4 @@ register.filter(stripspace)
 register.filter(choptext)
 register.filter(date_diff)
 register.filter(striplabel)
+register.filter(possessive)
