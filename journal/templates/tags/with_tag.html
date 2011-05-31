@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load navigation %}
-{% load tags %}
+{% load tagging_tags %}
 
 {% block content %}
 <h1>Tag Search</h1>
 <p>You searched for the tag <span class="highlight">{{ tag }}</span>.</p>
 {% if stories %}
 	{% for story in stories %}
-		{% if story.head %}
+		{% if story.model_type = 'Story' %}
 		<div class="row-{% cycle odd,even %}">
 		<h2><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 		<h3>{{ story.pub_date|date:"jS F Y" }}</h3>
@@ -15,15 +15,23 @@
 		</div><!-- row end -->
 		{% endif %}
 		
-		{% if story.title %}
+		{% if story.model_type = 'Entry' %}
 		<div class="row-{% cycle odd,even %}">
 		<h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
 		<h3>{{ story.pub_date|date:"jS F Y" }}</h3>
 		{{ story.content|striptags|truncatewords:50|safe|linebreaks }}
 		</div><!-- row end -->
 		{% endif %}
+		
+		{% if story.model_type = 'Video' %}
+		<div class="row-{% cycle odd,even %}">
+        <h2><a href="{{ story.get_absolute_url }}">{{ story.name }}</a></h2>
+        <h3>{{ story.pub_date|date:"jS F Y"}}</h3>
+        {{ story.caption|striptags|truncatewords:50|safe|linebreaks }}
+        </div>
+		{% endif %}
 	{% endfor %}
 {% else %}
-	<p>No articles have that tag</p>
+	<p>Nothing has that tag</p>
 {% endif %}
 {% endblock content %}

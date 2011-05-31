@@ -4,7 +4,7 @@
 {% load disqus_tags %}
 {% load more %}
 {% load image_tags %}
-{% load tags %}
+{% load tagging_tags %}
 
 {% block headcode %}
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
@@ -46,14 +46,10 @@
 	
 	{% block blog-content %}
 		{% for entry in object_list %}
-		<div id="entry-{{ entry.id }}" class="entry {% cycle 'white' 'grey' %}">
+		<div id="entry-{{ entry.id }}" class="entry">
 			<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
-			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.user.get_full_name }}</a> on {{ entry.pub_date|date:"F j, Y @ h:i a T" }}</h5>
-			{% tags_for_object entry as tags %}
-			{% if tags %}<p>Tags: {% for tag in tags %}<a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.name }}</a> on {{ entry.pub_date|date:"F j, Y @ h:i a T" }}{% tags_for_object entry as tags %}{% if tags %}<br/>Tags: {% for tag in tags %}<a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</h5>
 			<div class="blog-post-content">{{ entry.content|more:entry.id|images:435|removetags:"font"|typogrify|linebreakswithcode|truncatewords:150|safe }}{% ifnotequal entry.content|truncatewords:150|length entry.content|truncatewords:151|length %}<a href="{{ entry.get_absolute_url }}"> Read more...</a>{% endifnotequal %}</div>
-			
-
 			<a href="{{ entry.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ entry.id }}">View Comments</a>
 			{% disqus_num_replies %}
 		</div>

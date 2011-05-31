@@ -7,10 +7,13 @@
 {% block meta %}
 <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
 {% endblock meta %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/blueprint/reset.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/blueprint/liquid.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/blueprint/typography.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/styles/screen.css" media="screen" title="Default" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/reset.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/liquid.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/typography.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/screen.css" media="screen" title="Default" />
+<!--[if lte IE 7]>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/ie.css">
+<![endif]-->
 <LINK REL="shortcut icon" HREF="{{ MEDIA_URL }}global/favicon.ico">
 <script src="{{ MEDIA_URL }}global/js/modernizr-1.7.min.js" type="text/javascript"></script>
 {% block headcode %}{% endblock headcode %}

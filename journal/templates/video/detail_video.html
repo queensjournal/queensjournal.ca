@@ -6,7 +6,7 @@
 {% load poll_tags %}
 {% load flash %}
 {% load lists %}
-{% load tags %}
+{% load tagging_tags %}
 {% load shorturl %}
 
 {% block facebook %}
@@ -38,7 +38,7 @@
 			
 			<div id="video-wrapper">
 				{% load oembed_tags %}
-				{% oembed %}
+				{% oembed 720x720 %}
 				{{ video.link|safe }}
 				{% endoembed %}
 			</div>
@@ -87,7 +87,7 @@
 					{% for video in latest_videos %}
 					<div class="latest-section videos">
 						<div class="video-thumb">
-							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{MEDIA_URL}}global/styles/images/play.png"></span>
+							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{MEDIA_URL}}global/css/images/play.png"></span>
 							<h2 class="latest-section-head">{{ video.name }}</h2></a>
 						</div>
 						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>

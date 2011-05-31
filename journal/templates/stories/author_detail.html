@@ -1,24 +1,51 @@
 {% extends 'base.html' %}
+{% load pagination_tags %}
+{% load typogrify %}
+{% load custom_html %}
 
 {% block content %}
 
+{% block breadcrumb %}
+	<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.author_index %}">Authors</a><span class="divider"></span></div>
+{% endblock breadcrumb %}
+
 <h1>{{ author.name }}</h1>
-{% if author.homepage %}<a href="{{ author.homepage }}">Website</a>{% endif %}
 
-{% if author.headshot %}
-<img src="{{ author.headshot.display.url }}" alt="{{ author.name }}" />
-{% endif %}
+<div id="author">
+    <div id="author-bio">
+    <p>{{ author.bio|safe }}</p>
+    </div>
 
-<p>{{ author.bio|safe }}</p>
+    <div id="author-info">
+    {% if author.headshot %}<img src="{{ author.headshot.display.url }}" alt="{{ author.name }}" />{% endif %}
+    {% if author.homepage %}<p><a href="{{ author.homepage }}">Website</a></p>{% endif %}
+    {% if author.email %}<p><a href="mailto:{{ author.email }}">Email</a></p>{% endif %}
+    </div>
+</div>
 
-<div class="hr"><hr></div>
+<div class="hr dblmargin"><hr></div>
 
-<ul>{% for story in story_set %}
-<li><a href="{{ story.story.get_absolute_url }}">{{ story.story.head }}</a></li>
-{% endfor %}</ul>
+{% autopaginate items 10 %}
+<div id="resultlist">
+    {% for item in items %}
+    <div class="{% cycle 'search1' 'search2' %}">
+    {% ifequal item.model_type 'Entry' %}
+        {% if item.first_photo %}<img src="{{ item.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+		<h3><a href="{{ item.get_absolute_url }}">{{ item.title|typogrify }}</a></h3>
+		<p class="meta">By {{ item.author.name }}</p>
+		<p>{{ item.content|striptags|truncatewords:40|safe }}</p>
+    {% else %}
+        {% if item.story.first_photo %}<img src="{{ item.story.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+		<h3><a href="{{ item.story.get_absolute_url }}">{{ item.story.head|typogrify }}</a></h3>
+		{% ifnotequal item.story.list_authors '[no author]' %}<p class="meta">By {{ item.story.list_authors|safe }}</p>{% endifnotequal %}
+		<p>{{ item.story.summary|striptags|truncatewords:40|safe }}</p>
+    {% endifequal %}
+    </div>
+    {% endfor %}
+</div>
 
-<ul>{% for entry in entry_set %}
-<li><a href="{{ entry.get_absolute_url }}">{{ entry.head }}</a></li>
-{% endfor %}</ul>
+<div id="pagination">
+    {% paginate %}
+</div>
 
 {% endblock content %}
