@@ -62,9 +62,10 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+	'pagination.middleware.PaginationMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'journal.urls'
 
 INSTALLED_APPS = (
 	'django.contrib.redirects',
@@ -94,6 +95,7 @@ INSTALLED_APPS = (
 	#'ghettoq',
 	#'djkombu',
 	'disqus',
+	'pagination',
 	
 	#'grappelli',
 	
