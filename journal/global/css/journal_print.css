@@ -234,6 +234,6 @@ a img {
 				width: 200px;
 			}
 
-#footer, #top-ad, #menu-ad, #footer-ad, #menu-social-media, #disqus-widget, #facebook-widget, #connect, #search, #disqus-widget, #menu-sections, #header-slogan {
+#header-left, #breadcrumb, #footer, #top-ad, #menu-ad, #footer-ad, #menu-social-media, #disqus-widget, #facebook-widget, #connect, #search, #disqus-widget, #menu-sections, #header-slogan, #story-socmedia, #menu, #disqus_thread {
 	display: none !important;
 }
