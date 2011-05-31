@@ -64,7 +64,7 @@ def index_front(request):
     if request.session.get('vote') is None:
         request.session['vote'] = []
     return render_to_response('stories/index_front.html',
-                            {'featured': front_config.featuredstory_set.all().order_by('-story__pub_date'),
+                            {'featured': front_config.featuredstory_set.all().order_by('story_order'),
                             'latest_stories': latest_stories,
                             'latest_entries': latest_entries,
                             'latest_section': latest_section,
