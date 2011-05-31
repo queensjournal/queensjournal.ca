@@ -96,6 +96,7 @@ INSTALLED_APPS = (
 	#'djkombu',
 	'disqus',
 	'pagination',
+	'south',
 	
 	#'grappelli',
 	

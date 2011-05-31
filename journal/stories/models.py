@@ -206,7 +206,7 @@ class FeaturedStory(models.Model):
     story = models.ForeignKey(Story)
     front = models.ForeignKey(FrontConfig)
     photo = models.ForeignKey(FeaturedPhoto)
-    front_page = models.BooleanField(default=False, help_text="Check to put on Front Page. Limit 5.")
+    story_order = models.PositiveIntegerField(default=False, help_text="Lower the number, order it will show in the Front slideshow.")
     
     class Meta:
         verbose_name = 'Top Story'
