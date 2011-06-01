@@ -6,11 +6,13 @@ from django.contrib import admin
 admin.autodiscover()
 
 feeds = {
-    'latest': LatestStories,
+    'latest': Latest,
+    'latest-stories': LatestStories,
     'section': LatestStoriesSection,
     'allblogs': LatestPostsAllBlogs,
     'blogs': LatestPostsSingleBlog,
     'blog-author': LatestPostsSingleAuthor,
+    'video': LatestVideos
 ##    'calendar': LatestCalendar,
 }
 	
