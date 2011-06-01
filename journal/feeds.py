@@ -4,7 +4,39 @@ from structure.models import Issue, Section, FlatPlanConfig
 from stories.models import Story
 from sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
 from blog.models import Blog, Entry
+from video.models import Video
+from dependencies.multiquery import QuerySetChain
 
+class Latest(Feed):
+    title = "Queen's Journal: Latest content"
+    link = "/"
+    description = "The latest from the Queen's Journal."
+    description_template = 'feeds/latest_description.html'
+    
+    def items(self):
+        stories = Story.objects.select_related().filter(status='p').order_by('-pub_date')[:15]
+        entries = Entry.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
+        videos = Video.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
+        return QuerySetChain(stories, entries, videos)[:20]
+        
+    def item_title(self, obj):
+        if obj.model_type() is 'Story':
+            return obj.head
+        elif obj.model_type() is 'Video':
+            return obj.name
+        elif obj.model_type() is 'Entry':
+            return obj.title
+        
+    def item_author_name(self, obj):
+        if obj.model_type() is 'Story':
+            return obj.section
+        elif obj.model_type() is 'Video':
+            return 'Videos'
+        elif obj.model_type() is 'Entry':
+            return 'Journal Blogs - %s' % (obj.blog)
+            
+    def item_pubdate(self, obj):
+        return obj.pub_date
 
 class LatestStories(Feed):
 	title = "Queen's Journal: Latest stories"
@@ -16,11 +48,10 @@ class LatestStories(Feed):
 		return Story.objects.select_related().filter(status='p').order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.list_authors()
+		return item.section
 
 	def item_pubdate(self, item):
 		return item.pub_date
-
 
 class LatestStoriesSection(Feed):
 	description_template = 'feeds/stories_description.html'
@@ -61,7 +92,7 @@ class LatestPostsAllBlogs(Feed):
 		return Entry.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.author.user.get_full_name()
+		return item.blog
 
 	def item_pubdate(self, item):
 		return item.pub_date
@@ -90,7 +121,7 @@ class LatestPostsSingleBlog(Feed):
 		return Entry.objects.select_related().filter(blog__slug=obj.slug, is_published=True).order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.author.user.get_full_name()
+		return item.blog
 
 	def item_pubdate(self, item):
 		return item.pub_date
@@ -119,8 +150,23 @@ class LatestPostsSingleAuthor(Feed):
 		return Entry.objects.select_related().filter(author=obj, is_published=True).order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.author.user.get_full_name()
+		return item.blog
 
 	def item_pubdate(self, item):
 		return item.pub_date
+		
+class LatestVideos(Feed):
+	title = "Queen's Journal: Latest videos"
+	link = "/"
+	description = "All the latest videos from the Queen's Journal."
+	description_template = 'feeds/video_description.html'
+
+	def items(self):
+		return Video.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
+
+	def item_author_name(self, item):
+		return item.photographer
+
+	def item_pubdate(self, item):
+		return item.pub_date  
 

@@ -1,5 +1,9 @@
 {% load typogrify %}
 {% load custom_html %}
-{% load embed %}
-{{ obj.link|embed:720|safe }}
+{% load oembed_tags %}
+<p>By <a href="{{ obj.photographer.get_absolute_url }}">{{ obj.photographer }}</a></p>
+{% oembed 400x320 %}
+{{ obj.link|safe }}
+{% endoembed %}
+<noembed><a href="{{obj.get_absolute_url}}">Click here to view video</a></noembed>
 {{ obj.caption|typogrify|urlizetrunc:50|linebreakswithcode|safe }}

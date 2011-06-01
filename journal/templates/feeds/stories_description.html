@@ -1,6 +1,8 @@
 {% load typogrify %}
 {% load custom_html %}
 
+<p>By {{obj.list_authors|safe}}</p>
+
 {% for pwrapper in obj.storyphoto_set.all|slice:":2" %}
 	<img src="{{ pwrapper.photo.display.url }}"/>
 	<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
