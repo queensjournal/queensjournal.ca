@@ -861,10 +861,14 @@ a.nivo-prevNav {
 #masthead ul {
   list-style-type: none; }
   #masthead ul li {
-    clear: left; }
+    clear: left;
+    margin: 0;
+    padding: 0.5em; }
     #masthead ul li p {
-      font-weight: bold;
-      margin: 0; }
+      font-weight: bold; }
+    #masthead ul li h4 {
+      margin: 0;
+      font-weight: bold; }
   #masthead ul ul {
     margin-bottom: 1.5em; }
     #masthead ul ul li {
