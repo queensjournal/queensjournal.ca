@@ -11,21 +11,14 @@ class Latest(Feed):
     title = "Queen's Journal: Latest content"
     link = "/"
     description = "The latest from the Queen's Journal."
+    title_template = "feeds/latest_title.html"
     description_template = 'feeds/latest_description.html'
     
     def items(self):
-        stories = Story.objects.select_related().filter(status='p').order_by('-pub_date')[:15]
-        entries = Entry.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
-        videos = Video.objects.select_related().filter(is_published=True).order_by('-pub_date')[:15]
-        return QuerySetChain(stories, entries, videos)[:20]
-        
-    def item_title(self, obj):
-        if obj.model_type() is 'Story':
-            return obj.head
-        elif obj.model_type() is 'Video':
-            return obj.name
-        elif obj.model_type() is 'Entry':
-            return obj.title
+        stories = Story.objects.select_related().filter(status='p').order_by('-pub_date')[:10]
+        entries = Entry.objects.select_related().filter(is_published=True).order_by('-pub_date')[:10]
+        videos = Video.objects.select_related().filter(is_published=True).order_by('-pub_date')[:10]
+        return QuerySetChain(stories, entries, videos)[:30]
         
     def item_author_name(self, obj):
         if obj.model_type() is 'Story':
