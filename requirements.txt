@@ -16,5 +16,5 @@ python-twitter==0.8.2
 simplejson==2.1.6
 smartypants==1.6.0.3
 typogrify==1.0
-markdown=2.0.3
 xapian-haystack==1.1.5beta
+Markdown==2.0.3
