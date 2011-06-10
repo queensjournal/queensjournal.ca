@@ -22,6 +22,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from shorturls.templatetags.shorturl import ShortURL # ditto
 from shorturls.baseconv import base62
+from django.template.defaultfilters import striptags
 
 TWITTER_MAXLENGTH = getattr(settings, 'TWITTER_MAXLENGTH', 140)
 
@@ -66,7 +67,7 @@ def post_to_twitter(sender, instance, *args, **kwargs):
 
 	# create the twitter message
 	try:
-		text = instance.get_twitter_message()
+		text = striptags(instance.get_twitter_message())
 	except AttributeError:
 		text = unicode(instance)
 

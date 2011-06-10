@@ -1,6 +1,7 @@
 from django import template
 from structure.models import Issue, Volume, FrontConfig, FrontPageConfig
 from stories.models import Story
+from blog.models import Blog
 
 register = template.Library()
 
@@ -104,8 +105,16 @@ def do_other_stories(parser, token):
 	else:
 		return OtherStoriesListNode(bits[1], bits[2])
 
+def menu_blogs(context):
+    '''
+    Provides HTML code for active blogs
+    '''
+    params = {}
+    params['blogs'] = Blog.objects.filter(active=True)
+    return params
 	
 register.tag('current_issue', do_current_issue)
 register.tag('issue_archives', do_issue_archives)
 register.inclusion_tag('global/menu_sections.html', takes_context=True)(menu_sections)
 register.tag('other_stories', do_other_stories)
+register.inclusion_tag('global/menu_blogs.html', takes_context=True)(menu_blogs)

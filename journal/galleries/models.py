@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-from django.template.defaultfilters import slugify
 from stories.models import Story, Photo
 
 class Gallery(models.Model):
@@ -11,6 +10,12 @@ class Gallery(models.Model):
     class Meta:
         verbose_name = "Photo Gallery"
         verbose_name_plural = "Photo Galleries"
+        
+    def first_photo(self):
+        try:
+            return images[0]
+        except:
+            return False
 
     def __unicode__(self):
         return self.name

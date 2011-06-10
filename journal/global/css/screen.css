@@ -5,14 +5,37 @@
   src: url("../otf/classgaramond.otf"); }
 
 body {
+  font-size: 75%;
+  color: #222;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   background-color: #eee;
-  font-family: Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0; }
 
 /*Headlines: Big, Normal, Sub */
 h1, h2, h3 {
-  font-family: ClassGaramond, Garamond, Times, serif; }
+  font-family: ClassGaramond, Garamond, Times, serif;
+  font-weight: normal; }
+
+h1 {
+  font-size: 3em;
+  line-height: 1;
+  margin-bottom: 0.5em; }
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 0.75em; }
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin-bottom: 1em; }
+
+h4 {
+  font-size: 1.2em;
+  line-height: 1.25;
+  margin-bottom: 1.25em;
+  font-weight: normal; }
 
 hr {
   border-style: none;
@@ -73,10 +96,8 @@ a {
   text-decoration: none; }
   a img {
     border: 0; }
-
-.chopped span {
-  position: absolute;
-  text-indent: -999em; }
+  a:focus, a:hover {
+    color: #09f; }
 
 .label {
   text-transform: uppercase;
@@ -84,12 +105,92 @@ a {
   line-height: 0.85em;
   margin-bottom: 5px; }
 
+blockquote {
+  margin: 1.5em;
+  color: #666;
+  font-style: italic; }
+
+strong, dfn {
+  font-weight: bold; }
+
+em, dfn {
+  font-style: italic; }
+
+sup, sub {
+  line-height: 0; }
+
+abbr, acronym {
+  border-bottom: 1px dotted #666; }
+
+address {
+  margin: 0 0 1.5em;
+  font-style: italic; }
+
+del {
+  color: #666; }
+
+pre {
+  margin: 1.5em 0;
+  white-space: pre; }
+
+pre, code, tt {
+  font: 1em 'andale mono', 'lucida console', monospace;
+  line-height: 1.5; }
+
+li ul,
+li ol {
+  margin: 0; }
+
+ul, ol {
+  margin: 0 1.5em 1.5em 0;
+  padding-left: 1.5em; }
+
+ul {
+  list-style-type: disc; }
+
+ol {
+  list-style-type: decimal; }
+
+dl {
+  margin: 0 0 1.5em 0; }
+
+dl dt {
+  font-weight: bold; }
+
+dd {
+  margin-left: 1.5em; }
+
+table {
+  margin-bottom: 1.4em;
+  width: 100%; }
+
+th {
+  font-weight: bold; }
+
+thead th {
+  background: #c3d9ff; }
+
+th, td, caption {
+  padding: 4px 10px 4px 5px; }
+
+tbody tr:nth-child(even) td, tbody tr.even td {
+  background: #e5ecf9; }
+
+tfoot {
+  font-style: italic; }
+
+caption {
+  background: #eee; }
+
 /* Global layout */
 /*=ADS=*/
 #top-ad {
   background-color: #eee; }
 
 /* =GLOBAL-CONTENT */
+.block {
+  clear: both; }
+
 #container {
   -moz-box-shadow: 3px 5px 10px #888;
   -webkit-box-shadow: 3px 5px 10px #888;
@@ -175,42 +276,6 @@ a {
   letter-spacing: 0.2em; }
 
 /* =GLOBAL-MENU */
-#menu-social-media {
-  margin: 1em 0 1em 0; }
-  #menu-social-media ul {
-    padding: 0;
-    margin-right: 0; }
-  #menu-social-media li {
-    list-style-type: none;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
-    background-color: #eee;
-    padding: 3px 5px 5px 5px;
-    margin-bottom: 10px;
-    font-weight: bold; }
-  #menu-social-media li:hover {
-    background-color: #ddd; }
-  #menu-social-media a {
-    color: black; }
-  #menu-social-media span {
-    display: block;
-    width: 100%;
-    height: 21px; }
-  #menu-social-media img {
-    position: relative;
-    top: 3px;
-    margin: 0 10px 0 5px; }
-
-#menu-ad {
-  width: 100%;
-  height: 600px;
-  margin-top: 20px;
-  text-align: center; }
-
-#menu-ad2 {
-  margin-top: 20px; }
-
 .menu-bar {
   width: 100%;
   display: table;
@@ -319,6 +384,99 @@ a {
     background: -moz-linear-gradient(top, #f4e4a7, #f4e4a7 50%, #ed944f);
     /* for firefox 3.6+ */ }
 
+/* BLOG MENU */
+#menu-blogs {
+  display: none;
+  overflow: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+  height: 120px;
+  padding: 15px;
+  margin-bottom: 1.5em;
+  background-color: #0B67A3;
+  box-shadow: inset 0 5px 10px #222;
+  -moz-box-shadow: inset 0 5px 10px #222;
+  -webkit-box-shadow: inset 0 5px 10px #222; }
+  #menu-blogs > div {
+    float: left;
+    display: inline-block;
+    height: 100px; }
+  #menu-blogs .divider {
+    width: 1px;
+    border-right: 1px solid #fff; }
+    #menu-blogs .divider:last-child {
+      border: 0; }
+  #menu-blogs .menu-blog {
+    margin: 0 10px 0 10px;
+    width: 200px; }
+    #menu-blogs .menu-blog h3, #menu-blogs .menu-blog p {
+      margin-left: 5px; }
+    #menu-blogs .menu-blog:hover {
+      background-color: #4A81B0;
+      background: -webkit-gradient(linear, left 25%, left bottom, from(rgba(74, 129, 176, 0)), to(#4a81b0));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(25%, rgba(74, 129, 176, 0), #4a81b0);
+      /* for firefox 3.6+ */ }
+      #menu-blogs .menu-blog:hover a {
+        color: white; }
+    #menu-blogs .menu-blog a {
+      color: #eee; }
+      #menu-blogs .menu-blog a .menu-blog-title {
+        font: 1.5em bold;
+        padding: 0.5em 0 0;
+        margin-bottom: 0; }
+
+.blog-link {
+  overflow: visible; }
+  .blog-link a span {
+    position: relative;
+    overflow: visible; }
+    .blog-link a span #blog-menu-arrow {
+      width: 105px;
+      height: 20px;
+      top: 19px;
+      left: -6px;
+      z-index: 999;
+      position: absolute;
+      display: none;
+      background: url("../blog-menu-arrow.png") no-repeat; }
+
+#menu-social-media {
+  margin: 1em 0 1em 0; }
+  #menu-social-media ul {
+    padding: 0;
+    margin-right: 0; }
+  #menu-social-media li {
+    list-style-type: none;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    background-color: #eee;
+    padding: 3px 5px 5px 5px;
+    margin-bottom: 10px;
+    font-weight: bold; }
+  #menu-social-media li:hover {
+    background-color: #ddd; }
+  #menu-social-media a {
+    color: black; }
+  #menu-social-media span {
+    display: block;
+    width: 100%;
+    height: 21px; }
+  #menu-social-media img {
+    position: relative;
+    top: 3px;
+    margin: 0 10px 0 5px; }
+
+#menu-ad {
+  width: 100%;
+  height: 600px;
+  margin-top: 20px;
+  text-align: center; }
+
+#menu-ad2 {
+  margin-top: 20px; }
+
 /*=DISQUS-WIDGET */
 #menu > div {
   margin-right: 0px !important; }
@@ -341,7 +499,7 @@ a {
 #facebook-widget {
   margin-bottom: 1.5em; }
 
-/* =SINGLES-MENU */
+/* =SINGLES-MENU  is this still necessary? */
 #menu-wide {
   width: 230px; }
 
@@ -491,9 +649,9 @@ a.nivo-prevNav {
   float: right;
   width: 220px; }
 
-/*.latest ul li :hover {
-	background-color: #fff;
-}*/
+#announcement {
+  margin-bottom: 2.5em; }
+
 /* LATEST */
 .latest h5 {
   text-align: left;
@@ -545,7 +703,7 @@ a.nivo-prevNav {
 #latest-video {
   background-color: #EFF5FF;
   padding: 10px;
-  margin: 2em 0 2.5em 0; }
+  margin: 0 0 2.5em 0; }
   #latest-video h3 {
     margin-bottom: 0.5em; }
   #latest-video h2 {

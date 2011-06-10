@@ -35,12 +35,12 @@
 	{% block blog-content %}
 	<div id="blog-single-entry" class="blog-content">
 		<div class="blog-container">
-			<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+			<h1><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
 			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.name }}</a> on {{ object.pub_date|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in object.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 			<div class="blog-post-content">
 				
-				{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
+				{{ object.content|more_interior|images:'detail'|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>
 		
 		<div class="blog-container">
