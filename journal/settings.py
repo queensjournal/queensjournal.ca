@@ -76,6 +76,7 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	#'django.contrib.comments',
 	'django.contrib.humanize',
+	'django.contrib.markup',
 	
 	
 	#'comments',

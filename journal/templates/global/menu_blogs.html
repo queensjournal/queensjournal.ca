@@ -3,5 +3,6 @@
     <div class="menu-blog"><a href="{{ blog.get_absolute_url }}">
         <img src="{{ blog.image.thumbnail_image.url }}" />
         <h3 class="menu-blog-title">{{ blog.title|typogrify }}</h3> 
-        {{ blog.teaser|striptags }}</a></div>
+        <p>{{ blog.teaser|striptags }}</p></a></div>
+    <div class="divider"></div>
 {% endfor %}

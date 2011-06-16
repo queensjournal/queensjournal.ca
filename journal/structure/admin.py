@@ -98,3 +98,15 @@ class FrontPageConfigAdmin(admin.ModelAdmin):
         return False
     
 admin.site.register(FrontPageConfig, FrontPageConfigAdmin)
+
+''' OLD STUFF THAT DOESN'T REALLY NEED TO BE IN THE ADMIN
+class AuthorRoleAdmin(admin.ModelAdmin):
+	pass
+	
+admin.site.register(AuthorRole, AuthorRoleAdmin)
+
+class FrontPageConfigAdmin(admin.ModelAdmin):
+	pass
+	
+admin.site.register(FrontPageConfig, FrontPageConfigAdmin)
+'''

@@ -32,6 +32,7 @@ class BlogImage(ImageModel):
 class Blog(models.Model):
     title = models.CharField(max_length=255, help_text='Short name for the blog.', unique=True)
     slug = models.SlugField(unique=True)
+    teaser = models.CharField(max_length=100, help_text='Short, one-line teaser for the blog. Seen on the global blog pull-down menu.')
     description = models.TextField(blank=True, help_text="Description of the blog's content.")
     bloggers = models.ManyToManyField(Author)
     active = models.BooleanField('Blog is active?', default=True, help_text='You can disable blogs that are no longer being updated. They will be filed under the Archived Blogs page.')
