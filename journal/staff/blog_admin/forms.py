@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Blog, Entry, Category
+from blog.models import Blog, Entry
 from structure.models import Author
 
 class AjaxPreviewForm(forms.Form):
@@ -7,7 +7,6 @@ class AjaxPreviewForm(forms.Form):
     title = forms.CharField()
     content = forms.CharField()
     author = forms.IntegerField()
-    categories = forms.MultipleChoiceField(choices=[(x.id,x.name) for x in Category.objects.all()], required=False)
 
     def clean_author(self):
         try:

@@ -163,24 +163,3 @@ class Entry(models.Model):
         return u'%s: %s' % (self.title, self.content)
 
 models.signals.post_save.connect(post_to_twitter, sender=Entry)
-    
-
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
-    banner = models.ImageField(upload_to='category/', blank=True, null=True, help_text='Small banner image to go along with the category, if applicable.')
-
-    class Admin:
-        list_display        = ('name',)
-
-    class Meta:
-        ordering            = ('name',)
-        verbose_name_plural = 'categories'
-
-    def __unicode__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return('blog_archive_category_front', (), {
-            'cat_slug': self.slug})
-    get_absolute_url = permalink(get_absolute_url)

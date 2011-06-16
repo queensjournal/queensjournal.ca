@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, Http404
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
-from blog.models import Blog, Entry, Category
+from blog.models import Blog, Entry
 from structure.models import Author
 from staff.blog_admin.forms import AjaxPreviewForm, ProfileForm
 
@@ -155,14 +155,6 @@ def entries_index(request, blog):
 				c['author'] = Author.objects.get(user__username__exact=author)
 			except ObjectDoesNotExist:
 				c['author'] = ''
-		# filter by category
-		elif request.GET.get("category", ""):
-			category = request.GET.get("category", "")
-			qs = Entry.objects.filter(blog__slug__exact=blog, categories__slug__exact=category)
-			try:
-				c['category'] = Category.objects.get(slug__exact=category)
-			except ObjectDoesNotExist:
-				c['category'] = ''
 		# filter by date
 		elif request.GET.get("date", ""):
 			year, month = request.GET.get("date", "").split('-')
@@ -185,7 +177,6 @@ def entries_index(request, blog):
 			c['view_all_drafts'] = False
 		c['full_list'] = Entry.objects.all()
 		c['dates_list'] = Entry.objects.dates('pub_date','month',order='DESC')
-		c['category_list'] = Category.objects.order_by('name')
 		c['author_list'] = Author.objects.select_related(depth=1).filter(user__is_staff=True).order_by('name')
 		if request.session.get('flash_params') and (request.session['flash_params'].get('action') == 'add' or request.session['flash_params'].get('action') == 'edit') and Entry.objects.count() > 0:
 			request.session['flash_params']['new'] = Entry.objects.order_by('-id')[0]
@@ -263,7 +254,6 @@ def entry_ajax_preview(request):
 				'blog': form.cleaned_data['blog'],
 				'title': form.cleaned_data['title'],
 				'author': Author.objects.get(pk=form.cleaned_data['author']),
-				'categories': Category.objects.filter(id__in=form.cleaned_data['categories']),
 				'content': form.cleaned_data['content'],
 				'pub_date': datetime.now(),
 				}

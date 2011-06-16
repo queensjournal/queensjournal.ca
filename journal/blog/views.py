@@ -3,7 +3,7 @@ from django.views.generic.list_detail import object_detail, object_list
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.db.models import Q
-from blog.models import Blog, Entry, Category
+from blog.models import Blog, Entry
 from structure.models import Author
 from tagging.models import Tag
 from tagging.utils import calculate_cloud
@@ -101,28 +101,6 @@ def blog_archive_author(request, blog, author_id, page=1):
 		return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, extra_context=c, page=page)
 	else:
 		raise Http404
-
-def blog_archive_category(request, blog, cat_slug, page=1):
-	"""
-	Category archives. Displays all blog posts for a given category. Paginated.
-	"""
-	category = get_object_or_404(Category, slug__exact=cat_slug)
-	qs = category.entry_set.published_on_blog(blog)
-	if qs.count() > 0:
-		c = {'blog': Blog.objects.get(slug=blog),
-			 'category': category}
-		return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, extra_context=c, page=page)
-	else:
-		raise Http404
-
-def blog_search(request, blog):
-	query = request.GET.get('s', '')
-	qs = Entry.objects.published_on_blog(blog).select_related(depth=1)
-	for term in query.split( ):
-		qs = qs.filter(Q(title__icontains=term) | Q(content__icontains=term))
-	c = {'blog': Blog.objects.get(slug=blog),
-		 'query': query}
-	return object_list(request, queryset=qs, paginate_by=10, allow_empty=True, extra_context=c)
 			
 def blog_author(request, author_id):
 	"""

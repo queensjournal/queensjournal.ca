@@ -1,4 +1,4 @@
-from blog.models import Blog, BlogImage, EntryManager, Entry, Category
+from blog.models import Blog, BlogImage, EntryManager, Entry
 from structure.models import Author
 from django.contrib import admin
 import settings

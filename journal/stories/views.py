@@ -183,7 +183,6 @@ def index_issue_front(request, datestring):
     #   front_config = FrontConfig.objects.get(issue=issue)
     featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', issue=issue, storyphoto__isnull=False)[:5]
     latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
-    back_issue = True
     latest_section = []
     for section in issue.sections.flatplansection_set.all():
         latest_section.extend(Story.objects.filter(section=section.section, issue=issue)[:2])
@@ -194,7 +193,7 @@ def index_issue_front(request, datestring):
                                 'latest_stories': latest_stories,
                                 'latest_section': latest_section,
                                 'config': front_config,
-                                'back_issue': back_issue,
+                                'back_issue': True,
                                 'issue': issue},
                               context_instance=RequestContext(request))
                         
@@ -205,9 +204,8 @@ def index_issue_section(request, datestring, section):
     except FrontPageConfig.DoesNotExist:
         front_config = FrontConfig.objects.get(issue=issue)
     section_config = get_object_or_404(SectionFrontConfig.objects.filter(section__slug__iexact=section))
-    first_story = Story.objects.filter(section__slug__iexact=section, issue=issue, status='p').exclude(storyphoto__isnull=True).order_by('section_order')
+    first_story = Story.objects.filter(section__slug__iexact=section, issue=issue, status='p', storyphoto__isnull=False).order_by('section_order')
     story_set = Story.objects.filter(issue=issue, section__slug__iexact=section).order_by('section_order')
-    back_issue = True
     featured = []
     try:
         if first_story[0]:
@@ -219,7 +217,7 @@ def index_issue_section(request, datestring, section):
         last_story = other_stories.reverse()[0]
         older_stories = Story.objects.filter(section__slug__iexact=section, pub_date__lt=last_story.pub_date).order_by('-pub_date')[:5]
     except IndexError:
-        older_stories = Story.objects.filter(section__slug__iexact=section, pub_date__lt=featured.pub_date).order_by('-pub_date')[:5]
+        older_stories = Story.objects.filter(section__slug__iexact=section, pub_date__lt=issue.pub_date).order_by('-pub_date')[:5]
     if request.session.get('vote') is None:
         request.session['vote'] = []
     return render_to_response('archives/index_section.html',
@@ -228,7 +226,7 @@ def index_issue_section(request, datestring, section):
                             'older_stories': older_stories,
                             'config': front_config,
                             'section_config': section_config,
-                            'back_issue': back_issue,
+                            'back_issue': True,
                             'issue': issue},
                             context_instance=RequestContext(request))
                             
