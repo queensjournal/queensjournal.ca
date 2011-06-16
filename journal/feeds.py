@@ -5,7 +5,8 @@ from stories.models import Story
 from sidebars.models import NewsCalendarItem, ArtsCalendarItem, SportsCalendarItem
 from blog.models import Blog, Entry
 from video.models import Video
-from dependencies.multiquery import QuerySetChain
+from itertools import chain
+from operator import attrgetter
 
 class Latest(Feed):
     title = "Queen's Journal: Latest content"
@@ -18,7 +19,7 @@ class Latest(Feed):
         stories = Story.objects.select_related().filter(status='p').order_by('-pub_date')[:10]
         entries = Entry.objects.select_related().filter(is_published=True).order_by('-pub_date')[:10]
         videos = Video.objects.select_related().filter(is_published=True).order_by('-pub_date')[:10]
-        return QuerySetChain(stories, entries, videos)[:30]
+        return sorted(chain(stories, entries, videos), key=attrgetter('pub_date'))[:30]
         
     def item_author_name(self, obj):
         if obj.model_type() is 'Story':

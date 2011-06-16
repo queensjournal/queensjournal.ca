@@ -15,15 +15,15 @@ class ResizeThumb(processors.Resize):
 	crop = True
 
 # now we define a display size resize processor
-class ResizeDisplay(processors.Resize):
+class ResizeList(processors.Resize):
 	width = 475
 	height = 300
-	crop = True
+	crop = False
 
-class ResizeFront(processors.Resize):
-	width = 225
-	height = 150
-	crop = True
+class ResizeDetail(processors.Resize):
+	width = 700
+	height = 500
+	crop = False
 	
 class ResizeFeatured(processors.Resize):
 	width = 475
@@ -42,19 +42,17 @@ class EnchanceThumb(processors.Adjustment):
 
 # now we can define our thumbnail spec 
 class Thumbnail(ImageSpec): 
-	access_as = 'thumbnail_image' 
-	pre_cache = True
+	access_as = 'thumbnail_image'
 	processors = [MakeRGB, ResizeThumb, EnchanceThumb] 
 
 # and our display spec
-class Display(ImageSpec):
+class List(ImageSpec):
 	quality = 85
-	processors = [MakeRGB, ResizeDisplay]
+	processors = [MakeRGB, ResizeList]
 
-class Front(ImageSpec):
+class Detail(ImageSpec):
 	quality = 70
-	access_as = "front_image"
-	processors = [MakeRGB, ResizeFront]
+	processors = [MakeRGB, ResizeDetail]
 	
 class Featured(ImageSpec):
 	quality = 75

@@ -6,7 +6,7 @@ from images.models import Image
 
 register = template.Library()
 
-def images(value, max_width):
+def images(value, spec):
     """
     Detects <!--image:"slug-field"--> tags and replaces them with an
     image template containing the proper image. max_width parameter in pixels.
@@ -20,7 +20,7 @@ def images(value, max_width):
             image = Image.objects.get(slug__exact=stub)
         except:
             continue
-        c = Context({'image': image, 'max_width': max_width})
+        c = Context({'image': image, 'spec': spec})
         image_re = re.compile('<!--image:"'+stub+'"-->')
         value = image_re.sub(t.render(c), value)
     return value

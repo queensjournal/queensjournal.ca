@@ -1,4 +1,4 @@
-from django import newforms as forms
+from django import forms
 from comments.models import FreeComment
 
 class SingleQuickActionForm(forms.Form):

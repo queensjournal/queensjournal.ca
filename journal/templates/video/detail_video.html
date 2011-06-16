@@ -18,6 +18,11 @@
 <meta property="fb:admins" content="1653600047" />
 {% endblock facebook %}
 
+{% block headcode %}
+{{ block.super }}
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+{% endblock headcode %}
+
 {% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
 
 	{% block menu-stories %}
@@ -53,7 +58,11 @@
 						<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl video %}" layout="button_count" show_faces="false" width="100" font=""></fb:like>
 						<br/>
 						<a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl video %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-
+						<br/>
+						<a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+						<br/>
+						<g:plusone></g:plusone>
+						<hr>
 						{% tags_for_object video as tags %}
 						{% if tags %}
 						<h4>Video tags:</h4>
@@ -68,7 +77,7 @@
 						<form action="" method="get">
 							<input type="text" id="shorturl" name="shorturl" value="{% shorturl video %}" />
 						</form>
-						{% revcanonical story %}
+						{% revcanonical video %}
 
 					</div>
 			

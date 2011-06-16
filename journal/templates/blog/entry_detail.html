@@ -4,9 +4,25 @@
 {% load custom_html %}
 {% load more %}
 {% load image_tags %}
+{% load tagging_tags %}
+{% load shorturl %}
+
+{% block facebook %}
+<meta property="og:title" content="{{ object.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{% shorturl object %}" />
+{% if object.first_photo %}
+<meta property="og:image" content="{{ object.first_photo.thumbnail_image.url }}" />
+{% else %}
+<meta property="og:image" content="{{ object.blog.image.front_image.url }}" />
+{% endif %}
+<meta property="og:site_name" content="The Queen&#039;s Journal" />
+<meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
 
 {% block headcode %}
 <link rel="alternate" type="application/rss+xml" title="Latest posts from {{ blog.title }} (RSS 2.0)" href="/rss/blogs/{{ blog.slug }}/" />
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 {% endblock headcode %}
 
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
@@ -35,33 +51,52 @@
 	{% block blog-content %}
 	<div id="blog-single-entry" class="blog-content">
 		<div class="blog-container">
-			<h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+			<h1><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h1>
 			<h5>Posted by <a href="{{ object.author.get_absolute_url }}">{{ object.author.name }}</a> on {{ object.pub_date|date:"F j, Y @ h:i a T" }}</h5>
 			<p>Categories: {% for category in object.categories.all %}<a href="{% url blog_archive_category_front blog.slug,category.slug %}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 			<div class="blog-post-content">
+				<div id="story-socmedia" class="entry">
+					<p class="label">Share<p>
+						<hr>
+					<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl entry %}" layout="button_count" show_faces="false" width="100" font=""></fb:like>
+					<br/>
+					<a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl entry %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					<br/>
+					<a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+					<br/>
+					<g:plusone></g:plusone>
+					<hr>
+					{% tags_for_object object as tags %}
+					{% if tags %}
+					<h4>Post tags:</h4>
+					<ul>
+					{% for tag in tags %}
+						<li><a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a></li>
+					{% endfor %}
+					</ul>
+					{% endif %}
+					<br/>
+					Short URL:
+					<form action="" method="get">
+						<input type="text" id="shorturl" name="shorturl" value="{% shorturl object %}" />
+					</form>
+					{% revcanonical object %}
+
+				</div>
 				
-				{{ object.content|more_interior|images:435|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
+				{{ object.content|more_interior|images:'detail'|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>
 		
 		<div class="blog-container">
 			<h3>Post a comment</h3>
 			{% if object.enable_comments %}
-			
 			{% load disqus_tags %}
-			{% disqus_dev %}
-			
 			<div id="comments" class="blog-container">
+				<script type="text/javascript" charset="utf-8">
+					    var disqus_developer = 1;
+				</script>
 				{% disqus_show_comments %}
 			</div>
-			
-				<a name="policy"></a><h3><em>Journal</em> comments policy</h3>
-				<p>The comments on this website do not represent the views or opinions of the <em>Queen&apos;s Journal</em>, but of the comment-writer alone.  
-				Libelous comments and unsubstantiated allegations will not be printed, nor will comments that discriminate on the basis of ethnicity, nationality, 
-				citizenship, gender, religion, sexual orientation, age, marital status or mental or physical ability.  All comments are moderated, and may take up 
-				to 24 hours to be posted on this site barring any unforeseen circumstances.  The <em>Journal</em> reserves the right to refrain from publishing comments. 
-				Comments are not edited for grammar or spelling, or for vulgar language outside of the above restrictions.  The <em>Journal</em> respects your privacy.  
-				By posting your comments in our feedback forum you give us permission to post and publish your name, city and comments on the <em>Journal</em> website.  
-				All submissions must contain the email address of the comment-writer.  Thank you for your co-operation.</p>
 			{% else %}
 				<h5>This story is closed to new comments.</h5>
 			{% endif %}

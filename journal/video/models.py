@@ -42,4 +42,4 @@ class Video(ImageModel):
     def __unicode__(self):
         return self.name
         
-models.signals.post_save.connect(post_to_twitter, sender=Video)
+#models.signals.post_save.connect(post_to_twitter, sender=Video)

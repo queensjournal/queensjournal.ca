@@ -9,28 +9,24 @@
 {% endblock meta %}
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/reset.css" media="screen"/>
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/liquid.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/typography.css" media="screen"/>
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/screen.css" media="screen" title="Default" />
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/ie.css">
 <![endif]-->
 <LINK REL="shortcut icon" HREF="{{ MEDIA_URL }}global/favicon.ico">
 <script src="{{ MEDIA_URL }}global/js/modernizr-1.7.min.js" type="text/javascript"></script>
+<script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
+<script src='{{ MEDIA_URL }}global/js/master.js' type='text/javascript'></script>
 {% block headcode %}{% endblock headcode %}
 {% block facebook %}{% endblock facebook %}
-<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
-</script>
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
 <script type='text/javascript'>
 GS_googleAddAdSenseService("ca-pub-4573993547628801");
 GS_googleEnableAllServices();
-</script>
-<script type='text/javascript'>
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
-</script>
-<script type='text/javascript'>
 GA_googleFetchAds();
 </script>
 </head>
@@ -78,7 +74,10 @@ GA_googleFetchAds();
 	<div id="menu-sections" class="menu-bar block">
 		{% menu_sections %}
 	</div>
-				
+	<div id="menu-blogs">
+	   {% menu_blogs %}
+	</div>
+	
 	<div class="block">
 
 		<div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
