@@ -1,8 +1,6 @@
 {% extends "stories/single_detail.html" %}
 {% load navigation %}
-{% current_issue as issue %}
 
-{% block actions %}{% endblock actions %}
 {% block content %}
 	<div class="story">
 		<h1 class="story-head">E-mail &ldquo;{{ story.head }}&rdquo; to a friend</h1>
@@ -13,6 +11,7 @@
 			<p>{{ story.summary }}</p>
 			<div class="form-container">
 			<form action="" method="POST">
+			    {% csrf_token %}
 				<fieldset>
 					<legend>E-mail</legend>
 					<div{% if form.sender.errors %} class="errors"{% endif %}><label for="id_sender">Your name</label>{% if form.sender.errors %} <span class="error-text">({{ form.sender.errors|join:", " }})</span>{% endif %}<br/>{{ form.sender }}</label></div>

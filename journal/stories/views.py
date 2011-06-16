@@ -1,20 +1,18 @@
 # Create your views here.
 from datetime import date, time, timedelta
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
-from django.template import Context, RequestContext, loader
+from django.template import RequestContext, Context, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.contrib.sites.models import Site
-from django.views.generic.list_detail import object_list
 from tagging.models import Tag, TaggedItem
 from stories.models import Story, StoryAuthor, Photo
 from video.models import Video
 from blog.models import Entry
 from structure.models import *
-from itertools import chain
-from operator import attrgetter
 from django.db.models import Q
 from dependencies.multiquery import QuerySetChain
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.sites.models import Site
+from journal.stories.forms import EmailStoryForm
+from django.core.mail import send_mail
 
 def parse_date(datestring):
     return date(*[int(x) for x in datestring.split('-')])
@@ -103,7 +101,7 @@ def detail_author(request, author):
     curr_author = get_object_or_404(Author, slug__exact=author)
     story_set = StoryAuthor.objects.filter(author__slug__exact=author).order_by('-story__pub_date')
     entry_set = Entry.objects.filter(author__slug__exact=author).order_by('-pub_date')
-    item_list = list(QuerySetChain(story_set, entry_set))
+    item_list = QuerySetChain(story_set, entry_set)
     if request.session.get('vote') is None:
         request.session['vote'] = []
     return render_to_response('stories/author_detail.html',
@@ -120,10 +118,60 @@ def with_tag(request, tag, object_id=None, page=1):
     story_list = TaggedItem.objects.get_by_model(Story, query_tag).order_by('-pub_date')
     entry_list = TaggedItem.objects.get_by_model(Entry, query_tag).order_by('-pub_date')
     video_list = TaggedItem.objects.get_by_model(Video, query_tag).order_by('-pub_date')
-    result_list = sorted(chain(story_list, entry_list, video_list), key=attrgetter('pub_date'))
+    result_list = QuerySetChain(story_list, entry_list, video_list)
     return render_to_response("tags/with_tag.html", {'tag': tag, 
                                 'stories': result_list},
                                 context_instance=RequestContext(request))
+                                
+''' ------------  STORIES -------------- '''
+def email_story(request, datestring, section, slug):
+    if request.method != "POST":
+        form = EmailStoryForm()
+        article = get_object_or_404(Story, issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+        return render_to_response('stories/email_form.html',
+                                  {'story': article,
+                                   'form': form},
+                                   context_instance=RequestContext(request))
+    elif request.method == "POST":
+        form = EmailStoryForm(request.POST)
+        if form.is_valid():
+            sender = form.cleaned_data['sender']
+            email = form.cleaned_data['email']
+            user_msg = form.cleaned_data['message']
+            article = Story.objects.get(issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+            # check outgoing message for spam via Akismet and block if necessary
+            from akismet import Akismet
+            akismet_api = Akismet(key=settings.AKISMET_API_KEY,
+                                  blog_url='http://%s/' % Site.objects.get_current().domain)
+            if akismet_api.verify_key():
+                akismet_data = { 'comment_type': 'comment',
+                                 'referrer': '',
+                                 'user_ip': request.META.get('REMOTE_ADDR'),
+                                 'user_agent': '' }
+                if akismet_api.comment_check(user_msg.encode('utf-8'), data=akismet_data, build_data=True):
+                    return render_to_response('stories/email_spam.html',
+                                              {'story': article},
+                                              context_instance=RequestContext(request))
+                else:
+                    # email stuff
+                    subject = "%s has sent you an article from the Queen's Journal" % sender
+                    message_template = loader.get_template('stories/email/email_to_person.txt')
+                    message_context = Context({'story': article,
+                                               'sender': sender,
+                                               'user_msg': user_msg})
+                    message = message_template.render(message_context)
+                    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
+                    return render_to_response('stories/email_complete.html',
+                                             {'story': article},
+                                             context_instance=RequestContext(request))
+            #else:
+            #    raise AkismetKeyError(settings.AKISMET_API_KEY, 'http://%s/' % Site.objects.get_current().domain)
+        else:
+            article = Story.objects.get(issue__pub_date=parse_date(datestring), section__slug__exact=section, slug__exact=slug)
+            return render_to_response('stories/email_form.html',
+                                      {'story': article,
+                                       'form': form},
+                                       context_instance=RequestContext(request))
                                 
 ''' ------------  ARCHIVES ------------- '''
 
