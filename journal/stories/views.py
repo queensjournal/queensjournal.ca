@@ -11,7 +11,7 @@ from structure.models import *
 from django.db.models import Q
 from dependencies.multiquery import QuerySetChain
 from django.contrib.sites.models import Site
-from journal.stories.forms import EmailStoryForm
+from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
 
 def parse_date(datestring):
