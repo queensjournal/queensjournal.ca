@@ -11,7 +11,6 @@ feeds = {
     'section': LatestStoriesSection,
     'allblogs': LatestPostsAllBlogs,
     'blogs': LatestPostsSingleBlog,
-    'blog-author': LatestPostsSingleAuthor,
     'video': LatestVideos
 ##    'calendar': LatestCalendar,
 }
@@ -50,7 +49,7 @@ urlpatterns = patterns('',
 	# Because I have the URL regexing words as sections, this pattern needs to be last.
 	# If you put anything after, the CONF will think it's a section and you won't get anywhere.
 	## THE FOLLOWING LINE MUST BE THE LAST URL IN THE CONF
-	(r'^(?P<section>[-\w]+)/', 'stories.views.index_section'),
+	(r'^(?P<section>[-\w]+)/$', 'stories.views.index_section'),
 	## DO NOT ADD ANY URLS AFTER THIS LINE
 )
 
