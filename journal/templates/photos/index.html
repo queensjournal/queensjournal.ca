@@ -1,0 +1,19 @@
+{% extends 'stories/index_section.html' %}
+
+{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />{% endblock headcode %}
+
+{% block title %}Photos{{ block.super }}{% endblock title %}
+
+{% block content %}
+{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Photos</span></div>{% endblock %}
+<div class="section-header">
+	<h1>Photos</h1>
+</div>
+
+<div class="hr dblmargin"><hr></div>
+	
+<div class="block">
+    
+</div>
+
+{% endblock content %}

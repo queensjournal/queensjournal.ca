@@ -5,15 +5,22 @@
 	font-family: ClassGaramond; src: url('../otf/classgaramond.otf');
 }
 body {
+    font-size: 75%;
+    color: #222;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 	background-color: #eee;
-	font-family: Helvetica, Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 }
 /*Headlines: Big, Normal, Sub */
 h1, h2, h3 {
 	font-family: ClassGaramond, Garamond, Times, serif;
+	font-weight: normal;
 }
+h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+h2 { font-size: 2em; margin-bottom: 0.75em; }
+h3 { font-size: 1.5em; line-height: 1; margin-bottom: 1em; }
+h4 { font-size: 1.2em; line-height: 1.25; margin-bottom: 1.25em; font-weight: normal; }
 
 hr {
 	border-style: none;
@@ -78,10 +85,7 @@ a {
 	img {
     	border: 0;
     }
-}
-.chopped span {
-  	position: absolute;
-	text-indent: -999em;
+    &:focus, &:hover { color: #09f; }
 }
 .label {
 	text-transform: uppercase;
@@ -89,6 +93,30 @@ a {
 	line-height: 0.85em;
 	margin-bottom: 5px;
 }
+blockquote  { margin: 1.5em; color: #666; font-style: italic; }
+strong,dfn	{ font-weight: bold; }
+em,dfn      { font-style: italic; }
+sup, sub    { line-height: 0; }
+abbr, acronym { border-bottom: 1px dotted #666; }
+address     { margin: 0 0 1.5em; font-style: italic; }
+del         { color:#666; }
+pre         { margin: 1.5em 0; white-space: pre; }
+pre,code,tt { font: 1em 'andale mono', 'lucida console', monospace; line-height: 1.5; }
+li ul,
+li ol       { margin: 0; }
+ul, ol      { margin: 0 1.5em 1.5em 0; padding-left: 1.5em; }
+ul          { list-style-type: disc; }
+ol          { list-style-type: decimal; }
+dl          { margin: 0 0 1.5em 0; }
+dl dt       { font-weight: bold; }
+dd          { margin-left: 1.5em;}
+table       { margin-bottom: 1.4em; width:100%; }
+th          { font-weight: bold; }
+thead th    { background: #c3d9ff; }
+th,td,caption { padding: 4px 10px 4px 5px; }
+tbody tr:nth-child(even) td, tbody tr.even td  { background: #e5ecf9; }
+tfoot       { font-style: italic; }
+caption     { background: #eee; }
 
 /* Global layout */
 
@@ -98,6 +126,9 @@ a {
 }
 
 /* =GLOBAL-CONTENT */
+.block {
+    clear: both;
+}
 #container {
 	-moz-box-shadow: 3px 5px 10px #888;
 	-webkit-box-shadow: 3px 5px 10px #888;
@@ -190,49 +221,6 @@ a {
 		}
 		
 /* =GLOBAL-MENU */
-	#menu-social-media {
-		margin: 1em 0 1em 0;
-		ul {
-		    padding: 0;
-    		margin-right: 0;
-		}
-		li {
-    		list-style-type: none;
-    		-moz-border-radius: 7px;
-    	    -webkit-border-radius: 7px;
-    	    border-radius: 7px;
-    		background-color: #eee;
-    		padding: 3px 5px 5px 5px;
-    		margin-bottom: 10px;
-    		font-weight: bold;
-    	}
-    	li:hover {
-    		background-color: #ddd;
-    	}
-    	a {
-    		color: black;
-    	}
-    	span {
-    		display: block;
-    		width: 100%;
-    		height: 21px;
-    	}
-    	img {
-    		position: relative;
-    		top: 3px;
-    		margin: 0 10px 0 5px;
-    	}
-	}	
-	#menu-ad {
-		width: 100%;
-		height: 600px;
-		margin-top: 20px;
-		text-align: center;
-	}
-	#menu-ad2 {
-		margin-top: 20px;
-	}
-
 .menu-bar {
 	width: 100%;
 	display: table;
@@ -339,6 +327,72 @@ a {
     		background: -moz-linear-gradient(top, #F4E4A7, #F4E4A7 50%, #ED944F); /* for firefox 3.6+ */
     	}
 	}
+	/* BLOG MENU */
+	#menu-blogs {
+	    display: none;
+	    overflow: hidden;
+	    padding: 20px;
+	    margin-bottom: 1.5em;
+	    background-color: #003665;
+	    .menu-blog {
+	        float: left;
+	        width: 200px;
+	        padding-right: 10px;
+	        border-right: 1px solid #fff;
+	        margin-right: 10px;
+	        
+	    }
+	    .menu-blog-title {
+	        font: 1.5em bold;
+	        padding: 0.5em 0 0;
+	        a {
+	            color: white;
+	        }
+	    }
+	}
+	
+	#menu-social-media {
+		margin: 1em 0 1em 0;
+		ul {
+		    padding: 0;
+    		margin-right: 0;
+		}
+		li {
+    		list-style-type: none;
+    		-moz-border-radius: 7px;
+    	    -webkit-border-radius: 7px;
+    	    border-radius: 7px;
+    		background-color: #eee;
+    		padding: 3px 5px 5px 5px;
+    		margin-bottom: 10px;
+    		font-weight: bold;
+    	}
+    	li:hover {
+    		background-color: #ddd;
+    	}
+    	a {
+    		color: black;
+    	}
+    	span {
+    		display: block;
+    		width: 100%;
+    		height: 21px;
+    	}
+    	img {
+    		position: relative;
+    		top: 3px;
+    		margin: 0 10px 0 5px;
+    	}
+	}	
+	#menu-ad {
+		width: 100%;
+		height: 600px;
+		margin-top: 20px;
+		text-align: center;
+	}
+	#menu-ad2 {
+		margin-top: 20px;
+	}
 	
 	/*=DISQUS-WIDGET */
 	#menu > div {
@@ -363,7 +417,7 @@ a {
 		margin-bottom: 1.5em;
 	}
 	
-	/* =SINGLES-MENU */
+	/* =SINGLES-MENU  is this still necessary? */
 	#menu-wide {
 		width: 230px;
 	}
@@ -935,7 +989,7 @@ a {
     	margin-left: 0px;
     }
 }
-#resultlist {
+.resultlist {
 	clear: both;
 	> div {
     	margin: 0 25px 2em 25px;
@@ -983,9 +1037,14 @@ a {
     	list-style-type: none;
     	li {
     		clear: left;
+    		margin: 0;
+    		padding: 0.5em;
     		p {
         		font-weight: bold;
-        		margin: 0;
+        	}
+        	h4 {
+        	    margin: 0;
+        	    font-weight: bold;
         	}
     	}
     	ul {
@@ -1453,5 +1512,4 @@ a {
     .phonenums {
     	margin-right: 0;
     }
-    
 }
