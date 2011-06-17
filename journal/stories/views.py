@@ -177,10 +177,10 @@ def email_story(request, datestring, section, slug):
 
 def index_issue_front(request, datestring):
     issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-    #try:
-    front_config = FrontPageConfig.objects.get(issue=issue)
-    #except FrontPageConfig.DoesNotExist:
-    #   front_config = FrontConfig.objects.get(issue=issue)
+    try:
+        front_config = FrontPageConfig.objects.get(issue=issue)
+    except FrontPageConfig.DoesNotExist:
+        front_config = FrontConfig.objects.get(issue=issue)
     featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', issue=issue, storyphoto__isnull=False)[:5]
     latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
     latest_section = []
