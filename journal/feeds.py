@@ -7,6 +7,7 @@ from blog.models import Blog, Entry
 from video.models import Video
 from itertools import chain
 from operator import attrgetter
+from django.core.exceptions import ObjectDoesNotExist
 
 class Latest(Feed):
     title = "Queen's Journal: Latest content"
@@ -113,35 +114,6 @@ class LatestPostsSingleBlog(Feed):
 
 	def items(self, obj):
 		return Entry.objects.select_related().filter(blog__slug=obj.slug, is_published=True).order_by('-pub_date')[:15]
-
-	def item_author_name(self, item):
-		return item.blog
-
-	def item_pubdate(self, item):
-		return item.pub_date
-
-
-class LatestPostsSingleAuthor(Feed):
-	def get_object(self, bits):
-		"""
-		/rss/blog-author/<author-id>/: latest posts from <author-id>
-		"""
-		if len(bits) != 1:
-			raise ObjectDoesNotExist
-		else:
-			return AuthorProfile.objects.get(pk=bits[0])
-		
-	def title(self, obj):
-		return "Queen's Journal: Latest blog posts from %s" % obj.user.get_full_name()
-
-	def link(self, obj):
-		return obj.get_absolute_url()
-
-	def description(self, obj):
-		return "The latest blog posts by %s from the Queen's Journal." % obj.user.get_full_name()
-
-	def items(self, obj):
-		return Entry.objects.select_related().filter(author=obj, is_published=True).order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
 		return item.blog
