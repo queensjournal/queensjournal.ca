@@ -13,8 +13,12 @@ class IssueAdmin(admin.ModelAdmin):
     list_filter = ['volume',]
     
 admin.site.register(Issue, IssueAdmin)
+
+class SectionConfigInline(admin.TabularInline):
+    model = SectionFrontConfig
     
 class SectionAdmin(admin.ModelAdmin):
+    inlines = [ SectionConfigInline, ]
     fieldsets = [
         (None, {'fields': ('name', 'short_name', 'slug')})
     ]
@@ -57,11 +61,6 @@ class FrontConfigAdmin(admin.ModelAdmin):
     ]
     
 admin.site.register(FrontConfig, FrontConfigAdmin)
-    
-class SectionFrontConfigAdmin(admin.ModelAdmin):
-    list_display = ('section',)
-    
-admin.site.register(SectionFrontConfig, SectionFrontConfigAdmin)
 
 class AuthorRoleInline(admin.TabularInline):
     model = AuthorRole
