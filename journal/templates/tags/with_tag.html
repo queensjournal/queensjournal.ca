@@ -3,34 +3,40 @@
 {% load tagging_tags %}
 
 {% block content %}
+{% block breadcrumb %}<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="/tags"><span>Tags</span></a><span class="divider"></span><span class="current">{{ tag }}</span></div>{% endblock %}
 <h1>Tag Search</h1>
-<p>You searched for the tag <span class="highlight">{{ tag }}</span>.</p>
+<hr>
+<p>You searched for the tag &#8216;<span class="highlight">{{ tag }}</span>&#8217;.</p>
 {% if stories %}
+<div class="resultlist">
 	{% for story in stories %}
 		{% if story.model_type = 'Story' %}
-		<div class="row-{% cycle odd,even %}">
-		<h2><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
-		<h3>{{ story.pub_date|date:"jS F Y" }}</h3>
-		{{ story.summary|striptags|truncatewords:50|safe|linebreaks }}
-		</div><!-- row end -->
+		<div class="{% cycle 'search1' 'search2' %}">
+			{% if story.first_photo %}<img src="{{ story.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+		<h3><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h3>
+		<p class="meta">{% ifnotequal story.list_authors '[no author]' %}By {{ result.object.list_authors|safe }} - {% endifnotequal %}{{ story.pub_date|date:"jS F Y" }}</p>
+		<p>{{ story.summary|striptags|truncatewords:50|safe|linebreaks }}</p>
+		</div>
 		{% endif %}
 		
 		{% if story.model_type = 'Entry' %}
-		<div class="row-{% cycle odd,even %}">
-		<h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
-		<h3>{{ story.pub_date|date:"jS F Y" }}</h3>
-		{{ story.content|striptags|truncatewords:50|safe|linebreaks }}
+		<div class="{% cycle 'search1' 'search2' %}">
+		{% if story.first_photo %}<img src="{{ story.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+		<h3><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h3>
+		<p class='meta'>By {{story.author}} - {{ story.pub_date|date:"jS F Y" }}</p>
+		<p>{{ story.content|striptags|truncatewords:50|safe|linebreaks }}</p>
 		</div><!-- row end -->
 		{% endif %}
 		
 		{% if story.model_type = 'Video' %}
-		<div class="row-{% cycle odd,even %}">
-        <h2><a href="{{ story.get_absolute_url }}">{{ story.name }}</a></h2>
-        <h3>{{ story.pub_date|date:"jS F Y"}}</h3>
+		<div class="{% cycle 'search1' 'search2' %}">
+        <h3><a href="{{ story.get_absolute_url }}">{{ story.name }}</a></h3>
+        <p class="meta">{{ story.pub_date|date:"jS F Y"}}</p>
         {{ story.caption|striptags|truncatewords:50|safe|linebreaks }}
         </div>
 		{% endif %}
 	{% endfor %}
+</div>
 {% else %}
 	<p>Nothing has that tag</p>
 {% endif %}
