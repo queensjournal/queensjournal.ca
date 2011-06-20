@@ -39,8 +39,8 @@ urlpatterns = patterns('',
 	(r'^admin/', include(admin.site.urls)),
 	
 	(r'^tags/$', 'stories.views.tags'),
-	(r'^tag/(?P<tag>[a-zA-Z0-9_.-]+)/$','stories.views.with_tag'),
-	(r'^tag/(?P<tag>[a-zA-Z0-9_.-]+)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
+	(r'^tag/(?P<tag>.*)/$','stories.views.with_tag'),
+	(r'^tag/(?P<tag>.*)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
 	
 	(r'^s/', include('shorturls.urls')),
 	

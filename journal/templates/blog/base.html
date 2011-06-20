@@ -36,7 +36,7 @@
 					<p class="blog-label">Archives by Tag</p>
 					<ul>
 					{% for tag in blog_tags %}
-						<li class="blogtag-{{tag.font_size}}"><a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a></li>
+						<li class="blogtag-{{tag.font_size}}"><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
 					{% endfor %}
 					</ul>
 					

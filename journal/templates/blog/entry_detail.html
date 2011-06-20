@@ -71,7 +71,7 @@
 					<h4>Post tags:</h4>
 					<ul>
 					{% for tag in tags %}
-						<li><a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a></li>
+						<li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
 					{% endfor %}
 					</ul>
 					{% endif %}

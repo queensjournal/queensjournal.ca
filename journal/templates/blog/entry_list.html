@@ -48,7 +48,7 @@
 		{% for entry in object_list %}
 		<div id="entry-{{ entry.id }}" class="entry">
 			<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
-			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.name }}</a> on {{ entry.pub_date|date:"F j, Y @ h:i a T" }}{% tags_for_object entry as tags %}{% if tags %}<br/>Tags: {% for tag in tags %}<a href="/tag/{{tag.name|slugify}}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</h5>
+			<h5>Posted by <a href="{{ entry.author.get_absolute_url }}">{{ entry.author.name }}</a> on {{ entry.pub_date|date:"F j, Y @ h:i a T" }}{% tags_for_object entry as tags %}{% if tags %}<br/>Tags: {% for tag in tags %}<a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}{% endif %}</h5>
 			<div class="blog-post-content">{{ entry.content|more:entry.id|images:'list'|removetags:"font"|typogrify|linebreakswithcode|truncatewords:150|safe }}{% ifnotequal entry.content|truncatewords:150|length entry.content|truncatewords:151|length %}<a href="{{ entry.get_absolute_url }}"> Read more...</a>{% endifnotequal %}</div>
 			<a href="{{ entry.get_absolute_url }}#disqus_thread" data-disqus-identifier="{{ entry.id }}">View Comments</a>
 			{% disqus_num_replies %}
