@@ -1,4 +1,6 @@
+import datetime
 from django.contrib import admin
+from django.forms.models import BaseInlineFormSet
 import settings
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
 from inlines.models import Factbox, Document, StoryPoll
@@ -20,9 +22,18 @@ class DocumentInline(admin.TabularInline):
 class StoryPollInline(admin.TabularInline):
 	model = StoryPoll
 	extra = 1
+	
+class PhotoFormSet(BaseInlineFormSet):
+    def get_queryset(self):
+        qs = super(PhotoFormSet, self).get_queryset()
+        if self.instance.pub_date < (datetime.datetime.now() - datetime.timedelta(weeks=8)):
+            self.max_num = 0
+            return qs.none() # this formset is empty! 
+        return qs
 
 class StoryPhotoInline(admin.TabularInline):
 	model = StoryPhoto
+	formset = PhotoFormSet
 	
 class StoryAuthorInline(admin.TabularInline):
 	model = StoryAuthor
@@ -43,8 +54,8 @@ class StoryAdmin(admin.ModelAdmin):
 		GalleryInline,
 	]
 	prepopulated_fields = {'slug': ('head',),}
-	list_display = ('head', 'summary', 'pub_date', 'issue', 'section', 'featured', 'status')
-	list_filter = ['pub_date', 'section', 'issue', 'status']
+	list_display = ('id', 'head', 'summary', 'pub_date', 'issue', 'section', 'featured', 'status', 'pk')
+	list_filter = ['pub_date', 'section', 'status', 'issue']
 	search_fields = ['head', 'deck', 'content']
 	actions = ['make_published', 'make_featured', 'remove_featured', 'make_draft']
 	

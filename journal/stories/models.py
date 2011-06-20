@@ -88,9 +88,6 @@ class Story(models.Model):
 
     def get_tags(self, tags):
         return Tag.objects.get_for_object(self)
-        
-    def model_type(self):
-        return self.__class__.__name__
     
     def __unicode__(self):
         return self.head
@@ -173,7 +170,7 @@ class Photo(ImageModel):
         return self.name
         
 class StoryPhoto(models.Model):
-    photo = models.ForeignKey(Photo, default=None, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
+    photo = models.ForeignKey(Photo, default=None)
     story = models.ForeignKey(Story)
     
     def thumbnail(self):
