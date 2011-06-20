@@ -113,12 +113,13 @@ def tags(request):
     return render_to_response("tags/tags.html", context_instance=RequestContext(request))
     
 def with_tag(request, tag, object_id=None, page=1): 
-    query_tag = Tag.objects.get(name=tag)
+    unslug = tag.replace('+', ' ')
+    query_tag = Tag.objects.get(name=unslug)
     story_list = TaggedItem.objects.get_by_model(Story, query_tag).order_by('-pub_date')
     entry_list = TaggedItem.objects.get_by_model(Entry, query_tag).order_by('-pub_date')
     video_list = TaggedItem.objects.get_by_model(Video, query_tag).order_by('-pub_date')
     result_list = QuerySetChain(story_list, entry_list, video_list)
-    return render_to_response("tags/with_tag.html", {'tag': tag, 
+    return render_to_response("tags/with_tag.html", {'tag': unslug, 
                                 'stories': result_list},
                                 context_instance=RequestContext(request))
                                 
@@ -178,7 +179,7 @@ def index_issue_front(request, datestring):
     issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
     try:
         front_config = FrontPageConfig.objects.get(issue=issue)
-    except FrontPageConfig.DoesNotExist:
+    except:
         front_config = FrontConfig.objects.get(issue=issue)
     featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', issue=issue, storyphoto__isnull=False)[:5]
     latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
