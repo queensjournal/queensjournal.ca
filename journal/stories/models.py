@@ -88,6 +88,9 @@ class Story(models.Model):
 
     def get_tags(self, tags):
         return Tag.objects.get_for_object(self)
+        
+    def model_type(self):
+        return self.__class__.__name__
     
     def __unicode__(self):
         return self.head
