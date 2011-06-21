@@ -125,9 +125,12 @@ class TalkingHeadsItem(models.Model):
         name_in_list = False
         for answer in self.talkingheadsanswer_set.all():
             for photog in photogs:
-                if answer.photo.photographer.name == photog:
-                    name_in_list = True
-                    break
+                try:
+                    if answer.photo.photographer.name == photog:
+                        name_in_list = True
+                        break
+                except:
+                    continue
             if name_in_list is False:
                 try:
                     photogs.append(answer.photo.photographer.name)
