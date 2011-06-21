@@ -15,7 +15,10 @@ class PhotosPageOptions(models.Model):
 
 class Gallery(models.Model):
     name = models.CharField(max_length=255)
-    story = models.ForeignKey(Story)
+    slug = models.SlugField()
+    story = models.ForeignKey(Story, null=True, blank=True)
+    pub_date = models.DateField()
+    description = models.TextField()
     images = models.ManyToManyField(Photo, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
 
     class Meta:
@@ -24,9 +27,15 @@ class Gallery(models.Model):
         
     def first_photo(self):
         try:
-            return images[0]
+            return self.images.all()[0]
         except:
             return False
+
+    @models.permalink   
+    def get_absolute_url(self):
+        return ('galleries.views.gallery_detail', (), {
+            'datestring': self.pub_date.strftime("%Y-%m-%d"),
+            'slug': self.slug})
 
     def __unicode__(self):
         return self.name

@@ -2,6 +2,7 @@ $(document).ready(function() {
     var queryhash = window.location.hash
     if (queryhash == '#blogs') {
         toggleBlogs();
+        $('#blog-menu-arrow').show();
     }
     var num_blogs = $('.menu-blog').size()
     $('#menu-blogs-scroll').css('width', (num_blogs * 225) + 'px')

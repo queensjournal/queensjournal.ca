@@ -276,16 +276,16 @@ caption {
   letter-spacing: 0.2em; }
 
 /* =GLOBAL-MENU */
-.menu-bar {
+#menu-sections {
   width: 100%;
   display: table;
   table-layout: fixed;
   background-color: #0b67a3;
   margin-bottom: 1.5em; }
-  .menu-bar ul {
+  #menu-sections ul.menu {
     display: table-row;
     list-style-type: none; }
-    .menu-bar ul li {
+    #menu-sections ul.menu li.menu {
       padding: 6px 0 4px 0;
       font: 1.05em 'Myriad Pro', 'Myriad', Helvetica, Arial, Verdana, sans-serif;
       display: table-cell;
@@ -301,12 +301,12 @@ caption {
       -webkit-border-top-left-radius: 7px;
       border-top-left-radius: 7px;
       border-top-right-radius: 7px; }
-      .menu-bar ul li a {
+      #menu-sections ul.menu li.menu a {
         color: #222;
         text-shadow: 0px 1px 0px #ddd;
         width: 100%;
         height: 100%; }
-        .menu-bar ul li a span {
+        #menu-sections ul.menu li.menu a span {
           display: block;
           height: 16px;
           width: 100%; }
@@ -434,12 +434,43 @@ caption {
     .blog-link a span #blog-menu-arrow {
       width: 105px;
       height: 20px;
-      top: 19px;
-      left: -6px;
+      top: 20px;
+      left: 24px;
       z-index: 999;
       position: absolute;
       display: none;
       background: url("../blog-menu-arrow.png") no-repeat; }
+
+#menu-popular-tags {
+  padding: 0px 10px 5px 10px;
+  width: 940px;
+  background-color: #333;
+  overflow-x: hidden; }
+  #menu-popular-tags .popular-tags-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white; }
+    #menu-popular-tags .popular-tags-title:after {
+      position: relative;
+      top: 3px;
+      padding-left: 10px;
+      font-size: 2em;
+      line-height: 1em;
+      font-weight: bold;
+      content: "\00BB \0020"; }
+  #menu-popular-tags ul {
+    display: inline; }
+    #menu-popular-tags ul li {
+      display: inline;
+      list-style-type: disc;
+      padding-left: 10px; }
+      #menu-popular-tags ul li:first-child {
+        padding: 0; }
+      #menu-popular-tags ul li a {
+        color: #ccc;
+        text-shadow: 0px 0px 1px #000; }
+        #menu-popular-tags ul li a:hover {
+          color: white; }
 
 #menu-social-media {
   margin: 1em 0 1em 0; }
@@ -1004,6 +1035,10 @@ a.nivo-prevNav {
 #pagination {
   font: 1.5em "Myriad Pro", Helvetica, Arial, sans-serif;
   margin: 0 25px 25px 25px; }
+  #pagination .next {
+    padding-left: 2em; }
+  #pagination .prev {
+    padding-right: 2em; }
 
 .highlighted {
   background-color: #FFD94B; }
@@ -1012,6 +1047,73 @@ a.nivo-prevNav {
 .issuu-embed {
   margin: 1em 0 1em 0 !important;
   padding: 1em; }
+
+/*= GALLERIES */
+#featured-galleries {
+  width: 740px;
+  height: 650px;
+  position: relative;
+  background-color: black; }
+  #featured-galleries h3 {
+    padding: 10px 0 0 10px;
+    margin-bottom: 0;
+    color: white; }
+  #featured-galleries ul.ui-tabs-nav {
+    position: absolute;
+    top: 530px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 720px; }
+    #featured-galleries ul.ui-tabs-nav li {
+      float: left;
+      padding-left: 10px;
+      display: inline; }
+      #featured-galleries ul.ui-tabs-nav li img {
+        background: #fff;
+        padding: 5px; }
+  #featured-galleries .ui-tabs-panel {
+    width: 720px;
+    height: 480px;
+    padding: 10px;
+    position: relative;
+    overflow: hidden; }
+    #featured-galleries .ui-tabs-panel .info {
+      position: absolute;
+      top: 420px;
+      left: 10px;
+      height: 70px;
+      width: 720px;
+      background: url("../transparent-bg.png"); }
+      #featured-galleries .ui-tabs-panel .info h2 {
+        font-size: 18px;
+        font-family: Georgia, serif;
+        color: #fff;
+        padding: 5px;
+        margin: 0;
+        overflow: hidden; }
+      #featured-galleries .ui-tabs-panel .info p {
+        margin: 0 5px;
+        font-family: Verdana;
+        font-size: 11px;
+        line-height: 15px;
+        color: #f0f0f0; }
+      #featured-galleries .ui-tabs-panel .info a {
+        text-decoration: none;
+        color: #fff; }
+        #featured-galleries .ui-tabs-panel .info a:hover {
+          text-decoration: underline; }
+  #featured-galleries .ui-tabs-hide {
+    display: none; }
+  #featured-galleries li.ui-tabs-nav-item a {
+    /*On Hover Style*/
+    display: block;
+    color: #333;
+    background: #fff;
+    line-height: 20px;
+    outline: none; }
+    #featured-galleries li.ui-tabs-nav-item a:hover {
+      background: #f2f2f2; }
 
 /* =MASTHEAD-CONTENT */
 #masthead h1 {
