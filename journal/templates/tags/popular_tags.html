@@ -1,0 +1,8 @@
+{% load custom_html %}
+<ul>
+{% for tag in tags %}
+<li class="tag tag-{{tag.font_size|add:"2"}}">
+<a href="/tag/{{tag.name|urlencode}}/">{{tag.name}}</a>
+</li> 
+{% endfor %}
+</ul>

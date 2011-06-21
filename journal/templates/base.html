@@ -1,5 +1,6 @@
 {% load navigation %}
 {% load linkset %}
+{% load tag_cloud %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -73,6 +74,9 @@ GA_googleFetchAds();
 
 	<div id="menu-sections" class="menu-bar block">
 		{% menu_sections %}
+		<div id="menu-popular-tags" class="block">
+			<span class="popular-tags-title">Hot topics</span> {% popular_tags %}
+		</div>
 	</div>
 	<div id="menu-blogs">
 	    <div id="menu-blogs-scroll">

@@ -1,15 +1,10 @@
 {% extends 'base.html' %}
 {% load navigation %}
-{% load tagging_tags %}
+{% load tag_cloud %}
 
 {% block content %}
-<h1>Article Tags</h1>
+<h1>Tags and Topics</h1>
 <div class="tag-cloud">
-{% tag_cloud_for_model stories.Story as tags with steps=6 distribution=log %}
-{% for tag in tags %}
-<span class="tag-{{tag.font_size|add:"2"}}">
-<a href="/tag/{{tag.name|urlencode}}/">{{tag.name}}</a>
-</span> 
-{% endfor %}
+{% do_cloud %}
 </div>
 {% endblock content %}

@@ -1,0 +1,5 @@
+{% for tag in cloud %}
+<span class="tag-{{tag.font_size|add:"2"}}">
+<a href="/tag/{{tag.name|urlencode}}/">{{tag.name}}</a>
+</span> 
+{% endfor %}
