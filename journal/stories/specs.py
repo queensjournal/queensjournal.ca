@@ -29,6 +29,11 @@ class ResizeGallery(processors.Resize):
 	width = 800
 	height = 600
 	crop = False
+	
+class ResizeGalleryFeatured(processors.Resize):
+    width = 720
+    height = 480
+    crop = True
 
 # now lets create an adjustment processor to enhance the image at small sizes 
 class EnchanceThumb(processors.Adjustment): 
@@ -55,3 +60,7 @@ class Gallery(ImageSpec):
 	quality = 85
 	access_as = "gallery_image"
 	processors = [MakeRGB, ResizeGallery]
+	
+class GalleryFeatured(ImageSpec):
+    access_as = 'gallery_featured'
+    processors = [MakeRGB, ResizeGalleryFeatured]
