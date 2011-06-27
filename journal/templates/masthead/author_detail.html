@@ -6,7 +6,7 @@
 {% block content %}
 
 {% block breadcrumb %}
-	<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.author_index %}">Authors</a><span class="divider"></span></div>
+	<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url masthead.views.masthead_latest %}">Authors</a><span class="divider"></span></div>
 {% endblock breadcrumb %}
 
 <h1>{{ author.name }}</h1>

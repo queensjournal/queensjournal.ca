@@ -18,7 +18,7 @@
 		<ul class="clearfix">
 		{% for name in section.list %}
 			<li>
-				<p class="name">{{ name.name }}</p>
+				<p class="name"><a href="/author/{{ name.name|slugify }}">{{ name.name }}</a></p>
 				<p class="position">{{ name.position }}</p>
 				<p class="email">{% if name.individual_email %} <a href="mailto:{{ name.individual_email }}">{{ name.individual_email }}</a>{% else %}&nbsp;{% endif %}</p>
 			</li>
