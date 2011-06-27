@@ -52,7 +52,7 @@ def index_section(request, section):
                             
 def index_front(request):
     front_config = FrontConfig.objects.latest('pub_date')
-    lstories = Story.objects.filter(status='p').order_by('-pub_date')[:5]
+    lstories = Story.objects.filter(status='p', pub_date__lt=datetime.now()).order_by('-pub_date')[:5]
     latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
     latest_video = Video.objects.latest('pub_date')
     latest_stories = QuerySetChain(lstories, latest_entries, latest_video)[:5]
@@ -87,26 +87,6 @@ def detail_story(request, datestring, section, slug):
                                 {'story': story_selected,
                                 'author_role': author_role,
                                 'config': section_config},
-                                context_instance=RequestContext(request))
-def author_index(request):
-    authors = get_list_or_404(Author)
-    if request.session.get('vote') is None:
-        request.session['vote'] = []       
-    return render_to_response('stories/author_index.html',
-                            {'authors': authors,},
-                            context_instance=RequestContext(request))
-    
-    
-def detail_author(request, author):
-    curr_author = get_object_or_404(Author, slug__exact=author)
-    story_set = StoryAuthor.objects.filter(author__slug__exact=author).order_by('-story__pub_date')
-    entry_set = Entry.objects.filter(author__slug__exact=author).order_by('-pub_date')
-    item_list = QuerySetChain(story_set, entry_set)
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
-    return render_to_response('stories/author_detail.html',
-                                {'author': curr_author,
-                                'items': item_list,},
                                 context_instance=RequestContext(request))
                                 
 def tags(request):
