@@ -154,7 +154,7 @@ class Entry(models.Model):
     def get_absolute_url(self):
         return('blog.views.blog_detail', (), {
             'blog': self.blog.slug,
-            'year': self.pub_date.year,
+            'year': self.pub_date.strftime('%Y'),
             'month': self.pub_date.strftime('%m'),
             'slug': self.slug})
     get_absolute_url = permalink(get_absolute_url)

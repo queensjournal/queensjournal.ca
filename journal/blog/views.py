@@ -88,27 +88,6 @@ def blog_draft_detail(request, post_id):
 				return HttpResponseRedirect(entry.get_absolute_url())
 		else:
 			raise Http404
-		
-def blog_archive_author(request, blog, author_id, page=1):
-	"""
-	Author archives. Displays all blog posts for a given author. Paginated.
-	"""
-	author = get_object_or_404(Author, pk=author_id)
-	qs = Entry.objects.get_author_on_blog(blog, author_id)
-	if qs.count() > 0:
-		c = {'blog': Blog.objects.get(slug=blog),
-			 'author': author}
-		return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, extra_context=c, page=page)
-	else:
-		raise Http404
-			
-def blog_author(request, author_id):
-	"""
-	Author profile. Displays the profile of the selected author.
-	"""
-	qs = Author.objects.all()
-	entries = Entry.objects.published().filter(author__id=author_id).order_by('-pub_date')[:10]
-	return object_detail(request, queryset=qs, object_id=author_id, extra_context={'entries': entries})
 
 def blog_all_authors(request, blog):
 	"""
