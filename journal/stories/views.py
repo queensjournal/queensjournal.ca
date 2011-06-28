@@ -227,7 +227,7 @@ def index_archive(request):
                             
 def index_archive_volume(request, volume):
     volume = get_object_or_404(Volume, volume=volume)
-    issues = get_list_or_404(Issue, volume=volume)
+    issues = get_list_or_404(Issue, volume=volume, pub_date__lt=datetime.now())
     return render_to_response('archives/index_volume.html',
                             {'volume': volume,
                             'issues': issues,},
