@@ -23,7 +23,7 @@
 				</div>
 				
 				<div class="blog-sidebar column span-7 last">
-					{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ MEDIA_URL }}/global/feed-icon-10x10.gif">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
+					{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ MEDIA_URL }}/global/img/feed.png">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
 					<p class="blog-label">About {{ blog.title }}</p>
 					<p>{{ blog.description|markdown }}</p>
 					<p class="blog-label">Archives by date</p>

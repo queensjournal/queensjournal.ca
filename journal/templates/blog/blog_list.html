@@ -12,7 +12,7 @@
 {% block title %}Blogs{{ block.super }}{% endblock title %}
 
 	{% block actions %}
-		{% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ MEDIA_URL }}global/2.0/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
+		{% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ MEDIA_URL }}global/img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
 	{% endblock actions %}
 	
 	{% block content %}
@@ -47,7 +47,7 @@
 			</div><!--featured box-->
 			
 			<div id="stories-other" class="latest column span-7 last">
-				<h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+				<h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
 				<hr>
 				<ul>
 				{% for entry in latest %}
@@ -73,7 +73,7 @@
 					<h2 class="latest-section-head"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h2>
 					<p class="latest-section-summary">{{ blog.description|typogrify|safe }}</p>
 					
-					<p><a href="/rss/blogs/{{ blog.slug }}"><img src="{{ MEDIA_URL }}global/feed-icon-10x10.gif">&ensp;Latest posts feed</a></p>
+					<p><a href="/rss/blogs/{{ blog.slug }}"><img src="{{ MEDIA_URL }}global/img/feed-icon-10x10.gif">&ensp;Latest posts feed</a></p>
 					<div class="blog-recent-posts latest">
 						<ul>
 						{% for post in blog.entry_set.published|slice:":2" %}

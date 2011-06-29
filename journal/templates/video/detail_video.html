@@ -32,7 +32,7 @@
 	{% block layout-type %} span-18 colborder{% endblock %}
 	{% block breadcrumb %}{% endblock breadcrumb %}
 	{% block actions %}
-		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/icon_email.gif" /></a></span></p></div>
+		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/img/icon_email.gif" /></a></span></p></div>
 	{% endblock actions %}
 	{% block content %}
 		<!-- google_ad_section_start -->
@@ -91,7 +91,7 @@
 				
 				<div class="column span-7 last">
 					
-					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
 					<hr> 
 					{% for video in latest_videos %}
 					<div class="latest-section videos">

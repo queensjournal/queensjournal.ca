@@ -51,7 +51,7 @@
 		</div><!--featured box-->
 		
 		<div id="latest_stories" class="latest column span-7 last">
-			<h3>Latest Stories <span class="feed"><a href="/rss/latest-stories/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+			<h3>Latest Stories <span class="feed"><a href="/rss/latest-stories/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
 			<hr>
 			<ul>
 			{% for story in latest_stories %}
@@ -102,7 +102,7 @@
 					<p class="pub_date">Posted {{ latest_video.pub_date|date_diff }}</p>
 				</div>
 
-				<ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+				<ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
 				{% for entry in latest_entries %}
 					<li>
 					<p class="label">{{ entry.blog.title }}</p>

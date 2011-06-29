@@ -37,8 +37,6 @@
 {% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
 
 {% block header-type %}secondary{% endblock header-type %}
-	{% block header-img %}logo_inside.gif{% endblock header-img %}
-	{% block dateline %}{{ story.pub_date|date:"F j, Y" }}{% endblock dateline %}
 	{% if story.issue %}
 		{% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
 	{% endif %}
@@ -96,8 +94,8 @@
 				{% endfor %}
 				</ul>{% endif %}
 				<ul class="story-actions">
-				<li><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/icon_email.gif" /></a></li>
-				<li><a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}global/icon_print.gif" /></a></li>
+				<li><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/img/icon_email.gif" /></a></li>
+				<li><a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}global/img/icon_print.gif" /></a></li>
 				<hr>
 				<li><span class="label">Short URL:</span>
 				<form action="" method="get">

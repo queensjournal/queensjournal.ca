@@ -4,7 +4,7 @@
 {% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
 	
 	{% block actions %}
-		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/section/{{ story.section.slug }}/">Latest {% firstof story.section.short_name story.section.name %} RSS <img src="/media/global/icon_rss.gif" /></a></span></p></div>
+		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/section/{{ story.section.slug }}/">Latest {% firstof story.section.short_name story.section.name %} RSS <img src="/media/global/img/feed.png" /></a></span></p></div>
 	{% endblock actions %}
 	
 	{% block content-class %} span-19 front-content{% endblock %}	
@@ -41,7 +41,7 @@
 		</div><!--featured box-->
 	
 		<div id="stories-other" class="latest column span-7 last">
-			<h3>Latest Galleries <span class="feed"><a href="/rss/section/{{ story.section.slug }}/"><img src="{{ MEDIA_URL }}global/feed-small.png" />RSS Feed</a></span></h3>
+			<h3>Latest Galleries <span class="feed"><a href="/rss/section/{{ story.section.slug }}/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
 			<hr>
 			<ul>
 			{% for story in latest_stories %}
