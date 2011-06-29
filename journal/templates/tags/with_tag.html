@@ -12,7 +12,7 @@
 	{% for story in stories %}
 		{% if story.model_type = 'Story' %}
 		<div class="{% cycle 'search1' 'search2' %}">
-			{% if story.first_photo %}<img src="{{ story.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+			{% if story.story_thumb %}<img src="{{ story.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
 		<h3><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h3>
 		<p class="meta">{% ifnotequal story.list_authors '[no author]' %}By {{ result.object.list_authors|safe }} - {% endifnotequal %}{{ story.pub_date|date:"jS F Y" }}</p>
 		<p>{{ story.summary|striptags|truncatewords:50|safe|linebreaks }}</p>
