@@ -35,7 +35,7 @@
 		<p class="meta">By {{ item.author.name }}</p>
 		<p>{{ item.content|striptags|truncatewords:40|safe }}</p>
     {% else %}
-        {% if item.story.first_photo %}<img src="{{ item.story.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+        {% if item.story.story_thumb %}<img src="{{ item.story.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
 		<h3><a href="{{ item.story.get_absolute_url }}">{{ item.story.head|typogrify }}</a></h3>
 		{% ifnotequal item.story.list_authors '[no author]' %}<p class="meta">By {{ item.story.list_authors|safe }}</p>{% endifnotequal %}
 		<p>{{ item.story.summary|striptags|truncatewords:40|safe }}</p>

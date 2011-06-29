@@ -14,7 +14,7 @@
 {% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }}{{ block.super }}{% endblock title %}
 	
 	{% block actions %}
-		<li><a href="/rss/section/{{ section_config.section.slug }}/"><span><img src="{{ MEDIA_URL }}global/2.0/feed.png" />Latest {{ section_config.section.slug }} RSS</a></span></li>
+		<li><a href="/rss/section/{{ section_config.section.slug }}/"><span><img src="{{ MEDIA_URL }}global/img/feed.png" />Latest {{ section_config.section.slug }} RSS</a></span></li>
 	{% endblock actions %}
 		
 	{% block content %}
@@ -36,7 +36,7 @@
 			
 			{% if featured %}
 				<div id="featured-wrapper" class="{% if other_stories|length > 0 %}brick{% endif %}">
-	                <img src="{{ featured.first_photo.display.url }}" alt="{{ featured.head }}" class="slideshow-featured-img"/>
+	                <img src="{{ featured.story_thumb.display.url }}" alt="{{ featured.head }}" class="slideshow-featured-img"/>
 					<div class="caption">
 		                <p class="slider-story label">{% if featured.tags %}<a href="/tag/{{featured.label|striplabel|slugify}}/">
 			{{ featured.tags|striplabel }}</a>{% else %}{% firstof featured.label "Story" %}{% endif %}</p>

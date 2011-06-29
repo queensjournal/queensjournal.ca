@@ -74,7 +74,7 @@
 			{% for story in latest_section %}
 			<div class="latest-section">
 				<p class="label section-label"><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></p>
-				<a href="{{ story.get_absolute_url }}"><img src="{{ story.first_photo.front_image.url }}" />
+				<a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" />
 				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 				<p class="latest-section-summary">{{ story.summary }}</p>
 				<p class="pub_date">Posted {{ story.pub_date|date_diff }}</p>

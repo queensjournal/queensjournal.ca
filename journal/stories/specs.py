@@ -6,7 +6,7 @@ from imagekit import processors
 ## Make sure you use this first for any ImageSpec
 ## Should preserve color errors when converting from CMYK
 class MakeRGB(processors.Adjustment):
-	color = 1.0
+	color = 0.8
 
 # first we define our thumbnail resize processor 
 class ResizeThumb(processors.Resize): 

@@ -61,7 +61,7 @@
 			{% for result in page.object_list %}
 				<div class="{% cycle 'search1' 'search2' %}">
 				{% ifequal result.model_name 'story' %}
-				{% if result.object.first_photo %}<img src="{{ result.object.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+				{% if result.object.story_thumb %}<img src="{{ result.object.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
 				<h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.head }}</a></h3>
 				<p class="meta">{% ifnotequal result.object.list_authors '[no author]' %}By {{ result.object.list_authors|safe }} - {% endifnotequal %}{{ story.pub_date|date:"jS F Y" }}</p>
 				<p>{% highlight result.object.summary with query html_tag "span" css_class "highlight" max_length 300 %}</p>

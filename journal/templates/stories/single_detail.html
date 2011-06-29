@@ -18,7 +18,7 @@
 <meta property="og:title" content="{{ story.head }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{% shorturl story %}" />
-<meta property="og:image" content="{{ story.first_photo.thumbnail_image.url }}" />
+<meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
 <meta property="og:site_name" content="The Queen&#039;s Journal" />
 <meta property="fb:admins" content="1653600047" />
 {% endblock facebook %}
@@ -50,8 +50,8 @@
 			{% for other_story in other_stories %}
 				<li><a href="{{ other_story.get_absolute_url }}">{{ other_story.head }}</a></li>
 			{% endfor %}
+			</ul>
 		{% endif %}
-		</ul>
 	{% endblock menu-stories %}
     {% endif %}
 	
@@ -65,9 +65,9 @@
 			<h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>	 
 			<p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors|safe }}{% endifnotequal %}</p> 
 				
-			{% if story.storyphoto_set.all|length >= 1 %}
+			{% if story.storyphoto_set.all|length > 0 %}
 			<div id="top-photo" class="story" style="{% if story.first_photo.first.width < 500 %}float:right;{% endif %}width:{{story.first_photo.first.width}}px">
-			    <img src="{{ story.first_photo.first.url }}">
+			    <img src="{{ story.first_photo.first.url }}" />
 			    <div id="caption-top">
 					{{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer }}){% endifnotequal %}
 				</div>
@@ -109,7 +109,7 @@
 			{% if story.show_headshots %}
 				{% for sauthor in story.storyauthor_set.all %}
 					<div class="headshot"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
-					<a href="{{ sauthor.author.get_absolute_url }}">{{ author.author.name }}</a></div>
+					<a href="{{ sauthor.author.get_absolute_url }}">{{ sauthor.author.name }}</a></div>
 				{% endfor %}
 			{% endif %}
 			
@@ -236,18 +236,6 @@
 
 
 {% block footercode %}
-{% if story.storyphoto_set.all|length > 1 %}
-    $(window).load(function() {
-        $('#slider').nivoSlider({
-			directionNav:true,
-			directionNavHide:false,
-			manualAdvance:true,
-			controlNav:false,
-			effect:'slideInLeft',
-			captionOpacity:1,
-		});
-    });
-{% endif %}
 {% if story.gallery_set.all %}
 $(document).ready(function() {
 	$("a.gallery").fancybox({

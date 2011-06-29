@@ -37,7 +37,7 @@
 
 		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
 					{% for story in featured %}
-		                <img src="{{ story.first_photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+		                <img src="{{ story.story_thumb.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
 		            {% endfor %}
 		            </div>
 					{% for story in featured %}
@@ -77,7 +77,7 @@
 			{% for story in other_stories %}
 			<div class="latest-section brick">
 				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-				<a href="{{ story.get_absolute_url }}">{% if story.first_photo %}<img src="{{ story.first_photo.front_image.url }}" /></a>{% endif %}
+				<a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.front_image.url }}" /></a>{% endif %}
 				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
 				<p class="latest-section-summary">{{ story.summary|safe }}</p>
 			</div>

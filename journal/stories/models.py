@@ -59,7 +59,7 @@ class Story(models.Model):
         return ' '.join(authors)
     list_authors.short_description = 'Author(s)'
     
-    def first_photo(self):
+    def story_thumb(self):
         from galleries.models import Gallery
         if self.show_headshots is True:
             try:
@@ -79,6 +79,10 @@ class Story(models.Model):
                 return sp.photo
             except IndexError:
                 return False
+                
+    def first_photo(self):
+        sp = StoryPhoto.objects.filter(story=self)[0]
+        return sp.photo
                 
     def other_photos(self):
         if len(self.storyphoto_set.all()) > 1:

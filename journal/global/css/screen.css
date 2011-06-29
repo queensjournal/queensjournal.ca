@@ -439,7 +439,7 @@ caption {
       z-index: 999;
       position: absolute;
       display: none;
-      background: url("../blog-menu-arrow.png") no-repeat; }
+      background: url("../img/blog-menu-arrow.png") no-repeat; }
 
 #menu-popular-tags {
   padding: 0px 10px 5px 10px;
@@ -629,7 +629,7 @@ caption {
   position: relative;
   width: 475px;
   height: 300px;
-  background: url(images/loading.gif) no-repeat 50% 50%;
+  background: url(../img/loading.gif) no-repeat 50% 50%;
   margin-right: 0px !important; }
   #slider img {
     position: absolute;
@@ -644,7 +644,7 @@ caption {
   display: block;
   width: 30px;
   height: 30px;
-  background: url(images/arrows.png) no-repeat;
+  background: url(../img/arrows.png) no-repeat;
   text-indent: -9999px;
   border: 0; }
 
@@ -792,7 +792,7 @@ a.nivo-prevNav {
     display: inline-block;
     width: 14px;
     height: 28px;
-    background-image: url("images/bc-divider.png");
+    background-image: url("../img/bc-divider.png");
     margin: 0 10px 0 10px; }
   #breadcrumb a {
     position: relative;
@@ -879,7 +879,7 @@ a.nivo-prevNav {
 .headshot {
   float: left;
   clear: left;
-  margin: 0 10px 1em 0; }
+  margin: 0 10px 0.5em 0; }
   .headshot img {
     margin-bottom: 5px; }
   .headshot a {
@@ -1100,7 +1100,7 @@ a.nivo-prevNav {
       left: 10px;
       height: 70px;
       width: 720px;
-      background: url("../transparent-bg.png"); }
+      background: url("../img/transparent-bg.png"); }
       #featured-galleries .ui-tabs-panel .info h2 {
         font-size: 18px;
         font-family: Georgia, serif;

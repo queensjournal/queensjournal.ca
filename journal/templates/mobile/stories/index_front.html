@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load navigation %}
+{% load sidebartags %}
+{% load custom_html %}
+{% load typogrify %}
+{% load flash %}
+{% load poll_tags %}
+{% load lists %}
+
+{% block content %}
+
+    {% for story in featured %}
+        <p><img src="{{ story.photo.display.url }}" alt="{{ story.story.head }}" class="slideshow-featured-img" title="#caption{{ story.story.id }}"/></p>
+        <p class="slider-story label">{% if story.story.tags %}<a href="/tag/{{story.story.label|striplabel|slugify}}/">
+    {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
+    	<h2><a href="{{ story.story.get_absolute_url }}">{{ story.story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+    	{{ story.story.summary|stripspace|convert_entities|truncatewords:38|safe }}
+    {% endfor %}
+    
+{% endblock %}

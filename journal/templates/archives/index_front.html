@@ -41,7 +41,7 @@
 
 		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
 					{% for story in featured %}
-		                <img src="{{ story.first_photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+		                <img src="{{ story.story_thumb.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
 		            {% endfor %}
 		            </div>
 					{% for story in featured %}
