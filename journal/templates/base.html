@@ -24,10 +24,14 @@
 <script type='text/javascript'>
 GS_googleAddAdSenseService("ca-pub-4573993547628801");
 GS_googleEnableAllServices();
+</script>
+<script type='text/javascript'>
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
 GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
+</script>
+<script type='text/javascript'>
 GA_googleFetchAds();
 </script>
 </head>
@@ -37,13 +41,10 @@ GA_googleFetchAds();
 	
 	<hr>
 		
-	<div id="top-ad">
-		<center>
-			<!-- QJ-Global_Banner-468x60 -->
-			<script type='text/javascript'>
-			GA_googleFillSlot("QJ-Global_Banner-468x60");
-			</script>
-		</center>
+	<div id="top-ad" class="ad">
+		<script type='text/javascript'>
+		GA_googleFillSlot("QJ-Global_Banner-468x60");
+		</script>
 	</div>
 	
 	<div class="hr-dbl"><hr></div>
@@ -127,8 +128,7 @@ GA_googleFetchAds();
 				{% block menu-stories %}{% endblock menu-stories %}
 			</div>
 
-			<div id="menu-ad">
-				<!-- QJ-Side_Banner_Ad-160x600 -->
+			<div id="menu-ad" class="ad">
 				<script type='text/javascript'>
 				GA_googleFillSlot("QJ-Side_Banner_Ad-160x600");
 				</script>
@@ -138,16 +138,19 @@ GA_googleFetchAds();
 		
 	</div><!--content block -->
 	
-	<div id="footer-ad">	
-		<center>	
-			<!-- QJ-Leaderboard-728x90 -->
-			<script type='text/javascript'>
-			GA_googleFillSlot("QJ-Leaderboard-728x90");
-			</script>
-		</center>
+	<div id="footer-ad" class="ad">	
+		<script type='text/javascript'>
+		GA_googleFillSlot("QJ-Leaderboard-728x90");
+		</script>
 	</div>
 
 	<div class="hr"><hr></div>
+	
+	<div id="flavours" class="block">
+	    <ul>
+            <li><a href="?flavour=mobile">View our mobile version</a>
+        </ul>
+    </div>
 
 </div><!--container-->
 
