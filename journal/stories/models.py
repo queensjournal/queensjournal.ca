@@ -29,7 +29,7 @@ class Story(models.Model):
     tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
     featured = models.BooleanField()
     pub_date = models.DateTimeField(default=datetime.datetime.now(), unique=True)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', help_text='Draft will place the story in a queue to be published later, published will publish the story immediately.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
     
@@ -79,9 +79,71 @@ class Story(models.Model):
                 return sp.photo
             except IndexError:
                 return False
+                
+    def other_photos(self):
+        if len(self.storyphoto_set.all()) > 1:
+            return StoryPhoto.objects.filter(story=self).exclude(photo=self.first_photo)
     
     def related_photos(self):
         return StoryPhoto.objects.filter(story=self)
+        
+    def has_inlines(self):
+        returnval = "inline check failed"
+        try:
+            # Check all models in inline app: get all models in
+            # inline app, check each model for the presence of a
+            # story var (if no story var then it's a helper
+            # model), then check to see if any inline object has
+            # the correct story ID.
+            inline_models = models.get_app("inlines")
+            for obj_type in models.get_models(inline_models):
+                inlines = obj_type.objects.all()
+                if len(list(inlines)) > 0:
+                    try:
+                        inlines[0].story
+                    except:
+                        continue
+                for x in inlines:
+                    returnval += x.head
+                    if x.story.id == self.id:
+                        try:
+                            if x.full_width == True:
+                                continue
+                            else:
+                                return True
+                        except:
+                            return True
+            return False
+        except:
+            return returnval            
+
+    def has_wide_inlines(self):
+        returnval = "inline check failed"
+        try:
+            # Check all models in inline app: get all models in
+            # inline app, check each model for the presence of a
+            # story var (if no story var then it's a helper
+            # model) and full_width var, then check to see
+            # if any inline object has the correct story ID.
+            inline_models = models.get_app("inlines")
+            for obj_type in models.get_models(inline_models):
+                inlines = obj_type.objects.all()
+                if len(list(inlines)) > 0:
+                    try:
+                        inlines[0].story
+                        inlines[0].full_width
+                    except:
+                        continue
+                for x in inlines:
+                    returnval += x.head
+                    if x.story.id == self.id:
+                        if x.full_width == True:
+                            return True
+                        else:
+                            continue
+            return False
+        except:
+            return returnval
         
     def set_tags(self, tags):
         Tag.objects.update_tags(self, tags)

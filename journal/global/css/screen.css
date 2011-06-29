@@ -499,6 +499,9 @@ caption {
     top: 3px;
     margin: 0 10px 0 5px; }
 
+.ad {
+  text-align: center; }
+
 #menu-ad {
   width: 100%;
   height: 600px;
@@ -816,6 +819,8 @@ a.nivo-prevNav {
       padding: 10px; }
     .story table thead tr td {
       font-weight: bold; }
+  .story .pub-date {
+    float: right; }
 
 .story-caption {
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
@@ -824,22 +829,29 @@ a.nivo-prevNav {
   margin: 0.5em 0 0 0; }
 
 /* =SINGLES-CONTENT */
-#slider-wrapper.story {
-  height: 375px;
-  float: right;
-  margin: 0 0 0 10px; }
-
-#slider-single-wrapper {
-  width: 475px;
+#top-photo, .other-photo {
   padding: 10px;
-  background-color: #eee;
-  float: right;
-  margin: 0 0 10px 10px; }
+  margin-bottom: 1.5em; }
+  #top-photo img, .other-photo img {
+    padding-bottom: 10px; }
+
+#top-photo {
+  margin: 0 auto 1.5em auto; }
+
+.other-photo {
+  width: 450px;
+  float: left;
+  margin: 0 10px 1.5em 0;
+  background-color: #efefef; }
+  .other-photo img {
+    display: block;
+    position: relative;
+    margin: 0 auto 0 auto; }
 
 #story-socmedia {
   clear: right;
   float: right;
-  margin: 10px 0 10px 10px;
+  margin: 0 0 10px 10px;
   padding: 10px;
   background-color: #eee; }
   #story-socmedia h4 {
@@ -900,10 +912,14 @@ a.nivo-prevNav {
 
 .inline-container {
   clear: both;
-  background-color: #eee; }
+  background-color: #F0F7FF;
+  padding: 1em;
+  -webkit-font-smoothing: antialiased; }
+  .inline-container h4 {
+    font-weight: bold; }
   .inline-container p {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 1em;
+    font-family: Georgia, Times, "Times New Roman", serif;
+    font-size: 1.1em;
     line-height: 1.5em; }
   .inline-container ul {
     margin: 0 0 1.5em; }
@@ -1493,6 +1509,20 @@ a.nivo-prevNav {
 #author-bio {
   float: right;
   width: 500px; }
+
+/*= MOBILE FLAVOURS */
+#flavours {
+  position: relative; }
+  #flavours ul li {
+    margin: 0 auto 0 auto;
+    width: 150px;
+    background-color: #E1F3FC;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    padding: 5px;
+    text-align: center;
+    list-style-type: none; }
 
 /*=ABOUT VCARD=*/
 #about-vcard {

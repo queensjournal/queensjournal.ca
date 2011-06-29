@@ -144,6 +144,21 @@ def possessive(value):
 def urlencode(value):
     return urllib.quote_plus(value)
     
+def paragraphs(var, arg):
+    '''
+    Returns a index of paragraphs. E.g. {{ content|paragraphs:'3:' }} will return the fourth paragraph and on.
+    
+    '''
+    ints = arg.split(':')
+    for i, c in enumerate(ints):
+        if c == '':
+            del ints[i]
+    paras = var.replace("\r\n", "\n").split("\n\n")
+    if len(ints) > 1:
+        return "\n\n".join(paras[int(ints[0]):int(ints[1])])
+    else:
+        return "\n\n".join(paras[int(ints[0]):])
+    
 register.filter(convert_entities)
 register.filter(linebreakswithcode)
 register.filter(stripspace)
@@ -152,3 +167,4 @@ register.filter(date_diff)
 register.filter(striplabel)
 register.filter(possessive)
 register.filter(urlencode)
+register.filter(paragraphs)
