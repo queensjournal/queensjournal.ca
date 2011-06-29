@@ -6,8 +6,17 @@ from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
 from inlines.models import Factbox, Document, StoryPoll
 from galleries.models import Gallery
 
+class GalleryFormSet(BaseInlineFormSet):
+    def get_queryset(self):
+        qs = super(GalleryFormSet, self).get_queryset()
+        if self.instance.pub_date < (datetime.datetime.now() - datetime.timedelta(weeks=8)):
+            self.max_num = 0
+            return qs.none() # this formset is empty! 
+        return qs
+    
 class GalleryInline(admin.TabularInline):
 	model = Gallery
+	formset = GalleryFormSet
 	filter_horizontal = ['images']
 	extra = 1
 
