@@ -7,7 +7,7 @@ import settings
 
 class Headshot(ImageModel):
     name = models.SlugField()
-    headshot = models.ImageField(upload_to="headshots/", help_text='Please crop all photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
+    headshot = models.ImageField(upload_to="headshots/%Y/", help_text='Please crop all photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
     
     class IKOptions:
         spec_module = 'structure.headshot_specs'
@@ -31,7 +31,7 @@ class Author(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('stories.views.detail_author', (), {
+        return ('masthead.views.detail_author', (), {
             'author': self.slug})
     
     def get_latest_role(self):
