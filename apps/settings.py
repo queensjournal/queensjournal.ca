@@ -94,7 +94,6 @@ INSTALLED_APPS = (
 	
 	'haystack',
 	'custom',
-	'dependencies.template_utils',
 	'typogrify',
 	'imagekit',
 	'tagging',
