@@ -8,16 +8,16 @@
 {% block meta %}
 <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
 {% endblock meta %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/reset.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/blueprint/liquid.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/screen.css" media="screen" title="Default" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
 <!--[if lte IE 7]>
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/ie.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
 <![endif]-->
-<LINK REL="shortcut icon" HREF="{{ MEDIA_URL }}global/favicon.ico">
-<script src="{{ MEDIA_URL }}global/js/modernizr-1.7.min.js" type="text/javascript"></script>
-<script src="{{ MEDIA_URL }}global/js/jquery-1.4.js" type="text/javascript"></script>
-<script src='{{ MEDIA_URL }}global/js/master.js' type='text/javascript'></script>
+<LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
+<script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}js/jquery-1.4.js" type="text/javascript"></script>
+<script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
 {% block headcode %}{% endblock headcode %}
 {% block facebook %}{% endblock facebook %}
 <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
@@ -51,18 +51,18 @@ GA_googleFetchAds();
 
 	<div id="header-container" class="block">
 		<div id="header-left" class="column span-14">
-			<a href="/"><img src="{{ MEDIA_URL }}global/img/logo_front.gif" id="logo" /></a>
+			<a href="/"><img src="{{ STATIC_URL }}img/logo_front.gif" id="logo" /></a>
 		</div>
 		<div id="header-right" class="column span-10 last">
-			<img src="{{ MEDIA_URL }}global/img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
+			<img src="{{ STATIC_URL }}img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
 			<div id="hr-header"><hr></div>
 			<div id="search">
 				<form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
 				<div id="connect">
-					Connect: <a href="/rss/latest/"><img src="{{ MEDIA_URL }}global/img/feed.png" /></a>
-					<a href="http://twitter.com/queensjournal/"><img src="{{ MEDIA_URL }}global/img/twitter.png" /></a>
-					<a href="http://www.facebook.com/queensjournal"><img src="{{ MEDIA_URL }}global/img/facebook.png"></a>
-					<a href="/emailupdates/"><img src="{{ MEDIA_URL }}global/img/email.png" /></a>
+					Connect: <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a>
+					<a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a>
+					<a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png"></a>
+					<a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
 				</div>
 			</div><!--actions-->
 			
@@ -109,11 +109,11 @@ GA_googleFetchAds();
 				<h3>Connect with us:</h3>
 				<hr>
 				<ul>
-					<li><a href="http://twitter.com/QueensJournal" target="new"><span><img src="{{ MEDIA_URL }}global/img/twitter.png" />QJ on Twitter</span></a></li>
-					<li><a href="http://www.facebook.com/pages/Kingston-ON/Queens-Journal/214066523083"><span><img src="{{ MEDIA_URL }}global/img/facebook.png" />QJ on Facebook</span></a></li>
-					<li><a href="/emailupdates/"><span><img src="{{ MEDIA_URL }}global/img/email.png" />Get Email Updates</span></a></li>
+					<li><a href="http://twitter.com/QueensJournal" target="new"><span><img src="{{ STATIC_URL }}img/twitter.png" />QJ on Twitter</span></a></li>
+					<li><a href="http://www.facebook.com/pages/Kingston-ON/Queens-Journal/214066523083"><span><img src="{{ STATIC_URL }}img/facebook.png" />QJ on Facebook</span></a></li>
+					<li><a href="/emailupdates/"><span><img src="{{ STATIC_URL }}img/email.png" />Get Email Updates</span></a></li>
 					{% block actions %}
-					<li><a href="/rss/latest/"><span><img src="{{ MEDIA_URL }}global/img/feed.png" />Latest stories RSS</span></a></li>
+					<li><a href="/rss/latest/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest stories RSS</span></a></li>
 					{% endblock actions %}
 				</ul>
 			</div>

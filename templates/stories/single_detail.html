@@ -24,13 +24,13 @@
 {% endblock facebook %}
 
 {% block headcode %}
-<link rel="alternate stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/journal_print_preview.css" media="screen" title="Print Preview" />
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/journal_print.css" media="print" />
+<link rel="alternate stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print_preview.css" media="screen" title="Print Preview" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print.css" media="print" />
 {% if story.gallery_set.all %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-<script type="text/javascript" src="{{ MEDIA_URL }}js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+<script type="text/javascript" src="{{ STATIC_URL }}js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 {% endif %}
-<script type="text/javascript" src="{{ MEDIA_URL }}js/print_preview.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/print_preview.js"></script>
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 {% endblock headcode %}
 
@@ -94,8 +94,8 @@
 				{% endfor %}
 				</ul>{% endif %}
 				<ul class="story-actions">
-				<li><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/img/icon_email.gif" /></a></li>
-				<li><a href="javascript:print_preview()">print <img src="{{ MEDIA_URL }}global/img/icon_print.gif" /></a></li>
+				<li><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></li>
+				<li><a href="javascript:print_preview()">print <img src="{{ STATIC_URL }}img/icon_print.gif" /></a></li>
 				<hr>
 				<li><span class="label">Short URL:</span>
 				<form action="" method="get">

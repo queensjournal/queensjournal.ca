@@ -11,7 +11,7 @@
 {% block breadcrumb %}<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ flatpage.title }}</span></div>{% endblock breadcrumb %}
 	<div class="story">
 		{% block story-actions %}
-		<div id="story-actions"><p><a href="javascript:print_preview()">Print <img src="{{ MEDIA_URL }}global/img/icon_print.gif" /></a></span></p></div>
+		<div id="story-actions"><p><a href="javascript:print_preview()">Print <img src="{{ STATIC_URL }}img/icon_print.gif" /></a></span></p></div>
 		{% endblock story-actions %}
 		<h1 class="story-head">{{ flatpage.title|typogrify }}</h1>
 		<p class="story-byline"></p>

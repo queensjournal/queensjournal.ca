@@ -32,7 +32,7 @@
 	{% block layout-type %} span-18 colborder{% endblock %}
 	{% block breadcrumb %}{% endblock breadcrumb %}
 	{% block actions %}
-		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ MEDIA_URL }}global/img/icon_email.gif" /></a></span></p></div>
+		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
 	{% endblock actions %}
 	{% block content %}
 		<!-- google_ad_section_start -->
@@ -91,12 +91,12 @@
 				
 				<div class="column span-7 last">
 					
-					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ MEDIA_URL }}global/img/feed-small.png" />RSS Feed</a></span></h3>
+					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
 					<hr> 
 					{% for video in latest_videos %}
 					<div class="latest-section videos">
 						<div class="video-thumb">
-							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{MEDIA_URL}}global/css/images/play.png"></span>
+							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}css/images/play.png"></span>
 							<h2 class="latest-section-head">{{ video.name }}</h2></a>
 						</div>
 						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>

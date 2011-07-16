@@ -13,7 +13,7 @@
 {% block title %}{{ block.super }}{% endblock title %}
 
 	{% block actions %}
-		<li><a href="/rss/blogs/{{ blog.slug }}/"><span><img src="{{ MEDIA_URL }}global/2.0/feed.png" /> Latest posts RSS</span></a></li>
+		<li><a href="/rss/blogs/{{ blog.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" /> Latest posts RSS</span></a></li>
 	{% endblock actions %}
 	{% block blog-filter %}
 		{% spaceless %}

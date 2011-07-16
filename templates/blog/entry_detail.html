@@ -28,7 +28,7 @@
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
 
 	{% block actions %}
-		<li><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/"><span><img src="{{ MEDIA_URL }}global/img/feed.png" />Latest posts RSS</span></a></li>
+		<li><span id="actions-rss" class="action"><a href="/rss/blogs/{{ blog.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest posts RSS</span></a></li>
 	{% endblock actions %}
 	{% block content %}
 		{% block breadcrumb %}
