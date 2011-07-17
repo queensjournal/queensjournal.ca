@@ -35,8 +35,8 @@ class PhotoRequest(models.Model):
     photographer = models.CharField(max_length=255, blank=True)
 
     # added/changed date fields
-    added = models.DateTimeField(default=datetime.datetime.now())
-    changed = models.DateTimeField(default=datetime.datetime.now())
+    added = models.DateTimeField(default=datetime.datetime.now)
+    changed = models.DateTimeField(default=datetime.datetime.now)
 
     # objects manager
     objects = RequestsManager()
