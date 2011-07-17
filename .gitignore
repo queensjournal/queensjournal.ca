@@ -4,4 +4,8 @@
 *.svn*
 *.sql*
 lib/
+bin/
+include/
+apache2/
 *.sass-cache/
+*.tmproj
