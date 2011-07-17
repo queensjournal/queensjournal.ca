@@ -17,4 +17,11 @@ def stage():
     restart()
     
 def restart():
-    run('%s/apache2/bin/restart' % (env.directory))
+    virtualenv('%s/apache2/bin/stop' % (env.directory))
+    virtualenv('%s/apache2/bin/start' % (env.directory))
+    
+def update():
+    local('git push origin master')
+    with cd(env.directory):
+        run('git pull origin master')
+    restart()
