@@ -1,4 +1,5 @@
-/* Global typography */
+/* ================= JOURNAL CSS ================= */
+/* ================== Global typography ================== */
 /* Load in the headline font */
 @font-face {
   font-family: ClassGaramond;
@@ -182,12 +183,21 @@ tfoot {
 caption {
   background: #eee; }
 
-/* Global layout */
-/*=ADS=*/
+/* ================== Global layout ================== */
+/* --- ADS --- */
 #top-ad {
   background-color: #eee; }
 
-/* =GLOBAL-CONTENT */
+#menu-ad {
+  width: 100%;
+  height: 600px;
+  margin-top: 20px;
+  text-align: center; }
+
+#menu-ad2 {
+  margin-top: 20px; }
+
+/* ------------------ Global content ------------------ */
 .block {
   clear: both; }
 
@@ -247,7 +257,7 @@ caption {
 .story-head {
   margin-top: -0.17em; }
 
-/* =GLOBAL-HEADERS */
+/* ------------------ GLOBAL HEADER ------------------ */
 #header-container {
   padding: 10px;
   background-color: #0b67a3;
@@ -275,7 +285,8 @@ caption {
   font-variant: small-caps;
   letter-spacing: 0.2em; }
 
-/* =GLOBAL-MENU */
+/* ================== MENUs ================== */
+/* ------------------ GLOBAL-MENU ------------------ */
 #menu-sections {
   width: 100%;
   display: table;
@@ -384,7 +395,7 @@ caption {
     background: -moz-linear-gradient(top, #f4e4a7, #f4e4a7 50%, #ed944f);
     /* for firefox 3.6+ */ }
 
-/* BLOG MENU */
+/* ------------------ BLOG MENU ------------------ */
 #menu-blogs {
   display: none;
   overflow: hidden;
@@ -441,6 +452,7 @@ caption {
       display: none;
       background: url("../img/blog-menu-arrow.png") no-repeat; }
 
+/* ------------------ TAGS MENU ------------------ */
 #menu-popular-tags {
   padding: 0px 10px 5px 10px;
   width: 940px;
@@ -472,6 +484,7 @@ caption {
         #menu-popular-tags ul li a:hover {
           color: white; }
 
+/* ------------------ SOCIAL MEDIA MENU ------------------ */
 #menu-social-media {
   margin: 1em 0 1em 0; }
   #menu-social-media ul {
@@ -499,19 +512,7 @@ caption {
     top: 3px;
     margin: 0 10px 0 5px; }
 
-.ad {
-  text-align: center; }
-
-#menu-ad {
-  width: 100%;
-  height: 600px;
-  margin-top: 20px;
-  text-align: center; }
-
-#menu-ad2 {
-  margin-top: 20px; }
-
-/*=DISQUS-WIDGET */
+/* --- DISQUS-WIDGET --- */
 #menu > div {
   margin-right: 0px !important; }
 
@@ -529,14 +530,11 @@ caption {
   -moz-box-shadow: 1px 2px 6px #888;
   -webkit-box-shadow: 1px 2px 6px #888; }
 
-/*=FACEBOOK-WIDGET */
+/* --- FACEBOOK-WIDGET --- */
 #facebook-widget {
   margin-bottom: 1.5em; }
 
-/* =SINGLES-MENU  is this still necessary? */
-#menu-wide {
-  width: 230px; }
-
+/* ------------------ SINGLES MENU ------------------ */
 #menu-stories {
   margin-top: 2em; }
   #menu-stories ul li {
@@ -549,7 +547,7 @@ caption {
     #menu-stories ul li a {
       color: #c30; }
 
-/* =GLOBAL-FOOTERS */
+/* ================== FOOTER ================== */
 #footer-ad {
   background-color: #eee;
   padding: 1em 0 1em 0;
@@ -613,8 +611,8 @@ caption {
 #footlinks .col2 {
   border-left: 1px solid #888; }
 
-/* =FRONT-PAGES */
-/* =FEATURED-SLIDESHOW */
+/* ================== FRONT PAGE ================== */
+/* ------------------ FEATURED SLIDESHOW ------------------ */
 #slider-wrapper {
   width: 485px;
   height: 420px;
@@ -629,7 +627,7 @@ caption {
   position: relative;
   width: 475px;
   height: 300px;
-  background: url(../img/loading.gif) no-repeat 50% 50%;
+  background: url("../img/loading.gif") no-repeat 50% 50%;
   margin-right: 0px !important; }
   #slider img {
     position: absolute;
@@ -644,7 +642,7 @@ caption {
   display: block;
   width: 30px;
   height: 30px;
-  background: url(../img/arrows.png) no-repeat;
+  background: url("../img/arrows.png") no-repeat;
   text-indent: -9999px;
   border: 0; }
 
@@ -665,7 +663,7 @@ a.nivo-prevNav {
   .nivo-caption a {
     color: #0B67A3; }
 
-/* =FRONT-LAYOUT */
+/* ------------------ FRONT-LAYOUT ------------------ */
 .dblmargin hr {
   margin-left: 0;
   width: 97.5%; }
@@ -686,7 +684,7 @@ a.nivo-prevNav {
 #announcement {
   margin-bottom: 2.5em; }
 
-/* LATEST */
+/* -------- LATEST --------- */
 .latest h5 {
   text-align: left;
   font-weight: bold; }
@@ -707,33 +705,7 @@ a.nivo-prevNav {
   .feed a {
     color: #CD8B42; }
 
-/*=LATEST-SECTION */
-.section-header h1 {
-  margin-bottom: 0.1em !important; }
-.section-header a {
-  color: white; }
-
-.latest-section {
-  width: 230px;
-  border-bottom: 1px #999 solid;
-  margin-bottom: 1.5em !important; }
-  .latest-section img {
-    margin: 0.5em 0; }
-  .latest-section h2 {
-    margin-bottom: 0.2em;
-    line-height: 1.2em; }
-    .latest-section h2 a {
-      color: #000; }
-
-.section-label {
-  font-size: 1em;
-  margin-bottom: 0.5em; }
-  .section-label a {
-    color: #444;
-    padding-bottom: 1px;
-    border-bottom: #444 solid 1px; }
-
-/*=LATEST-VIDEO=*/
+/* ------ LATEST VIDEO -------- */
 #latest-video {
   background-color: #EFF5FF;
   padding: 10px;
@@ -759,7 +731,32 @@ a.nivo-prevNav {
   -o-transition: opacity 0.5s ease-in-out;
   transition: opacity 0.5s ease-in-out; }
 
-/*=ARCHIVE-SECTION=*/
+/* ================== SECTION PAGES ================== */
+.section-header h1 {
+  margin-bottom: 0.1em !important; }
+.section-header a {
+  color: white; }
+
+.latest-section {
+  width: 230px;
+  border-bottom: 1px #999 solid;
+  margin-bottom: 1.5em !important; }
+  .latest-section img {
+    margin: 0.5em 0; }
+  .latest-section h2 {
+    margin-bottom: 0.2em;
+    line-height: 1.2em; }
+    .latest-section h2 a {
+      color: #000; }
+
+.section-label {
+  font-size: 1em;
+  margin-bottom: 0.5em; }
+  .section-label a {
+    color: #444;
+    padding-bottom: 1px;
+    border-bottom: #444 solid 1px; }
+
 #featured-wrapper {
   width: 485px;
   background-color: #EEEEEE;
@@ -773,7 +770,7 @@ a.nivo-prevNav {
     #featured-wrapper .caption h2 {
       margin-bottom: 0.5em; }
 
-/* =GLOBAL-CONTENT */
+/* ================== GLOBAL CONTENT ================== */
 #breadcrumb {
   height: 28px;
   margin: 0 1.5em 3em 0;
@@ -828,7 +825,7 @@ a.nivo-prevNav {
   line-height: 1.2em;
   margin: 0.5em 0 0 0; }
 
-/* =SINGLES-CONTENT */
+/* ================== SINGLES CONTENT ==================*/
 #top-photo, .other-photo {
   padding: 10px;
   margin-bottom: 1.5em; }
@@ -838,15 +835,17 @@ a.nivo-prevNav {
 #top-photo {
   margin: 0 auto 1.5em auto; }
 
-.other-photo {
-  width: 450px;
-  float: left;
-  margin: 0 10px 1.5em 0;
-  background-color: #efefef; }
-  .other-photo img {
-    display: block;
-    position: relative;
-    margin: 0 auto 0 auto; }
+#slider-wrapper.story {
+  height: 375px;
+  float: right;
+  margin: 0 0 0 10px; }
+
+#slider-single-wrapper {
+  width: 475px;
+  padding: 10px;
+  background-color: #eee;
+  float: right;
+  margin: 0 0 10px 10px; }
 
 #story-socmedia {
   clear: right;
@@ -879,7 +878,7 @@ a.nivo-prevNav {
 .headshot {
   float: left;
   clear: left;
-  margin: 0 10px 0.5em 0; }
+  margin: 0 10px 1em 0; }
   .headshot img {
     margin-bottom: 5px; }
   .headshot a {
@@ -913,8 +912,7 @@ a.nivo-prevNav {
 .inline-container {
   clear: both;
   background-color: #F0F7FF;
-  padding: 1em;
-  -webkit-font-smoothing: antialiased; }
+  padding: 1em; }
   .inline-container h4 {
     font-weight: bold; }
   .inline-container p {
@@ -981,7 +979,7 @@ a.nivo-prevNav {
   margin: 25px 20px 10px 0;
   display: block; }
 
-/*=VIDEO-DETAIL*/
+/* ================== VIDEO DETAIL ================== */
 #video-wrapper {
   margin-bottom: 1.5em;
   text-align: center; }
@@ -1003,7 +1001,7 @@ a.nivo-prevNav {
     #latest-video-wrapper h2 a {
       color: black; }
 
-/*=SEARCH=*/
+/* ================== SEARCH ================== */
 .search-page > div {
   float: left;
   margin-right: 1em; }
@@ -1059,12 +1057,12 @@ a.nivo-prevNav {
 .highlighted {
   background-color: #FFD94B; }
 
-/*= ARCHIVES */
+/* ================== ARCHIVES ================== */
 .issuu-embed {
   margin: 1em 0 1em 0 !important;
   padding: 1em; }
 
-/*= GALLERIES */
+/* ================== GALLERIES ================== */
 #featured-galleries {
   width: 740px;
   height: 650px;
@@ -1131,7 +1129,7 @@ a.nivo-prevNav {
     #featured-galleries li.ui-tabs-nav-item a:hover {
       background: #f2f2f2; }
 
-/* =MASTHEAD-CONTENT */
+/* ================== MASTHEAD CONTENT ================== */
 #masthead h1 {
   margin-bottom: 0.6em; }
 #masthead ul {
@@ -1162,7 +1160,7 @@ a.nivo-prevNav {
       #masthead ul ul li p.position {
         width: 200px; }
 
-/* =FORMS-CONTENT */
+/* ================== FORMS CONTENT ================== */
 .form-container fieldset {
   background-color: #eee;
   border: 1px solid #ccc;
@@ -1186,7 +1184,7 @@ a.nivo-prevNav {
       color: #a22;
       font-weight: bold; }
 
-/* =SECTIONALS-CONTENT-SIDEBAR */
+/* ================== SECTIONALS CONTENT SIDEBAR ================== */
 .masonfix {
   float: right;
   clear: right;
@@ -1312,7 +1310,7 @@ a.nivo-prevNav {
   margin-top: 1.5em;
   padding: 12px; }
 
-/* =POLLS-CONTENT */
+/* ================== POLLS-CONTENT ================== */
 .poll {
   box-shadow: 1px 2px 6px #888;
   -moz-box-shadow: 1px 2px 6px #888;
@@ -1387,7 +1385,7 @@ a.nivo-prevNav {
   height: 19px;
   width: 29px; }
 
-/* =BLOG-GLOBAL-CONTENT */
+/* ================== BLOGS ================== */
 .blog-sidebar ul {
   margin-bottom: 1.5em; }
   .blog-sidebar ul li {
@@ -1404,7 +1402,7 @@ a.nivo-prevNav {
   margin: -1.5em 5px 1.5em;
   text-align: right; }
 
-/* =BLOG-INDEX-CONTENT */
+/* ------------------ BLOG INDEX CONTENT ------------------ */
 .blog-header {
   width: 720px;
   height: 100px;
@@ -1452,7 +1450,7 @@ a.nivo-prevNav {
     max-width: 150px;
     width: expression(this.width > 155 ? "150px" : "auto"); }
 
-/* =BLOG-ENTRYLIST-CONTENT */
+/* ------------------ BLOG ENTRYLIST CONTENT ------------------ */
 .entry {
   padding: 0 5px 1em 5px;
   border-bottom: #999 1px solid;
@@ -1477,7 +1475,7 @@ a.nivo-prevNav {
   font-weight: bold;
   text-align: right; }
 
-/* =BLOG-ENTRY-CONTENT */
+/* ------------------ BLOG ENTRY CONTENT ------------------ */
 #blog-single-entry ul, #blog-single-entry ol {
   margin-left: 1.5em; }
 #blog-single-entry p {
@@ -1487,7 +1485,7 @@ a.nivo-prevNav {
   line-height: 1.428em;
   margin-bottom: 1.428em; }
 
-/* =BLOG-AUTHOR-CONTENT */
+/* ------------------ BLOG-AUTHOR-CONTENT ------------------ */
 .author-headshot {
   background-color: white;
   border: 1px solid #ccc;
@@ -1498,7 +1496,7 @@ a.nivo-prevNav {
 #author-posts ul li {
   margin: 0 0 1.5em 1.5em; }
 
-/* AUTHOR PAGE */
+/* ------------------ AUTHOR PAGES ------------------ */
 #author-info {
   float: left; }
   #author-info p {
@@ -1510,21 +1508,7 @@ a.nivo-prevNav {
   float: right;
   width: 500px; }
 
-/*= MOBILE FLAVOURS */
-#flavours {
-  position: relative; }
-  #flavours ul li {
-    margin: 0 auto 0 auto;
-    width: 150px;
-    background-color: #E1F3FC;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
-    padding: 5px;
-    text-align: center;
-    list-style-type: none; }
-
-/*=ABOUT VCARD=*/
+/* ------------------ ABOUT VCARD ------------------ */
 #about-vcard {
   margin: 0 2em 0 2em;
   box-shadow: 1px 2px 6px #888;
