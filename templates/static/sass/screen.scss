@@ -137,6 +137,14 @@ caption     { background: #eee; }
 #menu-ad2 {
 	margin-top: 20px;
 }
+.ad {
+    text-align: center;
+}
+#footer-ad {
+	background-color: #eee;
+	padding: 1em 0 1em 0;
+	margin-top: 1em;
+}
 
 /* ------------------ Global content ------------------ */
 .block {
@@ -529,11 +537,6 @@ caption     { background: #eee; }
 }
 
 /* ================== FOOTER ================== */
-#footer-ad {
-	background-color: #eee;
-	padding: 1em 0 1em 0;
-	margin-top: 1em;
-}
 #footer {
 	width: 930px;
 	min-width: 930px;
@@ -870,6 +873,12 @@ caption     { background: #eee; }
 }
 #top-photo {
     margin: 0 auto 1.5em auto; 
+}
+.other-photo {
+    float: left;
+    width: 430px;
+    margin-right: 10px;
+    background-color: #efefef;
 }
   
 #slider-wrapper.story {

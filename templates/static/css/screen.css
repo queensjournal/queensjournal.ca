@@ -197,6 +197,14 @@ caption {
 #menu-ad2 {
   margin-top: 20px; }
 
+.ad {
+  text-align: center; }
+
+#footer-ad {
+  background-color: #eee;
+  padding: 1em 0 1em 0;
+  margin-top: 1em; }
+
 /* ------------------ Global content ------------------ */
 .block {
   clear: both; }
@@ -548,11 +556,6 @@ caption {
       color: #c30; }
 
 /* ================== FOOTER ================== */
-#footer-ad {
-  background-color: #eee;
-  padding: 1em 0 1em 0;
-  margin-top: 1em; }
-
 #footer {
   width: 930px;
   min-width: 930px;
@@ -834,6 +837,12 @@ a.nivo-prevNav {
 
 #top-photo {
   margin: 0 auto 1.5em auto; }
+
+.other-photo {
+  float: left;
+  width: 430px;
+  margin-right: 10px;
+  background-color: #efefef; }
 
 #slider-wrapper.story {
   height: 375px;
