@@ -65,9 +65,9 @@ installed [pip](http://www.pip-installer.org/) on the server, so you'll be able 
 
 * [django-shorturls](https://github.com/jacobian/django-shorturls) generates and redirects all the short urls on the site. It requires the following Apache redirect in the httpd.conf file:
     
-    RewriteEngine on
-    RewriteCond %{http_host} ^qjrnl.net [nc]
-    RewriteRule ^(.*)$ http://www.queensjournal.ca/s$1 [r=301,nc]
+        RewriteEngine on
+        RewriteCond %{http_host} ^qjrnl.net [nc]
+        RewriteRule ^(.*)$ http://www.queensjournal.ca/s$1 [r=301,nc]
     
 * [django-oembed](http://code.google.com/p/django-oembed/) handles all the video embedding in the video app.
 
