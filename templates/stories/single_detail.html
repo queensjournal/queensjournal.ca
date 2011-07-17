@@ -69,7 +69,7 @@
 			<div id="top-photo" class="story" style="{% if story.first_photo.first.width < 500 %}float:right;{% endif %}width:{{story.first_photo.first.width}}px">
 			    <img src="{{ story.first_photo.first.url }}" />
 			    <div id="caption-top">
-					{{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer }}){% endifnotequal %}
+					{{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer|safe }}){% endifnotequal %}
 				</div>
 			</div>
 			{% endif %}
@@ -179,10 +179,10 @@
 			    {{ story.content|paragraphs:'0:12'|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
 			    
 			    {% for photo in story.other_photos %}
-    			<div class="story other-photo">
+    			<div class="other-photo">
     			    <img src="{{ photo.photo.other.url }}">
     			    <div id="caption-top">
-    					{{ photo.photo.caption }}{% ifnotequal photo.photo.list_photographer '[no credit]' %} ({{ photo.photo.list_photographer }}){% endifnotequal %}
+    					{{ photo.photo.caption }}{% ifnotequal photo.photo.list_photographer '[no credit]' %} ({{ photo.photo.list_photographer|safe }}){% endifnotequal %}
     				</div>
     			</div>
     			{% endfor %}
@@ -201,7 +201,7 @@
 						<h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
 						<div class="thumbs-container">
 						{% for image in gallery.images.all %}
-						<a class="gallery" rel="{{ gallery.name|slugify }}" href="{{ image.gallery_image.url }}"{% if image.caption %} title="{{ image.caption|escape }} ({{ image.list_photographer }})"{% endif %}><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
+						<a class="gallery" rel="{{ gallery.name|slugify }}" href="{{ image.gallery_image.url }}"{% if image.caption %} title="{{ image.caption|escape }} ({{ image.list_photographer|safe }})"{% endif %}><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
 						{% endfor %}
 						</div>
 					</div>
