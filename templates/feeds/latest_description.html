@@ -6,7 +6,7 @@
 
     {% for pwrapper in obj.storyphoto_set.all|slice:":2" %}
     	<img src="{{ pwrapper.photo.display.url }}"/>
-    	<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer }}){% endifnotequal %}</p>
+    	<p class="story-caption">{{ pwrapper.photo.caption }}{% ifnotequal pwrapper.photo.list_photographer '[no credit]' %} ({{ pwrapper.photo.list_photographer|safe }}){% endifnotequal %}</p>
     	<hr>
     {% endfor %}
     {% if obj.storyphoto_set.all|length > 2 %}<a href="{{ obj.get_absolute_url }}">More Photos...</a>{% endif %}
@@ -23,7 +23,7 @@
     {% if obj.gallery_set.all %}
     	{% for pwrapper in obj.gallery_set.all|slice:":4" %}
     		<img src="{{ pwrapper.photo.thumbnail_image.url }}"/>
-    		<p class="story-caption">{{ pwrapper.caption }}{% ifnotequal pwrapper.list_photographer '[no credit]' %} ({{ pwrapper.list_photographer }}){% endifnotequal %}</p>
+    		<p class="story-caption">{{ pwrapper.caption }}{% ifnotequal pwrapper.list_photographer '[no credit]' %} ({{ pwrapper.list_photographer|safe }}){% endifnotequal %}</p>
     	{% endfor %}
     {% endif %}
     {% if obj.gallery_set.all|length > 4 %}<a href="{{ obj.get_absolute_url }}">More Photos...</a>{% endif %}

@@ -28,7 +28,7 @@ class Story(models.Model):
     show_headshots = models.BooleanField(default=False, help_text="Check when you want to display headshots. For Ops pieces and Signed Eds.")
     tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
     featured = models.BooleanField()
-    pub_date = models.DateTimeField(default=datetime.datetime.now(), unique=True)
+    pub_date = models.DateTimeField(default=datetime.datetime.now, unique=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', help_text='Draft will place the story in a queue to be published later, published will publish the story immediately.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
@@ -224,7 +224,7 @@ class Photo(ImageModel):
         
     def list_photographer(self):
         if self.photographer is not None:
-            return self.photographer
+            return '<a href="%s">%s</a>' % (self.photographer.get_absolute_url(), self.photographer)
         elif self.credit != '':
             return self.credit
         else:
