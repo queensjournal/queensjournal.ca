@@ -786,7 +786,7 @@ a.nivo-prevNav {
   font-weight: bold;
   line-height: 18px;
   text-transform: uppercase; }
-  #breadcrumb .nomrg {
+  #breadcrumb.nomrg {
     margin-right: 0; }
   #breadcrumb span.divider {
     display: inline-block;

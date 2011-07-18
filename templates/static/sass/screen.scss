@@ -808,7 +808,7 @@ caption     { background: #eee; }
 	font-weight: bold;
 	line-height: 18px;
 	text-transform: uppercase;
-	.nomrg {
+	&.nomrg {
 		margin-right: 0;
 	}
 	span.divider {
