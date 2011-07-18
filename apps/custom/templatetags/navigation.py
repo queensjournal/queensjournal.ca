@@ -112,9 +112,32 @@ def menu_blogs(context):
     params = {}
     params['blogs'] = Blog.objects.filter(active=True)
     return params
+    
+def menu_mobile(context):
+	"""
+	Returns the HTML code for the sections menu of a given issue.
+	"""
+	params = {}
+	back_issue = context.get('back_issue')
+	if back_issue is True:
+		params['back_issue'] = back_issue
+		try:
+			curr_issue = FrontConfig.objects.get(issue=context.get('issue'))
+		except FrontConfig.DoesNotExist:
+			curr_issue = context.get('issue')
+	else:
+		curr_issue = FrontConfig.objects.latest('pub_date')
+	if context.get('story_set'):
+		params['show_section_link'] = False
+	else:
+		params['show_section_link'] = True
+	params['sections'] = curr_issue.sections
+	params['config'] = context.get('config')
+	return params
 	
 register.tag('current_issue', do_current_issue)
 register.tag('issue_archives', do_issue_archives)
 register.inclusion_tag('global/menu_sections.html', takes_context=True)(menu_sections)
 register.tag('other_stories', do_other_stories)
 register.inclusion_tag('global/menu_blogs.html', takes_context=True)(menu_blogs)
+register.inclusion_tag('global/menu.html', takes_context=True)(menu_mobile)
