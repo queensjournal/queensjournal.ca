@@ -4,6 +4,7 @@
 {% block header %}{% if object %}Editing photo request for {{ object.subject }}{% else %}Adding photo request{% endif %}{% endblock header %}
 {% block content %}
 	<form action="" method="post">
+	    {% csrf_token %}
 		{% if form.errors %}
 		<h3>There were errors.</h3>
 		{% endif %}
