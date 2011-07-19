@@ -8,6 +8,7 @@ from video.models import Video
 from itertools import chain
 from operator import attrgetter
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import striptags
 
 class Latest(Feed):
     title = "Queen's Journal: Latest content"
@@ -43,7 +44,7 @@ class LatestStories(Feed):
 		return Story.objects.select_related().filter(status='p').order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.section
+		return striptags(item.list_authors())
 
 	def item_pubdate(self, item):
 		return item.pub_date
@@ -72,7 +73,7 @@ class LatestStoriesSection(Feed):
 		return Story.objects.select_related().filter(section__slug=obj.slug, status='p').order_by('-pub_date')[:15]
 
 	def item_author_name(self, item):
-		return item.list_authors()
+		return striptags(item.list_authors())
 
 	def item_pubdate(self, item):
 		return item.pub_date
