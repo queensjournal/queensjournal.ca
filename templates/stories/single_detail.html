@@ -67,7 +67,7 @@
 				
 			{% if story.storyphoto_set.all|length > 0 %}
 			<div id="top-photo" class="story" style="{% if story.first_photo.first.width < 500 %}float:right;{% endif %}width:{{story.first_photo.first.width}}px">
-			    <img src="{{ story.first_photo.first.url }}" />
+			    <img src="{{ story.first_photo.first.url }}" alt="{{story.first_photo.caption|striptags|typogrify}}"/>
 			    <div id="caption-top">
 					{{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer|safe }}){% endifnotequal %}
 				</div>
@@ -180,7 +180,7 @@
 			    
 			    {% for photo in story.other_photos %}
     			<div class="other-photo">
-    			    <img src="{{ photo.photo.other.url }}">
+    			    <img src="{{ photo.photo.other.url }}" alt="{{photo.photo.caption|striptags|typogrify}}">
     			    <div id="caption-top">
     					{{ photo.photo.caption }}{% ifnotequal photo.photo.list_photographer '[no credit]' %} ({{ photo.photo.list_photographer|safe }}){% endifnotequal %}
     				</div>
