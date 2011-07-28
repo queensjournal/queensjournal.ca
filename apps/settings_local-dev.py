@@ -73,6 +73,16 @@ TWITTER_ACCESS_TOKEN_KEY ='16619266-pqQxfmoRhVJ0DdTmQGe21F3YuWXaE1cjtc521rj04'
 TWITTER_ACCESS_TOKEN_SECRET ='c0i5AX2cGtbvpeJv96FH6viQ9hEBo6COqIk3kFXNM'
 
 # MEMCACHED Config
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
 CACHE_BACKEND = 'memcached://unix:/home/3781lanru0j/memcached.sock'
 
 # Webfaction e-mail settings (no e-mail server on the Django machine)
