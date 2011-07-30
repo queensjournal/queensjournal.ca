@@ -20,8 +20,8 @@ class Video(ImageModel):
     
     class IKOptions:
         # Defining ImageKit options
-        spec_module = 'stories.video_specs'
-        cache_dir = 'video_thumbs'
+        spec_module = 'video.specs'
+        cache_dir = 'photo_cache'
         image_field = 'screenshot'
         
     class Meta:
