@@ -820,7 +820,9 @@ a.nivo-prevNav {
     .story table thead tr td {
       font-weight: bold; }
   .story .pub-date {
-    float: right; }
+    float: right;
+    position: relative;
+    top: -2em; }
 
 .story-caption {
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
