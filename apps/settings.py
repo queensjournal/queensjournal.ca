@@ -39,6 +39,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -95,17 +96,15 @@ INSTALLED_APPS = (
 	#'comment_utils',
 
 	# Dependencies
-	
-	'haystack',
+	'compressor',
+	'django_mobile',
+	#'haystack',
 	'custom',
 	'typogrify',
 	'imagekit',
 	'tagging',
 	'shorturls',
 	'oembed',
-	#'djcelery',
-	#'ghettoq',
-	#'djkombu',
 	'disqus',
 	'pagination',
 	'south',
@@ -143,3 +142,5 @@ DISQUS_WEBSITE_SHORTNAME = "queensjournal"
 HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 15
+
+COMPRESS = True

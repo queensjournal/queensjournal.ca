@@ -1,40 +1,51 @@
+{% load compress %}
 {% load navigation %}
 {% load linkset %}
 {% load tag_cloud %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>{% block title %}Queen's Journal{% endblock title %}</title>
-{% block meta %}
-<meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
-{% endblock meta %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
-<!--[if lte IE 7]>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
-<![endif]-->
-<LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
-<script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}js/jquery-1.4.js" type="text/javascript"></script>
-<script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
-{% block headcode %}{% endblock headcode %}
-{% block facebook %}{% endblock facebook %}
-<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
-<script type='text/javascript'>
-GS_googleAddAdSenseService("ca-pub-4573993547628801");
-GS_googleEnableAllServices();
-</script>
-<script type='text/javascript'>
-GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
-GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
-GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
-GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
-</script>
-<script type='text/javascript'>
-GA_googleFetchAds();
-</script>
-</head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>{% block title %}Queen's Journal{% endblock title %}</title>
+		{% block meta %}
+		<meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
+		{% endblock meta %}
+		
+		{% compress css %}
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
+		{% block css %}{% endblock %}
+		{% endcompress %}
+		<!--[if lte IE 7]>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
+		<![endif]-->
+		
+		<LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
+
+		<script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+		
+		{% compress js %}
+		<script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
+		{% block js %}{% endblock %}
+		{% endcompress %}
+			
+		{% block headcode %}{% endblock headcode %}
+		{% block facebook %}{% endblock facebook %}
+		
+		<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
+		
+		<script type='text/javascript'>
+		GS_googleAddAdSenseService("ca-pub-4573993547628801");
+		GS_googleEnableAllServices();
+		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
+		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
+		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
+		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
+		GA_googleFetchAds();
+		</script>
+	</head>
 <body>
 
 <div id="container" class="container">
@@ -55,7 +66,7 @@ GA_googleFetchAds();
 		</div>
 		<div id="header-right" class="column span-10 last">
 			<img src="{{ STATIC_URL }}img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
-			<div id="hr-header"><hr></div>
+			<div id="header-mobile"><a href="?flavour=mobile">View the Journal Mobile Edition</a></div>
 			<div id="search">
 				<form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
 				<div id="connect">
