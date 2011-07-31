@@ -20,8 +20,10 @@
 
 {% block headcode %}
 {{ block.super }}
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 {% endblock headcode %}
+{% block js %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/plusone.js"></script>
+{% endblock %}
 
 {% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
 
@@ -30,11 +32,16 @@
 	{% endblock menu-stories %}
 		
 	{% block layout-type %} span-18 colborder{% endblock %}
-	{% block breadcrumb %}{% endblock breadcrumb %}
+	
 	{% block actions %}
 		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
 	{% endblock actions %}
+	
 	{% block content %}
+	
+	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url video.views.index_video %}">Videos</a></div>
+	{% endblock breadcrumb %}
+	
 		<!-- google_ad_section_start -->
 		<div id="story" class="story clearfix">
 			<h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
@@ -117,30 +124,8 @@
 
 
 {% block footercode %}
-<script type="text/javascript">
-{% if story.storyphoto_set.all|length > 1 %}
-    $(window).load(function() {
-        $('#slider').nivoSlider({
-			directionNav:true,
-			directionNavHide:false,
-			manualAdvance:true,
-			controlNav:false,
-			effect:'slideInLeft',
-			captionOpacity:1,
-		});
-    });
-{% endif %}
-{% if story.gallery_set.all %}
-$(document).ready(function() {
-	$("a.gallery").fancybox({
-		'titlePosition'  : 'inside'
-	});
-	$("div.thumbs-container a:nth-child(6n)").addClass('last')
-});
-{% endif %}
 $("#shorturl").focus(function(){
     // Select input field contents
     this.select();
 });
-</script>
 {% endblock footercode %}
