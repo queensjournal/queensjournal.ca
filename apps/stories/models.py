@@ -23,7 +23,7 @@ class Story(models.Model):
     label = models.CharField(max_length=255, blank=True, null=True, editable=False)
     content = models.TextField()
     summary = models.TextField(help_text='Sum up the story in a single paragraph.')
-    section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).", editable=False)
+    section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).", editable=False, null=True)
     enable_comments = models.BooleanField(default=True)
     show_headshots = models.BooleanField(default=False, help_text="Check when you want to display headshots. For Ops pieces and Signed Eds.")
     tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
