@@ -853,6 +853,8 @@ caption     { background: #eee; }
 	}
 	.pub-date {
 	    float: right;
+	    position: relative;
+	    top: -2em;
 	}
 }
 .story-caption {
