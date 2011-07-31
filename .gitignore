@@ -11,3 +11,4 @@ apache2/
 *.tmproj
 
 *.tgz
+.DS_Store
