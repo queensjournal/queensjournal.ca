@@ -94,7 +94,7 @@ def tags(request):
     
 def with_tag(request, tag, object_id=None, page=1): 
     unslug = tag.replace('+', ' ')
-    query_tag = get_object_or_404(Tag, name=unslug)
+    query_tag = get_object_or_404(Tag, name__iexact=unslug)
     story_list = TaggedItem.objects.get_by_model(Story, query_tag).order_by('-pub_date')
     entry_list = TaggedItem.objects.get_by_model(Entry, query_tag).order_by('-pub_date')
     video_list = TaggedItem.objects.get_by_model(Video, query_tag).order_by('-pub_date')
