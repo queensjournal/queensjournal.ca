@@ -44,7 +44,7 @@ def blog_archive_month(request, blog, year, month, page=1):
     month = int(month)
     qs = Entry.objects.get_month_on_blog(blog, year, month)
     if qs.count() > 0:
-        c = {'blog': Blog.objects.get(slug=blog),
+        c = {'blog': get_object_or_404(Blog, slug=blog),
              'month': datetime(year,month,1)}
         if month == 1:
             c['prev_month'] = datetime(year-1,12,1)
@@ -94,6 +94,6 @@ def blog_all_authors(request, blog):
     All author profiles for an individual blog on one page. Whee!
     """
     qs = Author.objects.select_related(depth=2).filter(entry__blog__slug__exact=blog)
-    c = {'blog': Blog.objects.get(slug=blog)}
+    c = {'blog': get_object_or_404(Blog, slug=blog)}
     return object_list(request, queryset=qs, extra_context=c)
 
