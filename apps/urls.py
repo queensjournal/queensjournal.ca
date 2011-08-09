@@ -31,6 +31,8 @@ urlpatterns = patterns('',
 	(r'^archives/', include('stories.archive_urls')),
 	(r'^photos/', include('galleries.urls')),
 	
+	(r'^wiki/', include('wiki.urls')),
+	
 	# Uncomment the admin/doc line below to enable admin documentation:
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
