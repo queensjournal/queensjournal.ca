@@ -8,7 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 DATABASES = {
-	'default': {
+	'mysql': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'journal1',     # Or path to database file if using sqlite3.
         'USER': 'root',        # Not used with sqlite3.
@@ -16,14 +16,14 @@ DATABASES = {
         'HOST': '',            # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',            # Set to empty string for default. Not used with sqlite3.
     },
-    #'default': {
-    #    'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-    #    'NAME': 'journal1',     # Or path to database file if using sqlite3.
-    #    'USER': 'journal1',        # Not used with sqlite3.
-    #    'PASSWORD': 'txz67b0ujk23',# Not used with sqlite3.
-    #    'HOST': '',            # Set to empty string for localhost. Not used with sqlite3.
-    #    'PORT': '',            # Set to empty string for default. Not used with sqlite3.
-    #}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'journal1',     # Or path to database file if using sqlite3.
+        'USER': 'journal1',        # Not used with sqlite3.
+        'PASSWORD': 'txz67b0ujk23',# Not used with sqlite3.
+        'HOST': '',            # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',            # Set to empty string for default. Not used with sqlite3.
+    }
 }
 
 # Absolute path to the directory that holds media.
@@ -33,7 +33,7 @@ MEDIA_ROOT = '/home/journal/webapps/media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://thequeensjournal.org/media/'
+MEDIA_URL = 'http://queensjournal.ca/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -91,7 +91,7 @@ CACHES = {
         }
     }
 }
-CACHE_BACKEND = 'memcached://unix:/home/journal/memcached.sock'
+#CACHE_BACKEND = 'memcached://unix:/home/journal/memcached.sock'
 
 # Webfaction e-mail settings (no e-mail server on the Django machine)
 EMAIL_HOST = 'smtp.webfaction.com'
