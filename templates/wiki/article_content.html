@@ -1,0 +1,10 @@
+{% load wiki_tags %}
+{% load wiki_markup %}
+{% load markup %}
+
+{# if using a markup, use the link method of this markup #}
+{% if markup %}
+    {{ content|markdown }}
+{% else %}
+    {{ content|wiki_links|safe }}
+{% endif %}
