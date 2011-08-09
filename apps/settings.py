@@ -106,7 +106,6 @@ INSTALLED_APPS = (
     #'debug_toolbar',
 
     # Dependencies
-    'compressor',
     'django_mobile',
     'haystack',
     'custom',
