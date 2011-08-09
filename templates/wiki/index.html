@@ -1,0 +1,25 @@
+{% extends 'wiki/base.html' %}
+{% load i18n %}
+
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block content %}
+	<h1>Welcome</h1>
+	
+<p>Welcome to the queensjournal.ca wiki!</p>
+
+<p>I&#8217;ll be updating this page with instructions on how to use the <a href="http://queensjournal.ca">queensjournal.ca</a> admin site.</p>
+
+	{% if articles %}
+		<ul>
+			{% for article in articles %}
+				<li><a href="{% url wiki_article article.title %}">{{ article.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+        <p><a href="{% url wiki_edit "NewArticle" %}">{% trans "Create a new article" %}</a>.</p>
+	{% endif %}
+{% endblock %}
