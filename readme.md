@@ -65,11 +65,13 @@ installed [pip](http://www.pip-installer.org/) on the server, so you'll be able 
 
 * [typogrify](http://code.google.com/p/typogrify/) handles some typographic functions, like converting quotes into smart quotes and apostrophes.
 
-* [django-shorturls](https://github.com/jacobian/django-shorturls) generates and redirects all the short urls on the site. It requires the following Apache redirect in the httpd.conf file:
+* [django-shorturls](https://github.com/jacobian/django-shorturls) generates and redirects all the short urls on the site. It requires the following nginx redirect:
     
-        RewriteEngine on
-        RewriteCond %{http_host} ^qjrnl.net [nc]
-        RewriteRule ^(.*)$ http://www.queensjournal.ca/s$1 [r=301,nc]
+        server {
+            listen 80;
+            server_name www.qjrnl.net qjrnl.net;
+            rewrite ^(.*)$ http://www.queensjournal.ca/s$1 permanent;
+        }
     
 * [django-oembed](http://code.google.com/p/django-oembed/) handles all the video embedding in the video app.
 
