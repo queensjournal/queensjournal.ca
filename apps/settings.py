@@ -5,7 +5,7 @@ from settings_local import *
 import os
 
 ADMINS = (
-	('tyler', 'tyler@tylerball.net'),
+    ('tyler', 'tyler@tylerball.net'),
 )
 
 MANAGERS = ADMINS
@@ -44,97 +44,108 @@ STATICFILES_FINDERS = (
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-	'django.template.loaders.filesystem.Loader',
-	'django.template.loaders.app_directories.Loader',
-	#'django.template.loaders.eggs.Loader',
+    # THE django-mobile HAS TO BE FIRST IN THIS LIST OR IT WON'T WORK
+    'django_mobile.loader.Loader',
+    #########################################
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 TEMPLATE_CONTEXT_PROCESSORS = (
-	"django.contrib.auth.context_processors.auth",
-	"django.core.context_processors.debug",
-	"django.core.context_processors.i18n",
-	"django.core.context_processors.media",
-	"django.core.context_processors.request",
-	"django.core.context_processors.static",
-	"stories.context_processors.media_url",
-	
-	# required to render correct templates (grappelli+admin-tools or grappelli "standalone")
-	#"grappelli.context_processors.admin_template_path",
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    "django.core.context_processors.static",
+    'django_mobile.context_processors.flavour',
+    "stories.context_processors.media_url",
+    # required to render correct templates (grappelli+admin-tools or grappelli "standalone")
+    #"grappelli.context_processors.admin_template_path",
 )
 
 MIDDLEWARE_CLASSES = (
-	'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-	
-	'django.middleware.cache.UpdateCacheMiddleware',
-	'django.middleware.common.CommonMiddleware',
-	'django.middleware.cache.FetchFromCacheMiddleware',
-	
-	'django.contrib.sessions.middleware.SessionMiddleware',
-	'django.middleware.csrf.CsrfViewMiddleware',
-	'django.contrib.auth.middleware.AuthenticationMiddleware',
-	'django.contrib.messages.middleware.MessageMiddleware',
-	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-	'pagination.middleware.PaginationMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django_mobile.middleware.MobileDetectionMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'pagination.middleware.PaginationMiddleware',
+    'django_mobile.middleware.SetFlavourMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
-	'django.contrib.redirects',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.sites',
-	'django.contrib.messages',
-	#'django.contrib.comments',
-	'django.contrib.humanize',
-	'django.contrib.markup',
-	'django.contrib.staticfiles',
-	
-	
-	#'comments',
-	#'comment_utils',
+    'django.contrib.redirects',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    #'django.contrib.comments',
+    'django.contrib.humanize',
+    'django.contrib.markup',
+    'django.contrib.staticfiles',
+    
+    
+    #'comments',
+    #'comment_utils',
+    
+    #'debug_toolbar',
 
-	# Dependencies
-	'compressor',
-	'django_mobile',
-	#'haystack',
-	'custom',
-	'typogrify',
-	'imagekit',
-	'tagging',
-	'shorturls',
-	'oembed',
-	'disqus',
-	'pagination',
-	'south',
-	
-	#'grappelli',
-	
-	# Uncomment the next line to enable the admin:
-	'django.contrib.admin',
-	# Uncomment the next line to enable admin documentation:
-	'django.contrib.admindocs',
-	'django.contrib.flatpages',
-	'polls',
-	'stories',
-	'structure',
-	'sidebars',
-	'sidelinks',
-	'blog',
-	'staff',
-	'images',
-	'inlines',
-	'galleries',
-	'masthead',
-	'video',
+    # Dependencies
+    'compressor',
+    'django_mobile',
+    'haystack',
+    'custom',
+    'typogrify',
+    'imagekit',
+    'tagging',
+    'shorturls',
+    'oembed',
+    'disqus',
+    'pagination',
+    'south',
+    'wiki',
+    
+    #'grappelli',
+    
+    # Uncomment the next line to enable the admin:
+    'django.contrib.admin',
+    # Uncomment the next line to enable admin documentation:
+    'django.contrib.admindocs',
+    'django.contrib.flatpages',
+    'polls',
+    'stories',
+    'structure',
+    'sidebars',
+    'sidelinks',
+    'blog',
+    'staff',
+    'images',
+    'inlines',
+    'galleries',
+    'masthead',
+    'video',
 )
 
 SHORTEN_MODELS = {
-	's': 'stories.story',
-	'b': 'blog.entry',
-	'v': 'video.video',
-	}
+    's': 'stories.story',
+    'b': 'blog.entry',
+    'v': 'video.video',
+    }
 
 DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
 DISQUS_WEBSITE_SHORTNAME = "queensjournal"
@@ -143,4 +154,6 @@ HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 15
 
-COMPRESS = True
+COMPRESS = False
+
+WIKI_REQUIRES_LOGIN = True
