@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
-    'wiki',
+    #'wiki',
     
     #'grappelli',
     
