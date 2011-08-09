@@ -120,7 +120,7 @@ class Entry(models.Model):
                                ('moderate_entry', 'Can moderate comments on entries'))
         get_latest_by = '-pub_date'
 
-    def save(self):
+    def save(self, *args, **kwargs):
         # set pub_date time
         if self.is_published is True and self.pub_date is None:
             self.pub_date = datetime.now()
@@ -135,7 +135,7 @@ class Entry(models.Model):
         if self.slug == 'slug-not-set' or self.slug is None:
             self.slug = slugify(self.title)[0:49]
         self.date_saved = datetime.now()
-        super(Entry, self).save()
+        super(Entry, self).save(*args, **kwargs)
         
     def first_photo(self):
         s_re = re.compile('<!--image:"([-\w]+)"-->',re.IGNORECASE)
