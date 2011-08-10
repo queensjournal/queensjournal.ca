@@ -1,164 +1,159 @@
-{% load compress %}
 {% load navigation %}
 {% load linkset %}
 {% load tag_cloud %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-	<head>
-		<title>{% block title %}Queen's Journal{% endblock title %}</title>
-		{% block meta %}
-		<meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
-		{% endblock meta %}
-		
-		{% compress css %}
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
-		{% block css %}{% endblock %}
-		{% endcompress %}
-		<!--[if lte IE 7]>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
-		<![endif]-->
-		
-		<LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
+    <head>
+        <title>{% block title %}Queen's Journal{% endblock title %}</title>
+        {% block meta %}
+        <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
+        {% endblock meta %}
+        
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
+        {% block css %}{% endblock %}
+        <!--[if lte IE 7]>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
+        <![endif]-->
+        
+        <LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
 
-		<script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-		
-		{% compress js %}
-		<script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
-		{% block js %}{% endblock %}
-		{% endcompress %}
-			
-		{% block headcode %}{% endblock headcode %}
-		{% block facebook %}{% endblock facebook %}
-		
-		<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
-		
-		<script type='text/javascript'>
-		GS_googleAddAdSenseService("ca-pub-4573993547628801");
-		GS_googleEnableAllServices();
-		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
-		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
-		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
-		GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
-		GA_googleFetchAds();
-		</script>
-	</head>
+        <script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+        
+        <script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
+        {% block js %}{% endblock %}
+            
+        {% block headcode %}{% endblock headcode %}
+        {% block facebook %}{% endblock facebook %}
+        
+        <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
+        
+        <script type='text/javascript'>
+        GS_googleAddAdSenseService("ca-pub-4573993547628801");
+        GS_googleEnableAllServices();
+        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
+        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
+        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
+        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
+        GA_googleFetchAds();
+        </script>
+    </head>
 <body>
 
 <div id="container" class="container">
-	
-	<hr>
-		
-	<div id="top-ad" class="ad">
-		<script type='text/javascript'>
-		GA_googleFillSlot("QJ-Global_Banner-468x60");
-		</script>
-	</div>
-	
-	<div class="hr-dbl"><hr></div>
+    
+    <hr>
+        
+    <div id="top-ad" class="ad">
+        <script type='text/javascript'>
+        GA_googleFillSlot("QJ-Global_Banner-468x60");
+        </script>
+    </div>
+    
+    <div class="hr-dbl"><hr></div>
 
-	<div id="header-container" class="block">
-		<div id="header-left" class="column span-14">
-			<a href="/"><img src="{{ STATIC_URL }}img/logo_front.gif" id="logo" /></a>
-		</div>
-		<div id="header-right" class="column span-10 last">
-			<img src="{{ STATIC_URL }}img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
-			<div id="header-mobile"><!--<a href="?flavour=mobile">View the Journal Mobile Edition</a>-->&nbsp;</div>
-			<div id="search">
-				<form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
-				<div id="connect">
-					Connect: <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a>
-					<a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a>
-					<a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png"></a>
-					<a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
-				</div>
-			</div><!--actions-->
-			
-		</div><!--header-right-->
-		<div id="header-slogan">
-		Queen's University &#151; Canada's Oldest Student Newspaper &#151; Since 1873
-		</div>
+    <div id="header-container" class="block">
+        <div id="header-left" class="column span-14">
+            <a href="/"><img src="{{ STATIC_URL }}img/logo_front.gif" id="logo" /></a>
+        </div>
+        <div id="header-right" class="column span-10 last">
+            <img src="{{ STATIC_URL }}img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
+            <div id="header-mobile"><!--<a href="?flavour=mobile">View the Journal Mobile Edition</a>-->&nbsp;</div>
+            <div id="search">
+                <form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
+                <div id="connect">
+                    Connect: <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a>
+                    <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a>
+                    <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png"></a>
+                    <a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
+                </div>
+            </div><!--actions-->
+            
+        </div><!--header-right-->
+        <div id="header-slogan">
+        Queen's University &#151; Canada's Oldest Student Newspaper &#151; Since 1873
+        </div>
 
-	</div><!--header-container-->
+    </div><!--header-container-->
 
-	<div id="menu-sections" class="menu-bar block">
-		{% menu_sections %}
-		<div id="menu-popular-tags" class="block">
-			<span class="popular-tags-title">Hot topics</span> {% popular_tags %}
-		</div>
-	</div>
-	<div id="menu-blogs">
-	    <div id="menu-blogs-scroll">
-	        {% menu_blogs %}
-	    </div>
-	</div>
-	
-	<div class="block">
+    <div id="menu-sections" class="menu-bar block">
+        {% menu_sections %}
+        <div id="menu-popular-tags" class="block">
+            <span class="popular-tags-title">Hot topics</span> {% popular_tags %}
+        </div>
+    </div>
+    <div id="menu-blogs">
+        <div id="menu-blogs-scroll">
+            {% menu_blogs %}
+        </div>
+    </div>
+    
+    <div class="block">
 
-		<div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
+        <div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
 
-			<!-- google_ad_section_start -->
-			{% block issue-banner %}
-			{% endblock issue-banner %}
-			{% block content %}
-			{% block breadcrumb %}{% endblock breadcrumb %}
-			{% endblock content %}
-			<!-- google_ad_section_end -->
-			
-		</div><!--content-->
+            <!-- google_ad_section_start -->
+            {% block issue-banner %}
+            {% endblock issue-banner %}
+            {% block content %}
+            {% block breadcrumb %}{% endblock breadcrumb %}
+            {% endblock content %}
+            <!-- google_ad_section_end -->
+            
+        </div><!--content-->
 
-		<div id="menu" class="column {% block menu-type %}span-5{% endblock menu-type %} last">
-			
-			<div id="disqus-plugin">
-				<script type="text/javascript" src="http://queensjournal.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=blue&default_tab=popular&excerpt_length=10"></script>
-			</div>
-			
-			<div id="menu-social-media">
-				<h3>Connect with us:</h3>
-				<hr>
-				<ul>
-					<li><a href="http://twitter.com/QueensJournal" target="new"><span><img src="{{ STATIC_URL }}img/twitter.png" />QJ on Twitter</span></a></li>
-					<li><a href="http://www.facebook.com/pages/Kingston-ON/Queens-Journal/214066523083"><span><img src="{{ STATIC_URL }}img/facebook.png" />QJ on Facebook</span></a></li>
-					<li><a href="/emailupdates/"><span><img src="{{ STATIC_URL }}img/email.png" />Get Email Updates</span></a></li>
-					{% block actions %}
-					<li><a href="/rss/latest/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest stories RSS</span></a></li>
-					{% endblock actions %}
-				</ul>
-			</div>
-			
-			<div id="facebook-widget">
-				<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
-			</div>
+        <div id="menu" class="column {% block menu-type %}span-5{% endblock menu-type %} last">
+            
+            <div id="disqus-plugin">
+                <script type="text/javascript" src="http://queensjournal.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=blue&default_tab=popular&excerpt_length=10"></script>
+            </div>
+            
+            <div id="menu-social-media">
+                <h3>Connect with us:</h3>
+                <hr>
+                <ul>
+                    <li><a href="http://twitter.com/QueensJournal" target="new"><span><img src="{{ STATIC_URL }}img/twitter.png" />QJ on Twitter</span></a></li>
+                    <li><a href="http://www.facebook.com/pages/Kingston-ON/Queens-Journal/214066523083"><span><img src="{{ STATIC_URL }}img/facebook.png" />QJ on Facebook</span></a></li>
+                    <li><a href="/emailupdates/"><span><img src="{{ STATIC_URL }}img/email.png" />Get Email Updates</span></a></li>
+                    {% block actions %}
+                    <li><a href="/rss/latest/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest stories RSS</span></a></li>
+                    {% endblock actions %}
+                </ul>
+            </div>
+            
+            <div id="facebook-widget">
+                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
+            </div>
 
-			{% block poll %}{% endblock poll %}
+            {% block poll %}{% endblock poll %}
 
-			<div id="menu-stories">
-				{% block menu-stories %}{% endblock menu-stories %}
-			</div>
+            <div id="menu-stories">
+                {% block menu-stories %}{% endblock menu-stories %}
+            </div>
 
-			<div id="menu-ad" class="ad">
-				<script type='text/javascript'>
-				GA_googleFillSlot("QJ-Side_Banner_Ad-160x600");
-				</script>
-			</div>
+            <div id="menu-ad" class="ad">
+                <script type='text/javascript'>
+                GA_googleFillSlot("QJ-Side_Banner_Ad-160x600");
+                </script>
+            </div>
 
-		</div> <!--menu-->
-		
-	</div><!--content block -->
-	
-	<div id="footer-ad" class="ad">	
-		<script type='text/javascript'>
-		GA_googleFillSlot("QJ-Leaderboard-728x90");
-		</script>
-	</div>
+        </div> <!--menu-->
+        
+    </div><!--content block -->
+    
+    <div id="footer-ad" class="ad"> 
+        <script type='text/javascript'>
+        GA_googleFillSlot("QJ-Leaderboard-728x90");
+        </script>
+    </div>
 
-	<div class="hr"><hr></div>
-	<!--
-	<div id="flavours" class="block">
-	    <ul>
+    <div class="hr"><hr></div>
+    <!--
+    <div id="flavours" class="block">
+        <ul>
             <li><a href="?flavour=mobile">View our mobile version</a>
         </ul>
     </div>
@@ -167,40 +162,40 @@
 </div><!--container-->
 
 <div id="footer" class="container">
-	<div id="address" class="clearfix">
-		<p id="nameplate">The Queen's Journal</p>
-		<p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4<br/>
-		Editorial office: (613) 533-2800<br/>Business office: (613) 533-6711<br/>Fax: (613) 533-6728</p>
-	</div>
-	<div id="footlinks">
-		{% linkset 'main' as links %}
-		<ul class="col2">
-			{% for link in links %}
-				<li><a href="{{ link.url }}">{{ link.text }}</a></li>
-			{% endfor %}
-		</ul>
-		<ul class="col1">
-		{% linkset 'main2' as links %}
-			{% for link in links %}
-				<li><a href="{{ link.url }}">{{ link.text }}</a></li>
-			{% endfor %}
-		</ul>
-	</div>
+    <div id="address" class="clearfix">
+        <p id="nameplate">The Queen's Journal</p>
+        <p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4<br/>
+        Editorial office: (613) 533-2800<br/>Business office: (613) 533-6711<br/>Fax: (613) 533-6728</p>
+    </div>
+    <div id="footlinks">
+        {% linkset 'main' as links %}
+        <ul class="col2">
+            {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="col1">
+        {% linkset 'main2' as links %}
+            {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div><!--footer-container-->
 
-	<!-- Google Analytics -->
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-15740362-1");
-	pageTracker._trackPageview();
-	} catch(err) {}</script>
-	
-	<script type="text/javascript">
-	{% block footercode %}{% endblock footercode %}
-	</script>
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-15740362-1");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+    
+    <script type="text/javascript">
+    {% block footercode %}{% endblock footercode %}
+    </script>
 </body>
 </html>
