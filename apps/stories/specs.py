@@ -25,6 +25,11 @@ class ResizeFront(processors.Resize):
 	height = 150
 	crop = True
 	
+class ResizeMobileFront(processors.Resize):
+    width = 300
+    height = 150
+    crop = True
+	
 class ResizeGallery(processors.Resize):
 	width = 800
 	height = 600
@@ -44,6 +49,16 @@ class ResizeOther(processors.Resize):
     width = 430
     height = 600
     crop = False
+    
+class ResizeMobile(processors.Resize):
+    width = 620
+    height = 410
+    crop = True
+
+class ResizeMobileFeatured(processors.Resize):
+    width = 620
+    height = 350
+    crop = True
 
 # now lets create an adjustment processor to enhance the image at small sizes 
 class EnchanceThumb(processors.Adjustment): 
@@ -66,6 +81,11 @@ class Front(ImageSpec):
 	access_as = "front_image"
 	processors = [MakeRGB, ResizeFront]
 	
+class MobileFront(ImageSpec):
+    quality = 75
+    access_as = "mobile_front"
+    processors = [MakeRGB, ResizeMobileFront]
+	
 class Gallery(ImageSpec):
 	quality = 85
 	access_as = "gallery_image"
@@ -82,3 +102,11 @@ class Other(ImageSpec):
 class First(ImageSpec):
     access_as = 'first'
     processors = [MakeRGB, ResizeFirst]
+    
+class Mobile(ImageSpec):
+    access_as = 'mobile'
+    processors = [MakeRGB, ResizeMobile]
+    
+class MobileFeatured(ImageSpec):
+    access_as = 'mobile_featured'
+    processors = [MakeRGB, ResizeMobileFeatured]
