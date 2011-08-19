@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+{% load poll_tags %}
+{% load lists %}
+
+{% block jsload %}'{{ STATIC_URL }}js/jquery.masonry.js', '{{ STATIC_URL }}js/jquery.anythingslider.min.js', '{{ STATIC_URL }}js/jquery.swipe.js'{% endblock %}
+{% block js %}
+$(window).load(function() {
+ $('#slider').anythingSlider({
+     expand: false,
+     hashtags: false,
+     resizeContents: false,
+     buildArrows: false,
+     buildNavigation: false,
+     buildStartStop: false,
+     autoPlay: true,
+     delay: 5000,
+ });
+});
+$(function() {
+ $('#slider').swipe({
+  swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
+                            $('#slider').data('AnythingSlider').startStop(true); },
+  swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
+                            $('#slider').data('AnythingSlider').startStop(true); },
+  threshold: {
+   x: 15,
+   y: 99999,
+  },
+  preventDefaultEvents: false
+ });
+});
+{% endblock %}
+
+{% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
+	
+	{% block actions %}
+		<li><a href="/rss/section/{{ config.section.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest {{ config.section.slug }} RSS</span></a></li>
+	{% endblock actions %}
+	
+	{% block content %}
+	
+	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ config.section }}</span></div>{% endblock %}
+	
+    <div id="section-header">
+		<h1>{{ config.section.name }}</h1>
+	</div>
+
+    <div id="slider">
+	{% for story in featured %}
+	    <div class="panel">
+            <img src="{{ story.story_thumb.mobile_featured.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+            <p class="label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
+            {{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+            <h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+            <p>{{ story.summary|stripspace|convert_entities|truncatewords:25|safe }}</p>
+        </div>
+    {% endfor %}
+    </div>
+	
+	<div id="latest-stories">
+		<h3>Latest Stories <span class="feed"><a href="/rss/section/{{ config.section.slug }}/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
+		<hr>
+		<ul>
+		{% for story in latest_stories %}
+			<li><span class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</span><br/>
+			    <a href="{{ story.get_absolute_url }}">{{ story.head }}</a>
+				<span class="pub-date">{{ story.pub_date|date_diff }}</span>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<div id="other-stories">
+		
+			{% for story in other_stories %}
+			<div class="latest-section">
+				<h3>{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</h3>
+				<hr>
+				<a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.mobile_front.url }}" /></a>{% endif %}
+				<h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>
+				<p class="summary">{{ story.summary|safe }}</p>
+				<p class="pub-date">Posted {{ story.pub_date|date_diff }}</p>
+			</div>
+			{% endfor %}
+		
+	</div>
+	{% endblock content %}
+
+{% block footercode %}
+$(window).load(function(){
+	$('#other-stories').masonry({
+		singleMode: true,
+		columnWidth: 320,
+		itemSelector: '.latest-section' 
+	});
+});
+{% endblock footercode %}

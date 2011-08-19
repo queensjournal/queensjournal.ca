@@ -1,0 +1,79 @@
+{% extends 'stories/index_section.html' %}
+{% load pagination_tags %}
+{% load markup %}
+{% load typogrify %}
+
+{% block headcode %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.masonry.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.anythingslider.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.swipe.js"></script>
+<script>
+    $(window).load(function() {
+     $('#slider').anythingSlider({
+         expand: false,
+         hashtags: false,
+         resizeContents: false,
+         buildArrows: false,
+         buildNavigation: false,
+         buildStartStop: false,
+         autoPlay: true,
+         delay: 5000,
+     });
+    });
+    $(function() {
+     $('#slider').swipe({
+      swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
+                                $('#slider').data('AnythingSlider').startStop(true); },
+      swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
+                                $('#slider').data('AnythingSlider').startStop(true); },
+      threshold: {
+       x: 15,
+       y: 99999,
+      },
+      preventDefaultEvents: false
+     });
+    });
+</script>
+{% endblock headcode %}
+
+{% block title %}Photos{{ block.super }}{% endblock title %}
+
+{% block content %}
+{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Photos</span></div>{% endblock %}
+<div class="section-header">
+	<h1>Photos</h1>
+</div>
+
+<div id="photos-slider">
+<h3>Latest Galleries</h3>
+<hr>
+    <div id="slider">
+        {% for gallery in featured %} 
+        <div class="panel">  
+            <img src="{{ gallery.first_photo.mobile_featured.url }}" alt="" />  
+            <h2><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h2>  
+            <p>{{ gallery.description|striptags|truncatewords:40|typogrify }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    
+    <div class="resultlist">
+        <h2>More Galleries</h2>
+        {% autopaginate galleries 10 %}
+        {% for gallery in galleries %}
+            <div class={% cycle 'search1' 'search2' %}>
+                <img src="{{ gallery.first_photo.thumbnail_image.url }}" class="result_thumb" />
+				<h3><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h3>
+				<p class="meta">{{ gallery.pub_date|date:"jS F Y" }}</p>
+				<p>{{ gallery.description|striptags|truncatewords:20|typogrify}}</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div id="pagination">
+        {% paginate %}
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'stories/index_section.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load comparison %}
+
+{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
+{% endblock headcode %}
+{% block js %}
+<script src="{{ STATIC_URL }}js/jquery.masonry.js" type="text/javascript"></script>	
+{% endblock %}
+
+{% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }}{{ block.super }}{% endblock title %}
+	
+	{% block actions %}
+		<li><a href="/rss/section/{{ section_config.section.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest {{ section_config.section.slug }} RSS</a></span></li>
+	{% endblock actions %}
+		
+	{% block content %}
+	{% block breadcrumb %}
+	<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume issue.volume %}">Volume {{ issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front issue.pub_date %}">Issue {{ config.issue.issue }} &#151; {{ config.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span></div>
+	{% endblock %}
+	
+	<div class="section-header">
+		<h1>{{ section_config.section.name }}</h1>
+	</div>
+				
+	{% if featured %}
+	<div id="slider" class="static">
+		<div class="panel">
+            <img src="{{ featured.story_thumb.mobile.url }}" alt="{{ featured.head }}"/>
+            <p class="label">{% if featured.tags %}<a href="/tag/{{featured.label|striplabel|slugify}}/">{{ featured.tags|striplabel }}</a>{% else %}{% firstof featured.label "Story" %}{% endif %}</p>
+			<h2><a href="{{ featured.get_absolute_url }}">{{ featured.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+			{{ featured.summary|stripspace|convert_entities|truncatewords:38|safe }}
+		</div>
+	</div>
+	{% endif %}
+
+	
+	<div id="other-stories">
+	{% for story in other_stories %}
+		<div class="latest-section">
+		    <h3>{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</h3>
+		    <hr>
+			{% if story.storyphoto_set.all|length > 0 %}{% for pwrapper in story.storyphoto_set.all|slice:":1" %}<a href="{{ story.get_absolute_url }}"><img src="{{ pwrapper.photo.mobile_front.url }}" /></a>{% endfor %}{% endif %}
+			<h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>
+			<p class="summary">{{ story.summary }}</p>
+		</div>
+	{% endfor %}
+	</div>
+	
+	{% sidebar section_config.section config.issue 5 %}
+		
+	{% endblock content %}
+
+{% block footercode %}
+	$(window).load(function(){
+		$('#other-stories').masonry({
+ 			singleMode: false,
+			columnWidth: 320,
+			itemSelector: '.latest-section' 
+		});
+		$('#sidebar').masonry({
+		    singleMode: false,
+		    columnWidth: 320,
+		    itemSelector: '.brick'
+		})
+	});
+{% endblock footercode %}

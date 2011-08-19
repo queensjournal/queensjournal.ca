@@ -3,6 +3,8 @@
 {% load typogrify %}
 {% load custom_html %}
 
+{% block title %}{{ author.name }} - {{ block.super }}{% endblock %}
+
 {% block content %}
 
 {% block breadcrumb %}
@@ -32,7 +34,7 @@
     {% ifequal item.model_type 'Entry' %}
         {% if item.first_photo %}<img src="{{ item.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
 		<h3><a href="{{ item.get_absolute_url }}">{{ item.title|typogrify }}</a></h3>
-		<p class="meta">By {{ item.author.name }}</p>
+		<p class="meta">By <a href="{{ item.author.get_absolute_url }}">{{ item.author.name }}</a></p>
 		<p>{{ item.content|striptags|truncatewords:40|safe }}</p>
     {% else %}
         {% if item.story.story_thumb %}<img src="{{ item.story.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}

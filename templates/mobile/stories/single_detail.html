@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load navigation %}
+{% load typogrify %}
+{% load custom_html %}
+{% load sanitize %}
+{% load comparison %}
+{% load poll_tags %}
+{% load flash %}
+{% load lists %}
+{% load tagging_tags %}
+{% load shorturl %}
+
+{% block meta %}
+<meta name="description" content="{{ story.summary }}" />
+{{block.super}}
+{% endblock meta %}
+
+{% block facebook %}
+<meta property="og:title" content="{{ story.head }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{% shorturl story %}" />
+<meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
+<meta property="og:site_name" content="The Queen&#039;s Journal" />
+<meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
+
+{% block jsload %}{% if story.gallery_set.all %}'{{ STATIC_URL }}js/jquery.anythingslider.min.js', '{{ STATIC_URL }}js/jquery.swipe.js', '{{ STATIC_URL }}js/mobile-gallery.js', {% endif %}'{{ STATIC_URL }}js/plusone.js'{% endblock %}
+
+{% block js %}
+{% if story.gallery_set.all %}
+$(".gallery-container").mobileGallery();
+{% endif %}
+{% endblock %}
+
+{% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
+    
+    {% block content %}
+
+        <!-- google_ad_section_start -->
+        <div id="story">
+            {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url stories.views.index_archive_volume story.issue.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
+            
+            <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
+            <h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
+            <h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4> 
+                
+            {% if story.storyphoto_set.all|length > 0 %}
+            <div id="top-photo" class="story-photo">
+                <img src="{{ story.first_photo.mobile.url }}" alt="{{story.first_photo.caption|striptags}}"/>
+                <div class="caption">
+                    {{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer|safe }}){% endifnotequal %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <div id="story-share">
+                <hr>
+                <table>
+                    <tr>
+                        <td><span class="label">SHARE: </span></td>
+                        <td><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl story %}" layout="button_count" show_faces="false" width="100" font=""></fb:like></td>
+                        <td><a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl story %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></td>
+                        <td><a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a></td>
+                        <td><g:plusone size="medium"></g:plusone></td>
+                    </tr>
+                </table>
+                <hr>
+            </div>
+            
+            <p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors|safe }}{% endifnotequal %}</p>
+            
+            {% if story.show_headshots %}
+                {% for sauthor in story.storyauthor_set.all %}
+                    <div class="headshot"><a href="{{ sauthor.author.get_absolute_url }}"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
+                    {{ sauthor.author.name }}</a></div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if story.has_inlines %}
+                <div class="story-inlines">
+                {% for factbox in story.factbox_set.all %}
+                {% if not factbox.full_width %}
+                    <div class="inline-container factbox">
+                        <h4>{{ factbox.head|widont }}</h4>
+                        {{ factbox.body|sanitize:"h4 strong em a ul li table tr td tbody thead tfoot th,"|typogrify|convert_entities|linebreakswithcode|safe }}
+                        {% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+                    </div>
+                {% endif %}
+                {% endfor %}
+                {% for document in story.document_set.all %}
+                    <div class="inline-container document">
+                        <h4>{{ document.head|widont }}</h4>
+                        {% if document.body %}<p>{{ document.body|typogrify|convert_entities }}</p>{% endif %}
+                        <ul>
+                        {% for file in document.files.all %}
+                            <li>{% filter widont %}<a href="{{ file.get_file_obj_url }}">{{ file.name }}</a> <span class="doc-details">({{ file.get_file_obj_size|filesizeformat }})</span>{% endfilter %}{% if file.caption %}<p class="doc-caption">{{ file.caption }}</p>{% endif %}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+                {% for poll in story.storypoll_set.all %}
+                    <div class="inline-container poll">
+                        <h4>Poll</h4>
+                        <p id="poll-question">{{ poll.poll.question }}</p>
+                        {% pollflash poll.poll.id %}
+                            {% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll poll.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
+                        {% endpollflash %}
+                        {% if poll.poll.id|in_list:request.session.vote or request.GET.results or not poll.poll.is_active %}
+                        {% if not poll.poll.is_active %}
+                            <p><strong>Voting on this poll is closed.</strong></p>
+                        {% endif %}
+                        <ul id="poll-results">
+                            {% for choice in poll.poll.choice_set.all %}
+                            <li class="clearfix"><p>{{ choice.choice }}</p>
+                            <p class="result-number">{{ choice.vote_set.count }}</p>
+                            <div class="result-bar-back">
+                                <div class="result-bar-interval"></div>
+                                <div class="result-bar-interval"></div>
+                                <div class="result-bar-interval"></div>
+                                <div class="result-bar-interval"></div>
+                            {% ifnotequal choice.vote_set.count 0 %}
+                                <div class="result-bar" style="width: {% widthratio choice.vote_set.count poll.poll.total_votes 118 %}px;"></div>
+                            {% endifnotequal %}
+                            </div>
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                        <form action="{% url polls.views.poll_vote poll.poll.id %}" method="post">
+                            {% poll_form poll.poll.id as form %}
+                            {{ form.choice }}
+                            <input type="hidden" name="url" value="{{ request.get_full_path }}" />
+                            <button type="submit">Vote!</button> <a href="{{ request.get_full_path }}?results=1">View results</a>
+                        </form>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="story-content">
+            
+            {% if story.storyphoto_set.all|length > 1 %}    
+                {{ story.content|paragraphs:'0:12'|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+                
+                {% for photo in story.other_photos %}
+                <div class="other-photo">
+                    <img src="{{ photo.photo.other.url }}" alt="{{photo.photo.caption|striptags|typogrify}}">
+                    <div id="caption-top">
+                        {{ photo.photo.caption }}{% ifnotequal photo.photo.list_photographer '[no credit]' %} ({{ photo.photo.list_photographer|safe }}){% endifnotequal %}
+                    </div>
+                </div>
+                {% endfor %}
+                
+                {{ story.content|paragraphs:'12:'|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+                
+            {% else %}
+            
+                {{ story.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+                
+            {% endif %}
+            
+            {% if story.gallery_set.all %}
+                {% for gallery in story.gallery_set.all %}
+                    <div class="gallery-container">
+                        <h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
+                        <div class="thumbs-container">
+                        {% for image in gallery.images.all %}
+                            <a href="#gallery"><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
+                        {% endfor %}
+                        </div>
+                        
+                        <div class="gallerypop">
+                            <a name="#gallery">
+                            <div class="galleryback">
+                                {% for image in gallery.images.all %}
+                                <div class="slidepop">
+                                    <img src="{{ image.mobile.url }}" alt="{{ image.caption }}"/>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if story.has_wide_inlines %}
+                {% for factbox in story.factbox_set.all %}
+                {% if factbox.full_width %}
+                    <div class="inline-container factbox">
+                        <h4>{{ factbox.head|widont }}</h4>
+                        {{ factbox.body|sanitize:"h4 strong em a ul li table tr td th tbody thead tfoot,"|typogrify|convert_entities|linebreakswithcode|safe }}
+                        {% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+                    </div>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+            <div id="story-meta">
+                {% tags_for_object story as tags %}
+                {% if tags %}
+                <div class="col">
+                    <strong>Article tags:</strong>
+                    <ul>
+                        {% for tag in tags %}
+                            <li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="story-actions col">
+                    <a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a><br/>
+                    <hr>
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl story %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% else %}
+                <hr>
+                <div class="story-actions col">
+                    <a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a><br/>
+                    <a href="javascript:print_preview()">print <img src="{{ STATIC_URL }}img/icon_print.gif" /></a>
+                </div>
+                <div class="story-actions col">
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl story %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% endif %}
+                {% revcanonical story %}
+            </div>
+            
+            {% if story.enable_comments %}
+                {% load disqus_tags %}
+                {% disqus_dev %}
+                {% disqus_show_comments %}
+            {% endif %}
+            
+            </div>
+        </div>
+    {% endblock content %}
+    <!-- google_ad_section_end -->
