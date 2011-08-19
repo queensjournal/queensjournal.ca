@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load typogrify %}
+{% load custom_html %}
+{% load navigation %}
+{% load sidebartags %}
+{% load more %}
+{% load image_tags %}
+{% load archives %}
+{% load markup %}
+
+{% block title %}{{ blog.title }} - {{ block.super }}{% endblock title %}
+
+	<!-- google_ad_section_start -->
+	{% block content %}
+			{% block breadcrumb %}{% endblock %}
+			
+			{% block header %}{% endblock %}
+			
+			<div class="block">
+				
+				<div class="blog-content column span-16 colborder">
+					{% block blog-content %}{% endblock blog-content %}
+				</div>
+				
+				<div class="blog-sidebar column span-7 last">
+					{% block blog-actions %}<p><a href="/rss/blogs/{{ blog.slug }}/"><img src="{{ STATIC_URL }}img/feed.png">&ensp;Latest posts (RSS 2.0)</a></p>{% endblock blog-actions %}
+					<p class="blog-label">About {{ blog.title }}</p>
+					<p>{{ blog.description|markdown }}</p>
+					<p class="blog-label">Archives by date</p>
+					<ul>
+					{% blog_dates blog.slug as dates %}
+					{% for date in dates %}
+						<li><a href="{% url blog_archive_month_front blog.slug,date.year,date|date:"m" %}" title="{{ date|date:"F Y" }}">{{ date|date:"F Y" }}</a></li>
+					{% endfor %}
+					</ul>
+					<p class="blog-label">Archives by Tag</p>
+					<ul>
+					{% for tag in blog_tags %}
+						<li class="blogtag-{{tag.font_size}}"><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
+					{% endfor %}
+					</ul>
+					
+					{% block blog-filter %}{% endblock blog-filter %}
+				</div>
+				
+			</div><!-- block-->
+	{% endblock content %}
+<!-- google_ad_section_end -->
+

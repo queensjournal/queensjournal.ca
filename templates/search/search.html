@@ -70,7 +70,7 @@
 				{% ifequal result.model_name 'entry' %}
 				{% if result.object.first_photo %}<img src="{{ result.object.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
 				<h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></h3>
-				<p class="meta">By {{ result.object.author.name }}</p>
+				<p class="meta">By <a href="{{result.object.author.get_absolute_url}}">{{ result.object.author.name }}</a></p>
 				<p>{% highlight result.object.content with query html_tag "span" css_class "highlight" max_length 300 %}
 				{% endifequal %}
 				

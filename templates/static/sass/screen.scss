@@ -219,23 +219,18 @@ caption     { background: #eee; }
 	color: white;
 	font-family: ClassGaramond, Garamond, Times, serif;
 }
-	#hr-header hr {
-		border-bottom: 2px solid #fff;
-		display: block;
-		font-size: 1px;
-		height: 0px;
-		line-height: 0;
-		margin: 10px auto;
-		max-height: 0px;
-		padding: 0px;
-		position: relative;
-		width: 100%;
+	#header-mobile {
+	    font: 1.3em 'Myriad Pro', 'Myriad', Helvetica, Arial, Verdana, sans-serif bold;
+	    a {
+	        color: white;
+	    }
 	}
 	#logo-print {
 		display: none;
 	}
 	#header-slogan {
-		padding-top: 10px;
+	    clear: both;
+		padding-top: 5px;
 		font-size: 1.3em;
 		font-variant: small-caps;
 		letter-spacing: 0.2em;
