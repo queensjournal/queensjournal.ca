@@ -21,6 +21,11 @@ class ResizeFront(processors.Resize):
 	height = 150
 	crop = True
 	
+class ResizeMobileFront(processors.Resize):
+    width = 300
+    height = 150
+    crop = True
+	
 class EnhanceThumb(processors.Adjustment): 
 	contrast = 1.2 
 	sharpness = 1.1
@@ -37,3 +42,7 @@ class Thumbnail(ImageSpec):
 
 class Display(ImageSpec):
 	processors = [MakeRGB, ResizeDisplay]
+	
+class MobileFront(ImageSpec):
+    access_as = 'mobile_front'
+    processors = [MakeRGB, ResizeMobileFront]

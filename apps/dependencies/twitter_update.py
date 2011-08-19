@@ -27,60 +27,61 @@ from django.template.defaultfilters import striptags
 TWITTER_MAXLENGTH = getattr(settings, 'TWITTER_MAXLENGTH', 140)
 
 def post_to_twitter(sender, instance, *args, **kwargs):
-		
-	# Check if item is to be posted to Twitter. Make sure it's published.
-	if instance.is_published is False:
-		print 'Not published yet'
-		return False
+        
+    # Check if item is to be posted to Twitter. Make sure it's published.
+    if instance.is_published is False:
+        print 'Not published yet'
+        return False
 
-	# Check if model has been posted to Twitter:
-	if instance.is_tweeted is False:
-		instance.is_tweeted = True
-		instance.save()
-	else:
-		return False
-			
-	# check if there's a twitter account configured
-	try:
-		consumer_key = settings.TWITTER_CONSUMER_KEY
-		consumer_secret = settings.TWITTER_CONSUMER_SECRET
-		access_token_key = settings.TWITTER_ACCESS_TOKEN_KEY
-		access_token_secret = settings.TWITTER_ACCESS_TOKEN_SECRET
-	except AttributeError:
-		print 'WARNING: Twitter account not configured.'
-		instance.is_tweeted = False
-		return False
+    # Check if model has been posted to Twitter:
+    if instance.is_tweeted is False:
+        instance.is_tweeted = True
+        instance.save()
+    else:
+        return False
+            
+    # check if there's a twitter account configured
+    try:
+        consumer_key = settings.TWITTER_CONSUMER_KEY
+        consumer_secret = settings.TWITTER_CONSUMER_SECRET
+        access_token_key = settings.TWITTER_ACCESS_TOKEN_KEY
+        access_token_secret = settings.TWITTER_ACCESS_TOKEN_SECRET
+    except AttributeError:
+        print 'WARNING: Twitter account not configured.'
+        instance.is_tweeted = False
+        return False
 
-	# Set up SHORTURL
-	baseurl = settings.SHORT_BASE_URL
-	# grab ShortURL object for sender
-	surl = ShortURL(instance)
-	try:
-		prefix = ShortURL.get_prefix(surl, instance)
-	except (AttributeError, KeyError):
-		print 'Error generating Prefix. Check settings.'
-		instance.is_tweeted = False
-		return False
-		
-	tinyid = base62.from_decimal(instance.pk)
-	url = urlparse.urljoin(baseurl, prefix+tinyid)
+    # Set up SHORTURL
+    baseurl = settings.SHORT_BASE_URL
+    # grab ShortURL object for sender
+    surl = ShortURL(instance)
+    try:
+        prefix = ShortURL.get_prefix(surl, instance)
+    except (AttributeError, KeyError):
+        print 'Error generating Prefix. Check settings.'
+        instance.is_tweeted = False
+        return False
+        
+    tinyid = base62.from_decimal(instance.pk)
+    url = urlparse.urljoin(baseurl, prefix+tinyid)
 
-	# create the twitter message
-	try:
-		text = striptags(instance.get_twitter_message())
-	except AttributeError:
-		text = unicode(instance)
+    # create the twitter message
+    try:
+        text = striptags(instance.get_twitter_message())
+    except AttributeError:
+        text = unicode(instance)
 
-	mesg = u'%s - %s' % (text, url)
-	if len(mesg) > TWITTER_MAXLENGTH:
-		size = len(mesg + '...') - TWITTER_MAXLENGTH
-		mesg = u'%s... - %s' % (text[:-size], url)
+    mesg = u'%s - %s' % (text, url)
+    if len(mesg) > TWITTER_MAXLENGTH:
+        size = len(mesg + '...') - TWITTER_MAXLENGTH
+        mesg = u'%s... - %s' % (text[:-size], url)
 
-	try:
-		twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
-		twitter_api.PostUpdate(mesg)
-		print 'Posted to Twitter'
-	except urllib2.HTTPError, ex:
-		print 'ERROR:', str(ex)
-		instance.is_tweeted = False
-		return False
+    try:
+        twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
+        twitter_api.PostUpdate(mesg)
+        print 'Posted to Twitter'
+    except urllib2.HTTPError, ex:
+        print 'ERROR:', str(ex)
+        instance.is_tweeted = False
+        return False
+        
