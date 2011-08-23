@@ -1,110 +1,120 @@
-{% load navigation %}
-{% load linkset %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>{% block title %}Queen's Journal Mobile{% endblock title %}</title>
-<meta name="viewport" content="width=640;initial-scale=0"/> 
-{% block meta %}
-<meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
-{% endblock meta %}
-<LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/mobile.css" />
-{% block css %}{% endblock %}
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
-<script>Modernizr.load([
-    {
+    <head>
+        <title>
+            {% block title %}Queen's Journal Mobile{% endblock title %}
+        </title>
+        <meta name="viewport" content="width=640;initial-scale=0" />
+        <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
+        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/mobile.css" type="text/css" />
+    </head>
+    <body>
+        <p>
+            {% load navigation %} {% load linkset %} {% block meta %} {% endblock meta %} {% block css %}{% endblock %}
+        </p><script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
+        <script type="text/javascript">
+        //<![CDATA[
+        Modernizr.load([
+        {
         load: ['//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', {% block jsload %}{% endblock %}],
-        complete: function () {
+        callback : function () {
             if ( !window.jQuery ) {
                 Modernizr.load('{{ STATIC_URL }}js/jquery-1.6.1.min.js');
             }
-            {% block js %}{% endblock %}
+        },
+        complete : function () {
+            $(function () {
+                {% block js %}{% endblock %}
+            })
         }
-    },
-    
-]);</script>
-{% block headcode %}{% endblock headcode %}
-{% block facebook %}{% endblock facebook %}
-</head>
-<body>
-    <div id="container">
+        },
 
-        <div id="header">
-        <a href="/"><img src="{{STATIC_URL}}img/logo-mobile.png" class="logo" /></a>
-        mobile
-            <div id="connect">
-                <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a>
-                <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a>
-                <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png"></a>
-                <a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
+        ]);
+        //]]>
+        </script>
+        <p>
+            {% block headcode %}{% endblock headcode %} {% block facebook %}{% endblock facebook %}
+        </p>
+        <div id="container">
+            <div id="header">
+                <a href="/"><img src="{{STATIC_URL}}img/logo-mobile.png" class="logo" /></a> mobile
+                <div id="connect">
+                    <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a> <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a> <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png" /></a> <a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
+                </div>
+                <div id="search">
+                    <form name="topsearch" action="/search/" method="get" id="topsearch">
+                        <input type="search" name="q" id="search" value="Search" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" />
+                    </form>
+                </div>
             </div>
-            <div id="search">
-                <form name="topsearch" action="/search/" method="get">
-                <input type="search" name="q" id="search" value="Search" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" />
-                </form>
+            <div id="nav">
+                {% menu_mobile %}
             </div>
-        </div>
-
-        <div id="nav">
-            {% menu_mobile %}
-        </div>
-
-        <div id="content">
-
-            <!-- google_ad_section_start -->
-            {% block issue-banner %}
-            {% endblock issue-banner %}
-            {% block content %}
-            {% block breadcrumb %}{% endblock breadcrumb %}
-            {% endblock content %}
-            <!-- google_ad_section_end -->
-        
-        </div><!--content block -->
-        
-    <ul id="flavours">
-        <li><a href="?flavour=full">View full site</a>
-    </ul>
-
-    <div id="footer" class="group">
-        <ul class="col">
-        {% linkset 'main2' as links %}
-            {% for link in links %}
-                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
-            {% endfor %}
-        </ul>
-        {% linkset 'main' as links %}
-        <ul class="col">
-            {% for link in links %}
-                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
-            {% endfor %}
-        </ul>
-        
-        <p id="nameplate">The Queen's Journal</p>
-        <div class="col">
-            <p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4</p>
-        </div>
-        <div class="col">
-            <p>Editorial office: <a href="tel:16135332800">(613) 533-2800</a><br/>Business office: <a href="tel:16135336711">(613) 533-6711</a><br/>Fax: (613) 533-6728</p>
-        </div>
-    </div>
-
-</div>
-
-    <!-- Google Analytics -->
-    <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-    try {
-    var pageTracker = _gat._getTracker("UA-15740362-1");
-    pageTracker._trackPageview();
-    } catch(err) {}</script>
-    
-    <script type="text/javascript">
-    {% block footercode %}{% endblock footercode %}
-    </script>
-</body>
+            <div id="content">
+                <!-- google_ad_section_start -->
+                {% block issue-banner %} {% endblock issue-banner %} {% block content %} {% block breadcrumb %}{% endblock breadcrumb %} {% endblock content %} <!-- google_ad_section_end -->
+            </div><!--content block -->
+            <ul id="flavours">
+                <li>
+                    <a href="?flavour=full">View full site</a>
+                </li>
+            </ul>
+            <div id="footer" class="group">
+                <ul class="col">
+                    <li style="list-style: none">{% linkset 'main2' as links %} {% for link in links %}
+                    </li>
+                    <li>
+                        <a href="{{ link.url  }}">{{ link.text }}</a>
+                    </li>
+                    <li style="list-style: none">{% endfor %}
+                    </li>
+                </ul>{% linkset 'main' as links %}
+                <ul class="col">
+                    <li style="list-style: none">{% for link in links %}
+                    </li>
+                    <li>
+                        <a href="{{ link.url }}">{{ link.text }}</a>
+                    </li>
+                    <li style="list-style: none">{% endfor %}
+                    </li>
+                </ul>
+                <p id="nameplate">
+                    The Queen's Journal
+                </p>
+                <div class="col">
+                    <p>
+                        190 University Ave.<br />
+                        Kingston, ON<br />
+                        K7L 3P4
+                    </p>
+                </div>
+                <div class="col">
+                    <p>
+                        Editorial office: <a href="tel:16135332800">(613) 533-2800</a><br />
+                        Business office: <a href="tel:16135336711">(613) 533-6711</a><br />
+                        Fax: (613) 533-6728
+                    </p>
+                </div>
+            </div>
+        </div><!-- Google Analytics -->
+        <script type="text/javascript">
+//<![CDATA[
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        try {
+        var pageTracker = _gat._getTracker("UA-15740362-1");
+        pageTracker._trackPageview();
+        } catch(err) {}
+        //]]>
+        </script><script type="text/javascript">
+//<![CDATA[
+        {% block footercode %}{% endblock footercode %}
+        //]]>
+        </script>
+    </body>
 </html>
