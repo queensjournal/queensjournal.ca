@@ -143,6 +143,7 @@ SHORTEN_MODELS = {
     's': 'stories.story',
     'b': 'blog.entry',
     'v': 'video.video',
+    'g': 'galleries.gallery',
     }
 
 DISQUS_API_KEY = "ZbgAB94X7tUepMQU4tbmkm89bxzpSokmlV56hNIoh0UjEnfel4TrevUtZoAwU035"
