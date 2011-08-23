@@ -160,26 +160,16 @@ $(".gallery-container").mobileGallery();
             
             {% if story.gallery_set.all %}
                 {% for gallery in story.gallery_set.all %}
+                <a href="{{ gallery.get_absolute_url }}">
                     <div class="gallery-container">
                         <h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
                         <div class="thumbs-container">
                         {% for image in gallery.images.all %}
-                            <a href="#gallery"><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
+                            <img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/>
                         {% endfor %}
                         </div>
-                        
-                        <div class="gallerypop">
-                            <a name="#gallery">
-                            <div class="galleryback">
-                                {% for image in gallery.images.all %}
-                                <div class="slidepop">
-                                    <img src="{{ image.mobile.url }}" alt="{{ image.caption }}"/>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            </a>
-                        </div>
                     </div>
+                </a>
                 {% endfor %}
             {% endif %}
             
