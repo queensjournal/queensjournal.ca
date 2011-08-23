@@ -1,0 +1,93 @@
+{% extends 'stories/single_detail.html' %}
+{% load tagging_tags %}
+{% load shorturl %}
+{% load custom_html %}
+{% load sanitize %}
+{% load typogrify %}
+
+{% block meta %}
+<meta name="description" content="{{ gallery.description }}" />
+{{block.super}}
+{% endblock meta %}
+
+{% block title %}{{ gallery.name }}{{ block.super }}{% endblock %}
+
+{% block facebook %}
+<meta property="og:title" content="{{ gallery.name }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{% shorturl gallery %}" />
+<meta property="og:image" content="{{ gallery.first_photo.thumbnail.url }}" />
+<meta property="og:site_name" content="The Queen&#039;s Journal" />
+<meta property="fb:admins" content="1653600047" />
+{% endblock facebook %}
+
+{% block jsload %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+    
+    {% block content %}
+    <div id="story">
+        {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a>
+            {% if gallery.story %}<span class="divider"></span><a href="{% url stories.views.index_section gallery.story.section.slug %}" class="section">{{ gallery.story.section }}</a>
+            {% endif %}<span class="divider"></span><span class="current">gallery</span></div>{% endblock %}
+        
+        <div class="pub-date">{{ gallery.pub_date|date:"jS F Y" }}</div>
+        <h1 class="story-head">{{ gallery.name|stripspace|convert_entities|widont }}</h1>
+            
+        <p class="story-byline">By {{ gallery.list_authors|safe }}</p>
+            
+        <div class="story-content">
+            {{ gallery.description|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+        </div>
+
+        <a href="{{ gallery.get_absolute_url }}">
+            <div class="gallery-container">
+                <h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
+                <div class="thumbs-container">
+                {% for image in gallery.images.all %}
+                    <img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/>
+                {% endfor %}
+                </div>
+            </div>
+        </a>
+            
+            <div id="story-meta">
+                {% tags_for_object gallery as tags %}
+                {% if tags %}
+                <div class="col">
+                    <strong>Gallery tags:</strong>
+                    <ul>
+                        {% for tag in tags %}
+                            <li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="story-actions col">
+                    <hr>
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl gallery %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% else %}
+                <hr>
+                <div class="story-actions col">
+                    
+                </div>
+                <div class="story-actions col">
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl gallery %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% endif %}
+                {% revcanonical story %}
+            </div><!--.story-meta-->
+            
+                {% load disqus_tags %}
+                {% disqus_dev %}
+                {% disqus_show_comments %}
+            
+    </div><!--.story-->
+    {% endblock content %}
+    <!-- google_ad_section_end -->
