@@ -1,19 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load navigation %}
+{% load linkset %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>
-            {% block title %}Queen's Journal Mobile{% endblock title %}
-        </title>
+        <title>{% block title %}Queen's Journal Mobile{% endblock title %}</title>
         <meta name="viewport" content="width=640;initial-scale=0" />
         <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
         <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/mobile.css" type="text/css" />
-    </head>
-    <body>
-        <p>
-            {% load navigation %} {% load linkset %} {% block meta %} {% endblock meta %} {% block css %}{% endblock %}
-        </p><script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
+        {% block css %}{% endblock %}
+        
+        {% block meta %}{% endblock meta %}
+        
+        <script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
         <script type="text/javascript">
         //<![CDATA[
         Modernizr.load([
@@ -34,9 +33,13 @@
         ]);
         //]]>
         </script>
-        <p>
-            {% block headcode %}{% endblock headcode %} {% block facebook %}{% endblock facebook %}
-        </p>
+        
+        {% block headcode %}{% endblock headcode %}
+        
+        {% block facebook %}{% endblock facebook %}
+        
+    </head>        
+    <body>
         <div id="container">
             <div id="header">
                 <a href="/"><img src="{{STATIC_URL}}img/logo-mobile.png" class="logo" /></a> mobile
@@ -48,19 +51,26 @@
                         <input type="search" name="q" id="search" value="Search" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" />
                     </form>
                 </div>
-            </div>
+            </div><!--#Header-->
+            
             <div id="nav">
                 {% menu_mobile %}
             </div>
+            
             <div id="content">
                 <!-- google_ad_section_start -->
-                {% block issue-banner %} {% endblock issue-banner %} {% block content %} {% block breadcrumb %}{% endblock breadcrumb %} {% endblock content %} <!-- google_ad_section_end -->
-            </div><!--content block -->
+                {% block issue-banner %} {% endblock issue-banner %}
+                {% block content %} 
+                {% block breadcrumb %}{% endblock breadcrumb %} 
+                {% endblock content %} <!-- google_ad_section_end -->
+            </div>
+            
             <ul id="flavours">
                 <li>
                     <a href="?flavour=full">View full site</a>
                 </li>
             </ul>
+            
             <div id="footer" class="group">
                 <ul class="col">
                     <li style="list-style: none">{% linkset 'main2' as links %} {% for link in links %}
@@ -98,22 +108,20 @@
                     </p>
                 </div>
             </div>
-        </div><!-- Google Analytics -->
+        </div><!--#container-->
+        <!-- Google Analytics -->
         <script type="text/javascript">
-//<![CDATA[
+        //<![CDATA[
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
         //]]>
-        </script><script type="text/javascript">
-//<![CDATA[
+        </script>
+        <script type="text/javascript">
+        //<![CDATA[
         try {
         var pageTracker = _gat._getTracker("UA-15740362-1");
         pageTracker._trackPageview();
         } catch(err) {}
-        //]]>
-        </script><script type="text/javascript">
-//<![CDATA[
-        {% block footercode %}{% endblock footercode %}
         //]]>
         </script>
     </body>
