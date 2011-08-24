@@ -43,7 +43,7 @@ class Gallery(models.Model):
     def list_authors(self):
         author_list = []
         for image in self.images.all():
-            if not image.photographer in author_list:
+            if not image.photographer in author_list and image.photographer is not None:
                 author_list.append(image.photographer)
         author_num = len(author_list)
         authors = []
