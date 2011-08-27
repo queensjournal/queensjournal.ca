@@ -75,7 +75,6 @@ def request_add(request):
                                    'staffapp': 'photo requests'},
                                   context_instance=RequestContext(request))
 
-
 def request_edit(request, r_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
