@@ -131,12 +131,16 @@ INSTALLED_APPS = (
     'sidebars',
     'sidelinks',
     'blog',
-    'staff',
     'images',
     'inlines',
     'galleries',
     'masthead',
     'video',
+    
+    # Staff apps
+    'staff',
+    'staff.requests',
+    'staff.wiki',
 )
 
 SHORTEN_MODELS = {
