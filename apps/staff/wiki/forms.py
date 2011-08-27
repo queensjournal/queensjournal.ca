@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
-from wiki.models import Article
+from staff.wiki.models import Article
 
 try:
     WIKI_WORD_RE = settings.WIKI_WORD_RE

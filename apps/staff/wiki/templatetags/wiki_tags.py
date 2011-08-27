@@ -5,7 +5,7 @@ from django.template.defaultfilters import stringfilter
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 
-from wiki.forms import WIKI_WORD_RE
+from staff.wiki.forms import WIKI_WORD_RE
 
 
 register = template.Library()

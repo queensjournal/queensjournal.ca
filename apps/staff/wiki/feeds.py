@@ -8,8 +8,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import Context, Template
 from django.template.loader import get_template
-from wiki.models import ChangeSet, Article
-from wiki.utils import get_ct
+from staff.wiki.models import ChangeSet, Article
+from staff.wiki.utils import get_ct
 import atomformat as atom
 
 ALL_ARTICLES = Article.objects.all()
