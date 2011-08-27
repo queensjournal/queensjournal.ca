@@ -1,0 +1,27 @@
+{% extends "staff/base.html" %}
+{% load i18n %}
+
+{% block title %}Journal Staff Wiki - {% block pagetitle %}{% endblock %}{% endblock %}
+
+</head>
+<body>
+    <div id="head">
+      <h1><a href="{% url staff.wiki.views.article_list %}">wikiapp</a></h1>
+      {% include "staff/wiki/searchbox.html" %}
+    </div>
+
+    <div id="actions">
+      {% block footer %}{% endblock %}
+      <a href="{% url wiki_list %}">{% trans "List all articles" %}</a> |
+      <a href="{% url wiki_history %}">{% trans "Recent Changes" %}</a>
+    </div>
+
+    {% block content-class %}wiki{% endblock %}
+      {% include "staff/wiki/messages.html" %}
+      {% block content %}{% endblock %}
+
+    <div id="footer">
+      
+    </div>
+</body>
+</html>
