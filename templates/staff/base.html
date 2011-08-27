@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Journal staff site{% block title %}{% endblock title %}</title>
+<title>{% block title %}Journal Staff Site - {% block pagetitle %}{% endblock %}{% endblock title %}</title>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/staff.css" />
 {% block scripts %}{% endblock scripts %}
 </head>
@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-<div id="body-container" class="clearfix">
+<div id="body-container" class="clearfix" class="{% block content-class %}{% endblock %}">
 	{% block menu %}{% endblock menu %}
 	<div id="objects-container{% block content-element-suffix %}{% endblock content-element-suffix %}">
 		<div id="content-header" class="clearfix">

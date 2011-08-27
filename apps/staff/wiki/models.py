@@ -16,7 +16,7 @@ from django.db.models.query import QuerySet
 from tagging.fields import TagField
 from tagging.models import Tag
 
-from wiki.utils import get_ct
+from staff.wiki.utils import get_ct
 
 try:
     from notification import models as notification

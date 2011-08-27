@@ -6,7 +6,7 @@ from django.conf import settings
 
 register = template.Library()
 
-@register.inclusion_tag('wiki/article_content.html')
+@register.inclusion_tag('staff/wiki/article_content.html')
 def render_content(article, content_attr='content', markup_attr='markup'):
     """ Display an the body of an article, rendered with the right markup.
 

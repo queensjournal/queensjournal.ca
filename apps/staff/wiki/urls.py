@@ -3,7 +3,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-from wiki import views, models
+from staff.wiki import views, models
 
 try:
     WIKI_URL_RE = settings.WIKI_URL_RE
