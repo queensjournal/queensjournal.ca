@@ -1,5 +1,5 @@
 {% extends 'staff/base.html' %}
-{% block title %} - Viewing 
+{% block title %}{{ block.super }}Viewing 
 	{% if not query and not status and not section %}all photo requests
 	{% else %}{% if query %}photo request search results for "{{ query|escape }}"
 	{% else %}{% if status %}{{ status_display|escape }} photo requests
