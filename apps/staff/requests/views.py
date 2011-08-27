@@ -6,6 +6,7 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
 from staff.requests.models import PhotoRequest
+from structure.models import Author
 
 def user_index(request):
     if not request.user.is_authenticated():
@@ -51,7 +52,9 @@ def request_view(request, r_id):
         return HttpResponseRedirect('/staff/login/?return=%s' % request.get_full_path())
     elif request.user.has_perm('requests.view_photorequest'):
         qs = PhotoRequest.objects.all()
-        c = {'add_request': 'False'}
+        pr = PhotoRequest.objects.get(id=r_id)
+        c = {'add_request': 'False',
+            'author': Author.objects.get(user=pr.creator)}
         if request.user.has_perm('requests.add_photorequest'):
             c['add_request'] = True
         return object_detail(request, queryset=qs, object_id=r_id, extra_context=c, template_name='staff/requests/photorequest_detail.html')

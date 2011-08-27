@@ -51,7 +51,7 @@ class PhotoRequest(models.Model):
         if self.time is not None:
             delta = self.time - datetime.datetime.now()
         else:
-            delta = self.deadline - datetime.date.now()
+            delta = self.deadline - datetime.date.today()
         return delta.days <= 2 and self.status == "0"
 
     class Admin:
