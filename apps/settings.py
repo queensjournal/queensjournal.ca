@@ -116,7 +116,6 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
-    'wiki',
     
     #'grappelli',
     
@@ -131,12 +130,16 @@ INSTALLED_APPS = (
     'sidebars',
     'sidelinks',
     'blog',
-    'staff',
     'images',
     'inlines',
     'galleries',
     'masthead',
     'video',
+    
+    # Staff apps
+    'staff',
+    'staff.requests',
+    'staff.wiki',
 )
 
 SHORTEN_MODELS = {
