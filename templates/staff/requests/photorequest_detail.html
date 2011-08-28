@@ -1,5 +1,5 @@
 {% extends 'staff/base.html' %}
-{% block title %} - Viewing photo request for {{ object.subject|escape }}{% endblock title %}
+{% block title %}{{ block.super }}Viewing photo request for {{ object.subject|escape }}{% endblock title %}
 {% block staffapp %}Photo request board{% endblock staffapp %}
 {% block header %}Viewing photo request for {{ object.subject|escape }}{% endblock header %}
 {% block content %}
