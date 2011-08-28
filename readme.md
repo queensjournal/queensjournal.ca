@@ -1,7 +1,7 @@
 <!-- This file is formatted in Markdown. You can view a compiled version of it at http://github.com/tylerball/queensjournal.ca -->
 
 # queensjournal.ca
-**Portia 2.0 GIT**    
+**Picasso 2.0 GIT**    
 _March 20, 2011 - Present_
 
 Hello Journal-er of the future, this is Tyler Ball, writing to you from 
