@@ -1,4 +1,29 @@
 {% extends 'staff/base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery-ui-timepicker-addon.css" type="text/css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/" type="text/css" media="screen" charset="utf-8" />
+{% endblock %}
+
+{% block jsload %}
+'jquery-ui' : '{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js',
+'datetimepicker' : '{{ STATIC_URL }}js/jquery-ui-timepicker-addon.js'
+{% endblock %}
+
+{% block javascript %}
+    $('.datetimepicker').datetimepicker({
+        hourGrid: 4,
+        minuteGrid: 10,
+        timeFormat: 'hh:mm',
+        dateFormat: 'yy-mm-dd'
+    });
+    
+    $('.datepicker').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+{% endblock %}
+
 {% block title %}{{ block.super }}{% if object %}Editing photo request for {{ object.subject }}{% else %}Adding photo request{% endif %}{% endblock title %}
 {% block staffapp %}Photo request board{% endblock staffapp %}
 {% block header %}{% if object %}Editing photo request for {{ object.subject }}{% else %}Adding photo request{% endif %}{% endblock header %}
@@ -10,7 +35,7 @@
 			<legend>Basic information</legend>
 			<div id="form-subject" class="form-field{% if form.subject.errors %} form-error{% endif %}"><label for="id_subject" class="required">Shoot subject</label><br/>{{ form.subject }}{% if form.subject.errors %}<br/><span>{{ form.subject.errors|join:", " }}</span>{% endif %}</div>
 			<div id="form-location" class="form-field{% if form.location.errors %} form-error{% endif %}"><label for="id_location">Shoot location</label><br/>{{ form.location }}{% if form.location.errors %}<br/><span>{{ form.location.errors|join:", " }}</span>{% endif %}</div>
-			<div id="form-time" class="form-field{% if form.time_date.errors or form.time_time.errors %} form-error{% endif %}"><label for="id_time">Shoot date/time</label><br/>{{ form.time }}{% if form.time.errors %}<br/><span>{{ form.time.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-time" class="form-field{% if form.time_date.errors or form.time_time.errors %} form-error{% endif %}"><label for="id_time">Shoot date/time</label><br/><input class="datetimepicker" type="text" name="time" id="id_time" value="{{ object.time|date:"Y-m-d H:i:s" }}"/>{% if form.time.errors %}<br/><span>{{ form.time.errors|join:", " }}</span>{% endif %}</div>
 		</fieldset>
 
 		<fieldset id="form-workflow">
@@ -22,7 +47,7 @@
 			<input type="hidden" name="status" value="{% if object %}{{ object.status }}{% else %}0{% endif %}" />
 			<input type="hidden" name="photographer" value="{% if object %}{{ object.photographer }}{% endif %}" />
 			{% endif %}
-			<div id="form-deadline" class="form-field{% if form.deadline.errors %} form-error{% endif %}"><label for="id_deadline" class="required">Deadline:</label><br/>{{ form.deadline }}{% if form.deadline.errors %}<br/><span>{{ form.deadline.errors|join:", " }}</span>{% endif %}</div>
+			<div id="form-deadline" class="form-field{% if form.deadline.errors %} form-error{% endif %}"><label for="id_deadline" class="required">Deadline:</label><br/><input type="text" name="deadline" class="datepicker" value="{{ object.deadline|date:"Y-m-d" }}" id="id_deadline" />{% if form.deadline.errors %}<br/><span>{{ form.deadline.errors|join:", " }}</span>{% endif %}</div>
 		</fieldset>
 		
 		<fieldset id="form-details">
