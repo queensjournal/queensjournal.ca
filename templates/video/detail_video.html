@@ -86,41 +86,41 @@
                         </form>
                         {% revcanonical video %}
 
-                    </div>
-            
-                    <div class="video-caption">
-                
-                    {{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
-            
-                    </div>
-                    
-                </div>
-                
-                <div class="column span-7 last">
-                    
-                    <h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
-                    <hr> 
-                    {% for video in latest_videos %}
-                    <div class="latest-section videos">
-                        <div class="video-thumb">
-                            <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
-                            <h2 class="latest-section-head">{{ video.name }}</h2></a>
-                        </div>
-                        <p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-                        <p class="pub_date">Posted {{ video.pub_date|date_diff }}</p>
-                    </div>
-                    {% endfor %}
-                    
-                </div>
-                
-            </div><!--end block-->
-            
-            {% load disqus_tags %}
-            {% disqus_show_comments %}
-                
-        </div>
-    {% endblock content %}
-    <!-- google_ad_section_end -->
+					</div>
+			
+					<div class="video-caption">
+				
+					{{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
+			
+					</div>
+					
+				</div>
+				
+				<div class="column span-7 last">
+					
+					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
+					<hr> 
+					{% for video in latest_videos %}
+					<div class="latest-section videos">
+						<div class="video-thumb">
+							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
+							<h2 class="latest-section-head">{{ video.name }}</h2></a>
+						</div>
+						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+						<p class="pub_date">Posted {{ video.pub_date|date_diff }}</p>
+					</div>
+					{% endfor %}
+					
+				</div>
+				
+			</div><!--end block-->
+			
+			{% load disqus_tags %}
+			{% disqus_show_comments %}
+				
+		</div>
+	{% endblock content %}
+	<!-- google_ad_section_end -->
 
 
 {% block footercode %}
