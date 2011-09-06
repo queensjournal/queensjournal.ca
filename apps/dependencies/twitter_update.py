@@ -24,6 +24,8 @@ from shorturls.templatetags.shorturl import ShortURL # ditto
 from shorturls.baseconv import base62
 from django.template.defaultfilters import striptags
 
+import settings as GLOBAL_SETTINGS
+
 TWITTER_MAXLENGTH = getattr(settings, 'TWITTER_MAXLENGTH', 140)
 
 def post_to_twitter(sender, instance, *args, **kwargs):
@@ -76,12 +78,15 @@ def post_to_twitter(sender, instance, *args, **kwargs):
         size = len(mesg + '...') - TWITTER_MAXLENGTH
         mesg = u'%s... - %s' % (text[:-size], url)
 
-    try:
-        twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
-        twitter_api.PostUpdate(mesg)
-        print 'Posted to Twitter'
-    except urllib2.HTTPError, ex:
-        print 'ERROR:', str(ex)
-        instance.is_tweeted = False
-        return False
+    if GLOBAL_SETTINGS.TWITTER_DEV is True:
+        print 'Twitter message: %s' % (mesg)
+    else:
+        try:
+            twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
+            twitter_api.PostUpdate(mesg)
+            print 'Posted to Twitter'
+        except:
+            print 'ERROR:', str(ex)
+            instance.is_tweeted = False
+            return False
         
