@@ -85,7 +85,7 @@ def post_to_twitter(sender, instance, *args, **kwargs):
             twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
             twitter_api.PostUpdate(mesg)
             print 'Posted to Twitter'
-        except:
+        except urllib2.HTTPError, ex:
             print 'ERROR:', str(ex)
             instance.is_tweeted = False
             return False
