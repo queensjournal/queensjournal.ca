@@ -35,7 +35,6 @@ $(".gallery-container").mobileGallery();
 {% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
     
     {% block content %}
-
         <!-- google_ad_section_start -->
         <div id="story">
             {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url stories.views.index_archive_volume story.issue.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
@@ -77,7 +76,7 @@ $(".gallery-container").mobileGallery();
             {% endif %}
             
             {% if story.has_inlines %}
-                <div class="story-inlines">
+            <div class="story-inlines">
                 {% for factbox in story.factbox_set.all %}
                 {% if not factbox.full_width %}
                     <div class="inline-container factbox">
@@ -106,24 +105,25 @@ $(".gallery-container").mobileGallery();
                             {% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll poll.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
                         {% endpollflash %}
                         {% if poll.poll.id|in_list:request.session.vote or request.GET.results or not poll.poll.is_active %}
-                        {% if not poll.poll.is_active %}
-                            <p><strong>Voting on this poll is closed.</strong></p>
-                        {% endif %}
-                        <ul id="poll-results">
-                            {% for choice in poll.poll.choice_set.all %}
-                            <li class="clearfix"><p>{{ choice.choice }}</p>
-                            <p class="result-number">{{ choice.vote_set.count }}</p>
-                            <div class="result-bar-back">
-                                <div class="result-bar-interval"></div>
-                                <div class="result-bar-interval"></div>
-                                <div class="result-bar-interval"></div>
-                                <div class="result-bar-interval"></div>
-                            {% ifnotequal choice.vote_set.count 0 %}
-                                <div class="result-bar" style="width: {% widthratio choice.vote_set.count poll.poll.total_votes 118 %}px;"></div>
-                            {% endifnotequal %}
-                            </div>
-                            </li>
-                            {% endfor %}
+                            {% if not poll.poll.is_active %}
+                                <p><strong>Voting on this poll is closed.</strong></p>
+                            {% endif %}
+                            <ul id="poll-results">
+                                {% for choice in poll.poll.choice_set.all %}
+                                <li class="clearfix"><p>{{ choice.choice }}</p>
+                                    <p class="result-number">{{ choice.vote_set.count }}</p>
+                                    <div class="result-bar-back">
+                                        <div class="result-bar-interval"></div>
+                                        <div class="result-bar-interval"></div>
+                                        <div class="result-bar-interval"></div>
+                                        <div class="result-bar-interval"></div>
+                                    {% ifnotequal choice.vote_set.count 0 %}
+                                        <div class="result-bar" style="width: {% widthratio choice.vote_set.count poll.poll.total_votes 118 %}px;"></div>
+                                    {% endifnotequal %}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
                         {% else %}
                         <form action="{% url polls.views.poll_vote poll.poll.id %}" method="post">
                             {% poll_form poll.poll.id as form %}
@@ -133,8 +133,8 @@ $(".gallery-container").mobileGallery();
                         </form>
                         {% endif %}
                     </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
+            </div><!--.story-inlines-->
             {% endif %}
             <div class="story-content">
             
@@ -164,20 +164,8 @@ $(".gallery-container").mobileGallery();
                         <h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
                         <div class="thumbs-container">
                         {% for image in gallery.images.all %}
-                            <a href="#gallery"><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
+                            <a href="{% url galleries.views.gallery_photo_detail gallery.pub_date gallery.slug %}#photo{{ forloop.count }}"><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
                         {% endfor %}
-                        </div>
-                        
-                        <div class="gallerypop">
-                            <a name="#gallery">
-                            <div class="galleryback">
-                                {% for image in gallery.images.all %}
-                                <div class="slidepop">
-                                    <img src="{{ image.mobile.url }}" alt="{{ image.caption }}"/>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            </a>
                         </div>
                     </div>
                 {% endfor %}
@@ -226,15 +214,15 @@ $(".gallery-container").mobileGallery();
                 </div>
                 {% endif %}
                 {% revcanonical story %}
-            </div>
+            </div><!--.story-meta-->
             
             {% if story.enable_comments %}
                 {% load disqus_tags %}
                 {% disqus_dev %}
                 {% disqus_show_comments %}
             {% endif %}
-            
-            </div>
-        </div>
+        
+        </div><!-- .story-content -->
+    </div><!-- #story -->
     {% endblock content %}
     <!-- google_ad_section_end -->

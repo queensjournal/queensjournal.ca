@@ -443,7 +443,8 @@ caption {
   -webkit-font-smoothing: antialiased;
   font-family: Georgia, Times, "Times New Roman", serif; }
 #story #story-meta {
-  overflow: hidden; }
+  overflow: hidden;
+  margin-bottom: 1em; }
   #story #story-meta .col {
     float: left;
     width: 50%; }

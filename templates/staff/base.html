@@ -1,38 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}Journal Staff Site - {% block pagetitle %}{% endblock %}{% endblock title %}</title>
-    
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/staff.css" />
-    
-    {% block css %}{% endblock %}
-    
-    <script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js" charset="utf-8"></script>
-    
-    <script type="text/javascript">
-    //<![CDATA[
-    Modernizr.load({
-        load : {
-            'jquery' : '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js', 
-            {% block jsload %}{% endblock %}
-        },
-        callback : {
-            'jquery' : function () {
-                if (!window.jQuery) Modernizr.load({
-                    load : {
-                        'jquery-fallback' : '{{ STATIC_URL }}js/jquery-1.6.1.min.js'
-                    }
-                });
-            }
-        },
-        complete : function () {
-            {% block javascript %}{% endblock %}
-        }
-    });
-    //]]>
-    </script>
-
+<title>{% block title %}Journal Staff Site - {% block pagetitle %}{% endblock %}{% endblock title %}</title>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/staff.css" />
+{% block scripts %}{% endblock scripts %}
 </head>
 <body>
 <div id="header-banner">
@@ -43,7 +14,7 @@
 	</div>
 </div>
 
-<div id="body-container" class="clearfix {% block content-class %}{% endblock %}">
+<div id="body-container" class="clearfix" class="{% block content-class %}{% endblock %}">
 	{% block menu %}{% endblock menu %}
 	<div id="objects-container{% block content-element-suffix %}{% endblock content-element-suffix %}">
 		<div id="content-header" class="clearfix">
