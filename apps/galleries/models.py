@@ -39,3 +39,26 @@ class Gallery(models.Model):
 
     def __unicode__(self):
         return self.name
+        
+    def list_authors(self):
+        author_list = []
+        for image in self.images.all():
+            if not image.photographer in author_list and image.photographer is not None:
+                author_list.append(image.photographer)
+        author_num = len(author_list)
+        authors = []
+        for author in author_list:
+            if author_num == 1:
+                authors.append('<a href="/author/%s/">%s</a>, ' % (author.slug, author.name))
+            else:
+                authors.append('<a href="/author/%s/">%s</a>' % (author.slug, author.name))
+        if author_num > 1:
+            authors.insert(-1, 'and')
+            authors.append('Journal Staff')
+        elif author_num == 1:
+            authors.append(author_list[0].get_role(self.pub_date))
+        elif author_num == 0:
+            authors.append('Journal Staff')
+        return ' '.join(authors)
+        list_authors.short_description = 'Author(s)'
+                

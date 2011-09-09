@@ -3,13 +3,8 @@
 {% load markup %}
 {% load typogrify %}
 
-{% block headcode %}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="{{ STATIC_URL }}js/jquery.masonry.js" type="text/javascript"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.anythingslider.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.swipe.js"></script>
-<script>
-    $(window).load(function() {
+{% block jsload %}"{{ STATIC_URL }}js/jquery.masonry.js", "{{ STATIC_URL }}js/jquery.anythingslider.min.js", "{{ STATIC_URL }}js/jquery.swipe.js"{% endblock %}
+{% block js %}
      $('#slider').anythingSlider({
          expand: false,
          hashtags: false,
@@ -20,8 +15,6 @@
          autoPlay: true,
          delay: 5000,
      });
-    });
-    $(function() {
      $('#slider').swipe({
       swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
                                 $('#slider').data('AnythingSlider').startStop(true); },
@@ -33,9 +26,7 @@
       },
       preventDefaultEvents: false
      });
-    });
-</script>
-{% endblock headcode %}
+{% endblock %}
 
 {% block title %}Photos{{ block.super }}{% endblock title %}
 

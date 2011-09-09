@@ -9,31 +9,32 @@
 
 {% block jsload %}'{{ STATIC_URL }}js/jquery.masonry.js', '{{ STATIC_URL }}js/jquery.anythingslider.min.js', '{{ STATIC_URL }}js/jquery.swipe.js'{% endblock %}
 {% block js %}
-$(window).load(function() {
- $('#slider').anythingSlider({
-     expand: false,
-     hashtags: false,
-     resizeContents: false,
-     buildArrows: false,
-     buildNavigation: false,
-     buildStartStop: false,
-     autoPlay: true,
-     delay: 5000,
- });
-});
-$(function() {
- $('#slider').swipe({
-  swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
+    $('#slider').anythingSlider({
+        expand: false,
+        hashtags: false,
+        resizeContents: false,
+        buildArrows: false,
+        buildNavigation: false,
+        buildStartStop: false,
+        autoPlay: true,
+        delay: 5000,
+    });
+    $('#slider').swipe({
+        swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
                             $('#slider').data('AnythingSlider').startStop(true); },
-  swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
+        swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
                             $('#slider').data('AnythingSlider').startStop(true); },
-  threshold: {
-   x: 15,
-   y: 99999,
-  },
-  preventDefaultEvents: false
- });
-});
+        threshold: {
+            x: 15,
+            y: 99999,
+        },
+        preventDefaultEvents: false
+    });
+    $('#other-stories').masonry({
+        singleMode: true,
+        columnWidth: 320,
+        itemSelector: '.latest-section'
+    });
 {% endblock %}
 
 {% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
@@ -90,13 +91,3 @@ $(function() {
 		
 	</div>
 	{% endblock content %}
-
-{% block footercode %}
-$(window).load(function(){
-	$('#other-stories').masonry({
-		singleMode: true,
-		columnWidth: 320,
-		itemSelector: '.latest-section' 
-	});
-});
-{% endblock footercode %}

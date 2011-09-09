@@ -22,99 +22,97 @@
 {{ block.super }}
 {% endblock headcode %}
 
-{% block js %}
-	<script type="text/javascript" src="{{ STATIC_URL }}js/plusone.js"></script>
-{% endblock %}
+{% block jsload %}'{{ STATIC_URL }}js/plusone.js'{% endblock %}
 
 {% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
-	
-	{% block actions %}
-		<div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
-	{% endblock actions %}
-	
-	{% block content %}
-	
-	{% block breadcrumb %}
-	<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url video.views.index_video %}">Videos</a></div>
-	{% endblock breadcrumb %}
-	
-		<!-- google_ad_section_start -->
-		<div id="story">
-			<div class="pub-date">{{ video.pub_date|date:"jS F Y" }}</div>
-			<h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
-			
-			<div id="slider">
-				{% load oembed_tags %}
-				{% oembed 620x400 %}
-				{{ video.link|safe }}
-				{% endoembed %}
-			</div>
-			
-			<p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>
-			
-			<div id="story-share">
-				<hr>
-				<table>
-					<tr>
-						<td><span class="label">SHARE: </span></td>
-						<td><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl video %}" layout="button_count" show_faces="false" width="100" font=""></fb:like></td>
-						<td><a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl video %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></td>
-						<td><a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a></td>
-						<td><g:plusone size="medium"></g:plusone></td>
-					</tr>
-				</table>
-				<hr>
-			</div>
-			
-			<div class="video-caption">
-		
-			{{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
-	
-			</div>
-			
-			<div id="story-meta">
-				<hr>
-				{% tags_for_object video as tags %}
-    			{% if tags %}
-    			<div class="col">
-    			    <strong>Article tags:</strong>
-        			<ul>
-        			    {% for tag in tags %}
-            				<li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
-            			{% endfor %}
-        			</ul>
-        		</div>
-        		<div class="story-actions col">
-        			<form action="" method="get">
-        				<span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl video %}" onclick="this.select();" readonly="true" />
-        			</form>
-    			</div>
-        		{% else %}
-            	<div class="story-actions col">
-        			<form action="" method="get">
-        				<span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl story %}" onclick="this.select();" readonly="true" />
-        			</form>
-    			</div>
-    			{% endif %}
-    			{% revcanonical story %}
-			</div>
-					
-			<h3>Latest Videos</h3>
-			<hr> 
-			<div id="other-stories">
-				{% for video in latest_videos %}
-				<div class="latest-section">
-					<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
-					<h4>{{ video.name }}</h4></a>
-					<p class="summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-					<p class="pub-date">Posted {{ video.pub_date|date_diff }}</p>
-				</div>
-				{% endfor %}
-			</div>
-			
-			{% load disqus_tags %}
-			{% disqus_show_comments %}
-				
-		</div>
-	{% endblock content %}
-	<!-- google_ad_section_end -->
+    
+    {% block actions %}
+        <div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
+    {% endblock actions %}
+    
+    {% block content %}
+    
+    {% block breadcrumb %}
+    <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url video.views.index_video %}">Videos</a></div>
+    {% endblock breadcrumb %}
+    
+        <!-- google_ad_section_start -->
+        <div id="story">
+            <div class="pub-date">{{ video.pub_date|date:"jS F Y" }}</div>
+            <h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
+            
+            <div id="slider">
+                {% load oembed_tags %}
+                {% oembed 620x400 %}
+                {{ video.link|safe }}
+                {% endoembed %}
+            </div>
+            
+            <p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>
+            
+            <div id="story-share">
+                <hr>
+                <table>
+                    <tr>
+                        <td><span class="label">SHARE: </span></td>
+                        <td><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl video %}" layout="button_count" show_faces="false" width="100" font=""></fb:like></td>
+                        <td><a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl video %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></td>
+                        <td><a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a></td>
+                        <td><g:plusone size="medium"></g:plusone></td>
+                    </tr>
+                </table>
+                <hr>
+            </div>
+            
+            <div class="video-caption">
+        
+            {{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
+    
+            </div>
+            
+            <div id="story-meta">
+                <hr>
+                {% tags_for_object video as tags %}
+                {% if tags %}
+                <div class="col">
+                    <strong>Article tags:</strong>
+                    <ul>
+                        {% for tag in tags %}
+                            <li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="story-actions col">
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl video %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% else %}
+                <div class="story-actions col">
+                    <form action="" method="get">
+                        <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl story %}" onclick="this.select();" readonly="true" />
+                    </form>
+                </div>
+                {% endif %}
+                {% revcanonical story %}
+            </div>
+                    
+            <h3>Latest Videos</h3>
+            <hr> 
+            <div id="other-stories">
+                {% for video in latest_videos %}
+                <div class="latest-section">
+                    <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
+                    <h4>{{ video.name }}</h4></a>
+                    <p class="summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+                    <p class="pub-date">Posted {{ video.pub_date|date_diff }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            {% load disqus_tags %}
+            {% disqus_show_comments %}
+                
+        </div>
+    {% endblock content %}
+    <!-- google_ad_section_end -->

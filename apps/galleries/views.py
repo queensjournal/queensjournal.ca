@@ -15,7 +15,13 @@ def gallery_index(request):
                             context_instance=RequestContext(request))
                             
 def gallery_detail(request, datestring, slug):
-    gallery = get_object_or_404(Gallery, slug=slug)
+    gallery = get_object_or_404(Gallery, slug=slug, pub_date=parse_date(datestring))
     return render_to_response('photos/gallery_detail.html',
+                            {'gallery': gallery,},
+                            context_instance=RequestContext(request))
+                            
+def gallery_photo_detail(request, datestring, slug):
+    gallery = get_object_or_404(Gallery, slug=slug, pub_date=parse_date(datestring))
+    return render_to_response('photos/gallery_photo_detail.html',
                             {'gallery': gallery,},
                             context_instance=RequestContext(request))
