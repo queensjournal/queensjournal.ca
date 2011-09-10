@@ -12,3 +12,4 @@ apache2/
 
 *.tgz
 .DS_Store
+dumps/
