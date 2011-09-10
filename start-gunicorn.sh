@@ -2,7 +2,7 @@
 
 # Gunicorn start script
 set -e
-LOGFILE=/home/journal/logs/journal.log
+LOGFILE=/home/journal/logs/journal-guinicorn.log
 NUM_WORKERS=3
 # user/group to run as
 USER=journal
