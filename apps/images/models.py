@@ -20,9 +20,6 @@ class Image(ImageModel):
 	def __unicode__(self):
 		return self.slug
 
-	class Admin:
-		list_display =			('name','get_image_url',)
-
 	def __unicode__(self):
 		return self.name
 
