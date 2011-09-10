@@ -8,18 +8,10 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ID = 1
 
 DATABASES = {
-	'mysql': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'journal1',     # Or path to database file if using sqlite3.
-        'USER': 'root',        # Not used with sqlite3.
-        'PASSWORD': 'E71oLYXzIXqvil',# Not used with sqlite3.
-        'HOST': '',            # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',            # Set to empty string for default. Not used with sqlite3.
-    },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'journal1',     # Or path to database file if using sqlite3.
-        'USER': 'journal1',        # Not used with sqlite3.
+        'NAME': 'journal',     # Or path to database file if using sqlite3.
+        'USER': 'journal',        # Not used with sqlite3.
         'PASSWORD': 'txz67b0ujk23',# Not used with sqlite3.
         'HOST': '',            # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',            # Set to empty string for default. Not used with sqlite3.
@@ -80,6 +72,8 @@ TWITTER_CONSUMER_SECRET ='I7ApkCNAAZXzeUw2KdDLbjj33a2kKL7Vj5n2smGq1l4'
 TWITTER_ACCESS_TOKEN_KEY ='16619266-pqQxfmoRhVJ0DdTmQGe21F3YuWXaE1cjtc521rj04'
 TWITTER_ACCESS_TOKEN_SECRET ='c0i5AX2cGtbvpeJv96FH6viQ9hEBo6COqIk3kFXNM'
 
+TWITTER_DEV = False
+
 # MEMCACHED Config
 CACHES = {
     'default': {
@@ -91,12 +85,11 @@ CACHES = {
         }
     }
 }
-#CACHE_BACKEND = 'memcached://unix:/home/journal/memcached.sock'
 
 # Webfaction e-mail settings (no e-mail server on the Django machine)
-EMAIL_HOST = 'smtp.webfaction.com'
-EMAIL_HOST_USER = 'journal'
-EMAIL_HOST_PASSWORD = 'weheartgabe'
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'server@queensjournal.ca'
 SERVER_EMAIL = 'server@queensjournal.ca'
 
