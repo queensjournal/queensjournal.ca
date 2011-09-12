@@ -44,6 +44,6 @@ def pulldump():
             local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}/'.format(env.host_string, env.directory, local_dumps))
         except:
             local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}/'.format(env.host_string, env.directory, local_dumps))
-        local('tar -xzvf journal-`date +%F`.tar.gz')
+        local('tar -xzvf {}/journal-`date +%F`.tar.gz'.format(local_dumps))
     local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
 
