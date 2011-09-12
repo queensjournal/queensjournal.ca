@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object
 from django.views.generic.simple import direct_to_template
+from django.core.exceptions import ObjectDoesNotExist
 from staff.requests.models import PhotoRequest
 from structure.models import Author
 
@@ -53,8 +54,12 @@ def request_view(request, r_id):
     elif request.user.has_perm('requests.view_photorequest'):
         qs = PhotoRequest.objects.all()
         pr = PhotoRequest.objects.get(id=r_id)
+        try:
+            au = Author.objects.get(user=pr.creator)
+        except ObjectDoesNotExist:
+            au = '%s %s' % (pr.creator.first_name, pr.creator.last_name)
         c = {'add_request': 'False',
-            'author': Author.objects.get(user=pr.creator)}
+            'author': au}
         if request.user.has_perm('requests.add_photorequest'):
             c['add_request'] = True
         return object_detail(request, queryset=qs, object_id=r_id, extra_context=c, template_name='staff/requests/photorequest_detail.html')
