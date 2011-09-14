@@ -52,7 +52,7 @@ def masthead(request, vol_num):
     return render_to_response('masthead/index.html',
                               {'names': names,
                                'years': yearstring},
-								context_instance=RequestContext(request))
+                                context_instance=RequestContext(request))
 
 def masthead_list(request):
     qs = Masthead.objects.order_by('volume')
@@ -60,8 +60,8 @@ def masthead_list(request):
     
 def detail_author(request, author):
     curr_author = get_object_or_404(Author, slug__exact=author)
-    story_set = StoryAuthor.objects.filter(author__slug__exact=author).order_by('-story__pub_date')
-    entry_set = Entry.objects.filter(author__slug__exact=author).order_by('-pub_date')
+    story_set = StoryAuthor.objects.filter(author__slug__exact=author, story__status='p').order_by('-story__pub_date')
+    entry_set = Entry.objects.filter(author__slug__exact=author, is_published=True).order_by('-pub_date')
     item_list = QuerySetChain(story_set, entry_set)
     if request.session.get('vote') is None:
         request.session['vote'] = []
