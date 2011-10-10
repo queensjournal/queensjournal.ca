@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.views.generic.simple import direct_to_template
 from feeds import *
 
 # Uncomment the next two lines to enable the admin:
@@ -16,6 +17,7 @@ feeds = {
 }
     
 urlpatterns = patterns('',
+    (r'^google9fc9f538545cc45e\.html$', direct_to_template, {'template': 'google9fc9f538545cc45e.html'}),
     (r'^polls/', include('polls.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^story/', include('stories.urls')),

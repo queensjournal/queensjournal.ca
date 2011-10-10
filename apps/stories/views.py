@@ -1,6 +1,6 @@
 # Create your views here.
 from datetime import date, time, timedelta
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.template import RequestContext, Context, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from tagging.models import Tag, TaggedItem
@@ -182,7 +182,10 @@ def index_issue_section(request, datestring, section):
     try:
         front_config = FrontPageConfig.objects.get(issue=issue)
     except FrontPageConfig.DoesNotExist:
-        front_config = FrontConfig.objects.get(issue=issue)
+        try:
+            front_config = FrontConfig.objects.get(issue=issue)
+        except FrontConfig.DoesNotExist:
+            return redirect('stories.views.index_section', section=section)
     section_config = get_object_or_404(SectionFrontConfig.objects.filter(section__slug__iexact=section))
     first_story = Story.objects.filter(section__slug__iexact=section, issue=issue, status='p', storyphoto__isnull=False).order_by('section_order')
     story_set = Story.objects.filter(issue=issue, section__slug__iexact=section).order_by('section_order')
