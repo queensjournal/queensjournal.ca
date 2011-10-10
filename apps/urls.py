@@ -18,6 +18,7 @@ feeds = {
     
 urlpatterns = patterns('',
     (r'^google9fc9f538545cc45e\.html$', direct_to_template, {'template': 'google9fc9f538545cc45e.html'}),
+    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt'}),
     (r'^polls/', include('polls.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^story/', include('stories.urls')),
