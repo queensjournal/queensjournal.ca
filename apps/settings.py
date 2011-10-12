@@ -1,8 +1,15 @@
-# Django settings for journal project.
-# Import settings_local.py for site-specific vars
-# (keeps everything nice and tidy in the repository!)
-from settings_local import *
+import socket
 import os
+
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+if socket.gethostname() == 'queensjournal.ca':
+    DEBUG = False
+else:
+    DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 ADMINS = (
     ('tyler', 'tyler@tylerball.net'),
@@ -19,19 +26,23 @@ AUTH_USER_PROFILE = 'structure.Author'
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Toronto'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
+SITE_ID = 1
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = True
+USE_L10N = False
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '../media/')
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -50,8 +61,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     #'django.template.loaders.eggs.Loader',
 )
-
-INTERNAL_IPS = ('127.0.0.1',)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -185,3 +194,5 @@ LOGGING = {
         },
     }
 }
+
+from settings_local import *
