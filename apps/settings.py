@@ -67,36 +67,37 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     
-    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    
     'django_mobile.middleware.SetFlavourMiddleware',
+    
+    # TODO remove for prod
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
-    'django.contrib.redirects',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
-    #'django.contrib.comments',
     'django.contrib.humanize',
     'django.contrib.markup',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     
     
     #'comments',
@@ -140,6 +141,8 @@ INSTALLED_APPS = (
     'staff',
     'staff.requests',
     'staff.wiki',
+    
+    'debug_toolbar',
 )
 
 SHORTEN_MODELS = {
