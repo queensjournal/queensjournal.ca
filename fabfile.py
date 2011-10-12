@@ -2,6 +2,7 @@ from fabric.api import *
 
 env.hosts=['journal@queensjournal.ca']
 env.directory='webapps/journal'
+env.media='webapps/media'
 env.activate='source webapps/journal/bin/activate'
 supervisor_task = 'journal'
 
@@ -9,8 +10,7 @@ local_django = '~/Sites/queensjournal.ca/apps'
 local_dumps = '~/Sites/queensjournal.ca/dumps'
 
 def local_env(command):
-    with cd(local_django):
-        local('source ../bin/activate && ' + command)
+    local('source %s/../bin/activate && %s' % (local_django, command))
 
 def virtualenv(command):
     with cd(env.directory):
@@ -47,3 +47,7 @@ def pulldump():
         local('tar -xzvf {}/journal-`date +%F`.tar.gz'.format(local_dumps))
     local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
 
+def pullmedia():
+    with cd(env.media):
+        run('tar -czv --exclude="cache/" --exclude="photo_cache/" -f media-`date +%F`.tar.gz .')
+    local('scp {}:{}/media-`date +%F`.tar.gz {}/'.format(env.host_string, env.media, local_dumps))
