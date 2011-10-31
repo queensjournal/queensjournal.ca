@@ -1,4 +1,4 @@
-Fabric==1.2.2
+Fabric
 django-extensions
 django-debug-toolbar
 Werkzeug
