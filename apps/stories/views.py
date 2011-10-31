@@ -16,19 +16,19 @@ from django.core.mail import send_mail
 
 def parse_date(datestring):
     return date(*[int(x) for x in datestring.split('-')])
-    
+
 def get_issue(request):
     section = 'news'
     issue = get_object_or_404(Issue, pk=request.GET.get('issue', ''))
     return HttpResponseRedirect('/story/%s/' % issue.pub_date)
-    
+
 def index_latest(request):
     try:
         issue = Issue.objects.pub_date.latest()
     except:
         issue = FrontPageConfig.objects.latest('pub_date')
     return index_front(request, issue.pub_date.strftime("%Y-%m-%d"))
-    
+
 def index_section(request, section):
     section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
     if section_config.template:
@@ -49,7 +49,7 @@ def index_section(request, section):
                             'config': section_config,
                             'latest_issue': latest_issue,},
                             context_instance=RequestContext(request))
-                            
+
 def index_front(request):
     front_config = FrontConfig.objects.latest('pub_date')
     lstories = Story.objects.filter(status='p', pub_date__lt=datetime.now()).order_by('-pub_date')[:5]
@@ -68,7 +68,7 @@ def index_front(request):
                             'latest_section': latest_section,
                             'latest_video': latest_video,
                             'config': front_config},
-                            context_instance=RequestContext(request))   
+                            context_instance=RequestContext(request))
 
 def detail_story(request, datestring, section, slug):
     ## Set up a range of one day based on the datestring
@@ -88,21 +88,21 @@ def detail_story(request, datestring, section, slug):
                                 'author_role': author_role,
                                 'config': section_config},
                                 context_instance=RequestContext(request))
-                                
+
 def tags(request):
     return render_to_response("tags/tags.html", context_instance=RequestContext(request))
-    
-def with_tag(request, tag, object_id=None, page=1): 
+
+def with_tag(request, tag, object_id=None, page=1):
     unslug = tag.replace('+', ' ')
     query_tag = get_object_or_404(Tag, name=unslug)
     story_list = TaggedItem.objects.get_by_model(Story, query_tag).order_by('-pub_date')
     entry_list = TaggedItem.objects.get_by_model(Entry, query_tag).order_by('-pub_date')
     video_list = TaggedItem.objects.get_by_model(Video, query_tag).order_by('-pub_date')
     result_list = QuerySetChain(story_list, entry_list, video_list)
-    return render_to_response("tags/with_tag.html", {'tag': unslug, 
+    return render_to_response("tags/with_tag.html", {'tag': unslug,
                                 'stories': result_list},
                                 context_instance=RequestContext(request))
-                                
+
 ''' ------------  STORIES -------------- '''
 def email_story(request, datestring, section, slug):
     if request.method != "POST":
@@ -152,7 +152,7 @@ def email_story(request, datestring, section, slug):
                                       {'story': article,
                                        'form': form},
                                        context_instance=RequestContext(request))
-                                
+
 ''' ------------  ARCHIVES ------------- '''
 
 def index_issue_front(request, datestring):
@@ -176,7 +176,7 @@ def index_issue_front(request, datestring):
                                 'back_issue': True,
                                 'issue': issue},
                               context_instance=RequestContext(request))
-                        
+
 def index_issue_section(request, datestring, section):
     issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
     try:
@@ -193,7 +193,7 @@ def index_issue_section(request, datestring, section):
     try:
         if first_story[0]:
             featured = first_story[0]
-            other_stories = story_set[1:]   
+            other_stories = story_set[1:]
     except IndexError:
         other_stories = story_set
     try:
@@ -212,7 +212,7 @@ def index_issue_section(request, datestring, section):
                             'back_issue': True,
                             'issue': issue},
                             context_instance=RequestContext(request))
-                            
+
 def index_archive(request):
     volumes = get_list_or_404(Volume.objects.order_by('-volume'))
     dates = {}
@@ -227,7 +227,7 @@ def index_archive(request):
                             {'volumes': volumes,
                             'dates': dates},
                             context_instance=RequestContext(request))
-                            
+
 def index_archive_volume(request, volume):
     volume = get_object_or_404(Volume, volume=volume)
     issues = get_list_or_404(Issue, volume=volume, pub_date__lt=datetime.now())
@@ -235,6 +235,6 @@ def index_archive_volume(request, volume):
                             {'volume': volume,
                             'issues': issues,},
                             context_instance=RequestContext(request))
-                            
+
 def server_error(request, template_name='500.html'):
     return render_to_response(template_name, context_instance = RequestContext(request))
