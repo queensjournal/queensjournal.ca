@@ -6,10 +6,9 @@
 lib/
 bin/
 include/
-apache2/
 *.sass-cache/
-*.tmproj
 
 *.tgz
 .DS_Store
 dumps/
+apps/media/
