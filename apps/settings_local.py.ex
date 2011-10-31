@@ -17,8 +17,6 @@ DATABASES = {
     }
 }
 
-# ROOT_URLCONF = "urls_dev" # Uncomment for Development
-
 MEDIA_URL = '/media/' # TODO change on prod
 
 STATIC_URL = '/static/' # TODO change on prod
@@ -54,8 +52,6 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'server@queensjournal.ca'
 SERVER_EMAIL = 'server@queensjournal.ca'
-
-AKISMET_API_KEY = 'a749fbcef622'
 
 SHORT_BASE_URL = "http://qjrnl.net/"
 SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"
