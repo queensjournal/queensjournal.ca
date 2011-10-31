@@ -3,6 +3,8 @@ from django.conf import settings
 from django.views.generic.simple import direct_to_template
 from feeds import *
 
+from structure.models import Section
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -46,12 +48,6 @@ urlpatterns = patterns('',
     (r'^tag/(?P<tag>.*)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
 
     (r'^s/', include('shorturls.urls')),
-
-    # Because I have the URL regexing words as sections, this pattern needs to be last.
-    # If you put anything after, the CONF will think it's a section and you won't get anywhere.
-    ## THE FOLLOWING LINE MUST BE THE LAST URL IN THE CONF
-    #(r'^(?P<section>[-\w]+)/$', 'stories.views.index_section'),
-    ## DO NOT ADD ANY URLS AFTER THIS LINE
 )
 
 handler500 = 'stories.views.server_error'
@@ -62,3 +58,7 @@ if settings.DEBUG:
             'document_root': settings.MEDIA_ROOT,
             'show_indexes': True}),
     )
+
+urlpatterns += patterns('',
+    (r'^(?P<section>[-\w]+)/$', 'stories.views.index_section'),
+)
