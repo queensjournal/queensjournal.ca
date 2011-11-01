@@ -5,6 +5,8 @@
 *.sql*
 lib/
 bin/
+build/
+share/
 include/
 *.sass-cache/
 
