@@ -103,4 +103,4 @@ def pulldump():
     local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
 
 def pullmedia():
-    local('rsync -auvz --progress --exclude="cache/" --exclude="photo_cache/" %(host_string)s:%(media)s/* ' % env + settings.MEDIA_ROOT)
+    local('rsync -autvz --progress --exclude="cache/" --exclude="photo_cache/" %(host_string)s:%(media)s/* ' % env + settings.MEDIA_ROOT)
