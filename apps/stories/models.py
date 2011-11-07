@@ -32,12 +32,12 @@ class Story(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', help_text='Draft will place the story in a queue to be published later, published will publish the story immediately.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
-    
+
     class Meta:
         verbose_name_plural = "Stories"
         get_latest_by = 'pub_date'
         ordering = ['-pub_date']
-        
+
     def list_authors(self):
         authors = []
         author_qset = list(self.storyauthor_set.all())
@@ -58,7 +58,7 @@ class Story(models.Model):
             authors.append('Journal Staff')
         return ' '.join(authors)
     list_authors.short_description = 'Author(s)'
-    
+
     def story_thumb(self):
         from galleries.models import Gallery
         if self.show_headshots is True:
@@ -79,115 +79,75 @@ class Story(models.Model):
                 return sp.photo
             except IndexError:
                 return False
-                
+
     def first_photo(self):
         sp = StoryPhoto.objects.filter(story=self)[0]
         return sp.photo
-                
+
     def other_photos(self):
         if len(self.storyphoto_set.all()) > 1:
             return StoryPhoto.objects.filter(story=self).exclude(photo=self.first_photo)
-    
+
     def related_photos(self):
         return StoryPhoto.objects.filter(story=self)
-        
+
     def has_inlines(self):
-        returnval = "inline check failed"
-        try:
-            # Check all models in inline app: get all models in
-            # inline app, check each model for the presence of a
-            # story var (if no story var then it's a helper
-            # model), then check to see if any inline object has
-            # the correct story ID.
-            inline_models = models.get_app("inlines")
-            for obj_type in models.get_models(inline_models):
-                inlines = obj_type.objects.all()
-                if len(list(inlines)) > 0:
-                    try:
-                        inlines[0].story
-                    except:
-                        continue
-                for x in inlines:
-                    returnval += x.head
-                    if x.story.id == self.id:
-                        try:
-                            if x.full_width == True:
-                                continue
-                            else:
-                                return True
-                        except:
-                            return True
-            return False
-        except:
-            return returnval            
+        inline_models = models.get_app("inlines")
+        for obj_type in models.get_models(inline_models):
+            inlines = obj_type.objects.filter(story=self)
+            if len(inlines) > 0:
+                return True
+            else:
+                return False
 
     def has_wide_inlines(self):
-        returnval = "inline check failed"
-        try:
-            # Check all models in inline app: get all models in
-            # inline app, check each model for the presence of a
-            # story var (if no story var then it's a helper
-            # model) and full_width var, then check to see
-            # if any inline object has the correct story ID.
-            inline_models = models.get_app("inlines")
-            for obj_type in models.get_models(inline_models):
-                inlines = obj_type.objects.all()
-                if len(list(inlines)) > 0:
-                    try:
-                        inlines[0].story
-                        inlines[0].full_width
-                    except:
-                        continue
-                for x in inlines:
-                    returnval += x.head
-                    if x.story.id == self.id:
-                        if x.full_width == True:
-                            return True
-                        else:
-                            continue
-            return False
-        except:
-            return returnval
-        
+        inline_models = models.get_app("inlines")
+        for obj_type in models.get_models(inline_models):
+            inlines = obj_type.objects.filter(story=self, full_width=True)
+            if len(inlines) > 0:
+                return True
+            else:
+                return False
+
     def set_tags(self, tags):
         Tag.objects.update_tags(self, tags)
 
     def get_tags(self, tags):
         return Tag.objects.get_for_object(self)
-        
+
     def model_type(self):
         return self.__class__.__name__
-    
+
     def __unicode__(self):
         return self.head
-        
+
     def save(self, *args, **kwargs):
         if self.status == 'p':
             self.is_published = True
         super(Story, self).save(*args, **kwargs)
-    
-    @models.permalink   
+
+    @models.permalink
     def get_absolute_url(self):
         return ('stories.views.detail_story', (), {
             'datestring': self.pub_date.strftime("%Y-%m-%d"),
             'section': self.section.slug,
             'slug': self.slug})
-            
+
     def get_twitter_message(self):
         return u'%s: %s' % (self.head, self.summary)
-            
+
 models.signals.post_save.connect(post_to_twitter, sender=Story)
-    
+
 class StoryAuthor(models.Model):
     author = models.ForeignKey(Author, default=None)
     story = models.ForeignKey(Story)
 
     class Meta:
         order_with_respect_to = 'story'
-        
+
     def __unicode__(self):
         return '%s - %s' % (self.author.name, self.story.head)
-        
+
 class Photo(ImageModel):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting.')
@@ -204,12 +164,12 @@ class Photo(ImageModel):
         spec_module = 'stories.specs'
         cache_dir = 'photo_cache'
         image_field = 'photo'
-        
+
     def thumbnail(self):
         return '<img src="%s"/>' % (self.thumbnail_image.url)
     thumbnail.short_description = 'Image thumbnail'
     thumbnail.allow_tags = True
-    
+
     def photo_stories(self):
         from django.core import urlresolvers
         storyp_set = StoryPhoto.objects.filter(photo=self)
@@ -221,7 +181,7 @@ class Photo(ImageModel):
         return ", ".join(sections)
     photo_stories.short_description = 'Locations'
     photo_stories.allow_tags = True
-        
+
     def list_photographer(self):
         if self.photographer is not None:
             return '<a href="%s">%s</a>' % (self.photographer.get_absolute_url(), self.photographer)
@@ -230,28 +190,28 @@ class Photo(ImageModel):
         else:
             return '[no credit]'
     list_photographer.short_description = 'Credit'
-    
+
     def get_absolute_url(self):
         return self.photo
     get_absolute_url = models.permalink(get_absolute_url)
-    
+
     def __unicode__(self):
         return self.name
-        
+
 class StoryPhoto(models.Model):
     photo = models.ForeignKey(Photo, default=None)
     story = models.ForeignKey(Story)
-    
+
     def thumbnail(self):
         return '<img src="%s"/>' % (self.photo.thumbnail_image.url)
     thumbnail.short_description = 'Image thumbnail'
     thumbnail.allow_tags = True
-    
+
     class Meta:
         verbose_name = "Story photos"
         verbose_name_plural = "Story photos"
         order_with_respect_to = 'story'
-        
+
 class FeaturedPhoto(ImageModel):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
@@ -264,7 +224,7 @@ class FeaturedPhoto(ImageModel):
         spec_module = 'stories.featured_specs'
         cache_dir = 'photo_cache'
         image_field = 'original_image'
-  
+
     def __unicode__(self):
         return self.name
 
@@ -273,12 +233,12 @@ class FeaturedStory(models.Model):
     front = models.ForeignKey(FrontConfig)
     photo = models.ForeignKey(FeaturedPhoto)
     story_order = models.PositiveIntegerField(help_text="Lower the number, order it will show in the Front slideshow")
-    
+
     class Meta:
         verbose_name = 'Top Story'
         verbose_name_plural = 'Top Story'
         ordering = ['story__pub_date']
-        
+
     def __unicode__(self):
         from django.utils.encoding import force_unicode
         return 'Featured Story: %s' % (force_unicode(self.story.head))

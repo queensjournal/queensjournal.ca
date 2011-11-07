@@ -106,7 +106,7 @@ class Entry(models.Model):
     enable_comments = models.BooleanField(default=True, help_text='Toggle to turn comments on or off for this post.')
     date_saved = models.DateTimeField(editable=False, default=datetime.now)
     date_draft_or_publish = models.DateTimeField(editable=False, default=datetime.now)
-    pub_date = models.DateTimeField(default=datetime.now, blank=True, null=True, help_text='If you wish to keep a post hidden until some time in the future, check the Published box and change this date to when you want the post to go live.')
+    pub_date = models.DateTimeField(default=datetime.now, help_text='If you wish to keep a post hidden until some time in the future, check the Published box and change this date to when you want the post to go live.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     objects = EntryManager()
     

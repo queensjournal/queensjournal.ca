@@ -1,8 +1,13 @@
-# Django settings for journal project.
-# Import settings_local.py for site-specific vars
-# (keeps everything nice and tidy in the repository!)
-from settings_local import *
+import socket
 import os
+
+DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
+
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 ADMINS = (
     ('tyler', 'tyler@tylerball.net'),
@@ -12,36 +17,33 @@ MANAGERS = ADMINS
 
 AUTH_USER_PROFILE = 'structure.Author'
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Toronto'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
+SITE_ID = 1
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
-USE_L10N = True
+USE_I18N = False
+USE_L10N = False
 
-# List of finder classes that know how to find static files in
-# various locations.
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
+
+STATIC_ROOT = os.path.join(MEDIA_ROOT, 'static/')
+
+TEMPLATE_DIRS = (
+    os.path.join(DJANGO_ROOT, "templates/"),
+)
+
+STATICFILES_DIRS = (
+    os.path.join(DJANGO_ROOT, 'static/'),
+)
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     # THE django-mobile HAS TO BE FIRST IN THIS LIST OR IT WON'T WORK
     'django_mobile.loader.Loader',
@@ -50,8 +52,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     #'django.template.loaders.eggs.Loader',
 )
-
-INTERNAL_IPS = ('127.0.0.1',)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -62,47 +62,39 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     'django_mobile.context_processors.flavour',
     "stories.context_processors.media_url",
-    # required to render correct templates (grappelli+admin-tools or grappelli "standalone")
-    #"grappelli.context_processors.admin_template_path",
 )
 
 MIDDLEWARE_CLASSES = (
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django_mobile.middleware.MobileDetectionMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    
-    'django.middleware.cache.UpdateCacheMiddleware',
+
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-    
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'pagination.middleware.PaginationMiddleware',
+
     'django_mobile.middleware.SetFlavourMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
-    'django.contrib.redirects',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'django.contrib.messages',
-    #'django.contrib.comments',
     'django.contrib.humanize',
     'django.contrib.markup',
     'django.contrib.staticfiles',
-    
-    
-    #'comments',
-    #'comment_utils',
-    
-    #'debug_toolbar',
+    'django.contrib.sitemaps',
 
     # Dependencies
     'django_mobile',
@@ -116,12 +108,8 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
-    
-    #'grappelli',
-    
-    # Uncomment the next line to enable the admin:
+
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django.contrib.flatpages',
     'polls',
@@ -135,7 +123,7 @@ INSTALLED_APPS = (
     'galleries',
     'masthead',
     'video',
-    
+
     # Staff apps
     'staff',
     'staff.requests',
@@ -156,15 +144,10 @@ HAYSTACK_SITECONF = 'search_sites'
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 15
 
-COMPRESS = False
+AKISMET_API_KEY = 'a749fbcef622'
 
 WIKI_REQUIRES_LOGIN = True
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -182,3 +165,5 @@ LOGGING = {
         },
     }
 }
+
+from settings_local import *
