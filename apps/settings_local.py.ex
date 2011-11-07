@@ -23,6 +23,11 @@ STATIC_URL = '/static/' # TODO change on prod
 
 SECRET_KEY = 'jqb%^1wtw4#g2ug8w^shcm=&o)$^dx7$os3cnbexpy@607vuwu'
 
+INSTALLED_APPS = (
+    'debug_toolbar',
+    'django_extensions',
+) + INSTALLED_APPS
+
 HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_ROOT, 'xapian/')
 
 # Twitter Authentication info for posting new stories to Twitter
