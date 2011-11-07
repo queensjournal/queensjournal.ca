@@ -1,4 +1,3 @@
-import socket
 import os
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -78,8 +77,6 @@ MIDDLEWARE_CLASSES = (
     'pagination.middleware.PaginationMiddleware',
 
     'django_mobile.middleware.SetFlavourMiddleware',
-
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
@@ -167,3 +164,13 @@ LOGGING = {
 }
 
 from settings_local import *
+
+if DEBUG:
+    INSTALLED_APPS += (
+        'debug_toolbar',
+        'django_extensions',
+    )
+    MIDDLEWARE_CLASSES += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+
