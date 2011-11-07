@@ -80,13 +80,11 @@ def restart():
     sudo('supervisorctl restart %s' % supervisor_task)
 
 def update():
-    local('git push origin master')
-    virtualenv('git pull origin master')
+    virtualenv('git pull origin')
     virtualenv('pip install -r %(pip_requirements)s' % env)
     virtualenv('git submodule sync')
     virtualenv('git submodule init')
     virtualenv('git submodule update')
-    restart()
 
 def pulldump():
     with cd(local_dumps) and settings(warn_only=True):
