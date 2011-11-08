@@ -1,3 +1,19 @@
+Picasso 2.1.4 - November 7, 2011
+------------------------------
+
+Features:
+* [added robots.txt](https://github.com/tylerball/queensjournal.ca/commit/2a3a8743c66ff6b59e9c5cff5b9bd7a92e54f8df)
+* Settings, urls and template cleanup to conform with my best practices:
+    * [1](https://github.com/tylerball/queensjournal.ca/commit/72699d41779e1449ab9c281134a95bb8e704f5a4)
+    * [2](https://github.com/tylerball/queensjournal.ca/commit/98476e6bf237f481d8139b09d9e4e48af86c1225)
+    * [3](https://github.com/tylerball/queensjournal.ca/commit/9b33306f3b9deaa05d6880eb6be4150a5ad4ffa0)
+    * [4](https://github.com/tylerball/queensjournal.ca/commit/cbc890bbac9ca273b1645aa27fb2d04b7fea3c1c)
+    * [5](https://github.com/tylerball/queensjournal.ca/commit/f5ccf9da76690f8ec95cf5114bceb2c4cab3fbfd)
+
+Fixes:
+* [Cut the DB queries from 1500+ on the story_detail to ~75.](https://github.com/tylerball/queensjournal.ca/commit/8b68ad156ca163165c07421392f37560986b0798)
+* [disallow blank pub_date in blog entries](https://github.com/tylerball/queensjournal.ca/commit/4026969efffcdeef9eaf712d03f77c09f7938d68)
+
 Picasso 2.1.3 - October 10, 2011
 --------------------------------
 

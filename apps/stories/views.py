@@ -75,7 +75,6 @@ def detail_story(request, datestring, section, slug):
     dt = datetime.combine(parse_date(datestring), time())
     dt2 = dt + timedelta(1) - datetime.resolution
     story_selected = get_object_or_404(Story, section__slug__exact=section, pub_date__range=(dt, dt2), slug__exact=slug)
-    section_config = SectionFrontConfig.objects.get(section__slug=section)
     try:
         author = StoryAuthor.objects.filter(story__slug__exact=slug)[0]
         author_role = author.author.get_role(story_selected.pub_date)
@@ -85,8 +84,7 @@ def detail_story(request, datestring, section, slug):
         request.session['vote'] = []
     return render_to_response('stories/single_detail.html',
                                 {'story': story_selected,
-                                'author_role': author_role,
-                                'config': section_config},
+                                'author_role': author_role,},
                                 context_instance=RequestContext(request))
 
 def tags(request):
