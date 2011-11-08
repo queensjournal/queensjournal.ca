@@ -79,8 +79,6 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.SetFlavourMiddleware',
 )
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
 ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS = (
@@ -173,4 +171,3 @@ if DEBUG:
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
-
