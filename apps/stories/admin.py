@@ -1,4 +1,5 @@
 import datetime
+from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 import settings
@@ -31,15 +32,22 @@ class StoryPollInline(admin.TabularInline):
     model = StoryPoll
     extra = 1
 
-class PhotoFormSet(BaseInlineFormSet):
+class StoryPhotoFormSet(BaseInlineFormSet):
     def get_queryset(self):
-        return super(PhotoFormSet, \
-            self).get_queryset().filter(photo__creation_date__gt=(datetime.datetime.now() \
-            - datetime.timedelta(weeks=8)))
+        if not hasattr(self, 'queryset'):
+            qs = super(PhotoFormSet, self).get_queryset() \
+            .exclude(photo__creation_date__lt=(datetime.datetime.now() \
+            - datetime.timedelta(weeks=8)))[:300]
+        else:
+            qs = self.model._default_manager.get_query_set() \
+                .exclude(photo__creation_date__lt=(datetime.datetime.now() \
+                - datetime.timedelta(weeks=8)))[:300]
+        self._queryset = qs
+        return self._queryset
 
 class StoryPhotoInline(admin.TabularInline):
     model = StoryPhoto
-    formset = PhotoFormSet
+    formset = StoryPhotoFormSet
 
 class StoryAuthorInline(admin.TabularInline):
     model = StoryAuthor
