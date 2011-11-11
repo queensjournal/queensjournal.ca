@@ -37,20 +37,10 @@ class StoryPhotoInline(admin.TabularInline):
 
     def formfield_for_dbfield(self, field, **kwargs):
         if field.name == 'photo':
-            # Note - get_object hasn't been defined yet
-            parent_story = self.get_object(kwargs['request'], Story)
             incl_photos = Photo.objects.exclude(creation_date__lt=(datetime.datetime.now() \
                 - datetime.timedelta(weeks=8)))
             return forms.ModelChoiceField(queryset=incl_photos)
         return super(StoryPhotoInline, self).formfield_for_dbfield(field, **kwargs)
-
-    def get_object(self, request, model):
-        object_id = request.META['PATH_INFO'].strip('/').split('/')[-1]
-        try:
-            object_id = int(object_id)
-        except ValueError:
-            return None
-        return model.objects.get(pk=object_id)
 
 class StoryAuthorInline(admin.TabularInline):
     model = StoryAuthor
