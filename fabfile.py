@@ -1,4 +1,6 @@
 import os
+import time
+import datetime
 import fabric
 from random import Random
 from getpass import getpass
@@ -12,7 +14,7 @@ env.unit = os.path.split(env.root_dir)[1]
 django.project('apps')
 from django.conf import settings
 
-env.path = "~/webapps/%(unit)s" % env
+env.path = "/home/journal/webapps/%(unit)s" % env
 env.source = "git@bitbucket.com:tylerball/%(unit)s.git" % env
 env.source_http = "https://tylerball@bitbucket.org/tylerball/%(unit)s.git" % env
 env.django_root = os.path.join(env.root_dir, 'apps/')
@@ -35,6 +37,9 @@ for i in range(30):
 
 def echo(msg):
     local('echo %s' % msg)
+
+def local_env(cmd):
+    local('source %s/bin/activate && %s' % (env.root_dir, cmd))
 
 def setup_localsettings():
     with hide('running'):
@@ -87,18 +92,41 @@ def update():
     virtualenv('git submodule update')
 
 def pulldump():
-    with cd(local_dumps) and settings(warn_only=True):
-        # Kill off any other dumps made today
+    # Make sure theres a dumps dir
+    try:
+        lcd(local_dumps)
+    except:
+        local('mkdir %s/dumps' % env.path)
+
+    # Kill off any dumps older than a month
+    with hide("running"):
+        output = run('ls %s/dumps' % env.path)
+        files = output.split()
+        ctimes = {}
+        for f in files:
+            ctimes[f] = run("python <<< 'import os; print os.path.getctime(\"%s/dumps/%s\")'" % \
+                (env.path, f))
+
+    for f in ctimes.keys():
+        if float(ctimes[f]) < (time.time() - (30 * 24 * 60 * 60)):
+            run('rm %s/dumps/%s' % (env.path, f))
+
+    try:
+        with lcd(local_dumps):
+            local('tar -xvf {}/journal-`date +%F`.tar.gz'.format(local_dumps))
+    except:
         try:
-            run('rm journal-`date +%F`*')
-            run('pg_dump -h localhost -U postgres --clean --no-owner --no-privileges journal > {}/dumps/journal-`date +%F`.sql'.format(env.directory))
+            local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}'.format(env.host_string, env.path, local_dumps))
+        except:
+            run('pg_dump -h localhost -U postgres --clean --no-owner --no-privileges {0[unit]} \
+            > {0[path]}/dumps/journal-`date +%F`.sql'.format(env))
             with cd('%s/dumps' % env.path):
                 run('tar -czf journal-`date +%F`.tar.gz journal-`date +%F`.sql')
-            local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}/'.format(env.host_string, env.path, local_dumps))
-        except:
-            local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}/'.format(env.host_string, env.path, local_dumps))
-        local('tar -xzvf {}/journal-`date +%F`.tar.gz'.format(local_dumps))
-    local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
+            local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}'.format(env.host_string, env.path, local_dumps))
+            run('rm %(path)s/dumps/%(unit)s-`date +%F`.sql' % env)
+    with lcd(env.django_root):
+        local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
 
 def pullmedia():
-    local('rsync -autvz --progress --exclude="cache/" --exclude="photo_cache/" %(host_string)s:%(media)s/* ' % env + settings.MEDIA_ROOT)
+    local('rsync -autvz --progress --exclude="cache/" --exclude="photo_cache/" \
+        %(host_string)s:%(media)s/* ' % env + settings.MEDIA_ROOT)
