@@ -9,12 +9,10 @@ from tagging.models import Tag, TaggedItem
 
 class GalleryFormSet(BaseInlineFormSet):
     def get_queryset(self):
-        qs = super(GalleryFormSet, self).get_queryset()
-        if self.instance.pub_date < (datetime.datetime.now() - datetime.timedelta(weeks=8)):
-            self.max_num = 0
-            return qs.none() # this formset is empty! 
-        return qs
-    
+        return super(GalleryFormSet, \
+            self).get_queryset().filter(pub_date__gt=(datetime.datetime.now() \
+            - datetime.timedelta(weeks=8)))
+
 class GalleryInline(admin.TabularInline):
     model = Gallery
     formset = GalleryFormSet
@@ -24,27 +22,25 @@ class GalleryInline(admin.TabularInline):
 class FactboxInline(admin.TabularInline):
     model = Factbox
     extra = 1
-    
+
 class DocumentInline(admin.TabularInline):
     model = Document
     extra = 1
-    
+
 class StoryPollInline(admin.TabularInline):
     model = StoryPoll
     extra = 1
-    
+
 class PhotoFormSet(BaseInlineFormSet):
     def get_queryset(self):
-        qs = super(PhotoFormSet, self).get_queryset()
-        if self.instance.pub_date < (datetime.datetime.now() - datetime.timedelta(weeks=8)):
-            self.max_num = 0
-            return qs.none() # this formset is empty! 
-        return qs
+        return super(PhotoFormSet, \
+            self).get_queryset().filter(photo__creation_date__gt=(datetime.datetime.now() \
+            - datetime.timedelta(weeks=8)))
 
 class StoryPhotoInline(admin.TabularInline):
     model = StoryPhoto
     formset = PhotoFormSet
-    
+
 class StoryAuthorInline(admin.TabularInline):
     model = StoryAuthor
 
@@ -68,10 +64,10 @@ class StoryAdmin(admin.ModelAdmin):
     list_filter = ['pub_date', 'section', 'status', 'issue']
     search_fields = ['head', 'deck', 'content']
     actions = ['make_published', 'make_featured', 'remove_featured', 'make_draft']
-    
+
     class Media:
         js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
-    
+
     def make_published(self, request, queryset):
         rows_updated = queryset.update(status='p')
         if rows_updated == 1:
@@ -80,7 +76,7 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "%s stories were" % rows_updated
         self.message_user(request, "%s successfully marked as published." % message_bit)
     make_published.short_description = "Mark selected stories as published"
-    
+
     def make_draft(self, request, queryset):
         rows_updated = queryset.update(status='d')
         if rows_updated == 1:
@@ -89,7 +85,7 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "%s stories were" % rows_updated
         self.message_user(request, "%s successfully marked as draft." % message_bit)
     make_draft.short_description = "Mark selected stories as draft"
-        
+
     def make_featured(self, request, queryset):
         rows_updated = queryset.update(featured=True)
         if rows_updated == 1:
@@ -98,7 +94,7 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "%s stories were" % rows_updated
         self.message_user(request, "%s successfully marked as featured." % message_bit)
     make_featured.short_description = "Mark selected stories as featured"
-    
+
     def remove_featured(self, request, queryset):
         rows_updated = queryset.update(featured=False)
         if rows_updated == 1:
@@ -114,12 +110,12 @@ class PhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['photo', 'name', 'storyphoto__story__head']
     list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption', 'photo_stories')
-    
+
 admin.site.register(Photo, PhotoAdmin)
 
 class FeaturedPhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    
+
 admin.site.register(FeaturedPhoto, FeaturedPhotoAdmin)
 
 class MyTagAdmin(admin.ModelAdmin):
