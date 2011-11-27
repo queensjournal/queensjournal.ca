@@ -1,5 +1,5 @@
 import re
-import urllib
+from django.utils.http import urlquote
 from django import template
 from htmlentitydefs import codepoint2name
 from django.utils.html import conditional_escape
@@ -167,7 +167,7 @@ def possessive(value):
     return "%s's" % value
 
 def urlencode(value):
-    return urllib.quote_plus(value)
+    return urlquote(value)
 
 def paragraphs(var, arg):
     '''

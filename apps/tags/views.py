@@ -8,27 +8,11 @@ from tagging.models import TaggedItem, Tag
 from dependencies.multiquery import QuerySetChain
 
 
-def unquote_utf8(s):
-    """CCP attempt at making sensible choices in unicode quoteing / unquoting """
-    s = unquote(s)
-    try:
-        u = s.decode("utf-8")
-        try:
-            s2 = s.decode("ascii")
-        except UnicodeDecodeError:
-            s = u #yes, s was definitely utf8, which isn't pure ascii
-        else:
-            if u != s:
-                s = u
-    except UnicodeDecodeError:
-        pass  #can't have been utf8
-    return s
-
 def tags(request):
     return render_to_response("tags/tags.html", context_instance=RequestContext(request))
 
 def with_tag(request, tag, object_id=None, page=1):
-    unslug = tag.replace('+', ' ')
+    unslug = unquote(tag)
     query_tag = get_object_or_404(Tag, name=unslug)
     story_list = TaggedItem.objects.get_by_model(Story, query_tag).order_by('-pub_date')
     entry_list = TaggedItem.objects.get_by_model(Entry, query_tag).order_by('-pub_date')
