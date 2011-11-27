@@ -60,7 +60,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.static",
     'django_mobile.context_processors.flavour',
-    "stories.context_processors.media_url",
 )
 
 MIDDLEWARE_CLASSES = (
