@@ -13,29 +13,29 @@
 {% endblock %}#}
 
 {% block title %}Videos - {{ block.super }}{% endblock title %}
-	
+
 	{% block actions %}
 		<div id="actions"><p><span id="actions-rss" class="action"><a href="/rss/section/{{ story.section.slug }}/">Latest {% firstof story.section.short_name story.section.name %} RSS <img src="/media/global/img/icon_rss.gif" /></a></span></p></div>
 	{% endblock actions %}
-	
-	{% block content-class %} span-19 front-content{% endblock %}	
-	
+
+	{% block content-class %} span-19 front-content{% endblock %}
+
 	{% block content %}
-	
+
 	{% block breadcrumb %}
 		<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Videos</span></div>
 	{% endblock %}
-	
+
 	<div class="section-header">
 		<h1>Videos</h1>
 	</div>
-	
+
 	<div class="hr dblmargin"><hr></div>
-		
-	<div id="videos" class="block">	
-			
+
+	<div id="videos" class="block">
+
 		<div class="featured column span-16 colborder"><!--featured box-->
-			
+
 			<div id="latest-video-wrapper">
 				{% oembed 475x400 %}
 				{{ latest_video.link|safe }}
@@ -44,9 +44,9 @@
 				<h2><a href="{{ latest_video.get_absolute_url }}">{{ latest_video.name|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
 				{{ latest_video.caption|stripspace|convert_entities|truncatewords:38|safe }}
 			</div>
-			
+
 		</div><!--featured box-->
-	
+
 		<div id="stories-other" class="latest column span-7 last">
 			<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
 			<hr>
@@ -58,9 +58,9 @@
 					<h2 class="latest-section-head">{{ video.name }}</h2></a>
 				</div>
 				<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-				<p class="pub_date">Posted {{ video.pub_date|date_diff }}</p>
+				<p class="pub_date">Posted {{ video.pub_date|time_since }}</p>
 			</div>
 			{% endfor %}
-		
+
 	</div><!--block-->
 	{% endblock content %}

@@ -1,0 +1,36 @@
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="container">
+            <a class="brand" href="/staff/">
+                <img src="{{ STATIC_URL }}img/staff/logo-topnav-qj.png" />
+                Journal Staff Site</a>
+            <ul class="nav">
+                {% if perms.requests %}
+                <li><a href="{% url staff.requests.views.user_index %}">Photo Requests</a></li>
+                {% endif %}
+
+                {% if perms.blog %}
+                <li><a href="{% url staff.wiki.views.article_list %}">Wiki</a></li>
+                {% endif %}
+            </ul>
+
+            <ul class="nav secondary-nav">
+                {% block secondary_nav %}
+                    {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            Logged in as <strong>{{ user.username }}</strong>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url staff-logout %}">Logout</a>
+                            <li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                {% endblock %}
+            </ul>
+        </div>
+    </div>
+</div>

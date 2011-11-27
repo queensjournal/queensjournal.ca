@@ -25,31 +25,31 @@
 {% block jsload %}'{{ STATIC_URL }}js/plusone.js'{% endblock %}
 
 {% block title %}{{ video.name }} - Video - Queen's Journal{% endblock title %}
-    
+
     {% block actions %}
         <div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
     {% endblock actions %}
-    
+
     {% block content %}
-    
+
     {% block breadcrumb %}
     <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url video.views.index_video %}">Videos</a></div>
     {% endblock breadcrumb %}
-    
+
         <!-- google_ad_section_start -->
         <div id="story">
             <div class="pub-date">{{ video.pub_date|date:"jS F Y" }}</div>
             <h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
-            
+
             <div id="slider">
                 {% load oembed_tags %}
                 {% oembed 620x400 %}
                 {{ video.link|safe }}
                 {% endoembed %}
             </div>
-            
+
             <p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>
-            
+
             <div id="story-share">
                 <hr>
                 <table>
@@ -63,13 +63,13 @@
                 </table>
                 <hr>
             </div>
-            
+
             <div class="video-caption">
-        
+
             {{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
-    
+
             </div>
-            
+
             <div id="story-meta">
                 <hr>
                 {% tags_for_object video as tags %}
@@ -96,23 +96,23 @@
                 {% endif %}
                 {% revcanonical story %}
             </div>
-                    
+
             <h3>Latest Videos</h3>
-            <hr> 
+            <hr>
             <div id="other-stories">
                 {% for video in latest_videos %}
                 <div class="latest-section">
                     <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
                     <h4>{{ video.name }}</h4></a>
                     <p class="summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-                    <p class="pub-date">Posted {{ video.pub_date|date_diff }}</p>
+                    <p class="pub-date">Posted {{ video.pub_date|time_since }}</p>
                 </div>
                 {% endfor %}
             </div>
-            
+
             {% load disqus_tags %}
             {% disqus_show_comments %}
-                
+
         </div>
     {% endblock content %}
     <!-- google_ad_section_end -->

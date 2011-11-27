@@ -14,7 +14,7 @@
 	{% block actions %}
 		{% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
 	{% endblock actions %}
-	
+
 	{% block content %}
 		{% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Blogs</span></div>{% endblock %}
 		<div class="section-header">
@@ -24,7 +24,7 @@
 		<div class="hr dblmargin"><hr></div>
 
 		<div class="block">
-			
+
 			<div class="featured column span-16 colborder"><!--featured box-->
 
 					<div id="slider-wrapper">
@@ -45,7 +45,7 @@
 					</div>
 
 			</div><!--featured box-->
-			
+
 			<div id="stories-other" class="latest column span-7 last">
 				<h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
 				<hr>
@@ -53,14 +53,14 @@
 				{% for entry in latest %}
 					<li><p class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></p>
 						<h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
-						<p class="pub_date">{{ entry.pub_date|date_diff }}</p>
+						<p class="pub_date">{{ entry.pub_date|time_since }}</p>
 					</li>
 				{% endfor %}
 				</ul>
 			</div>
 
 		</div><!--block-->
-		
+
 		<div class="hr dblmargin"><hr></div>
 
 		<div class="block">
@@ -72,23 +72,23 @@
 					<a href="{{ blog.get_absolute_url }}">{% if blog.image %}<img src="{{ blog.image.front_image.url }}" /></a>{% endif %}
 					<h2 class="latest-section-head"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h2>
 					<p class="latest-section-summary">{{ blog.description|typogrify|safe }}</p>
-					
+
 					<p><a href="/rss/blogs/{{ blog.slug }}"><img src="{{ STATIC_URL }}img/feed-icon-10x10.gif">&ensp;Latest posts feed</a></p>
 					<div class="blog-recent-posts latest">
 						<ul>
 						{% for post in blog.entry_set.published|slice:":2" %}
-							<li><p class="label">Posted {{ post.pub_date|date_diff }}</p>
+							<li><p class="label">Posted {{ post.pub_date|time_since }}</p>
 							<h5><a href="{{ post.get_absolute_url }}">{{ post.title|typogrify }}</a></h5></li>
 						{% endfor %}
 						</ul>
 					</div>
 				</div>
 				{% endfor %}
-				
+
 			</div>
 
 		</div>
-		
+
 	{% endblock content %}
 
 {% block footercode %}
@@ -106,7 +106,7 @@
 		$('#other-stories').masonry({
  			singleMode: true,
 			columnWidth: 247,
-			itemSelector: '.latest-section' 
+			itemSelector: '.latest-section'
 		});
 	});
 {% endblock footercode %}

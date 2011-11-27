@@ -18,7 +18,7 @@
 {% endblock %}
 
 	{% block title %}{{ config.issue.pub_date|date:"F j, Y" }} - {{ config.issue }} - {{ block.super }}{% endblock title %}
-	
+
 	{% block issue-banner %}
 		{% if config.issue.extra %}
 			<div id="issue-banner" class="clearfix">
@@ -26,9 +26,9 @@
 			</div>
 		{% endif %}
 	{% endblock issue-banner %}
-	
+
 	{% block content-class %} span-19 front-content{% endblock %}
-	
+
 	{% block content %}
 	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
 		<div class="section-header">
@@ -36,11 +36,11 @@
 		</div>
 
 	<div class="hr dblmargin"><hr></div>
-	
+
 	<div class="block">
-		
+
 		<div class="featured column span-16 colborder"><!--featured box-->
-				
+
 				<div id="slider-wrapper">
 
 		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
@@ -55,11 +55,11 @@
 						{{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
 		            </div>
 					{% endfor %}
-		       
+
 				</div>
-				
+
 		</div><!--featured box-->
-		
+
 		<div id="latest_stories" class="latest column span-7 last">
 			<h3>In this Issue</h3>
 			<hr>
@@ -67,20 +67,20 @@
 			{% for story in latest_stories %}
 				<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
 					<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
-					<p class="pub_date">{{ story.pub_date|date_diff }}</p>
+					<p class="pub_date">{{ story.pub_date|time_since }}</p>
 				</li>
 			{% endfor %}
 			</ul>
 		</div>
-		
+
 	</div><!--block-->
-	
+
 	<div class="hr dblmargin"><hr></div>
-	
+
 	<div class="block">
-		
+
 		<div id="section-stories" class="column span-24">
-			
+
 			{% for story in latest_section %}
 			<div class="latest-section">
 				<p class="label section-label"><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></p>
@@ -89,7 +89,7 @@
 				<p class="latest-section-summary">{{ story.summary }}</p>
 			</div>
 			{% endfor %}
-			
+
 			{% for otherstory in config.frontpagefirsttierstory_set.all %}
 				<p class="label story-label">{% firstof otherstory.label otherstory.story.label "Story" %}</p>
 				<h3 class="otherstory-head"><a href="{{ otherstory.story.get_absolute_url }}">{{ otherstory.story.head|stripspace|convert_entities|widont }}</a></h3>
@@ -101,13 +101,13 @@
 					<h5 class="otherstory-head"><a href="{{ otherstory.story.get_absolute_url }}">{{ otherstory.story.head|stripspace|convert_entities|widont }}</a></h5>
 				{% endfor %}
 			{% endif %}
-			
+
 		</div>
-		
+
 	</div><!--block 2-->
-		
+
 	{% endblock content %}
-	
+
 {% block footercode %}
     $(window).load(function() {
         $('#slider').nivoSlider({
@@ -123,7 +123,7 @@
 		$('#section-stories').masonry({
  			singleMode: true,
 			columnWidth: 248,
-			itemSelector: '.latest-section' 
+			itemSelector: '.latest-section'
 		});
 	});
 {% endblock footercode %}
