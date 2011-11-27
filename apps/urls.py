@@ -1,9 +1,8 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
-from feeds import *
-
-from structure.models import Section
+from feeds import Latest, LatestStories, LatestStoriesSection, LatestPostsAllBlogs,\
+    LatestPostsSingleBlog, LatestVideos
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -45,9 +44,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 
-    (r'^tags/$', 'stories.views.tags'),
-    (r'^tag/(?P<tag>.*)/$','stories.views.with_tag'),
-    (r'^tag/(?P<tag>.*)/page/(?P<id>[-\w]+)/$', 'stories.views.with_tag' ),
+    (r'^tags/$', 'tags.views.tags'),
+    (r'^tag/', include('tags.urls')),
 
     (r'^s/', include('shorturls.urls')),
 )
