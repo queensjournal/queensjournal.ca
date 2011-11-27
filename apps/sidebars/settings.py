@@ -1,5 +1,5 @@
-from structure.models import Section, Issue
-from sidebars.models import NewsCalendarItem, ArtsCalendarItem, TalkingHeadsItem, SportsCalendarItem, PreviousStories
+from sidebars.models import NewsCalendarItem, ArtsCalendarItem, TalkingHeadsItem, \
+    SportsCalendarItem
 
 # Link sidebars to sections here.
 # Perhaps make this an admin item in the future?

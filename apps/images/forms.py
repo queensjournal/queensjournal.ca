@@ -8,6 +8,8 @@ class ImageForm(forms.Form):
     credit = forms.CharField(required=False)
 
     def clean_name(self):
-        if self.cleaned_data.get('name') and Image.objects.filter(name=self.cleaned_data['name']).count() != 0:
-            raise forms.ValidationError(u'An image object with this name already exists. Please use a different name.')
+        if self.cleaned_data.get('name') and Image.objects.filter(name = \
+            self.cleaned_data['name']).count() != 0:
+            raise forms.ValidationError(u'An image object with this name already exists. \
+                Please use a different name.')
         return self.cleaned_data['name']

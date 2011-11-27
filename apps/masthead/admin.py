@@ -1,12 +1,12 @@
 from django.contrib import admin
-from masthead.models import *
+from masthead.models import MastheadName, Masthead
 
 class MastheadInline(admin.TabularInline):
-	model = MastheadName
-	
+    model = MastheadName
+
 class MastheadAdmin(admin.ModelAdmin):
-	inlines = [
-		MastheadInline,
-	]
-	
+    inlines = [
+        MastheadInline,
+        ]
+
 admin.site.register(Masthead, MastheadAdmin)

@@ -1,7 +1,6 @@
 import re
 import urllib
 from django import template
-from django.utils.encoding import smart_unicode
 from htmlentitydefs import codepoint2name
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
@@ -59,7 +58,7 @@ def choptext(value, char='20'):
       return mark_safe(result)
    else:
       return value
-    
+
 def date_diff(timestamp, to=None):
     if not timestamp:
         return ""
@@ -87,7 +86,7 @@ def date_diff(timestamp, to=None):
 
     if delta.days > 0: return "in " + date_str
     else: return date_str + " ago"
-    
+
 def timesince(start_time):
     delta = datetime.datetime.now() - start_time
 
@@ -145,35 +144,35 @@ def truncatesmart(value, limit=80):
 
     # Join the words and return
     return ' '.join(words) + '...'
-    
+
 def striplabel(value, delimiter=','):
     """
     Strips and returns the first tag out of a TagField for our "Story Label" display
     """
     value = unicode(value)
-    
+
     if delimiter in value:
         value = value.split(',')[0]
         return value
     else:
         return value
-        
-def possessive(value): 
-    """ 
-    Returns a possessive form of a name according to English rules 
-    Mike returns Mike's, while James returns James' 
-    """ 
-    if value[-1] == 's': 
-        return "%s'" % value 
+
+def possessive(value):
+    """
+    Returns a possessive form of a name according to English rules
+    Mike returns Mike's, while James returns James'
+    """
+    if value[-1] == 's':
+        return "%s'" % value
     return "%s's" % value
-    
+
 def urlencode(value):
     return urllib.quote_plus(value)
-    
+
 def paragraphs(var, arg):
     '''
     Returns a index of paragraphs. E.g. {{ content|paragraphs:'3:' }} will return the fourth paragraph and on.
-    
+
     '''
     ints = arg.split(':')
     for i, c in enumerate(ints):
@@ -184,7 +183,7 @@ def paragraphs(var, arg):
         return "\n\n".join(paras[int(ints[0]):int(ints[1])])
     else:
         return "\n\n".join(paras[int(ints[0]):])
-    
+
 register.filter(convert_entities)
 register.filter(linebreakswithcode)
 register.filter(stripspace)

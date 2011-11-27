@@ -1,7 +1,8 @@
-from structure.models import *
+from structure.models import Issue, SectionFrontConfig, Section, Volume, FlatPlanSection,\
+    FlatPlanConfig, FrontConfig, AuthorRole, Author, Headshot, FrontPageConfig
 import datetime
 from django.forms import ModelForm
-from stories.models import FeaturedStory, Section, Story
+from stories.models import FeaturedStory, Story
 from django.contrib import admin
 
 class IssueAdmin(admin.ModelAdmin):
@@ -11,21 +12,21 @@ class IssueAdmin(admin.ModelAdmin):
     ]
     list_display = ('issue', 'pub_date', 'extra')
     list_filter = ['volume',]
-    
+
 admin.site.register(Issue, IssueAdmin)
 
 class SectionConfigInline(admin.TabularInline):
     model = SectionFrontConfig
-    
+
 class SectionAdmin(admin.ModelAdmin):
     inlines = [ SectionConfigInline, ]
     fieldsets = [
         (None, {'fields': ('name', 'short_name', 'slug')})
     ]
     prepopulated_fields = {'short_name': ('name',),'slug': ('short_name',)}
-    
+
 admin.site.register(Section, SectionAdmin)
-    
+
 class VolumeAdmin(admin.ModelAdmin):
     pass
 
@@ -39,7 +40,7 @@ class FlatPlanConfigAdmin(admin.ModelAdmin):
     inlines = [
         FlatPlanSectionInline,
     ]
-    
+
 admin.site.register(FlatPlanConfig, FlatPlanConfigAdmin)
 
 class FeaturedInlineForm(ModelForm):
@@ -59,7 +60,7 @@ class FrontConfigAdmin(admin.ModelAdmin):
     inlines = [
         FeaturedInline,
     ]
-    
+
 admin.site.register(FrontConfig, FrontConfigAdmin)
 
 class AuthorRoleInline(admin.TabularInline):
@@ -72,12 +73,12 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name',)
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name', 'bio',]
-    
+
 admin.site.register(Author, AuthorAdmin)
 
 class HeadshotAdmin(admin.ModelAdmin):
     pass
-    
+
 admin.site.register(Headshot, HeadshotAdmin)
 
 class FrontPageConfigAdmin(admin.ModelAdmin):
@@ -88,20 +89,20 @@ class FrontPageConfigAdmin(admin.ModelAdmin):
         return {}
     def has_add_permission(self, request):
         return False
-        
+
     def has_delete_permission(self, request):
         return False
-    
+
 admin.site.register(FrontPageConfig, FrontPageConfigAdmin)
 
 ''' OLD STUFF THAT DOESN'T REALLY NEED TO BE IN THE ADMIN
 class AuthorRoleAdmin(admin.ModelAdmin):
 	pass
-	
+
 admin.site.register(AuthorRole, AuthorRoleAdmin)
 
 class FrontPageConfigAdmin(admin.ModelAdmin):
 	pass
-	
+
 admin.site.register(FrontPageConfig, FrontPageConfigAdmin)
 '''

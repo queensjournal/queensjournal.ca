@@ -1,11 +1,9 @@
 import datetime
-import time
 from django.db import models
-from structure.models import Issue, Section, FrontConfig, SectionFrontConfig, Author
+from structure.models import Issue, Section, FrontConfig, Author
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
-from django.db.models import Q
 from dependencies.twitter_update import post_to_twitter
 
 STATUS_CHOICES = (
@@ -17,19 +15,28 @@ STATUS_CHOICES = (
 class Story(models.Model):
     head = models.CharField(max_length=255)
     deck = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting.')
+    slug = models.SlugField(help_text='Automatically written based on the headline. If \
+        nothing shows up here, try typing in the headline instead of copying and pasting.')
     section = models.ForeignKey(Section)
     issue = models.ForeignKey(Issue, null=True, blank=True)
     label = models.CharField(max_length=255, blank=True, null=True, editable=False)
     content = models.TextField()
     summary = models.TextField(help_text='Sum up the story in a single paragraph.')
-    section_order = models.PositiveSmallIntegerField("Order in section", help_text="Determines the order of all stories in the section, with lower numbers at the top (so a story with order priority 1 would be at the top).", editable=False, null=True)
+    section_order = models.PositiveSmallIntegerField("Order in section", help_text="\
+        Determines the order of all stories in the section, with lower numbers at the top \
+        (so a story with order priority 1 would be at the top).", editable=False, \
+        null=True)
     enable_comments = models.BooleanField(default=True)
-    show_headshots = models.BooleanField(default=False, help_text="Check when you want to display headshots. For Ops pieces and Signed Eds.")
-    tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags to the story. Use commas to separate tags. The first tag will be the story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
+    show_headshots = models.BooleanField(default=False, help_text="Check when you want to \
+        display headshots. For Ops pieces and Signed Eds.")
+    tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags \
+        to the story. Use commas to separate tags. The first tag will be the story\'s \
+        label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
     featured = models.BooleanField()
     pub_date = models.DateTimeField(default=datetime.datetime.now, unique=True)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', help_text='Draft will place the story in a queue to be published later, published will publish the story immediately.')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', \
+        help_text='Draft will place the story in a queue to be published later, published \
+        will publish the story immediately.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
 
@@ -45,9 +52,11 @@ class Story(models.Model):
         # byline names
         for wrapper in author_qset:
             if (author_num > 1 and wrapper != author_qset[-2]) or author_num == 1:
-                authors.append('<a href="/author/%s/">%s</a>, ' % (wrapper.author.slug, wrapper.author.name))
+                authors.append('<a href="/author/%s/">%s</a>, ' % (wrapper.author.slug, \
+                    wrapper.author.name))
             else:
-                authors.append('<a href="/author/%s/">%s</a>' % (wrapper.author.slug, wrapper.author.name))
+                authors.append('<a href="/author/%s/">%s</a>' % (wrapper.author.slug, \
+                    wrapper.author.name))
         # byline titles
         if author_num > 1:
             authors.insert(-1, 'and')
@@ -150,13 +159,18 @@ class StoryAuthor(models.Model):
 
 class Photo(ImageModel):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(help_text='Automatically written based on the headline. If nothing shows up here, try typing in the headline instead of copying and pasting.')
-    photo = models.ImageField(upload_to='story_photos/%Y/%m/%d/', help_text='Please convert all images to RGB JPEGs.')
-    thumbnail = models.ImageField(upload_to='thumbs/', editable=False, null=True, default='')
+    slug = models.SlugField(help_text='Automatically written based on the headline. If \
+        nothing shows up here, try typing in the headline instead of copying and pasting.')
+    photo = models.ImageField(upload_to='story_photos/%Y/%m/%d/', help_text='Please \
+        convert all images to RGB JPEGs.')
+    thumbnail = models.ImageField(upload_to='thumbs/', editable=False, null=True, \
+        default='')
     issue = models.ForeignKey(Issue, blank=True, null=True)
     caption = models.TextField(blank=True)
     photographer = models.ForeignKey(Author, blank=True, null=True)
-    credit = models.CharField("Optional credit", max_length=255, help_text="For special photo credits not involving a staff photographer, ex. 'Photo supplied by Queen's Alumni Services,' 'Journal File Photo,' etc.", blank=True)
+    credit = models.CharField("Optional credit", max_length=255, help_text="For special \
+        photo credits not involving a staff photographer, ex. 'Photo supplied by Queen's \
+        Alumni Services,' 'Journal File Photo,' etc.", blank=True)
     creation_date = models.DateField(default=datetime.date.today())
 
     class IKOptions:
@@ -175,7 +189,8 @@ class Photo(ImageModel):
         storyp_set = StoryPhoto.objects.filter(photo=self)
         sections = []
         for storyp in storyp_set:
-            url = urlresolvers.reverse('admin:stories_story_change', args=(storyp.story.id,))
+            url = urlresolvers.reverse('admin:stories_story_change', \
+                args=(storyp.story.id,))
             head = storyp.story.head
             sections.append('<a href="%s">%s</a>' % (url, head))
         return ", ".join(sections)
@@ -184,7 +199,8 @@ class Photo(ImageModel):
 
     def list_photographer(self):
         if self.photographer is not None:
-            return '<a href="%s">%s</a>' % (self.photographer.get_absolute_url(), self.photographer)
+            return '<a href="%s">%s</a>' % (self.photographer.get_absolute_url(), \
+                self.photographer)
         elif self.credit != '':
             return self.credit
         else:
@@ -232,7 +248,8 @@ class FeaturedStory(models.Model):
     story = models.ForeignKey(Story)
     front = models.ForeignKey(FrontConfig)
     photo = models.ForeignKey(FeaturedPhoto)
-    story_order = models.PositiveIntegerField(help_text="Lower the number, order it will show in the Front slideshow")
+    story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \
+        show in the Front slideshow")
 
     class Meta:
         verbose_name = 'Top Story'

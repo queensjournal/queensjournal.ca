@@ -1,5 +1,5 @@
 from django.db import models
-from stories.models import Story, Photo
+from stories.models import Story
 from polls.models import Poll
 
 
@@ -48,17 +48,17 @@ class Document(models.Model):
 
 
 class DocumentFile(models.Model):
-
     file_obj = models.FileField("File", upload_to="stories/")
     name = models.CharField("Name of file", max_length=255)
-    caption = models.CharField(max_length=255, blank=True, help_text="For giving individual files separate captions. Optional.")
+    caption = models.CharField(max_length=255, blank=True, help_text="For giving \
+        individual files separate captions. Optional.")
 
     class Admin:
         pass
 
     def __unicode__(self):
         return self.name
-    
+
 
 class StoryPoll(models.Model):
     story = models.ForeignKey(Story)

@@ -4,7 +4,7 @@ from structure.models import Volume
 class MastheadManager(models.Manager):
     def latest(self):
         return self.get_query_set().order_by('-volume')[0]
-    
+
 
 class Masthead(models.Model):
     volume = models.ForeignKey(Volume)
@@ -29,7 +29,7 @@ class MastheadName(models.Model):
 
     def __unicode__(self):
         return "%s, %s" % (self.name, self.position)
-    
+
 
 class MastheadSection(models.Model):
     name = models.CharField(max_length=255, unique=True)

@@ -25,7 +25,7 @@ def section_order(x, y, sections):
         return cmp(x._order, y._order)
     else:
         return cmp(index_x, index_y)
-    
+
 def masthead_latest(request):
     try:
         masthead_obj = Masthead.objects.latest()
@@ -57,11 +57,13 @@ def masthead(request, vol_num):
 def masthead_list(request):
     qs = Masthead.objects.order_by('volume')
     return object_list(request, queryset=qs)
-    
+
 def detail_author(request, author):
     curr_author = get_object_or_404(Author, slug__exact=author)
-    story_set = StoryAuthor.objects.filter(author__slug__exact=author, story__status='p').order_by('-story__pub_date')
-    entry_set = Entry.objects.filter(author__slug__exact=author, is_published=True).order_by('-pub_date')
+    story_set = StoryAuthor.objects.filter(author__slug__exact=author, story__status='p').\
+        order_by('-story__pub_date')
+    entry_set = Entry.objects.filter(author__slug__exact=author, is_published=True).\
+        order_by('-pub_date')
     item_list = QuerySetChain(story_set, entry_set)
     if request.session.get('vote') is None:
         request.session['vote'] = []

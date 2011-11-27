@@ -16,10 +16,12 @@ class PreviousStories:
 
     def get_future(self):
         latest = Issue.objects.published().latest()
-        return Story.objects.select_related().filter(issue__pub_date__lt=latest.pub_date, section=self.section).order_by('-structure_issue.pub_date')[:self.num]
+        return Story.objects.select_related().filter(issue__pub_date__lt=latest.pub_date, \
+            section=self.section).order_by('-structure_issue.pub_date')[:self.num]
 
     def get_by_issue(self, issue):
-        return Story.objects.select_related().filter(issue__pub_date__lt=issue.pub_date, section=self.section).order_by('-structure_issue.pub_date')[:self.num]
+        return Story.objects.select_related().filter(issue__pub_date__lt=issue.pub_date, \
+            section=self.section).order_by('-structure_issue.pub_date')[:self.num]
 
 
 class CalendarSidebarManager(models.Manager):
@@ -28,13 +30,15 @@ class CalendarSidebarManager(models.Manager):
         Takes an Issue object and returns all calendar items for the week
         following the publication date of the issue.
         """
-        return self.get_query_set().filter(start_time__gte=issue.pub_date).filter(start_time__lt=Issue.objects.next(issue).pub_date)
+        return self.get_query_set().filter(start_time__gte=issue.pub_date).filter(\
+            start_time__lt=Issue.objects.next(issue).pub_date)
 
     def get_future(self):
         """
         Returns events in the future, calculated based on the current datetime.
         """
-        return self.get_query_set().filter(Q(end_time__gte=datetime.datetime.now()) | (Q(end_time__isnull=True) & Q(start_time__gte=datetime.datetime.now())))
+        return self.get_query_set().filter(Q(end_time__gte=datetime.datetime.now()) | \
+            (Q(end_time__isnull=True) & Q(start_time__gte=datetime.datetime.now())))
 
 
 class SportsSidebarManager(models.Manager):
@@ -44,7 +48,8 @@ class SportsSidebarManager(models.Manager):
         following the publication date of the issue.
         """
         try:
-            return self.get_query_set().filter(start_time__lte=issue.pub_date).filter(start_time__gte=issue.get_previous_by_pub_date().pub_date)
+            return self.get_query_set().filter(start_time__lte=issue.pub_date).filter(\
+                start_time__gte=issue.get_previous_by_pub_date().pub_date)
         except:
             return self.get_query_set().filter(start_time__lte=issue.pub_date)
 
@@ -56,8 +61,9 @@ class SportsSidebarManager(models.Manager):
             latest = Issue.objects.published().latest()
         except:
             return None
-        return self.get_query_set().filter(start_time__gte=latest.pub_date-datetime.timedelta(7))
-        
+        return self.get_query_set().filter(start_time__gte=latest.pub_date - \
+            datetime.timedelta(7))
+
 
 class StaticSidebarManager(models.Manager):
     def get_by_issue(self, issue):
@@ -77,7 +83,8 @@ class NewsCalendarItem(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField(blank=True, null=True, default=None)
     location = models.CharField(max_length=255)
-    event_type = models.ForeignKey('EventType', help_text='Not currently in use for NewsCalendarItem.', blank=True, null=True)
+    event_type = models.ForeignKey('EventType', help_text='Not currently in use for \
+        NewsCalendarItem.', blank=True, null=True)
     objects = CalendarSidebarManager()
 
     class Meta:
@@ -90,8 +97,10 @@ class NewsCalendarItem(models.Model):
 class ArtsCalendarItem(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    start_time = models.DateField(help_text='Beginning of period for which showtimes apply.')
-    end_time = models.DateField(blank=True, null=True, default=None, help_text='End of period for which showtimes apply. Optional.')
+    start_time = models.DateField(help_text='Beginning of period for which \
+        showtimes apply.')
+    end_time = models.DateField(blank=True, null=True, default=None, help_text='End of \
+        period for which showtimes apply. Optional.')
     location = models.CharField(max_length=255)
     event_type = models.ForeignKey('EventType')
     objects = CalendarSidebarManager()
@@ -111,10 +120,11 @@ class ArtsCalendarShowtime(models.Model):
         verbose_name        = 'Event Showtime'
         ordering            = ('time',)
 
-        
+
 class TalkingHeadsItem(models.Model):
     question = models.CharField(max_length=255)
-    location = models.CharField("at...", max_length=255, help_text="ex. 'the Common Ground', 'Jock Harty Arena', '368 Brock Street'")
+    location = models.CharField("at...", max_length=255, help_text="ex. \
+        'the Common Ground', 'Jock Harty Arena', '368 Brock Street'")
     issue = models.ForeignKey(Issue, unique=True)
     poll = models.ForeignKey(Poll, default=None, blank=True, null=True)
     objects = StaticSidebarManager()
@@ -146,15 +156,17 @@ class TalkingHeadsItem(models.Model):
 
     class Meta:
         ordering = ['issue']
-        
+
 
 class TalkingHeadsAnswer(ImageModel):
     name = models.CharField(max_length=255)
     quote = models.TextField()
-    photo = models.ForeignKey(Photo, help_text="Photos should be 100 pixels square. JPEGs only, please.", editable=False, null=True)
-    image = models.ImageField(upload_to='talking_heads/%Y/%m/%d/', help_text="Photos should be square. JPEGs only, please.")
+    photo = models.ForeignKey(Photo, help_text="Photos should be 100 pixels square. \
+        JPEGs only, please.", editable=False, null=True)
+    image = models.ImageField(upload_to='talking_heads/%Y/%m/%d/', help_text="Photos \
+        should be square. JPEGs only, please.")
     question = models.ForeignKey(TalkingHeadsItem)
-    
+
     class IKOptions:
         # Defining ImageKit options
         spec_module = 'sidebars.heads_specs'
@@ -170,7 +182,7 @@ class EventType(models.Model):
 
     def __unicode__(self):
         return self.event_type
-    
+
 
 ##class Announcement(models.Model):
 ##    head = models.CharField(max_length=255)
@@ -178,7 +190,7 @@ class EventType(models.Model):
 ##    start_date = models.DateField()
 ##    end_date = models.DateField()
 
-    
+
 class SportsCalendarItem(models.Model):
     sport = models.ForeignKey('SportType')
     start_time = models.DateTimeField()
@@ -193,7 +205,12 @@ class SportsCalendarItem(models.Model):
         fields = (
             ('Pre-event info', {
                 'fields': ('sport', 'start_time', 'location', 'ticket_info'),
-                'description': 'For team events, fill in the pre-event info and the two teams under "Team Result." For individual events, fill in the pre-event info and leave "Individual Results" blank. After the game/event is over, fill in the results as needed. If you require more fields for individual results, click "Save and continue editing" after filling out all available result fields.'
+                'description': 'For team events, fill in the pre-event info and the two \
+                    teams under "Team Result." For individual events, fill in the \
+                    pre-event info and leave "Individual Results" blank. After the \
+                    game/event is over, fill in the results as needed. If you require \
+                    more fields for individual results, click "Save and continue editing" \
+                    after filling out all available result fields.'
             }),
         )
         list_display        = ('sport', 'location', 'start_time', 'is_played')
@@ -208,7 +225,8 @@ class SportsCalendarItem(models.Model):
             return "%s @ %s, %s" % (self.sport.name, self.location, self.start_time)
         else:
             teams = self.sportsteamgamescore_set.all()[0]
-            return "%s, %s vs. %s, %s" % (self.sport.name, teams.home_team, teams.away_team, self.start_time)
+            return "%s, %s vs. %s, %s" % (self.sport.name, teams.home_team, \
+                teams.away_team, self.start_time)
 
 
 class SportsTeamGameScore(models.Model):
@@ -216,12 +234,13 @@ class SportsTeamGameScore(models.Model):
     home_score = models.PositiveSmallIntegerField(blank=True, null=True)
     away_team = models.CharField(max_length=255)
     away_score = models.PositiveSmallIntegerField(blank=True, null=True)
-    event = models.ForeignKey(SportsCalendarItem) #, edit_inline=models.TABULAR, min_num_in_admin=1, max_num_in_admin=1, num_in_admin=1, num_extra_on_change=0
+    event = models.ForeignKey(SportsCalendarItem) #, edit_inline=models.TABULAR,
+        #min_num_in_admin=1, max_num_in_admin=1, num_in_admin=1, num_extra_on_change=0
 
     class Meta:
         verbose_name = 'Team Result'
 
-        
+
 class SportsIndividualScore(models.Model):
     event_detail = models.CharField('Individual event name', max_length=255, blank=True)
     name = models.CharField(max_length=255)
@@ -229,12 +248,13 @@ class SportsIndividualScore(models.Model):
     result_detail = models.CharField(max_length=255, blank=True)
     home_team = models.BooleanField("Queen's athlete?")
     school = models.CharField("School name (if not Queen's)", max_length=255, blank=True)
-    event = models.ForeignKey(SportsCalendarItem) #, edit_inline=models.TABULAR, min_num_in_admin=1, num_in_admin=9, num_extra_on_change=2
+    event = models.ForeignKey(SportsCalendarItem) #, edit_inline=models.TABULAR,
+        # min_num_in_admin=1, num_in_admin=9, num_extra_on_change=2
 
     class Meta:
         verbose_name        = 'Individual Result'
         ordering            = ('event_detail', 'place')
-    
+
 
 class SportType(models.Model):
     name = models.CharField(max_length=255)

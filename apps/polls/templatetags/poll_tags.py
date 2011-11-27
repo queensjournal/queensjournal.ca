@@ -1,7 +1,5 @@
 from django import template
-from django.template import resolve_variable, Context
 import datetime
-from django.template.loader import render_to_string
 from django.contrib.sessions.models import Session
 from django.conf import settings
 from polls.models import Poll
@@ -45,12 +43,12 @@ def session_clear(session):
         del session['poll_msg']
     except KeyError:
         pass
-    
+
     try:
         del session['poll_params']
     except KeyError:
         pass
-    
+
     # Save changes to session
     if(session.session_key):
         Session.objects.save(session.session_key, session._session,
@@ -60,7 +58,7 @@ def session_clear(session):
 class RunPollFlashBlockNode(template.Node):
     def __init__(self, nodelist, poll_id):
         self.nodelist, self.poll_id = nodelist, poll_id
-        
+
     def render(self, context):
         poll = template.resolve_variable(self.poll_id, context)
         poll_obj = Poll.objects.get(pk=poll)
@@ -84,10 +82,10 @@ def do_poll_flash_block(parser, token):
     """
     A block section where msg and params are both available.
     Calling this clears the flash from the session automatically
-    
+
     If there is no flash msg, then nothing inside this block
     gets rendered
-    
+
     Example:
     {% pollflash poll.id %}
         {{msg}}<br />

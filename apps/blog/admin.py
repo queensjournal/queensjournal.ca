@@ -1,18 +1,17 @@
-from blog.models import Blog, BlogImage, EntryManager, Entry
-from structure.models import Author
+from blog.models import Blog, BlogImage, Entry
 from django.contrib import admin
 import settings
 
 class BlogImageAdmin(admin.ModelAdmin):
     pass
-    
+
 admin.site.register(BlogImage, BlogImageAdmin)
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ('title',)
     prepopulated_fields = {'slug': ('title',),}
     filter_horizontal = ('bloggers',)
-    
+
 admin.site.register(Blog, BlogAdmin)
 
 class EntryAdmin(admin.ModelAdmin):
@@ -26,8 +25,8 @@ class EntryAdmin(admin.ModelAdmin):
         ('Content', {'fields': ['content'], 'classes': ['richedit']}),
         ('Discussion', {'fields': ('enable_comments',)}),
         ]
-        
+
     class Media:
         js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
-    
+
 admin.site.register(Entry, EntryAdmin)
