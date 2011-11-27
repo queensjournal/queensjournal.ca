@@ -30,35 +30,35 @@
     {% block menu-stories %}
 
     {% endblock menu-stories %}
-        
+
     {% block layout-type %} span-18 colborder{% endblock %}
-    
+
     {% block actions %}
         <div id="actions"><p><span id="actions-email" class="action"><a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a></span></p></div>
     {% endblock actions %}
-    
+
     {% block content %}
-    
+
     {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url video.views.index_video %}">Videos</a></div>
     {% endblock breadcrumb %}
-    
+
         <!-- google_ad_section_start -->
         <div id="story" class="story clearfix">
             <h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
             {{ video.pub_date|date:"jS F Y" }}
-            <p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>    
-            
+            <p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>
+
             <div id="video-wrapper">
                 {% load oembed_tags %}
                 {% oembed 720x720 %}
                 {{ video.link|safe }}
                 {% endoembed %}
             </div>
-            
+
             <div class="block">
-                
+
                 <div class="column span-16 colborder">
-            
+
                     <div id="story-socmedia" class="video">
                         <p class="label">Share<p>
                             <hr>
@@ -87,19 +87,19 @@
                         {% revcanonical video %}
 
 					</div>
-			
+
 					<div class="video-caption">
-				
+
 					{{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
-			
+
 					</div>
-					
+
 				</div>
-				
+
 				<div class="column span-7 last">
-					
+
 					<h3>Latest Videos <span class="feed"><a href="/rss/video/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
-					<hr> 
+					<hr>
 					{% for video in latest_videos %}
 					<div class="latest-section videos">
 						<div class="video-thumb">
@@ -107,17 +107,17 @@
 							<h2 class="latest-section-head">{{ video.name }}</h2></a>
 						</div>
 						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-						<p class="pub_date">Posted {{ video.pub_date|date_diff }}</p>
+						<p class="pub_date">Posted {{ video.pub_date|time_since }}</p>
 					</div>
 					{% endfor %}
-					
+
 				</div>
-				
+
 			</div><!--end block-->
-			
+
 			{% load disqus_tags %}
 			{% disqus_show_comments %}
-				
+
 		</div>
 	{% endblock content %}
 	<!-- google_ad_section_end -->

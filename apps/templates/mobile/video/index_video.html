@@ -15,20 +15,20 @@
     $('#other-stories').masonry({
         singleMode: true,
         columnWidth: 320,
-        itemSelector: '.latest-section' 
+        itemSelector: '.latest-section'
     });
 {% endblock %}
 
 {% block title %}Videos - {{ block.super }}{% endblock title %}
-    
+
     {% block content %}
     {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Videos</span></div>
     {% endblock %}
-    
+
     <div class="section-header">
         <h1>Videos</h1>
     </div>
-            
+
     <div id="slider">
         {% oembed 620x400 %}
         {{ latest_video.link|safe }}
@@ -37,19 +37,19 @@
         <h2><a href="{{ latest_video.get_absolute_url }}">{{ latest_video.name|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
         {{ latest_video.caption|stripspace|convert_entities|truncatewords:38|safe }}
     </div>
-    
+
     <h3>Latest Videos</h3>
     <hr>
     <div id="other-stories">
-        
+
         {% for video in other_videos %}
         <div class="latest-section">
             <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
             <h4>{{ video.name }}</h4></a>
             <p class="summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-            <p class="pub-date">Posted {{ video.pub_date|date_diff }}</p>
+            <p class="pub-date">Posted {{ video.pub_date|time_since }}</p>
         </div>
         {% endfor %}
-        
+
     </div><!--block-->
     {% endblock content %}

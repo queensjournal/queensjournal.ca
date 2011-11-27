@@ -34,12 +34,12 @@
     $('#latest').masonry({
         singleMode: true,
         columnWidth: 320,
-        itemSelector: '.latest-section' 
+        itemSelector: '.latest-section'
     });
 {% endblock %}
 
     {% block title %}{{ config.issue.pub_date|date:"F j, Y" }} - {{ config.issue }} - {{ block.super }}{% endblock title %}
-    
+
     {% block issue-banner %}
         {% if config.issue.extra %}
             <div id="issue-banner" class="clearfix">
@@ -47,7 +47,7 @@
             </div>
         {% endif %}
     {% endblock issue-banner %}
-    
+
     {% block content %}
     {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
 
@@ -66,7 +66,7 @@
             </div>
         {% endfor %}
     </div>
-    
+
         <div id="latest-stories">
             <h3>Latest Stories <span class="feed"><a href="/rss/latest-stories/"><img src="{{ STATIC_URL }}img/feed.png" />RSS Feed</a></span></h3>
             <hr>
@@ -74,7 +74,7 @@
             {% for story in latest_stories %}
                 <li><span class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</span><br/>
                     <a href="{{ story.get_absolute_url }}">{{ story.head }}</a>
-                    <span class="pub-date">{{ story.pub_date|date_diff }}</span>
+                    <span class="pub-date">{{ story.pub_date|time_since }}</span>
                 </li>
             {% endfor %}
             </ul>
@@ -88,10 +88,10 @@
                 <a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.mobile_front.url }}" />{% endif %}
                 <h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>
                 <p class="summary">{{ story.summary }}</p>
-                <p class="pub-date">Posted {{ story.pub_date|date_diff }}</p>
+                <p class="pub-date">Posted {{ story.pub_date|time_since }}</p>
             </div>
             {% endfor %}
-            
+
             {% for otherstory in config.frontpagefirsttierstory_set.all %}
                 <p class="label story-label">{% firstof otherstory.label otherstory.story.label "Story" %}</p>
                 <h3 class="otherstory-head"><a href="{{ otherstory.story.get_absolute_url }}">{{ otherstory.story.head|stripspace|convert_entities|widont }}</a></h3>

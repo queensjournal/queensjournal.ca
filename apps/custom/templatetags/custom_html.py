@@ -4,7 +4,6 @@ from django import template
 from htmlentitydefs import codepoint2name
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import ungettext, ugettext
 from datetime import datetime
 
 register = template.Library()
@@ -23,6 +22,7 @@ def convert_entities(value):
             except KeyError:
                 continue
     return ''.join(entities)
+register.filter(convert_entities)
 
 def linebreakswithcode(value):
     """
@@ -40,6 +40,7 @@ def linebreakswithcode(value):
     value = wrappedblockshtml_re.sub(r'\2', value)
     value = trappedbreakshtml_re.sub(r'\1', value)
     return value
+register.filter(linebreakswithcode)
 
 def stripspace(value):
     """
@@ -47,6 +48,7 @@ def stripspace(value):
     Django filter? The mind boggles.)
     """
     return value.strip()
+register.filter(stripspace)
 
 def choptext(value, char='20'):
    count = int(char)
@@ -58,37 +60,10 @@ def choptext(value, char='20'):
       return mark_safe(result)
    else:
       return value
+register.filter(choptext)
 
-def date_diff(timestamp, to=None):
-    if not timestamp:
-        return ""
-
-    compare_with = to or datetime.now()
-    delta = timestamp - compare_with
-
-    if delta.days == 0: return u"today"
-    elif delta.days == -1: return u"yesterday"
-    elif delta.days == 1: return u"tomorrow"
-
-    chunks = (
-        (365.0, lambda n: ungettext('year', 'years', n)),
-        (30.0, lambda n: ungettext('month', 'months', n)),
-        (7.0, lambda n : ungettext('week', 'weeks', n)),
-        (1.0, lambda n : ungettext('day', 'days', n)),
-    )
-
-    for i, (chunk, name) in enumerate(chunks):
-        if abs(delta.days) >= chunk:
-            count = abs(round(delta.days / chunk, 0))
-            break
-
-    date_str = ugettext('%(number)d %(type)s') % {'number': count, 'type': name(count)}
-
-    if delta.days > 0: return "in " + date_str
-    else: return date_str + " ago"
-
-def timesince(start_time):
-    delta = datetime.datetime.now() - start_time
+def time_since(start_time):
+    delta = datetime.now() - start_time
 
     plural = lambda x: 's' if x != 1 else ''
 
@@ -112,6 +87,7 @@ def timesince(start_time):
         return "%d minute%s" % (num_minutes, plural(num_minutes))
 
     return "a few seconds"
+register.filter(time_since)
 
 def truncatesmart(value, limit=80):
     """
@@ -156,6 +132,7 @@ def striplabel(value, delimiter=','):
         return value
     else:
         return value
+register.filter(striplabel)
 
 def possessive(value):
     """
@@ -165,9 +142,11 @@ def possessive(value):
     if value[-1] == 's':
         return "%s'" % value
     return "%s's" % value
+register.filter(possessive)
 
 def urlencode(value):
     return urlquote(value)
+register.filter(urlencode)
 
 def paragraphs(var, arg):
     '''
@@ -183,14 +162,4 @@ def paragraphs(var, arg):
         return "\n\n".join(paras[int(ints[0]):int(ints[1])])
     else:
         return "\n\n".join(paras[int(ints[0]):])
-
-register.filter(convert_entities)
-register.filter(linebreakswithcode)
-register.filter(stripspace)
-register.filter(choptext)
-register.filter(date_diff)
-register.filter(striplabel)
-register.filter(possessive)
-register.filter(urlencode)
 register.filter(paragraphs)
-register.filter(timesince)

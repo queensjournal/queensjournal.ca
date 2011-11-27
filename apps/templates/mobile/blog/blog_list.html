@@ -16,7 +16,7 @@
          autoPlay: true,
          delay: 5000,
      });
-    
+
      $('#slider').swipe({
       swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
                                 $('#slider').data('AnythingSlider').startStop(true); },
@@ -28,11 +28,11 @@
       },
       preventDefaultEvents: false
      });
-    
+
     $('#latest').masonry({
 		singleMode: true,
 		columnWidth: 320,
-		itemSelector: '.latest-section' 
+		itemSelector: '.latest-section'
 	});
 {% endblock %}
 
@@ -46,7 +46,7 @@
 	{% block actions %}
 		{% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
 	{% endblock actions %}
-	
+
 	{% block content %}
 		{% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Blogs</span></div>{% endblock %}
 		<div class="section-header">
@@ -63,7 +63,7 @@
                 </div>
             {% endfor %}
         </div>
-			
+
 		<div id="latest-stories">
 			<h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
 			<hr>
@@ -71,12 +71,12 @@
 			{% for entry in latest %}
 				<li><span class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></span><br />
 					<a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
-					<span class="pub-date">{{ entry.pub_date|date_diff }}</span>
+					<span class="pub-date">{{ entry.pub_date|time_since }}</span>
 				</li>
 			{% endfor %}
 			</ul>
 		</div>
-		
+
 
 		<div id="latest">
 
@@ -86,12 +86,12 @@
                 <hr>
 				{% if blog.image %}<img src="{{ blog.image.front_image.url }}" /></a>{% endif %}
 				<p class="summary">{{ blog.description|typogrify|safe }}</p>
-				
+
 				<ul>
 				{% for post in blog.entry_set.published|slice:":2" %}
 					<li>
 					<a href="{{ post.get_absolute_url }}">{{ post.title|typogrify }}</a><br />
-					<span class="pub-date">{{ post.pub_date|date_diff }}</span>
+					<span class="pub-date">{{ post.pub_date|time_since }}</span>
 					</li>
 				{% endfor %}
 				</ul>
@@ -99,5 +99,5 @@
 			{% endfor %}
 
 		</div>
-		
+
 	{% endblock content %}
