@@ -6,7 +6,7 @@ import settings
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
 from inlines.models import Factbox, Document, StoryPoll
 from galleries.models import Gallery
-from tagging.models import Tag, TaggedItem
+from tagging.models import Tag
 
 class GalleryFormSet(BaseInlineFormSet):
     def get_queryset(self):

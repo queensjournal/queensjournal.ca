@@ -1,8 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.views.generic.list_detail import object_detail, object_list
 from django.shortcuts import get_object_or_404
-from django.http import Http404
-from django.db.models import Q
+from django.http import Http404, HttpResponseRedirect
 from blog.models import Blog, Entry
 from structure.models import Author
 from tagging.models import Tag
@@ -28,13 +27,15 @@ def blog_index(request, blog, page=1):
     Blog front page. Displays latest blog posts, excluding future posts.
     Paginated.
     """
-    blog_tags = Tag.objects.usage_for_model(Entry, counts=True, filters=dict(blog__slug=blog))
+    blog_tags = Tag.objects.usage_for_model(Entry, counts=True,
+        filters=dict(blog__slug=blog))
     cloud = calculate_cloud(blog_tags)
     blog_obj = get_object_or_404(Blog, slug=blog)
     qs = Entry.objects.published_on_blog(blog).order_by('-pub_date')
     c = {'blog': blog_obj,
         'blog_tags': cloud}
-    return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, page=page, extra_context=c)
+    return object_list(request, queryset=qs, paginate_by=10, allow_empty=False,
+        page=page, extra_context=c)
 
 def blog_archive_month(request, blog, year, month, page=1):
     """
@@ -54,7 +55,8 @@ def blog_archive_month(request, blog, year, month, page=1):
             c['next_month'] = datetime(year+1,1,1)
         else:
             c['next_month'] = datetime(year,month+1,1)
-        return object_list(request, queryset=qs, paginate_by=10, allow_empty=False, extra_context=c, page=page)
+        return object_list(request, queryset=qs, paginate_by=10, allow_empty=False,
+            extra_context=c, page=page)
     else:
         raise Http404
 
@@ -79,7 +81,9 @@ def blog_draft_detail(request, post_id):
     else:
         # test for object's existence
         entry = get_object_or_404(Entry, pk=post_id)
-        if request.user.has_perm('blog.view_draft_entry') or (request.user.has_perm('blog.view_own_draft') and request.user == entry.author.user):
+        if request.user.has_perm('blog.view_draft_entry') or (
+            request.user.has_perm('blog.view_own_draft') and request.user ==
+                entry.author.user):
             qs = Entry.objects.all()
             c = {'draft': True}
             if not entry.is_published:

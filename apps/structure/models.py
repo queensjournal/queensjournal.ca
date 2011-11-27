@@ -7,7 +7,8 @@ import settings
 
 class Headshot(ImageModel):
     name = models.SlugField()
-    headshot = models.ImageField(upload_to="headshots/%Y/", help_text='Please crop all photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
+    headshot = models.ImageField(upload_to="headshots/%Y/", help_text='Please crop all \
+        photos to 200x100 pixels and convert them to RGB JPG.', null=True, blank=True)
 
     class IKOptions:
         spec_module = 'structure.headshot_specs'
@@ -88,7 +89,8 @@ class Volume(models.Model):
 
 class Section(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    short_name = models.CharField(max_length=16, help_text='For use in site navigation like section menus, breadcrumb, etc. Optional.', blank=True, null=True)
+    short_name = models.CharField(max_length=16, help_text='For use in site navigation \
+        like section menus, breadcrumb, etc. Optional.', blank=True, null=True)
     slug = models.SlugField()
 
     def __unicode__(self):
@@ -100,13 +102,15 @@ class IssueManager(models.Manager):
 
     def next(self, issue):
         if issue != self.published().latest():
-            return self.published().filter(pub_date__gt=issue.pub_date).order_by('pub_date')[0]
+            return self.published().filter(pub_date__gt=issue.pub_date).\
+                order_by('pub_date')[0]
         else:
             return False
 
     def previous(self, issue):
         if self.get_query_set().filter(pub_date__lt=issue.pub_date).count() > 0:
-            return self.published().filter(pub_date__lt=issue.pub_date).order_by('-pub_date')[0]
+            return self.published().filter(pub_date__lt=issue.pub_date).\
+                order_by('-pub_date')[0]
         else:
             return False
 
@@ -120,8 +124,11 @@ class Issue(models.Model):
     volume = models.ForeignKey(Volume)
     pub_date = models.DateField("Publication Date", unique=True)
     sections = models.ForeignKey('FlatPlanConfig')
-    extra = models.CharField('Extra', help_text='Use for "Special Issue of the Journal" e.g. a Vanier Cup win, AMS Election, etc.', max_length='255', blank=True, null=True)
-    is_published = models.CharField('Publish status', max_length=3, choices=PUBLISH_STATUS_CHOICES, default='NPB')
+    extra = models.CharField('Extra', help_text='Use for "Special Issue of the Journal" \
+        e.g. a Vanier Cup win, AMS Election, etc.', max_length='255', blank=True, \
+        null=True)
+    is_published = models.CharField('Publish status', max_length=3, \
+        choices=PUBLISH_STATUS_CHOICES, default='NPB')
     objects = IssueManager()
 
     class Meta:
@@ -135,7 +142,9 @@ class Issue(models.Model):
             return 'Vol. %s, Issue %i' % (self.volume, self.issue)
 
 class FlatPlanConfig(models.Model):
-    name = models.CharField(max_length=255, help_text='Descriptive name for the flatplan configuration (ex. \'Vol. 135 standard\', \'Vol. 135 with Supplement\', \'Vol. 136 Extra\'.')
+    name = models.CharField(max_length=255, help_text='Descriptive name for the flatplan \
+        configuration (ex. \'Vol. 135 standard\', \'Vol. 135 with Supplement\', \
+        \'Vol. 136 Extra\'.')
 
     def list_sections(self):
         sections = []
@@ -176,7 +185,10 @@ class SectionFrontConfig(models.Model):
     announce_head = models.CharField("Announcement headline", max_length=255, blank=True)
     announce_body = models.TextField("Announcement text", blank=True)
     section = models.ForeignKey(Section, unique=True)
-    template = models.FilePathField(path=settings.TEMPLATE_DIRS[0] + "sections/", match=".*\.html$", blank=True, null=True, help_text="Name of a custom Section Front Page template. Do not touch unless you know what you're doing. Store in templates/<name of file.html>")
+    template = models.FilePathField(path=settings.TEMPLATE_DIRS[0] + "sections/", \
+        match=".*\.html$", blank=True, null=True, help_text="Name of a custom Section \
+        Front Page template. Do not touch unless you know what you're doing. Store in \
+        templates/<name of file.html>")
 
     class Meta:
         verbose_name = "Section Front Page Layout"
@@ -199,7 +211,8 @@ class FrontConfig(models.Model):
 
     def __unicode__(self):
         if self.issue:
-            return '%s - %s' % (self.pub_date.strftime("%A, %b %d, %Y - %I:%M %p"), self.issue)
+            return '%s - %s' % (self.pub_date.strftime("%A, %b %d, %Y - %I:%M %p"), \
+                self.issue)
         else:
             return self.pub_date.strftime("%A, %b %d, %Y - %I:%M %p")
 

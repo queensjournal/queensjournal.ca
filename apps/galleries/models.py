@@ -1,7 +1,6 @@
 from django.db import models
 import datetime
 from stories.models import Story, Photo
-from structure.models import Author
 
 
 class Gallery(models.Model):
@@ -10,19 +9,20 @@ class Gallery(models.Model):
     story = models.ForeignKey(Story, null=True, blank=True)
     pub_date = models.DateField()
     description = models.TextField()
-    images = models.ManyToManyField(Photo, limit_choices_to = {'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
+    images = models.ManyToManyField(Photo, limit_choices_to = {
+        'creation_date__gt': datetime.datetime.now() - datetime.timedelta(weeks=8)})
 
     class Meta:
         verbose_name = "Photo Gallery"
         verbose_name_plural = "Photo Galleries"
-        
+
     def first_photo(self):
         try:
             return self.images.all()[0]
         except:
             return False
 
-    @models.permalink   
+    @models.permalink
     def get_absolute_url(self):
         return ('galleries.views.gallery_detail', (), {
             'datestring': self.pub_date.strftime("%Y-%m-%d"),
@@ -30,7 +30,7 @@ class Gallery(models.Model):
 
     def __unicode__(self):
         return self.name
-        
+
     def list_authors(self):
         author_list = []
         for image in self.images.all():
@@ -51,5 +51,5 @@ class Gallery(models.Model):
         elif author_num == 0:
             authors.append('Journal Staff')
         return ' '.join(authors)
-        list_authors.short_description = 'Author(s)'
-                
+    list_authors.short_description = 'Author(s)'
+

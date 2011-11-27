@@ -10,16 +10,14 @@
 # On Debian systems, you can find the full text of the license in
 # /usr/share/common-licenses/GPL-2
 
-# I've made lots of customizations to this to get it to work with 
+# I've made lots of customizations to this to get it to work with
 # django-shorturls and Journal apps, see below.
 #        -Tyler
 
-import os
 import twitter
-import urllib, urllib2
+import urllib2
 import urlparse # required for ShortURLS
 from django.conf import settings
-from django.contrib.sites.models import Site
 from shorturls.templatetags.shorturl import ShortURL # ditto
 from shorturls.baseconv import base62
 from django.template.defaultfilters import striptags
@@ -29,7 +27,7 @@ import settings as GLOBAL_SETTINGS
 TWITTER_MAXLENGTH = getattr(settings, 'TWITTER_MAXLENGTH', 140)
 
 def post_to_twitter(sender, instance, *args, **kwargs):
-        
+
     # Check if item is to be posted to Twitter. Make sure it's published.
     if instance.is_published is False:
         print 'Not published yet'
@@ -41,7 +39,7 @@ def post_to_twitter(sender, instance, *args, **kwargs):
         instance.save()
     else:
         return False
-            
+
     # check if there's a twitter account configured
     try:
         consumer_key = settings.TWITTER_CONSUMER_KEY
@@ -63,7 +61,7 @@ def post_to_twitter(sender, instance, *args, **kwargs):
         print 'Error generating Prefix. Check settings.'
         instance.is_tweeted = False
         return False
-        
+
     tinyid = base62.from_decimal(instance.pk)
     url = urlparse.urljoin(baseurl, prefix+tinyid)
 
@@ -82,11 +80,15 @@ def post_to_twitter(sender, instance, *args, **kwargs):
         print 'Twitter message: %s' % (mesg)
     else:
         try:
-            twitter_api = twitter.Api(consumer_key=consumer_key, consumer_secret=consumer_secret, access_token_key=access_token_key, access_token_secret=access_token_secret)
+            twitter_api = twitter.Api(
+                consumer_key=consumer_key,
+                consumer_secret=consumer_secret,
+                access_token_key=access_token_key,
+                access_token_secret=access_token_secret)
             twitter_api.PostUpdate(mesg)
             print 'Posted to Twitter'
         except urllib2.HTTPError, ex:
             print 'ERROR:', str(ex)
             instance.is_tweeted = False
             return False
-        
+

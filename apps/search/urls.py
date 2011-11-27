@@ -1,10 +1,7 @@
-from django.conf.urls.defaults import *
-from django.views.generic.simple import redirect_to
+from django.conf.urls.defaults import url, patterns
 from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
-from haystack.forms import FacetedModelSearchForm, FacetedSearchForm
 from search.forms import SuperSearchForm
-from haystack.utils import Highlighter
 
 sqs = SearchQuerySet().facet('author').facet('tags').highlight()
 
