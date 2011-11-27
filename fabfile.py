@@ -1,11 +1,8 @@
 import os
 import time
-import datetime
-import fabric
 from random import Random
 from getpass import getpass
 from fabric.api import *
-from fabric.operations import prompt
 from fabric.contrib import django
 
 
@@ -19,9 +16,9 @@ env.source = "git@bitbucket.com:tylerball/%(unit)s.git" % env
 env.source_http = "https://tylerball@bitbucket.org/tylerball/%(unit)s.git" % env
 env.django_root = os.path.join(env.root_dir, 'apps/')
 
-env.hosts=['journal@queensjournal.ca']
-env.media='webapps/media'
-env.activate='source webapps/journal/bin/activate'
+env.hosts = ['journal@queensjournal.ca']
+env.media = env.path + '/media/'
+env.activate = 'source webapps/journal/bin/activate'
 supervisor_task = 'journal'
 
 local_dumps = os.path.join(env.root_dir, 'dumps/')
@@ -123,8 +120,11 @@ def pulldump():
             with cd('%s/dumps' % env.path):
                 run('tar -czf journal-`date +%F`.tar.gz journal-`date +%F`.sql')
             local('scp {}:{}/dumps/journal-`date +%F`.tar.gz {}'.format(env.host_string, env.path, local_dumps))
-            run('rm %(path)s/dumps/%(unit)s-`date +%F`.sql' % env)
+            run('rm {}/dumps/{}-`date +%F`.sql'.format(env.path, env.unit))
     with lcd(env.django_root):
+        #local('dropdb ' + settings.DATABASES['default']['NAME'])
+        #local('createdb %s --owner %s' % (settings.DATABASES['default']['NAME'], \
+            #settings.DATABASES['default']['USER']))
         local_env('./manage.py dbshell < ../dumps/journal-`date +%F`.sql')
 
 def pullmedia():
