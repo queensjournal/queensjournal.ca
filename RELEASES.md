@@ -1,3 +1,12 @@
+Picasso 2.1.4.1 - November 27, 2011
+---------------------
+
+Fixes:
+* [Limiting querysets of photos and galleries in the story admin to cut down on database
+  queries](https://github.com/tylerball/queensjournal.ca/commit/a8fa1ea0b9e8f1a34167ec5378d884b71a32fc96)
+* [Epic cleanup. Fixed indentation, textwidths, removed unused
+  files.](https://github.com/tylerball/queensjournal.ca/commit/9b0e780b637c61a6a41d1e7cf06255c32cfdb48f)
+
 Picasso 2.1.4 - November 7, 2011
 ------------------------------
 
