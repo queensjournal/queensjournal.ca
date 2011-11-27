@@ -1,3 +1,19 @@
+Picasso 2.1.5 - November 27, 2011
+------------------------
+Features:
+* [Replaced the date\_diff template filter with a more accurate
+  one](https://github.com/tylerball/queensjournal.ca/commit/a00af8de4c02b0cde62190dee5f07a3a2e5a5b0a)
+* [Moved tag stuff to own
+  app](https://github.com/tylerball/queensjournal.ca/commit/d72033b70d6f024a8c067b4e408d7a8d7674e9e1)
+* [Replaced tag encoding with django's urlencode to enable unicode
+  tags](https://github.com/tylerball/queensjournal.ca/commit/3a3bff5ec9671ca2177aa8377d400bf5e4f0610e)
+
+Fixes:
+* [Fixed some datetime import
+  problems](https://github.com/tylerball/queensjournal.ca/commit/4276cf6ddf392500de04373bb833db58afd06365)
+* [Removed some unnecessary context
+  processors](https://github.com/tylerball/queensjournal.ca/commit/1b16f4ab10f356289b823f38dcdb610976fc5356)
+
 Picasso 2.1.4.1 - November 27, 2011
 ---------------------
 
@@ -20,8 +36,8 @@ Features:
     * [5](https://github.com/tylerball/queensjournal.ca/commit/f5ccf9da76690f8ec95cf5114bceb2c4cab3fbfd)
 
 Fixes:
-* [Cut the DB queries from 1500+ on the story_detail to ~75.](https://github.com/tylerball/queensjournal.ca/commit/8b68ad156ca163165c07421392f37560986b0798)
-* [disallow blank pub_date in blog entries](https://github.com/tylerball/queensjournal.ca/commit/4026969efffcdeef9eaf712d03f77c09f7938d68)
+* [Cut the DB queries from 1500+ on the story\_detail to ~75.](https://github.com/tylerball/queensjournal.ca/commit/8b68ad156ca163165c07421392f37560986b0798)
+* [disallow blank pub\_date in blog entries](https://github.com/tylerball/queensjournal.ca/commit/4026969efffcdeef9eaf712d03f77c09f7938d68)
 
 Picasso 2.1.3 - October 10, 2011
 --------------------------------
