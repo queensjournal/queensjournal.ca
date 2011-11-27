@@ -12,11 +12,11 @@ def detail_video(request, datestring, slug):
             'latest_videos': latest_videos},
         context_instance=RequestContext(request))
 
-    def index_video(request):
-        video_list = get_list_or_404(Video, is_published=True)
-        latest_video = video_list[0]
-        other_videos = video_list[1:9]
-        return render_to_response('video/index_video.html',
-            {'latest_video': latest_video,
-                'other_videos': other_videos,},
-            context_instance=RequestContext(request))
+def index_video(request):
+    video_list = get_list_or_404(Video, is_published=True)
+    latest_video = video_list[0]
+    other_videos = video_list[1:9]
+    return render_to_response('video/index_video.html',
+        {'latest_video': latest_video,
+            'other_videos': other_videos,},
+        context_instance=RequestContext(request))
