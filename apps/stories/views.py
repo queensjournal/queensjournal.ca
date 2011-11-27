@@ -57,7 +57,7 @@ def index_section(request, section):
 
 def index_front(request):
     front_config = FrontConfig.objects.latest('pub_date')
-    lstories = Story.objects.filter(status='p', pub_date__lt=datetime.now()).\
+    lstories = Story.objects.filter(status='p', pub_date__lt=datetime.datetime.now()).\
         order_by('-pub_date')[:5]
     latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
     latest_video = Video.objects.latest('pub_date')
@@ -65,7 +65,8 @@ def index_front(request):
     latest_section = []
     for section in front_config.sections.flatplansection_set.all():
         latest_section.extend(Story.objects.filter(section=section.section, featured=True, \
-            storyphoto__isnull=False, pub_date__lt=datetime.now()).order_by('-pub_date')[:1])
+            storyphoto__isnull=False, pub_date__lt=datetime.datetime.now()).\
+            order_by('-pub_date')[:1])
     if request.session.get('vote') is None:
         request.session['vote'] = []
     return render_to_response('stories/index_front.html',
