@@ -68,7 +68,6 @@ class EnchanceThumb(processors.Adjustment):
 # now we can define our thumbnail spec
 class Thumbnail(ImageSpec):
     access_as = 'thumbnail_image'
-    pre_cache = True
     processors = [MakeRGB, ResizeThumb, EnchanceThumb]
 
 # and our display spec
