@@ -5,7 +5,6 @@ from datetime import date, time, timedelta
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.template import RequestContext, Context, loader
 from django.http import HttpResponseRedirect
-from tagging.models import Tag, TaggedItem
 from stories.models import Story, StoryAuthor
 from video.models import Video
 from blog.models import Entry
@@ -157,7 +156,7 @@ def index_issue_front(request, datestring):
     try:
         front_config = FrontPageConfig.objects.get(issue=issue)
     except:
-        front_config = FrontConfig.objects.get(issue=issue)
+        front_config = get_object_or_404(FrontConfig, issue=issue)
     featured = Story.objects.filter( Q(section_order=1) | Q(featured=True), status='p', \
         issue=issue, storyphoto__isnull=False)[:5]
     latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
