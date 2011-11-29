@@ -5,98 +5,100 @@
 {% block content %}
 {% block breadcrumb %}<div id="breadcrumb" class="nomrg"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">Search</span></div>{% endblock %}
 
-	<h1>Search</h1>
-	<hr>
+<h1>Search</h1>
+<hr>
 
-	<form name="mainsearch" method="get" action="." class="search-page">
-		{{ form.non_field_errors }}
-		<div class="search-input">	
-			{{ form.q_errors }}
-			{{ form.q }}
-		</div>
-		<div>
-			Search in:
-		</div>
-		<div class="model-select">
-			{{ form.model_errors }}
-			{{ form.models }}
-		</div>
-		<div class="search-submit">
-			<input type="submit" value="Search">
-		</div>
-	</form>
+<form name="mainsearch" method="get" action="." class="search-page">
+    {{ form.non_field_errors }}
+    <div class="search-input">
+        {{ form.q_errors }}
+        {{ form.q }}
+    </div>
+    <div>
+        Search in:
+    </div>
+    <div class="model-select">
+        {{ form.model_errors }}
+        {{ form.models }}
+    </div>
+    <div class="search-submit">
+        <input type="submit" value="Search">
+    </div>
+</form>
 
-		{% if query %}
-			<div class="facet-group">
-			      <dl>
-			            {% if facets.fields.author %}
-			            <dt>Author</dt>
-		                {# Provide only the top 5 authors #}
-		                {% for author in facets.fields.author|slice:":5" %}
-		                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
-		                {% endfor %}
-			            {% endif %}
-			        </dl>
-			      	<dl>
-			            {% if facets.fields.tags %}
-		               	<dt>Tags</dt>
-		                {# Provide only the top 5 authors #}
-		                {% for tags in facets.fields.tags|slice:":5" %}
-		                    <dd><a href="{{ request.get_full_path }}&amp;selected_facets=tags_exact:{{ tags.0|urlencode }}">{{ tags.0 }}</a> ({{ tags.1 }})</dd>
-		                {% endfor %}
-			            {% endif %}
-			        </dl>
-					<dl>
-						<dt>Published</dt>	
-						<dd><a href="{{ request.get_full_path }}{% this_week %}">This week</a></dd>
-						<dd><a href="{{ request.get_full_path }}{% last_week %}">Last week</a></dd>
-						<dd><a href="{{ request.get_full_path }}{% this_month %}">This month</a></dd>
-						<dd><a href="{{ request.get_full_path }}{% last_month %}">Last month</a></dd>
-					</dl>
-			</div>
+{% if query %}
+<div class="facet-group">
+    <dl>
+        {% if facets.fields.author %}
+        <dt>Author</dt>
+        {# Provide only the top 5 authors #}
+        {% for author in facets.fields.author|slice:":5" %}
+        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
+        {% endfor %}
+        {% endif %}
+    </dl>
+    <dl>
+        {% if facets.fields.tags %}
+        <dt>Tags</dt>
+        {# Provide only the top 5 authors #}
+        {% for tags in facets.fields.tags|slice:":5" %}
+        <dd><a href="{{ request.get_full_path }}&amp;selected_facets=tags_exact:{{ tags.0|urlencode }}">{{ tags.0 }}</a> ({{ tags.1 }})</dd>
+        {% endfor %}
+        {% endif %}
+    </dl>
+    <dl>
+        <dt>Published</dt>
+        <dd><a href="{{ request.get_full_path }}{% this_week %}">This week</a></dd>
+        <dd><a href="{{ request.get_full_path }}{% last_week %}">Last week</a></dd>
+        <dd><a href="{{ request.get_full_path }}{% this_month %}">This month</a></dd>
+        <dd><a href="{{ request.get_full_path }}{% last_month %}">Last month</a></dd>
+    </dl>
+</div>
 
-			<div class="resultlist">
-				
-			<h2>Results</h2>
-			{% for result in page.object_list %}
-				<div class="{% cycle 'search1' 'search2' %}">
-				{% ifequal result.model_name 'story' %}
-				{% if result.object.story_thumb %}<img src="{{ result.object.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
-				<h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.head }}</a></h3>
-				<p class="meta">{% ifnotequal result.object.list_authors '[no author]' %}By {{ result.object.list_authors|safe }} - {% endifnotequal %}{{ story.pub_date|date:"jS F Y" }}</p>
-				<p>{% highlight result.object.summary with query html_tag "span" css_class "highlight" max_length 300 %}</p>
-				{% endifequal %}
-				
-				{% ifequal result.model_name 'entry' %}
-				{% if result.object.first_photo %}<img src="{{ result.object.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
-				<h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></h3>
-				<p class="meta">By <a href="{{result.object.author.get_absolute_url}}">{{ result.object.author.name }}</a></p>
-				<p>{% highlight result.object.content with query html_tag "span" css_class "highlight" max_length 300 %}
-				{% endifequal %}
-				
-				{% ifequal result.model_name 'author' %}
-				{% if result.object.headshot %}<img src="{{ result.object.headshot.thumbnail_image.url }}" class="result_thumb" />{% endif %}
-				<h3>Author: <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h3>
-				<p class="meta">{{ result.object.get_latest_role }}
-				<p>{{ result.object.bio|truncatewords:50|striptags|safe }}
-				{% endifequal %}
-				</div>
-			{% empty %}
-				<div class="search1">
-					<p>No results found.</p>
-				</div>
-			{% endfor %}
-			</div>
+<div class="resultlist">
 
-			{% if page.has_previous or page.has_next %}
-				<div id="pagination">
-					{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-					|
-					{% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-				</div>
-			{% endif %}
-		{% else %}
-			{# Show some example queries to run, maybe query syntax, something else? #}
-		{% endif %}
-	</form>
+    <h2>Results</h2>
+    {% for result in page.object_list %}
+    <div class="{% cycle 'search1' 'search2' %}">
+        {% ifequal result.model_name 'story' %}
+            {% if result.object.story_thumb %}<img src="{{ result.object.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+            <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.head }}</a></h3>
+            <p class="meta">{% ifnotequal result.object.list_authors '[no author]' %}By {{ result.object.list_authors|safe }} - {% endifnotequal %}{{ story.pub_date|date:"jS F Y" }}</p>
+            <p>{% highlight result.object.summary with query html_tag "span" css_class "highlight" max_length 300 %}</p>
+        {% endifequal %}
+
+        {% ifequal result.model_name 'entry' %}
+            {% if result.object.first_photo %}<img src="{{ result.object.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+            <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></h3>
+            <p class="meta">By <a href="{{result.object.author.get_absolute_url}}">{{ result.object.author.name }}</a></p>
+            <p>{% highlight result.object.content with query html_tag "span" css_class "highlight" max_length 300 %}</p>
+        {% endifequal %}
+
+        {% ifequal result.model_name 'author' %}
+            {% if result.object.headshot %}<img src="{{ result.object.headshot.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+            <h3>Author: <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h3>
+            <p class="meta">{{ result.object.get_latest_role }}</p>
+            <p>{{ result.object.bio|truncatewords:50|striptags|safe }}</p>
+        {% endifequal %}
+    </div>
+    {% empty %}
+    <div class="search1">
+        <p>No results found.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if page.has_previous or page.has_next %}
+<div id="pagination">
+    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+    |
+    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+</div>
+p
+{% endif %}
+
+    {% else %}
+    {# Show some example queries to run, maybe query syntax, something else? #}
+    {% endif %}
+</form>
 {% endblock %}
