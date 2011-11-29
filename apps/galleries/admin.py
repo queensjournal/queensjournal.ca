@@ -3,7 +3,8 @@ from django.contrib import admin
 from galleries.models import Gallery
 
 class GalleryAdmin(admin.ModelAdmin):
-    filter_horizontal = ['images', 'description']
+    filter_horizontal = ['images']
+    list_display = ['name', 'pub_date']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',),}
 
