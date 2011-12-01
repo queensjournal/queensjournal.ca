@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import patterns
+from django.conf.urls.defaults import patterns, url
 
-urlpatterns = patterns('',
-    (r'^$', 'stories.views.index_archive'),
-    (r'^(?P<volume>[0-999]+)/', 'stories.views.index_archive_volume'),
+urlpatterns = patterns('archive.views',
+    url(r'^$', 'index_archive'),
+    url(r'^(?P<volume>[0-999]+)/', 'index_archive_volume'),
 )
