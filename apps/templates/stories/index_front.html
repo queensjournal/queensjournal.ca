@@ -96,7 +96,7 @@
                 {% endif %}
 
                 <div id="latest-video">
-                    <h3>Latest Video: <span class="feed"><a href="{% url video.views.index_video %}">More Videos &gt;&gt;</a></span></h3>
+                    <h3>Latest Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
                         <a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>

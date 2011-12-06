@@ -1,7 +1,7 @@
-from django.conf.urls.defaults import patterns
-from video.views import index_video, detail_video
+from django.conf.urls.defaults import patterns, url
 
-urlpatterns = patterns('',
-    (r'^$', index_video),
-    (r'^(?P<datestring>\d{4}-\d{1,2}-\d{1,2})/(?P<slug>[-\w]+)/$', detail_video),
+urlpatterns = patterns('apps.video.views',
+    url(r'^$', 'video_index', name='video-index'),
+    url(r'^(?P<datestring>\d{4}-\d{1,2}-\d{1,2})/(?P<slug>[-\w]+)/$', 'video_detail',
+        name='video-detail'),
 )
