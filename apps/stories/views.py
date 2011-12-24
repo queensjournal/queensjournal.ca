@@ -2,16 +2,16 @@
 import datetime
 from django.conf import settings
 from datetime import date, time, timedelta
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext, Context, loader
 from django.http import HttpResponseRedirect
 from stories.models import Story, StoryAuthor
 from video.models import Video
 from blog.models import Entry
-from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig, \
-    Volume
+from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
 from django.db.models import Q
-from dependencies.multiquery import QuerySetChain
+from itertools import chain
+from operator import attrgetter
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
@@ -60,7 +60,8 @@ def index_front(request):
         order_by('-pub_date')[:5]
     latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
     latest_video = Video.objects.latest('pub_date')
-    latest_stories = QuerySetChain(lstories, latest_entries, latest_video)[:5]
+    latest_stories = sorted(chain(lstories, latest_entries), \
+        key=attrgetter('pub_date'))[:5]
     latest_section = []
     for section in front_config.sections.flatplansection_set.all():
         latest_section.extend(Story.objects.filter(section=section.section, featured=True, \
