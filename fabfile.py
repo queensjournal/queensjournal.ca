@@ -18,7 +18,7 @@ env.django_root = os.path.join(env.root_dir, 'apps/')
 
 env.hosts = ['journal@queensjournal.ca']
 env.media = env.path + '/media/'
-env.activate = 'source webapps/journal/bin/activate'
+env.activate = 'source ~/webapps/journal/bin/activate'
 supervisor_task = 'journal'
 
 local_dumps = os.path.join(env.root_dir, 'dumps/')
