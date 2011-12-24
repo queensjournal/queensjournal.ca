@@ -3,7 +3,6 @@ from django.db import models
 from imagekit.models import ImageModel
 from structure.models import Author
 from tagging.fields import TagField
-from dependencies.twitter_update import post_to_twitter
 
 class Video(ImageModel):
     name = models.CharField(max_length=255)
@@ -30,7 +29,7 @@ class Video(ImageModel):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('video.views.detail_video', (), {
+        return ('video.views.video_detail', (), {
             'datestring': self.pub_date.strftime("%Y-%m-%d"),
             'slug': self.slug})
 
