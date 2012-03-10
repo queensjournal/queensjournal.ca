@@ -2,16 +2,16 @@
 import datetime
 from django.conf import settings
 from datetime import date, time, timedelta
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext, Context, loader
 from django.http import HttpResponseRedirect
 from stories.models import Story, StoryAuthor
 from video.models import Video
 from blog.models import Entry
-from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig, \
-    Volume
+from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
 from django.db.models import Q
-from dependencies.multiquery import QuerySetChain
+from itertools import chain
+from operator import attrgetter
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
@@ -60,7 +60,8 @@ def index_front(request):
         order_by('-pub_date')[:5]
     latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
     latest_video = Video.objects.latest('pub_date')
-    latest_stories = QuerySetChain(lstories, latest_entries, latest_video)[:5]
+    latest_stories = sorted(chain(lstories, latest_entries), \
+        key=attrgetter('pub_date'))[:5]
     latest_section = []
     for section in front_config.sections.flatplansection_set.all():
         latest_section.extend(Story.objects.filter(section=section.section, featured=True, \
@@ -214,32 +215,6 @@ def index_issue_section(request, datestring, section):
         'back_issue': True,
         'issue': issue},
         context_instance=RequestContext(request))
-
-def index_archive(request):
-    volumes = get_list_or_404(Volume.objects.order_by('-volume'))
-    dates = {}
-    for volume in volumes:
-        try:
-            first_issue = Issue.objects.filter(volume__volume=volume.volume).\
-                order_by('pub_date')[0]
-            last_issue = Issue.objects.filter(volume__volume=volume.volume).\
-                order_by('-pub_date')[0]
-            dates[volume.volume] = '%s - %s' % (first_issue.pub_date.strftime("%Y"), \
-                last_issue.pub_date.strftime("%Y"))
-        except IndexError:
-            continue
-    return render_to_response('archives/index.html',
-                            {'volumes': volumes,
-                            'dates': dates},
-                            context_instance=RequestContext(request))
-
-def index_archive_volume(request, volume):
-    volume = get_object_or_404(Volume, volume=volume)
-    issues = get_list_or_404(Issue, volume=volume, pub_date__lt=datetime.now())
-    return render_to_response('archives/index_volume.html',
-                            {'volume': volume,
-                            'issues': issues,},
-                            context_instance=RequestContext(request))
 
 def server_error(request, template_name='500.html'):
     return render_to_response(template_name, context_instance = RequestContext(request))

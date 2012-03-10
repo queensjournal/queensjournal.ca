@@ -88,7 +88,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.markup',
     'django.contrib.staticfiles',
-    'django.contrib.sitemaps',
 
     # Dependencies
     'django_mobile',
@@ -106,6 +105,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.flatpages',
+    'archive',
     'polls',
     'stories',
     'structure',

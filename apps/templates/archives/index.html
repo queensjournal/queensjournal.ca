@@ -14,7 +14,7 @@
 <hr>
 <ul class="volumes">
 	{% for key, value in dates.items reversed %}
-	<li><a href="{% url stories.views.index_archive_volume key %}">Volume {{ key }}</a> - {{ value }}</li>
+	<li><a href="{% url archive.views.index_archive_volume key %}">Volume {{ key }}</a> - {{ value }}</li>
 	{% endfor %}
 </ul>
 
@@ -26,13 +26,13 @@ $(document).ready(function($){
 });
 $(document).ready(function() {
 	var is_visible = false;
-	
+
 	$('.toggleLink').click(function (){
-		
+
 		/*$(this).html( (!is_visible) ? showText : hideText);*/
-		
+
 		$(this).next('.toggle').toggle('slow');
-		
+
 		return false;
 	});
 });
