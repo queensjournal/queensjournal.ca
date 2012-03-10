@@ -1,3 +1,14 @@
+Picasso 2.1.6 - March 10, 2012
+------------------------------
+
+Major changes:
+* [Moved archive stuff to it's own app](https://github.com/tylerball/queensjournal.ca/commit/9bc6dd1c74f259837eaa048721be710e61d38ad1)
+
+Fixes:
+* [removing QuerySetChain for a better combined sort on the front page](https://github.com/tylerball/queensjournal.ca/commit/acbf3ed4b5ad0151d79a220b93b7f8d1b6e8826e)
+* [better organization ](https://github.com/tylerball/queensjournal.ca/commit/fd3e14921d760a70360f1a735a9497f97fdd5caa)[of contrib apps](https://github.com/tylerball/queensjournal.ca/commit/8044193a857fb49f4bf3f6657c8d9085884c4b0f)
+
+
 Picasso 2.1.5.1 - December 14, 2011
 -----------------------
 
