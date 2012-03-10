@@ -7,7 +7,7 @@ django-haystack==1.2.4
 django-pagination==1.0.7
 django-tagging==0.3.1
 django-mobile==0.2.1
-httplib2==0.6.0
+httplib2
 oauth2==1.5.170
 python-memcached==1.47
 python-twitter==0.8.2
@@ -18,5 +18,9 @@ xapian-haystack==1.1.5beta
 akismet==0.2.0
 Markdown==2.0.3
 docutils
-
 psycopg2==2.0.13
+
+git+https://github.com/tylerball/django-pipeline.git
+git+https://github.com/tylerball/django-oembed.git
+git+https://github.com/tylerball/django-shorturls.git
+git+https://github.com/tylerball/django-imagekit.git
