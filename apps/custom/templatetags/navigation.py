@@ -62,7 +62,10 @@ def menu_sections(context):
         except FrontConfig.DoesNotExist:
             curr_issue = context.get('issue')
     else:
-        curr_issue = FrontConfig.objects.latest('pub_date')
+        try:
+            curr_issue = FrontConfig.objects.latest('pub_date')
+        except FrontConfig.DoesNotExist:
+            return None
     if context.get('story_set'):
         params['show_section_link'] = False
     else:

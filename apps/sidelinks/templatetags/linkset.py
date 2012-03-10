@@ -8,7 +8,10 @@ class SidebarLinksNode(template.Node):
         self.slug, self.var = slug, var
 
     def render(self, context):
-        linkset = SidebarLinkset.objects.get(slug__exact=self.slug.strip("'").strip('"'))
+        try:
+            linkset = SidebarLinkset.objects.get(slug__exact=self.slug.strip("'").strip('"'))
+        except SidebarLinkset.DoesNotExist:
+            return None
         context[self.var] = linkset.link_set.filter(active=True)
         return ''
 
