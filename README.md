@@ -17,15 +17,15 @@ If you have questions please email me at tyler@tylerball.net or consult my trans
 Do yourself a favour and use [virtualenv](http://www.virtualenv.org/en/latest/index.html) and
 [virtualenvwrapper](http://www.doughellmann.com/articles/pythonmagazine/completely-different/2008-05-virtualenvwrapper/index.html). Make sure you have PostgreSQL installed and a fresh database ready.
 
-mkvirtualenv journal
-cd $VIRTUAL_ENV
-git init
-git remote add origin git@github.com:tylerball/queensjournal.ca.git
-git pull origin master
-pip install -r requirements/dev.txt
-fab setup_local
-cd apps
-cp settings_local.py.ex settings_local.py
+    mkvirtualenv journal
+    cd $VIRTUAL_ENV
+    git init
+    git remote add origin git@github.com:tylerball/queensjournal.ca.git
+    git pull origin master
+    pip install -r requirements/dev.txt
+    fab setup_local
+    cd apps
+    cp settings_local.py.ex settings_local.py
 
 Open and edit settings\_local.py, filling in all the corresponding information.
 
