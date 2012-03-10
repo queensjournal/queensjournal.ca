@@ -1,12 +1,3 @@
-[submodule "src/django-imagekit"]
-	path = src/django-imagekit
-	url = git://github.com/tylerball/django-imagekit.git
-[submodule "src/django-oembed"]
-	path = src/django-oembed
-	url = git://github.com/tylerball/django-oembed.git
-[submodule "django-shorturls"]
-	path = django-shorturls
-	url = git://github.com/tylerball/django-shorturls.git
-[submodule "src/django-shorturls"]
-	path = src/django-shorturls
-	url = git://github.com/tylerball/django-shorturls.git
+[submodule "src/bootstrap"]
+	path = src/bootstrap
+	url = https://github.com/twitter/bootstrap.git
