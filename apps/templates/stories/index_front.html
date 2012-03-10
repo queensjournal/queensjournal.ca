@@ -59,8 +59,25 @@
         <hr>
         <ul>
             {% for story in latest_stories %}
-            <li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-                <h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
+            <li>
+                {% spaceless %}
+                <p class="label">
+                {% ifequal story.model_type 'Story' %}
+                    {% if story.tags %}
+                    <a href="/tag/{{ story.tags|striplabel|slugify }}/">
+                        {{ story.tags|striplabel }}</a>
+                    {% else %}
+                        {% firstof story.label "Story" %}
+                    {% endif %}
+                {% else %}
+                    <a href="{{ story.blog.get_absolute_url }}">{{ story.blog.title }}</a>
+                {% endifequal %}
+                </p>
+                {% endspaceless %}
+
+                <h5>
+                    <a href="{{ story.get_absolute_url }}">{% ifequal story.model_type 'Story' %}{{ story.head }}{% else %}{{ story.title }}{% endifequal %}</a>
+                </h5>
                 <p class="pub_date">{{ story.pub_date|time_since }} ago</p>
             </li>
             {% endfor %}
@@ -96,7 +113,7 @@
                 {% endif %}
 
                 <div id="latest-video">
-                    <h3>Latest Video: <span class="feed"><a href="{% url video.views.index_video %}">More Videos &gt;&gt;</a></span></h3>
+                    <h3>Latest Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
                         <a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>

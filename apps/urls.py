@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     (r'^search/', include('search.urls')),
     (r'^author/(?P<author>[\w-]+)/$', 'masthead.views.detail_author'),
     (r'^rss/(?P<url>.*)/', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
-    (r'^archives/', include('stories.archive_urls')),
+    (r'^archives/', include('archive.urls')),
     (r'^photos/', include('galleries.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

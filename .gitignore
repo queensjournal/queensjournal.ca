@@ -13,4 +13,5 @@ include/
 *.tgz
 .DS_Store
 dumps/
-apps/media/
+media/
+xapian/
