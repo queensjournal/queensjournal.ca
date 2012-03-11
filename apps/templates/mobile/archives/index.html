@@ -4,15 +4,15 @@
 
 {% block js %}
     $('.issues').makeacolumnlists({cols: 2});
-    
+
     var is_visible = false;
-	
+
 	$('.toggleLink').click(function (){
-		
+
 		/*$(this).html( (!is_visible) ? showText : hideText);*/
-		
+
 		$(this).next('.toggle').toggle('slow');
-		
+
 		return false;
 	});
 {% endblock %}
@@ -27,7 +27,7 @@
 <hr>
 <ul class="volumes">
 	{% for key, value in dates.items reversed %}
-	<li><a href="{% url stories.views.index_archive_volume key %}">Volume {{ key }}</a> - {{ value }}</li>
+	<li><a href="{% url stories.views.archive_volume_index key %}">Volume {{ key }}</a> - {{ value }}</li>
 	{% endfor %}
 </ul>
 

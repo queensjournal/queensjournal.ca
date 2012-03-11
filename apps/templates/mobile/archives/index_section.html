@@ -12,7 +12,7 @@
     $('#other-stories').masonry({
         singleMode: false,
         columnWidth: 320,
-        itemSelector: '.latest-section' 
+        itemSelector: '.latest-section'
     });
     $('#sidebar').masonry({
         singleMode: false,
@@ -22,20 +22,20 @@
 {% endblock %}
 
 {% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }}{{ block.super }}{% endblock title %}
-    
+
     {% block actions %}
         <li><a href="/rss/section/{{ section_config.section.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest {{ section_config.section.slug }} RSS</a></span></li>
     {% endblock actions %}
-        
+
     {% block content %}
     {% block breadcrumb %}
-    <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume issue.volume %}">Volume {{ issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front issue.pub_date %}">Issue {{ config.issue.issue }} &#151; {{ config.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span></div>
+    <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.archive_volume_index issue.volume %}">Volume {{ issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front issue.pub_date %}">Issue {{ config.issue.issue }} &#151; {{ config.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span></div>
     {% endblock %}
-    
+
     <div class="section-header">
         <h1>{{ section_config.section.name }}</h1>
     </div>
-                
+
     {% if featured %}
     <div id="slider" class="static">
         <div class="panel">
@@ -47,7 +47,7 @@
     </div>
     {% endif %}
 
-    
+
     <div id="other-stories">
     {% for story in other_stories %}
         <div class="latest-section">
@@ -59,7 +59,7 @@
         </div>
     {% endfor %}
     </div>
-    
+
     {% sidebar section_config.section config.issue 5 %}
-        
+
     {% endblock content %}
