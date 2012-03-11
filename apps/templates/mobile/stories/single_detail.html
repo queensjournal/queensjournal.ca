@@ -33,16 +33,16 @@ $(".gallery-container").mobileGallery();
 {% endblock %}
 
 {% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
-    
+
     {% block content %}
         <!-- google_ad_section_start -->
         <div id="story">
-            {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url stories.views.index_archive_volume story.issue.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
-            
+            {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url stories.views.archive_volume_index story.issue.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
+
             <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
             <h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
-            <h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4> 
-                
+            <h4 class="story-deck">{{ story.deck|stripspace|convert_entities|widont }}</h4>
+
             {% if story.storyphoto_set.all|length > 0 %}
             <div id="top-photo" class="story-photo">
                 <img src="{{ story.first_photo.mobile.url }}" alt="{{story.first_photo.caption|striptags}}"/>
@@ -51,7 +51,7 @@ $(".gallery-container").mobileGallery();
                 </div>
             </div>
             {% endif %}
-            
+
             <div id="story-share">
                 <hr>
                 <table>
@@ -65,16 +65,16 @@ $(".gallery-container").mobileGallery();
                 </table>
                 <hr>
             </div>
-            
+
             <p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors|safe }}{% endifnotequal %}</p>
-            
+
             {% if story.show_headshots %}
                 {% for sauthor in story.storyauthor_set.all %}
                     <div class="headshot"><a href="{{ sauthor.author.get_absolute_url }}"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
                     {{ sauthor.author.name }}</a></div>
                 {% endfor %}
             {% endif %}
-            
+
             {% if story.has_inlines %}
             <div class="story-inlines">
                 {% for factbox in story.factbox_set.all %}
@@ -137,10 +137,10 @@ $(".gallery-container").mobileGallery();
             </div><!--.story-inlines-->
             {% endif %}
             <div class="story-content">
-            
-            {% if story.storyphoto_set.all|length > 1 %}    
+
+            {% if story.storyphoto_set.all|length > 1 %}
                 {{ story.content|paragraphs:'0:12'|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
-                
+
                 {% for photo in story.other_photos %}
                 <div class="other-photo">
                     <img src="{{ photo.photo.other.url }}" alt="{{photo.photo.caption|striptags|typogrify}}">
@@ -149,15 +149,15 @@ $(".gallery-container").mobileGallery();
                     </div>
                 </div>
                 {% endfor %}
-                
+
                 {{ story.content|paragraphs:'12:'|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
-                
+
             {% else %}
-            
+
                 {{ story.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
-                
+
             {% endif %}
-            
+
             {% if story.gallery_set.all %}
                 {% for gallery in story.gallery_set.all %}
                     <div class="gallery-container">
@@ -170,7 +170,7 @@ $(".gallery-container").mobileGallery();
                     </div>
                 {% endfor %}
             {% endif %}
-            
+
             {% if story.has_wide_inlines %}
                 {% for factbox in story.factbox_set.all %}
                 {% if factbox.full_width %}
@@ -182,7 +182,7 @@ $(".gallery-container").mobileGallery();
                 {% endif %}
                 {% endfor %}
             {% endif %}
-            
+
             <div id="story-meta">
                 {% tags_for_object story as tags %}
                 {% if tags %}
@@ -215,13 +215,13 @@ $(".gallery-container").mobileGallery();
                 {% endif %}
                 {% revcanonical story %}
             </div><!--.story-meta-->
-            
+
             {% if story.enable_comments %}
                 {% load disqus_tags %}
                 {% disqus_dev %}
                 {% disqus_show_comments %}
             {% endif %}
-        
+
         </div><!-- .story-content -->
     </div><!-- #story -->
     {% endblock content %}
