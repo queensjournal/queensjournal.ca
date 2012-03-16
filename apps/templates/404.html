@@ -1,6 +1,5 @@
 {% extends "stories/single_detail.html" %}
 {% load navigation %}
-{% current_issue as issue %}
 
 {% block title %}Page not found {{ block.super }}{% endblock %}
 {% block breadcrumb %}<a href="/">Home</a>{% endblock breadcrumb %}
@@ -8,17 +7,17 @@
 {% block content %}
 	<div class="story">
 	<h2 style="margin-bottom: 0.5em">404 - Page not found</h2>
-	<p>The page you were looking for could not be found. Chances are 
-you followed a bad link or mistyped the URL. If you clicked on a 
-link on the Journal site and arrived here, please <a 
-href="mailto:journal_web@ams.queensu.ca">e-mail the 
-webmaster</a> with the link that led you to this page. Otherwise, 
-feel free to search the archives or select an issue from the sidebar 
+	<p>The page you were looking for could not be found. Chances are
+you followed a bad link or mistyped the URL. If you clicked on a
+link on the Journal site and arrived here, please <a
+href="mailto:journal_web@ams.queensu.ca">e-mail the
+webmaster</a> with the link that led you to this page. Otherwise,
+feel free to search the archives or select an issue from the sidebar
 on the right.</p>
 	</div>
 	<form name="mainsearch" method="get" action="/search/" class="search-page">
 
-			<div class="search-input">	
+			<div class="search-input">
 
 				<input type="text" name="q" id="id_q" />
 			</div>

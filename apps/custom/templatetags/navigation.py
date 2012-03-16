@@ -3,51 +3,8 @@ from structure.models import Issue, FrontConfig
 from stories.models import Story
 from blog.models import Blog
 
+
 register = template.Library()
-
-class CurrentIssueNode(template.Node):
-    """
-    Returns the latest published Issue object as a context variable.
-    """
-    def __init__(self, varname):
-        self.varname = varname
-
-    def render(self, context):
-        context[self.varname] = Issue.objects.pub_date.get_latest_by()
-        return ''
-
-def do_current_issue(parser, token):
-    """
-    {% current_issue as issue %}
-    """
-    bits = token.contents.split()
-    if len(bits) != 3:
-        raise template.TemplateSyntaxError, "'%s' tag takes two arguments" % bits[0]
-    if bits[1] != 'as':
-        raise template.TemplateSyntaxError, "First argument to '%s' tag must be 'as'" % bits[0]
-    return CurrentIssueNode(bits[2])
-
-class IssueArchivesNode(template.Node):
-    """
-    Returns the list of published Issue objects as a context variable.
-    """
-    def __init__(self, varname):
-        self.varname = varname
-
-    def render(self, context):
-        context[self.varname] = Issue.objects.order_by('-pub_date')
-        return ''
-
-def do_issue_archives(parser, token):
-    """
-    {% issue_archives as issues %}
-    """
-    bits = token.contents.split()
-    if len(bits) != 3:
-        raise template.TemplateSyntaxError, "'%s' tag takes two arguments" % bits[0]
-    if bits[1] != 'as':
-        raise template.TemplateSyntaxError, "First argument to '%s' tag must be 'as'" % bits[0]
-    return IssueArchivesNode(bits[2])
 
 def menu_sections(context):
     """
@@ -138,8 +95,6 @@ def menu_mobile(context):
     params['config'] = context.get('config')
     return params
 
-register.tag('current_issue', do_current_issue)
-register.tag('issue_archives', do_issue_archives)
 register.inclusion_tag('global/menu_sections.html', takes_context=True)(menu_sections)
 register.tag('other_stories', do_other_stories)
 register.inclusion_tag('global/menu_blogs.html', takes_context=True)(menu_blogs)

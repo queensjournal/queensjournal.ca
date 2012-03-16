@@ -1,6 +1,7 @@
 {% extends "stories/single_detail.html" %}
 {% load navigation %}
 {% load typogrify %}
+{% current_issue as issue %}
 
 {% block actions %}{% endblock actions %}
 {% block content %}
