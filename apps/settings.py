@@ -90,6 +90,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Dependencies
+    'pipeline',
     'django_mobile',
     'haystack',
     'custom',
@@ -161,6 +162,9 @@ LOGGING = {
 }
 
 from settings_local import *
+
+from settings_pipeline import *
+PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
 
 if DEBUG:
     INSTALLED_APPS += (
