@@ -1,6 +1,7 @@
 {% load navigation %}
 {% load linkset %}
 {% load tag_cloud %}
+{% load compressed %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,9 +12,7 @@
         <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
         {% endblock meta %}
 
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/reset.css" media="screen"/>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/blueprint/liquid.css" media="screen"/>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/screen.css" media="screen" title="Default" />
+        {% compressed_css 'core-styles' %}
         {% block css %}{% endblock %}
         <!--[if lte IE 7]>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
@@ -22,9 +21,7 @@
         <LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
 
         <script src="{{ STATIC_URL }}js/modernizr-1.7.min.js" type="text/javascript"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-
-        <script src='{{ STATIC_URL }}js/master.js' type='text/javascript'></script>
+        {% compressed_js 'core-scripts' %}
         {% block js %}{% endblock %}
 
         {% block headcode %}{% endblock headcode %}
