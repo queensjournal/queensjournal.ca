@@ -4,7 +4,7 @@ from django.template import RequestContext
 from structure.models import Volume, Issue
 
 
-def index_archive(request):
+def archive_index(request):
     volumes = get_list_or_404(Volume.objects.order_by('-volume'))
     dates = {}
     for volume in volumes:
@@ -22,7 +22,7 @@ def index_archive(request):
                             'dates': dates},
                             context_instance=RequestContext(request))
 
-def index_archive_volume(request, volume):
+def archive_volume_index(request, volume):
     volume = get_object_or_404(Volume, volume=volume)
     issues = get_list_or_404(Issue, volume=volume, pub_date__lt=datetime.datetime.now())
     return render_to_response('archives/index_volume.html',
