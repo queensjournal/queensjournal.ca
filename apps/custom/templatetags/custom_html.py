@@ -63,7 +63,10 @@ def choptext(value, char='20'):
 register.filter(choptext)
 
 def time_since(start_time):
-    delta = datetime.now() - start_time
+    try:
+        delta = datetime.now() - start_time
+    except TypeError:
+        return ""
 
     plural = lambda x: 's' if x != 1 else ''
 

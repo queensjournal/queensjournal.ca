@@ -2,7 +2,7 @@ from structure.models import Issue, SectionFrontConfig, Section, Volume, FlatPla
     FlatPlanConfig, FrontConfig, AuthorRole, Author, Headshot, FrontPageConfig
 import datetime
 from django.forms import ModelForm
-from stories.models import FeaturedStory, Story
+from stories.models import Story
 from django.contrib import admin
 
 class IssueAdmin(admin.ModelAdmin):
@@ -43,25 +43,6 @@ class FlatPlanConfigAdmin(admin.ModelAdmin):
 
 admin.site.register(FlatPlanConfig, FlatPlanConfigAdmin)
 
-class FeaturedInlineForm(ModelForm):
-    '''
-    Limits the choices in the Featured Story Inline to cut down on database calls
-    '''
-    def __init__(self, *args, **kwargs):
-        super(FeaturedInlineForm, self).__init__(*args, **kwargs)
-        start_date = datetime.datetime.now() - datetime.timedelta(150)
-        self.fields['story'].queryset = Story.objects.filter(pub_date__gte=start_date).order_by('-pub_date')
-
-class FeaturedInline(admin.TabularInline):
-    form = FeaturedInlineForm
-    model = FeaturedStory
-
-class FrontConfigAdmin(admin.ModelAdmin):
-    inlines = [
-        FeaturedInline,
-    ]
-
-admin.site.register(FrontConfig, FrontConfigAdmin)
 
 class AuthorRoleInline(admin.TabularInline):
     model = AuthorRole

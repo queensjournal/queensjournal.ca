@@ -1,6 +1,7 @@
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls.defaults import url, patterns, include
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
+from stories.views import Front
 from feeds import Latest, LatestStories, LatestStoriesSection, LatestPostsAllBlogs,\
     LatestPostsSingleBlog, LatestVideos
 
@@ -26,7 +27,7 @@ urlpatterns = patterns('',
     (r'^polls/', include('polls.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^story/', include('stories.urls')),
-    (r'^$', 'stories.views.index_front'),
+    url(r'^$', Front.as_view()),
     (r'^blogs/', include('blog.urls')),
     (r'^video/', include('video.urls')),
     (r'^staff/', include('staff.urls')),

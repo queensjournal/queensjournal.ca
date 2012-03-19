@@ -113,6 +113,16 @@
                 {% endif %}
 
                 <div id="latest-video">
+                    {% if config.featured_video %}
+                    <h3>Featured Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
+                    <hr>
+                    <div class="video-thumb">
+                        <a href="{{ config.featured_video.get_absolute_url }}"><img src="{{ config.featured_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
+                            <h2 class="latest-section-head">{{ config.featured_video.name }}</h2></a>
+                    </div>
+                    <p class="latest-section-summary">{{ config.featured_video.caption|convert_entities|truncatewords:18|safe }}</p>
+                    <p class="pub_date">Posted {{ config.featured_video.pub_date|time_since }} ago</p>
+                    {% else %}
                     <h3>Latest Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
@@ -121,6 +131,7 @@
                     </div>
                     <p class="latest-section-summary">{{ latest_video.caption|convert_entities|truncatewords:18|safe }}</p>
                     <p class="pub_date">Posted {{ latest_video.pub_date|time_since }} ago</p>
+                    {% endif %}
                 </div>
 
                 <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>

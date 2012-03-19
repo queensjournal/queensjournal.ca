@@ -8,13 +8,17 @@ from django.http import HttpResponseRedirect
 from stories.models import Story, StoryAuthor
 from video.models import Video
 from blog.models import Entry
-from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
 from django.db.models import Q
-from itertools import chain
 from operator import attrgetter
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
+
+# New
+from django.views.generic.base import TemplateView, View
+from itertools import chain
+from config.models import SiteConfig
+from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
 
 def parse_date(datestring):
     return date(*[int(x) for x in datestring.split('-')])
@@ -23,12 +27,40 @@ def get_issue(request):
     issue = get_object_or_404(Issue, pk=request.GET.get('issue', ''))
     return HttpResponseRedirect('/story/%s/' % issue.pub_date)
 
-def index_latest(request):
-    try:
-        issue = Issue.objects.pub_date.latest()
-    except:
-        issue = FrontPageConfig.objects.latest('pub_date')
-    return index_front(request, issue.pub_date.strftime("%Y-%m-%d"))
+class GlobalView(TemplateView):
+    '''
+    Base class for all views. Provides global config context
+    '''
+    def get_context_data(self, **kwargs):
+        self.context = {}
+        self.context['config'], created = SiteConfig.objects.get_or_create(pk=1)
+
+class Front(GlobalView):
+    '''
+    Front Page
+    '''
+    template_name = 'stories/index_front.html'
+    def get_context_data(self, **kwargs):
+        super(Front, self).get_context_data()
+        latest_stories = Story.objects.filter(status='p', \
+            pub_date__lt=datetime.datetime.now()).order_by('-pub_date')[:5]
+        latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
+        latest_video = Video.objects.latest('pub_date')
+        self.context['latest_stories'] = sorted(chain(latest_stories, latest_entries), \
+            key=attrgetter('pub_date'))[:5]
+
+        latest_section = []
+        #for section in self.context['config'].sections.flatplansection_set.all():
+            #latest_section.extend(Story.objects.filter(section=section.section,
+                #featured=True, storyphoto__isnull=False, \
+                #pub_date__lt=datetime.datetime.now()).order_by('-pub_date')[:1])
+
+        #self.context['featured'] = self.context['config'].featuredstory_set.all().\
+            #order_by('story_order')
+        self.context['latest_entries'] = latest_entries
+        self.context['latest_section'] = latest_section
+        self.context['latest_video'] = latest_video
+        return self.context
 
 def index_section(request, section):
     section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
@@ -52,30 +84,6 @@ def index_section(request, section):
         'other_stories': other_stories,
         'config': section_config,
         'latest_issue': latest_issue,},
-        context_instance=RequestContext(request))
-
-def index_front(request):
-    front_config = FrontConfig.objects.latest('pub_date')
-    lstories = Story.objects.filter(status='p', pub_date__lt=datetime.datetime.now()).\
-        order_by('-pub_date')[:5]
-    latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
-    latest_video = Video.objects.latest('pub_date')
-    latest_stories = sorted(chain(lstories, latest_entries), \
-        key=attrgetter('pub_date'))[:5]
-    latest_section = []
-    for section in front_config.sections.flatplansection_set.all():
-        latest_section.extend(Story.objects.filter(section=section.section, featured=True, \
-            storyphoto__isnull=False, pub_date__lt=datetime.datetime.now()).\
-            order_by('-pub_date')[:1])
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
-    return render_to_response('stories/index_front.html',
-        {'featured': front_config.featuredstory_set.all().order_by('story_order'),
-        'latest_stories': latest_stories,
-        'latest_entries': latest_entries,
-        'latest_section': latest_section,
-        'latest_video': latest_video,
-        'config': front_config},
         context_instance=RequestContext(request))
 
 def detail_story(request, datestring, section, slug):
@@ -171,7 +179,6 @@ def index_issue_front(request, datestring):
             'latest_stories': latest_stories,
             'latest_section': latest_section,
             'config': front_config,
-            'back_issue': True,
             'issue': issue},
           context_instance=RequestContext(request))
 
@@ -212,7 +219,6 @@ def index_issue_section(request, datestring, section):
         'older_stories': older_stories,
         'config': front_config,
         'section_config': section_config,
-        'back_issue': True,
         'issue': issue},
         context_instance=RequestContext(request))
 
