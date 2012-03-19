@@ -3,7 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 import settings
-from stories.models import Story, StoryPhoto, StoryAuthor, Photo, FeaturedPhoto
+from stories.models import Story, StoryPhoto, StoryAuthor, Photo
 from inlines.models import Factbox, Document, StoryPoll
 from galleries.models import Gallery
 from tagging.models import Tag
@@ -113,11 +113,6 @@ class PhotoAdmin(admin.ModelAdmin):
     list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption', 'photo_stories')
 
 admin.site.register(Photo, PhotoAdmin)
-
-class FeaturedPhotoAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
-
-admin.site.register(FeaturedPhoto, FeaturedPhotoAdmin)
 
 class MyTagAdmin(admin.ModelAdmin):
     list_display = ["name"]

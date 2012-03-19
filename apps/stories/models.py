@@ -6,6 +6,7 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from dependencies.twitter_update import post_to_twitter
 
+
 STATUS_CHOICES = (
     ('d', 'Draft'),
     ('p', 'Published'),
@@ -227,35 +228,3 @@ class StoryPhoto(models.Model):
         verbose_name = "Story photos"
         verbose_name_plural = "Story photos"
         order_with_respect_to = 'story'
-
-class FeaturedPhoto(ImageModel):
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True)
-
-    ### ImageKit stuff
-    original_image = models.ImageField(upload_to='featured_photos/%Y/%m/%d')
-
-    class IKOptions:
-    # Defining ImageKit options
-        spec_module = 'stories.featured_specs'
-        cache_dir = 'photo_cache'
-        image_field = 'original_image'
-
-    def __unicode__(self):
-        return self.name
-
-class FeaturedStory(models.Model):
-    story = models.ForeignKey(Story)
-    front = models.ForeignKey(FrontConfig)
-    photo = models.ForeignKey(FeaturedPhoto)
-    story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \
-        show in the Front slideshow")
-
-    class Meta:
-        verbose_name = 'Top Story'
-        verbose_name_plural = 'Top Story'
-        ordering = ['story__pub_date']
-
-    def __unicode__(self):
-        from django.utils.encoding import force_unicode
-        return 'Featured Story: %s' % (force_unicode(self.story.head))
