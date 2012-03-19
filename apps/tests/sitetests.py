@@ -45,7 +45,7 @@ class SiteTestHelper(object):
         defaults.update(kwargs)
         return Issue.objects.create(**defaults)
 
-    def test_create_frontconfig(self, **kwargs):
+    def create_frontconfig(self, **kwargs):
         defaults = {
             'pub_date' : datetime.datetime.today(),
             'sections' : self.create_flatplanconfig(),
