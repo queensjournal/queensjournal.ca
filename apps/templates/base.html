@@ -81,9 +81,15 @@
     </div><!--header-container-->
 
     <div id="menu-sections" class="menu-bar block">
-        {% menu_sections %}
+        {% include "includes/section_menu.html" with config=config %}
+
         <div id="menu-popular-tags" class="block">
-            <span class="popular-tags-title">Hot topics</span> {% popular_tags %}
+            <span class="popular-tags-title">Hot topics</span>
+            <ul>{% for tag in config.get_tags %}
+                <li class="tag">
+                    <a href="/tag/{{ tag }}/">{{ tag }}</a>
+                </li>
+            {% endfor %} </ul>
         </div>
     </div>
     <div id="menu-blogs">

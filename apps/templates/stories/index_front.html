@@ -36,14 +36,14 @@
         <div id="slider-wrapper">
 
             <div id="slider" class="nivoSlider" style="margin-right: 0px;">
-                {% for story in featured %}
-                <img src="{{ story.photo.display.url }}" alt="{{ story.story.head }}" class="slideshow-featured-img" title="#caption{{ story.story.id }}"/>
+                {% for story in config.featuredstory_set.all %}
+                    <img src="{{ story.display.url }}" alt="{{ story.story.head }}" class="slideshow-featured-img" title="#caption{{ story.story.id }}"/>
                 {% endfor %}
             </div>
-            {% for story in featured %}
+            {% for story in config.featuredstory_set.all %}
             <div id="caption{{ story.story.id }}" class="nivo-html-caption">
                 <p class="slider-story label">{% if story.story.tags %}<a href="/tag/{{story.story.label|striplabel|slugify}}/">
-                        {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
+                    {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
                 <h2><a href="{{ story.story.get_absolute_url }}">{{ story.story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
                 {{ story.story.summary|stripspace|convert_entities|truncatewords:38|safe }}
                 <!--<p class="slider-readmore"><a href="{{ story.story.get_absolute_url }}">Full Story</a></p>-->

@@ -40,6 +40,7 @@ class Front(GlobalView):
     Front Page
     '''
     template_name = 'stories/index_front.html'
+
     def get_context_data(self, **kwargs):
         super(Front, self).get_context_data()
         latest_stories = Story.objects.filter(status='p', \
@@ -61,6 +62,7 @@ class Front(GlobalView):
         self.context['latest_section'] = latest_section
         self.context['latest_video'] = latest_video
         return self.context
+
 
 def index_section(request, section):
     section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
