@@ -14,7 +14,9 @@ body {
   padding: 0;
 }
 /*Headlines: Big, Normal, Sub */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: ClassGaramond, Garamond, Times, serif;
   font-weight: normal;
 }
@@ -99,7 +101,8 @@ a {
 a img {
   border: 0;
 }
-a:focus, a:hover {
+a:focus,
+a:hover {
   color: #09f;
 }
 .label {
@@ -113,16 +116,20 @@ blockquote {
   color: #666;
   font-style: italic;
 }
-strong, dfn {
+strong,
+dfn {
   font-weight: bold;
 }
-em, dfn {
+em,
+dfn {
   font-style: italic;
 }
-sup, sub {
+sup,
+sub {
   line-height: 0;
 }
-abbr, acronym {
+abbr,
+acronym {
   border-bottom: 1px dotted #666;
 }
 address {
@@ -136,14 +143,18 @@ pre {
   margin: 1.5em 0;
   white-space: pre;
 }
-pre, code, tt {
+pre,
+code,
+tt {
   font: 1em 'andale mono', 'lucida console', monospace;
   line-height: 1.5;
 }
-li ul, li ol {
+li ul,
+li ol {
   margin: 0;
 }
-ul, ol {
+ul,
+ol {
   margin: 0 1.5em 1.5em 0;
   padding-left: 1.5em;
 }
@@ -172,10 +183,13 @@ th {
 thead th {
   background: #c3d9ff;
 }
-th, td, caption {
+th,
+td,
+caption {
   padding: 4px 10px 4px 5px;
 }
-tbody tr:nth-child(even) td, tbody tr.even td {
+tbody tr:nth-child(even) td,
+tbody tr.even td {
   background: #e5ecf9;
 }
 tfoot {
@@ -224,7 +238,9 @@ caption {
   margin-top: 0px;
   margin-bottom: 7px;
 }
-#topbar a, .menu a, #footer-container a {
+#topbar a,
+.menu a,
+#footer-container a {
   color: #2d81ab;
 }
 #connect {
@@ -241,13 +257,16 @@ caption {
   top: 4px;
   margin-left: 5px;
 }
-#search input, .menu select {
+#search input,
+.menu select {
   float: left;
   margin: 0.5em 0;
   padding: 2px;
   width: 200px;
 }
-.story-label, .menu-label, .blog-label {
+.story-label,
+.menu-label,
+.blog-label {
   font-size: 1.2em;
   font-weight: bold;
   letter-spacing: 1px;
@@ -255,14 +274,17 @@ caption {
   margin: 0;
   text-transform: uppercase;
 }
-.story-label, .blog-label {
+.story-label,
+.blog-label {
   color: #0192cd;
 }
-.story-head a, .otherstory-head a {
+.story-head a,
+.otherstory-head a {
   font-weight: normal;
   color: #000;
 }
-.story-head a:hover, .otherstory-head a:hover {
+.story-head a:hover,
+.otherstory-head a:hover {
   color: #2d81ab;
 }
 .story-head {
@@ -463,7 +485,8 @@ caption {
   margin: 0 10px 0 10px;
   width: 200px;
 }
-#menu-blogs #menu-blogs-scroll .menu-blog h3, #menu-blogs #menu-blogs-scroll .menu-blog p {
+#menu-blogs #menu-blogs-scroll .menu-blog h3,
+#menu-blogs #menu-blogs-scroll .menu-blog p {
   margin-left: 5px;
 }
 #menu-blogs #menu-blogs-scroll .menu-blog:hover {
@@ -926,11 +949,13 @@ a.nivo-prevNav {
   margin: 0.5em 0 0 0;
 }
 /* ================== SINGLES CONTENT ==================*/
-#top-photo, .other-photo {
+#top-photo,
+.other-photo {
   padding: 10px;
   margin-bottom: 1.5em;
 }
-#top-photo img, .other-photo img {
+#top-photo img,
+.other-photo img {
   padding-bottom: 10px;
 }
 #top-photo {
@@ -1024,7 +1049,8 @@ a.nivo-prevNav {
   text-align: center;
   margin: 0 0 1em;
 }
-.story-content ul, .story-content ol {
+.story-content ul,
+.story-content ol {
   margin: 0 0 1.428em 1.5em;
 }
 .inline-container {
@@ -1471,16 +1497,19 @@ a.nivo-prevNav {
   font-weight: bold;
   margin: 0;
 }
-#content-sidebar .sidebar-sports-teams, #content-sidebar .sidebar-sports-eventdetail {
+#content-sidebar .sidebar-sports-teams,
+#content-sidebar .sidebar-sports-eventdetail {
   margin: 0;
 }
-#content-sidebar .sidebar-sports-location, #content-sidebar .sidebar-sports-time {
+#content-sidebar .sidebar-sports-location,
+#content-sidebar .sidebar-sports-time {
   font-size: 0.91667em;
   line-height: 1.5em;
   margin: 0;
   text-transform: uppercase;
 }
-#content-sidebar .sidebar-sports-indresult, #content-sidebar .sidebar-sports-description {
+#content-sidebar .sidebar-sports-indresult,
+#content-sidebar .sidebar-sports-description {
   font-size: 0.91667em;
   line-height: 1.5em;
   margin: 0;
@@ -1690,7 +1719,8 @@ a.nivo-prevNav {
   text-align: right;
 }
 /* ------------------ BLOG ENTRY CONTENT ------------------ */
-#blog-single-entry ul, #blog-single-entry ol {
+#blog-single-entry ul,
+#blog-single-entry ol {
   margin-left: 1.5em;
 }
 #blog-single-entry p {
