@@ -15,7 +15,7 @@ from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
 
 # New
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import TemplateView
 from itertools import chain
 from config.models import SiteConfig
 from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
@@ -39,7 +39,7 @@ class Front(GlobalView):
     '''
     Front Page
     '''
-    template_name = 'stories/index_front.html'
+    template_name = 'front.html'
 
     def get_context_data(self, **kwargs):
         super(Front, self).get_context_data()
