@@ -2,22 +2,12 @@ from django.conf.urls.defaults import url, patterns, include
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
 from stories.views import Front
-from feeds import Latest, LatestStories, LatestStoriesSection, LatestPostsAllBlogs,\
-    LatestPostsSingleBlog, LatestVideos
+from feeds import LatestFeed, LatestStoriesFeed, LatestStoriesSectionFeed, \
+    LatestPostsAllBlogsFeed, LatestPostsSingleBlogFeed, LatestVideosFeed
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
-
-feeds = {
-    'latest': Latest,
-    'latest-stories': LatestStories,
-    'section': LatestStoriesSection,
-    'allblogs': LatestPostsAllBlogs,
-    'blogs': LatestPostsSingleBlog,
-    'video': LatestVideos
-##    'calendar': LatestCalendar,
-}
 
 urlpatterns = patterns('',
     (r'^google9fc9f538545cc45e\.html$', direct_to_template, {'template': 'google9fc9f538545cc45e.html'}),
@@ -35,7 +25,6 @@ urlpatterns = patterns('',
     (r'^masthead/', include('masthead.urls')),
     (r'^search/', include('search.urls')),
     (r'^author/(?P<author>[\w-]+)/$', 'masthead.views.detail_author'),
-    (r'^rss/(?P<url>.*)/', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^archives/', include('archive.urls')),
     (r'^photos/', include('galleries.urls')),
 
@@ -49,6 +38,10 @@ urlpatterns = patterns('',
     (r'^tag/', include('tags.urls')),
 
     (r'^s/', include('shorturls.urls')),
+)
+
+urlpatterns += patterns('',
+    (r'^rss/(?P<url>.*)/', LatestFeed()),
 )
 
 handler500 = 'stories.views.server_error'

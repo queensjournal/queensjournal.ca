@@ -124,7 +124,6 @@ INSTALLED_APPS = (
     # Staff apps
     'staff',
     'staff.requests',
-    'staff.wiki',
 )
 
 SHORTEN_MODELS = {
