@@ -175,3 +175,6 @@ if DEBUG:
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
+
+# Uses django-discover-runner test discovery
+TEST_RUNNER = "discover_runner.DiscoverRunner"

@@ -20,6 +20,10 @@ Markdown==2.0.3
 docutils
 psycopg2==2.0.13
 
+# tests
+factory_boy
+django-discover-runner
+
 git+https://github.com/tylerball/django-pipeline.git
 git+https://github.com/tylerball/django-oembed.git
 git+https://github.com/tylerball/django-shorturls.git
