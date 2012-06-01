@@ -1,5 +1,0 @@
-Fabric
-django-extensions
-django-debug-toolbar
-Werkzeug
-ipython
