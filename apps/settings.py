@@ -102,6 +102,7 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
+    'pipeline',
 
     'django.contrib.admin',
     'django.contrib.admindocs',
