@@ -1,9 +1,15 @@
-import factory
-from config.models import SiteConfig
-from structure.tests import SectionFactory
+from django.utils.unittest import TestCase
+from django.test.client import Client
+from config.factories import SiteConfigFactory
 
 
-class SiteConfigFactory(factory.Factory):
-    FACTORY_FOR = SiteConfig
+class ConfigTests(TestCase):
 
-    featured_tags = 'test, test2, test3'
+    def setUp(self):
+        self.config = SiteConfigFactory
+        self.client = Client()
+
+    def test_config_present(self):
+        resp = self.client.get('/')
+
+        self.assertEqual(len(response.context['config']), 1)

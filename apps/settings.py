@@ -60,6 +60,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.static",
     'django_mobile.context_processors.flavour',
+    'config.context_processors.global_config',
 )
 
 MIDDLEWARE_CLASSES = (
