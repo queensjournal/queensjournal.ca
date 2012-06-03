@@ -1,11 +1,9 @@
 import os
 import shutil
-import datetime
 from django.test import TestCase
 from apps.tests import SiteTestHelper
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from video.models import Video
 
 class VideoTestHelper(object):
 
@@ -20,7 +18,7 @@ class VideoTestHelper(object):
         defaults = {
             'name': u'Test Video',
             'slug': 'video1',
-            'pub_date': datetime.datetime.now() - datetime.timedelta(weeks=1),
+            'pub_date': 
             'link': u'http://www.youtube.com/watch?v=xnxz3acXM6w',
             'caption': u'Get it pregnant!',
             'photographer': self.create_author(),
