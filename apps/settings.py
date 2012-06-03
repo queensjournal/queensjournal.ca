@@ -27,7 +27,11 @@ USE_L10N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
 
-STATIC_ROOT = os.path.join(MEDIA_ROOT, 'static/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+
+# devdata options
+PATH_TO_DEVDATA = '../devdata'
+RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose --delete --exclude=.svn'
 
 TEMPLATE_DIRS = (
     os.path.join(DJANGO_ROOT, "templates/"),
@@ -104,6 +108,8 @@ INSTALLED_APPS = (
     'pagination',
     'south',
     'pipeline',
+
+    'utils',
 
     'django.contrib.admin',
     'django.contrib.admindocs',
