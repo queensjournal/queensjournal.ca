@@ -179,7 +179,6 @@ PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
 if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',
-        'django_extensions',
     )
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
