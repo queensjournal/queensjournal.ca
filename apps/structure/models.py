@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from imagekit.models import ImageModel
+
+from structure.managers import IssueManager
 from polls.models import Poll
 from datetime import datetime
 import settings
@@ -96,23 +98,6 @@ class Section(models.Model):
     def __unicode__(self):
         return self.name
 
-class IssueManager(models.Manager):
-    def published(self):
-        return self.get_query_set().filter(is_published='PUB')
-
-    def next(self, issue):
-        if issue != self.published().latest():
-            return self.published().filter(pub_date__gt=issue.pub_date).\
-                order_by('pub_date')[0]
-        else:
-            return False
-
-    def previous(self, issue):
-        if self.get_query_set().filter(pub_date__lt=issue.pub_date).count() > 0:
-            return self.published().filter(pub_date__lt=issue.pub_date).\
-                order_by('-pub_date')[0]
-        else:
-            return False
 
 class Issue(models.Model):
     PUBLISH_STATUS_CHOICES = (
@@ -129,6 +114,7 @@ class Issue(models.Model):
         null=True)
     is_published = models.CharField('Publish status', max_length=3, \
         choices=PUBLISH_STATUS_CHOICES, default='NPB')
+
     objects = IssueManager()
 
     class Meta:
