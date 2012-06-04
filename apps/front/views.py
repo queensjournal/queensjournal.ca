@@ -19,7 +19,7 @@ class Front(TemplateView):
         latest_stories = Story.objects.filter(status='p', \
             pub_date__lt=datetime.datetime.now()).order_by('-pub_date')[:5]
         latest_entries = Entry.objects.filter(is_published=True).order_by('-pub_date')[:5]
-        latest_video = Video.objects.latest('pub_date')
+        latest_video = Video.published.latest('pub_date')
         self.context['latest_stories'] = sorted(chain(latest_stories, latest_entries), \
             key=attrgetter('pub_date'))[:5]
 
