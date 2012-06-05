@@ -9,8 +9,17 @@ from stories.models import Story
 
 
 class SiteConfig(models.Model):
+    '''
+    Global configuration settings
+
+    This model holds all global settings for the site, like featured stuff and
+    active sections.
+
+    Please try to keep all fields nullable, or include a default value, so the
+    default instance can be created programmatically. e.g. see the .get() class
+    method
+    '''
     featured_tags = TagField()
-    sections = models.ManyToManyField(Section)
     announcement_head = models.CharField(max_length=256, blank=True)
     announcement_body = models.TextField(blank=True)
     featured_video = models.ForeignKey(Video, blank=True, null=True, help_text="If this \
@@ -19,9 +28,19 @@ class SiteConfig(models.Model):
     def get_tags(self):
         return Tag.objects.get_for_object(self)
 
+    @classmethod
+    def get(cls):
+        obj, created = cls.objects.get_or_create(id=1)
+        return obj
+
 
 def get_previous_story_order():
-    return FeaturedStory.objects.all()[0].id + 1
+    try:
+        prev = FeaturedStory.objects.all()[0].id + 1
+    except:
+        prev = 0
+    return prev
+
 
 class FeaturedStory(ImageModel):
     story = models.ForeignKey(Story)
