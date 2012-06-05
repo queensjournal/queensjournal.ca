@@ -23,6 +23,5 @@ class ConfigAdmin(admin.ModelAdmin):
     inlines = [
         FeaturedInline,
     ]
-    filter_horizontal = ['sections']
 
 admin.site.register(SiteConfig, ConfigAdmin)
