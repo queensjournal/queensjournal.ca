@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import url, patterns, include
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
-from front.views import Front
+from front.views import FrontView
 from feeds import LatestFeed, LatestStoriesFeed, LatestStoriesSectionFeed, \
     LatestPostsAllBlogsFeed, LatestPostsSingleBlogFeed, LatestVideosFeed
 
@@ -19,7 +19,7 @@ urlpatterns = patterns('',
         'mimetype': 'text/plain',}),
 
     # front page
-    url(r'^$', Front.as_view(), name='front'),
+    url(r'^$', FrontView.as_view(), name='front'),
 
     # apps
     (r'^polls/', include('polls.urls')),
