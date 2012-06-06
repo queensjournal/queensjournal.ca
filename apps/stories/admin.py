@@ -2,6 +2,7 @@ import datetime
 from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
+from django.forms import ModelForm
 import settings
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo
 from inlines.models import Factbox, Document, StoryPoll
@@ -32,15 +33,23 @@ class StoryPollInline(admin.TabularInline):
     model = StoryPoll
     extra = 1
 
+class PhotoInlineForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        ''' 
+        Alter the queryset to exclude old photos, helps page load quicker.
+        '''
+        super(PhotoInlineForm, self).__init__(*args, **kwargs)
+        self.fields['photo'].queryset = Photo.objects.exclude(
+            creation_date__lt=(
+                datetime.datetime.now() - datetime.timedelta(weeks=8)
+            )
+        )
+
+
 class StoryPhotoInline(admin.TabularInline):
     model = StoryPhoto
+    form = PhotoInlineForm
 
-    def formfield_for_dbfield(self, field, **kwargs):
-        if field.name == 'photo':
-            incl_photos = Photo.objects.exclude(creation_date__lt=(datetime.datetime.now() \
-                - datetime.timedelta(weeks=8)))
-            return forms.ModelChoiceField(queryset=incl_photos)
-        return super(StoryPhotoInline, self).formfield_for_dbfield(field, **kwargs)
 
 class StoryAuthorInline(admin.TabularInline):
     model = StoryAuthor
