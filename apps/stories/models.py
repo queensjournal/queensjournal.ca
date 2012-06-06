@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
-from structure.models import Issue, Section, FrontConfig, Author
+from stories.managers import PublishedStoryManager
+from structure.models import Issue, Section, Author
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
