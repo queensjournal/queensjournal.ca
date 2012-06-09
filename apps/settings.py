@@ -1,4 +1,5 @@
 import os
+import sys
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
@@ -187,3 +188,12 @@ if DEBUG:
 
 # Uses django-discover-runner test discovery
 TEST_RUNNER = "discover_runner.DiscoverRunner"
+
+# Run tests in sqllite
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory',
+        },
+    }
