@@ -1,4 +1,3 @@
-# Create your views here.
 import datetime
 from django.conf import settings
 from datetime import date, time, timedelta
@@ -26,10 +25,6 @@ def get_issue(request):
 
 def index_section(request, section):
     section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
-    if section_config.template:
-        template = section_config.template
-    else:
-        template = 'stories/index_section.html'
     featured = Story.objects.filter(section__slug__iexact=section, featured=True, \
         status='p').exclude(storyphoto__isnull=True, gallery__isnull=True).\
         order_by('-pub_date')[:5]
@@ -37,10 +32,10 @@ def index_section(request, section):
         order_by('-pub_date')
     latest_stories = story_set[:5]
     other_stories = story_set[5:13]
-    latest_issue = Issue.objects.latest('pub_date')
+    latest_issue = Issue.objects.latest()
     if request.session.get('vote') is None:
         request.session['vote'] = []
-    return render_to_response(template,
+    return render_to_response('stories/index_section.html',
         {'featured': featured,
         'latest_stories': latest_stories,
         'other_stories': other_stories,

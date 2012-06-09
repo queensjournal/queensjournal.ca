@@ -11,8 +11,7 @@ from config.models import SiteConfig
 class CurrentView(TemplateView):
     def get_context_data(self, **kwargs):
         context = {}
-        context['sections'] = Issue.objects.latest().sections \
-            .flatplansection_set.all()
+        context['sections'] = Issue.objects.latest().sections.get_sections()
         return context
 
 
@@ -35,7 +34,7 @@ class FrontView(CurrentView):
         latest_section = []
         for section in context['sections']:
             latest_section.extend(Story.published.filter(
-                section=section.section, featured=True, \
+                section=section, featured=True, \
                 storyphoto__isnull=False).order_by('-pub_date')[:1])
 
         config = SiteConfig.get()
