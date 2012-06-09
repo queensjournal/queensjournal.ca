@@ -5,6 +5,7 @@ from video.factories import VideoFactory
 
 class FrontTests(TestCase):
     def test_index_front(self):
-        VideoFactory()
+        video = VideoFactory()
         resp = self.client.get('/')
         self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['latest_video'], video)

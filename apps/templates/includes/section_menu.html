@@ -1,12 +1,12 @@
 <ul class="menu">
-{% for section in config.sections.all %}
+{% for section in sections %}
     {% spaceless %}
     {% ifequal section.slug current_section.slug %}
         <li class="section-current menu">
     {% else %}
         <li class="section-other menu">
     {% endifequal %}
-    <a href="{% if issue %}{% url stories.views.index_issue_section issue.pub_date section.slug %}{% else %}{% url stories.views.index_section section.slug %}{% endif %}"><span>{% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}</span>
+    <a href="{% url stories.views.index_section section.slug %}"><span>{% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}</span>
     </a></li>
     {% endspaceless %}
 {% endfor %}

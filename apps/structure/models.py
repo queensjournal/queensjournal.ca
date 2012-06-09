@@ -141,6 +141,13 @@ class FlatPlanConfig(models.Model):
             . 135 standard\', \'Vol. 135 with Supplement\', \'Vol. 136 \
             Extra\'.')
 
+    def get_sections(self):
+        sections = []
+        section_qset = self.flatplansection_set.all()
+        for section_wrapper in section_qset:
+            sections.append(section_wrapper.section)
+        return sections
+
     def list_sections(self):
         sections = []
         section_qset = list(self.flatplansection_set.all())
@@ -150,14 +157,6 @@ class FlatPlanConfig(models.Model):
             else:
                 sections.append(section_wrapper.section.name)
         return ' '.join(sections)
-    list_sections.short_description = 'Section order'
-
-    def array_sections(self):
-        sections = []
-        section_qset = list(self.flatplansection_set.all())
-        for section_wrapper in section_qset:
-            sections.append(section_wrapper.section.name)
-        return sections
 
     class Meta:
         verbose_name = 'Issue Configuration'
