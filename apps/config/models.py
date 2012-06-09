@@ -3,7 +3,6 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from imagekit.models import ImageModel
 
-from structure.models import Section
 from video.models import Video
 from stories.models import Story
 
@@ -32,6 +31,12 @@ class SiteConfig(models.Model):
     def get(cls):
         obj, created = cls.objects.get_or_create(id=1)
         return obj
+
+    def __unicode__(self):
+        return "Site Configuration"
+
+    class Meta:
+        verbose_name = "Site Configuration"
 
 
 def get_previous_story_order():
