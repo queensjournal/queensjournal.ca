@@ -1,19 +1,26 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from apps.tests import SiteTestHelper
+from structure.factories import IssueFactory, VolumeFactory
 
 
-class ArchiveTests(SiteTestHelper, TestCase):
+class ArchiveTests(TestCase):
+    def setUp(self):
+        self.volumes = []
+        self.issues = []
+
+        for _ in range(3):
+            self.volumes.append(VolumeFactory())
+
+        for volume in self.volumes:
+            for _ in range(2):
+                self.issues.append(IssueFactory(volume=volume))
+
     def test_archive_index(self):
-        self.create_frontconfig() # TODO remove this later
         resp = self.client.get(reverse('archive-index'))
         self.assertEqual(resp.status_code, 200)
 
     def test_archive_index_volume(self):
-        self.create_frontconfig() # TODO remove this later
-        volume = self.create_volume()
-        resp = self.client.get(reverse('archive-volume-index',
-            kwargs={ 'volume': volume.volume }))
+        volume = self.volumes[0]
+        resp = self.client.get(reverse('archive-volume-index', args=[volume.volume]))
         self.assertEqual(resp.status_code, 200)
-
