@@ -1,15 +1,10 @@
-from django.utils.unittest import TestCase
-from django.test.client import Client
-from config.factories import SiteConfigFactory
+from django.test import TestCase
+
+from apps.tests import SiteTestHelper
 
 
-class ConfigTests(TestCase):
-
-    def setUp(self):
-        self.config = SiteConfigFactory
-        self.client = Client()
-
+class ConfigTests(SiteTestHelper, TestCase):
     def test_config_present(self):
         resp = self.client.get('/')
 
-        self.assertEqual(len(response.context['config']), 1)
+        self.assertTrue(resp.context['config'])
