@@ -1,9 +1,10 @@
 from django.test import TestCase
-from stories.factories import StoryFactory
+
+from apps.tests import SiteTestHelper
 from video.factories import VideoFactory
 
 
-class FrontTests(TestCase):
+class FrontTests(SiteTestHelper, TestCase):
     def test_index_front(self):
         video = VideoFactory()
         resp = self.client.get('/')

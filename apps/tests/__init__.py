@@ -1,1 +1,1 @@
-from apps.tests.sitetests import *
+from apps.tests.helpers import *
