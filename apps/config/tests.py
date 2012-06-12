@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from apps.tests import SiteTestHelper
+from utils import SiteTestHelper
 
 
 class ConfigTests(SiteTestHelper, TestCase):
