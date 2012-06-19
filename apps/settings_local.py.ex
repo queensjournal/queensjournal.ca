@@ -12,7 +12,7 @@ DATABASES = {
         'NAME': '',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
@@ -21,7 +21,7 @@ MEDIA_URL = '/media/' # TODO change on prod
 
 STATIC_URL = '/static/' # TODO change on prod
 
-SECRET_KEY = 'jqb%^1wtw4#g2ug8w^shcm=&o)$^dx7$os3cnbexpy@607vuwu'
+SECRET_KEY = '' # TODO Fill on prod
 
 HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_ROOT, 'xapian/')
 
@@ -63,5 +63,6 @@ EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'server@queensjournal.ca'
 SERVER_EMAIL = 'server@queensjournal.ca'
 
+# short url configuration
 SHORT_BASE_URL = "http://qjrnl.net/"
 SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"
