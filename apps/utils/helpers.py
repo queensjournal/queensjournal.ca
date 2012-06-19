@@ -17,10 +17,14 @@ class SiteTestHelper(object):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
+        kwargs = {}
+
         if template_name is not None:
+            kwargs['template_name'] = template_name
             self.assertTemplateUsed(response, template_name)
 
         if context is not None:
+            kwargs['context'] = context
             for k, v in context.iteritems():
                 self.assertIn(k, response.context)
 
@@ -32,3 +36,9 @@ class SiteTestHelper(object):
                     response_value = list(response_value)
 
                 self.assertEqual(v, response_value)
+
+        self.assert_mobile_page_loads(url, *kwargs)
+
+    def assert_mobile_page_loads(self, url, template_name=None, context=None):
+        response = self.client.get(url + '?flavour=mobile')
+        self.assertEqual(response.status_code, 200)
