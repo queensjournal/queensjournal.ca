@@ -1,0 +1,21 @@
+<ul class="menu">
+{% for section in sections %}
+    {% spaceless %}
+    {% ifequal section.slug current_section.slug %}
+        <li class="section-current menu">
+    {% else %}
+        <li class="section-other menu">
+    {% endifequal %}
+    <a href="{% url stories.views.index_section section.slug %}"><span>{% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}</span>
+    </a></li>
+    {% endspaceless %}
+{% endfor %}
+
+{% load linkset %}
+{% linkset 'menu-sections' as links %}
+{% for link in links %}
+    {% if link.active %}
+    <li class="menu {% ifequal section_config.section.slug link.text %}section-current{% else %}{% firstof link.css_class 'section-other' %}{% endifequal %}"><a href="{{ link.url }}"><span>{{ link.text }}</span></a></li>
+    {% endif %}
+{% endfor %}
+</ul>

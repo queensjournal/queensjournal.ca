@@ -1,46 +1,23 @@
-import os
-import shutil
-import datetime
 from django.test import TestCase
-from apps.tests import SiteTestHelper
-from django.conf import settings
 from django.core.urlresolvers import reverse
-from video.models import Video
 
-class VideoTestHelper(object):
-
-    def setup_video_tests(self):
-        super(VideoTestHelper, self).setUp()
-        test_image_source = os.path.join(settings.DJANGO_ROOT, 'tests/test.jpg')
-        self.test_image_dest = 'test_data/test.jpg'
-        shutil.copy(test_image_source, os.path.join(settings.MEDIA_ROOT, self.test_image_dest))
-
-    def create_video(self, **kwargs):
-        self.setup_video_tests()
-        defaults = {
-            'name': u'Test Video',
-            'slug': 'video1',
-            'pub_date': datetime.datetime.now() - datetime.timedelta(weeks=1),
-            'link': u'http://www.youtube.com/watch?v=xnxz3acXM6w',
-            'caption': u'Get it pregnant!',
-            'photographer': self.create_author(),
-            'screenshot': self.test_image_dest,
-            'is_published': True,
-        }
-        defaults.update(kwargs)
-        obj, created = Video.objects.get_or_create(**defaults)
-        return obj
+from utils.tests import SiteTestHelper
+from video.factories import VideoFactory
 
 
-class VideoTests(VideoTestHelper, SiteTestHelper, TestCase):
-
+class VideoTests(SiteTestHelper, TestCase):
     def test_video_index(self):
-        self.create_video()
-        self.create_video(name="Test Video 2", slug="video-2")
-        resp = self.client.get(reverse('video-index'))
-        self.assertEqual(resp.status_code, 200)
+        VideoFactory()
+        VideoFactory(name="Test Video 2", slug="video-2")
+        self.assert_page_loads(reverse('video-index'),
+            'video/video_index.html')
 
     def test_video_detail(self):
-        video = self.create_video()
+        video = VideoFactory()
+        self.assert_page_loads(video.get_absolute_url(),
+            'video/video_detail.html')
+
+    def test_video_detail_is_not_published(self):
+        video = VideoFactory(is_published=False)
         resp = self.client.get(video.get_absolute_url())
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 404)
