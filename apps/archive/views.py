@@ -28,7 +28,7 @@ def archive_volume_index(request, volume):
     volume = get_object_or_404(Volume, volume=volume)
     issues = get_list_or_404(Issue, volume=volume,
         pub_date__lt=datetime.datetime.now())
-    return render_to_response('archives/issue_detail.html', {
+    return render_to_response('archives/index_volume.html', {
                             'volume': volume,
                             'issues': issues,
                             }, context_instance=RequestContext(request))
