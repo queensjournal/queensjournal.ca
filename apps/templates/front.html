@@ -112,8 +112,8 @@
                 </div>
                 {% endif %}
 
+                {% if config.featured_video %}
                 <div id="latest-video">
-                    {% if config.featured_video %}
                     <h3>Featured Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
@@ -131,8 +131,8 @@
                     </div>
                     <p class="latest-section-summary">{{ latest_video.caption|convert_entities|truncatewords:18|safe }}</p>
                     <p class="pub_date">Posted {{ latest_video.pub_date|time_since }} ago</p>
-                    {% endif %}
                 </div>
+                {% endif %}
 
                 <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
                     {% for entry in latest_entries %}
