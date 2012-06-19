@@ -1,12 +1,13 @@
-import datetime
 from django.test import TestCase
+
+from utils import SiteTestHelper
 from stories.factories import StoryFactory
 
-class StoryTests(TestCase):
 
+class StoryTests(SiteTestHelper, TestCase):
     def setUp(self):
         self.story = StoryFactory()
 
     def test_story_detail(self):
-        resp = self.client.get(self.story.get_absolute_url())
-        self.assertEqual(resp.status_code, 200)
+        self.assert_page_loads(self.story.get_absolute_url(),
+            'stories/single_detail.html')

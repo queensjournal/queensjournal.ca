@@ -5,7 +5,6 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext, Context, loader
 from django.http import HttpResponseRedirect
 from stories.models import Story, StoryAuthor
-from django.db.models import Q
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
@@ -33,6 +32,7 @@ def index_section(request, section):
     latest_stories = story_set[:5]
     other_stories = story_set[5:13]
     latest_issue = Issue.objects.latest()
+    # TODO: move all this vote stuff somewhere. Do we even need polls anymore?
     if request.session.get('vote') is None:
         request.session['vote'] = []
     return render_to_response('stories/index_section.html',
@@ -65,6 +65,7 @@ def detail_story(request, datestring, section, slug):
 ''' ------------  STORIES -------------- '''
 
 
+#TODO refactor, review, test. Move to external service?
 def email_story(request, datestring, section, slug):
     if request.method != "POST":
         form = EmailStoryForm()
@@ -121,27 +122,21 @@ def email_story(request, datestring, section, slug):
 ''' ------------  ARCHIVES ------------- '''
 
 
+# TODO: move archive views to archive apps
 def index_issue_front(request, datestring):
     issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-    try:
-        front_config = FrontPageConfig.objects.get(issue=issue)
-    except:
-        front_config = get_object_or_404(FrontConfig, issue=issue)
-    featured = Story.objects.filter(Q(section_order=1) | Q(featured=True), status='p', \
-        issue=issue, storyphoto__isnull=False)[:5]
-    latest_stories = Story.objects.filter(status='p', issue=issue).order_by('-pub_date')[:5]
-    latest_section = []
-    for section in issue.sections.flatplansection_set.all():
-        latest_section.extend(Story.objects.filter(section=section.section, issue=issue)[:2])
+    sections = issue.sections.get_sections()
+    stories = {}
+    for section in sections:
+        stories[section.slug] = Story.published.filter(section=section,
+            issue=issue)
     if request.session.get('vote') is None:
         request.session['vote'] = []
-    return render_to_response('archives/index_front.html',
-          {'featured': featured,
-            'latest_stories': latest_stories,
-            'latest_section': latest_section,
-            'config': front_config,
-            'issue': issue},
-          context_instance=RequestContext(request))
+    return render_to_response('archives/issue_front.html', {
+        'sections': sections,
+        'stories': stories,
+        'issue': issue
+        }, context_instance=RequestContext(request))
 
 
 def index_issue_section(request, datestring, section):
