@@ -1,3 +1,13 @@
+Picasso 2.2 - June 20, 2012
+---------------------------
+
+Huge changes. See commits: https://github.com/queensjournal/queensjournal.ca/commits/
+
+* testing
+* load\_devdata and dump\_devdata
+* reorganization of lots of code
+* requirements file simplification
+
 Picasso 2.1.6 - March 10, 2012
 ------------------------------
 
