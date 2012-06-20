@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('archive.views',
-    url(r'^$', 'index_archive'),
-    url(r'^(?P<volume>[0-999]+)/', 'index_archive_volume'),
+    url(r'^$', 'archive_index', name='archive-index'),
+    url(r'^(?P<volume>[0-999]+)/', 'archive_volume_index', name='archive-volume-index'),
 )

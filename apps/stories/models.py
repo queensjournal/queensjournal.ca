@@ -1,10 +1,12 @@
 import datetime
 from django.db import models
-from structure.models import Issue, Section, FrontConfig, Author
+from stories.managers import PublishedStoryManager
+from structure.models import Issue, Section, Author
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
 from dependencies.twitter_update import post_to_twitter
+
 
 STATUS_CHOICES = (
     ('d', 'Draft'),
@@ -12,33 +14,45 @@ STATUS_CHOICES = (
     ('w', 'Withdrawn'),
 )
 
+
 class Story(models.Model):
     head = models.CharField(max_length=255)
     deck = models.CharField(max_length=255, blank=True, null=True)
-    slug = models.SlugField(help_text='Automatically written based on the headline. If \
-        nothing shows up here, try typing in the headline instead of copying and pasting.')
+    slug = models.SlugField(
+        help_text='Automatically written based on the headline. If nothing \
+            shows up here, try typing in the headline instead of copying and \
+            pasting.')
     section = models.ForeignKey(Section)
     issue = models.ForeignKey(Issue, null=True, blank=True)
-    label = models.CharField(max_length=255, blank=True, null=True, editable=False)
+    label = models.CharField(max_length=255, blank=True, null=True,
+        editable=False)
     content = models.TextField()
-    summary = models.TextField(help_text='Sum up the story in a single paragraph.')
-    section_order = models.PositiveSmallIntegerField("Order in section", help_text="\
-        Determines the order of all stories in the section, with lower numbers at the top \
-        (so a story with order priority 1 would be at the top).", editable=False, \
-        null=True)
+    summary = models.TextField(
+        help_text='Sum up the story in a single paragraph.')
+    section_order = models.PositiveSmallIntegerField("Order in section",
+        help_text="Determines the order of all stories in the section, with \
+            lower numbers at the top (so a story with order priority 1 would \
+            be at the top).", editable=False, null=True)
     enable_comments = models.BooleanField(default=True)
-    show_headshots = models.BooleanField(default=False, help_text="Check when you want to \
-        display headshots. For Ops pieces and Signed Eds.")
-    tags = TagField(blank=True, help_text='Article Tags and Label. Use this to apply tags \
-        to the story. Use commas to separate tags. The first tag will be the story\'s \
-        label. For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
+    show_headshots = models.BooleanField(default=False,
+        help_text="Check when you want to display headshots. For Ops pieces \
+            and Signed Eds.")
+    tags = TagField(blank=True,
+        help_text='Article Tags and Label. Use this to apply tags to the \
+            story. Use commas to separate tags. The first tag will be the \
+            story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, \
+            Aberdeen\"')
     featured = models.BooleanField()
     pub_date = models.DateTimeField(default=datetime.datetime.now, unique=True)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', \
-        help_text='Draft will place the story in a queue to be published later, published \
-        will publish the story immediately.')
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES,
+        default='d',
+        help_text='Draft will place the story in a queue to be published \
+            later, published will publish the story immediately.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
+
+    objects = models.Manager()
+    published = PublishedStoryManager()
 
     class Meta:
         verbose_name_plural = "Stories"
@@ -51,12 +65,14 @@ class Story(models.Model):
         author_num = len(author_qset)
         # byline names
         for wrapper in author_qset:
-            if (author_num > 1 and wrapper != author_qset[-2]) or author_num == 1:
-                authors.append('<a href="/author/%s/">%s</a>, ' % (wrapper.author.slug, \
-                    wrapper.author.name))
+            if (author_num > 1 and wrapper != author_qset[-2]) \
+            or author_num == 1:
+                authors.append('<a href="/author/%s/">%s</a>, ' % (
+                    wrapper.author.slug, wrapper.author.name))
             else:
-                authors.append('<a href="/author/%s/">%s</a>' % (wrapper.author.slug, \
-                    wrapper.author.name))
+                authors.append('<a href="/author/%s/">%s</a>' % (
+                    wrapper.author.slug, wrapper.author.name))
+
         # byline titles
         if author_num > 1:
             authors.insert(-1, 'and')
@@ -89,13 +105,29 @@ class Story(models.Model):
             except IndexError:
                 return False
 
+    def story_photo(self):
+        from galleries.models import Gallery
+        if self.gallery_set.all():
+            try:
+                gallery = Gallery.objects.filter(story=self)[0]
+                return gallery.images.all()[0]
+            except IndexError:
+                return False
+        else:
+            try:
+                sp = StoryPhoto.objects.filter(story=self)[0]
+                return sp.photo
+            except IndexError:
+                return False
+
     def first_photo(self):
         sp = StoryPhoto.objects.filter(story=self)[0]
         return sp.photo
 
     def other_photos(self):
         if len(self.storyphoto_set.all()) > 1:
-            return StoryPhoto.objects.filter(story=self).exclude(photo=self.first_photo)
+            return StoryPhoto.objects.filter(story=self).exclude(
+                photo=self.first_photo)
 
     def related_photos(self):
         return StoryPhoto.objects.filter(story=self)
@@ -147,6 +179,7 @@ class Story(models.Model):
 
 models.signals.post_save.connect(post_to_twitter, sender=Story)
 
+
 class StoryAuthor(models.Model):
     author = models.ForeignKey(Author, default=None)
     story = models.ForeignKey(Story)
@@ -157,20 +190,24 @@ class StoryAuthor(models.Model):
     def __unicode__(self):
         return '%s - %s' % (self.author.name, self.story.head)
 
+
 class Photo(ImageModel):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(help_text='Automatically written based on the headline. If \
-        nothing shows up here, try typing in the headline instead of copying and pasting.')
-    photo = models.ImageField(upload_to='story_photos/%Y/%m/%d/', help_text='Please \
-        convert all images to RGB JPEGs.')
-    thumbnail = models.ImageField(upload_to='thumbs/', editable=False, null=True, \
-        default='')
+    slug = models.SlugField(
+        help_text='Automatically written based on the headline. If nothing \
+            shows up here, try typing in the headline instead of copying and \
+            pasting.')
+    photo = models.ImageField(upload_to='story_photos/%Y/%m/%d/',
+        help_text='Please convert all images to RGB JPEGs.')
+    thumbnail = models.ImageField(upload_to='thumbs/', editable=False,
+        null=True, default='')
     issue = models.ForeignKey(Issue, blank=True, null=True)
     caption = models.TextField(blank=True)
     photographer = models.ForeignKey(Author, blank=True, null=True)
-    credit = models.CharField("Optional credit", max_length=255, help_text="For special \
-        photo credits not involving a staff photographer, ex. 'Photo supplied by Queen's \
-        Alumni Services,' 'Journal File Photo,' etc.", blank=True)
+    credit = models.CharField("Optional credit", max_length=255,
+        help_text="For special photo credits not involving a staff \
+            photographer, ex. 'Photo supplied by Queen's Alumni Services,' \
+            'Journal File Photo,' etc.", blank=True)
     creation_date = models.DateField(default=datetime.date.today())
 
     class IKOptions:
@@ -199,8 +236,8 @@ class Photo(ImageModel):
 
     def list_photographer(self):
         if self.photographer is not None:
-            return '<a href="%s">%s</a>' % (self.photographer.get_absolute_url(), \
-                self.photographer)
+            return '<a href="%s">%s</a>' % (
+                self.photographer.get_absolute_url(), self.photographer)
         elif self.credit != '':
             return self.credit
         else:
@@ -213,6 +250,7 @@ class Photo(ImageModel):
 
     def __unicode__(self):
         return self.name
+
 
 class StoryPhoto(models.Model):
     photo = models.ForeignKey(Photo, default=None)
@@ -227,35 +265,3 @@ class StoryPhoto(models.Model):
         verbose_name = "Story photos"
         verbose_name_plural = "Story photos"
         order_with_respect_to = 'story'
-
-class FeaturedPhoto(ImageModel):
-    name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True)
-
-    ### ImageKit stuff
-    original_image = models.ImageField(upload_to='featured_photos/%Y/%m/%d')
-
-    class IKOptions:
-    # Defining ImageKit options
-        spec_module = 'stories.featured_specs'
-        cache_dir = 'photo_cache'
-        image_field = 'original_image'
-
-    def __unicode__(self):
-        return self.name
-
-class FeaturedStory(models.Model):
-    story = models.ForeignKey(Story)
-    front = models.ForeignKey(FrontConfig)
-    photo = models.ForeignKey(FeaturedPhoto)
-    story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \
-        show in the Front slideshow")
-
-    class Meta:
-        verbose_name = 'Top Story'
-        verbose_name_plural = 'Top Story'
-        ordering = ['story__pub_date']
-
-    def __unicode__(self):
-        from django.utils.encoding import force_unicode
-        return 'Featured Story: %s' % (force_unicode(self.story.head))

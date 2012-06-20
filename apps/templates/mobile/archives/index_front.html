@@ -1,4 +1,4 @@
-{% extends 'stories/index_front.html' %}
+{% extends 'front.html' %}
 {% load navigation %}
 {% load sidebartags %}
 {% load custom_html %}
@@ -49,7 +49,7 @@
     {% endblock issue-banner %}
 
     {% block content %}
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.index_archive %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
+    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive.views.archive_index %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
 
     <div id="section-header">
         <h1>Issue {{ config.issue.issue }} - {{ config.issue.pub_date|date:"F j, Y" }}</h1>
