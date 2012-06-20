@@ -19,130 +19,91 @@
 
 {% block title %}{{ config.section.name }} - {{ block.super }}{% endblock title %}
 
-	{% block actions %}
-		<li><a href="/rss/section/{{ config.section.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest {{ config.section.slug }} RSS</span></a></li>
-	{% endblock actions %}
+    {% block actions %}
+        <li><a href="/rss/section/{{ config.section.slug }}/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest {{ config.section.slug }} RSS</span></a></li>
+    {% endblock actions %}
 
-	{% block content-class %} span-19 front-content{% endblock %}
+    {% block content-class %} span-19 front-content{% endblock %}
 
-	{% block content %}
-	{% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ config.section }}</span></div>{% endblock %}
-	<div class="section-header">
-		<h1>{{ config.section.name }}</h1>
-	</div>
+    {% block content %}
+    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><span class="current">{{ config.section }}</span></div>{% endblock %}
+    <div class="section-header">
+        <h1>{{ config.section.name }}</h1>
+    </div>
 
-	<div class="hr dblmargin"><hr></div>
+    <div class="hr dblmargin"><hr></div>
 
-	<div class="block">
+    <div class="block">
 
-		<div class="featured column span-16 colborder"><!--featured box-->
+        <div class="featured column span-16 colborder"><!--featured box-->
 
-				<div id="slider-wrapper">
+                <div id="slider-wrapper">
 
-		            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
-					{% for story in featured %}
-		                <img src="{{ story.story_thumb.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
-		            {% endfor %}
-		            </div>
-					{% for story in featured %}
-		            <div id="caption{{ story.id }}" class="nivo-html-caption">
-		                <p class="slider-story label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
-			{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-						<h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-						{{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
-		            </div>
-					{% endfor %}
+                    <div id="slider" class="nivoSlider" style="margin-right: 0px;">
+                    {% for story in featured %}
+                        <img src="{{ story.story_photo.display.url }}" alt="{{ story.head }}" class="slideshow-featured-img" title="#caption{{ story.id }}"/>
+                    {% endfor %}
+                    </div>
+                    {% for story in featured %}
+                    <div id="caption{{ story.id }}" class="nivo-html-caption">
+                        <p class="slider-story label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
+            {{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+                        <h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+                        {{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
+                    </div>
+                    {% endfor %}
 
-				</div>
+                </div>
 
-		</div><!--featured box-->
+        </div><!--featured box-->
 
-		<div id="stories-other" class="latest column span-7 last">
-			<h3>Latest Stories <span class="feed"><a href="/rss/section/{{ config.section.slug }}/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
-			<hr>
-			<ul>
-			{% for story in latest_stories %}
-				<li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-					<h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
-					<p class="pub_date">{{ story.pub_date|time_since }}</p>
-				</li>
-			{% endfor %}
-			</ul>
-		</div>
+        <div id="stories-other" class="latest column span-7 last">
+            <h3>Latest Stories <span class="feed"><a href="/rss/section/{{ config.section.slug }}/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
+            <hr>
+            <ul>
+            {% for story in latest_stories %}
+                <li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+                    <h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
+                    <p class="pub_date">{{ story.pub_date|time_since }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
 
-	</div><!--block-->
+    </div><!--block-->
 
-	<div class="hr dblmargin"><hr></div>
+    <div class="hr dblmargin"><hr></div>
 
-	{% sidebar config.section latest_issue 5 %}
+    {% sidebar config.section latest_issue 5 %}
 
-	<div id="other-stories">
+    <div id="other-stories">
 
-			{% for story in other_stories %}
-			<div class="latest-section brick">
-				<p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-				<a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.front_image.url }}" /></a>{% endif %}
-				<h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
-				<p class="latest-section-summary">{{ story.summary|safe }}</p>
-			</div>
-			{% endfor %}
+            {% for story in other_stories %}
+            <div class="latest-section brick">
+                <p class="label section-label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
+                <a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.front_image.url }}" /></a>{% endif %}
+                <h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
+                <p class="latest-section-summary">{{ story.summary|safe }}</p>
+            </div>
+            {% endfor %}
 
-	</div>
-	{% endblock content %}
-
-	{% block poll %}
-	{% if config.poll %}
-		<div id="menu-poll" class="poll">
-			<p class="menu-label">Poll</p>
-			<p id="poll-question">{{ config.poll.question }}</p>
-			{% pollflash config.poll.id %}
-				{% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll config.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
-			{% endpollflash %}
-			{% if config.poll.id|in_list:request.session.vote or request.GET.results or not config.poll.is_active %}
-			{% if not config.poll.is_active %}
-				<p><strong>Voting on this poll is closed.</strong></p>
-			{% endif %}
-			<ul id="poll-results">
-				{% for choice in config.poll.choice_set.all %}
-				<li class="clearfix"><p>{{ choice.choice }}</p>
-				<p class="result-number">{{ choice.vote_set.count }}</p>
-				<div class="result-bar-back">
-					<div class="result-bar-interval"></div>
-					<div class="result-bar-interval"></div>
-					<div class="result-bar-interval"></div>
-					<div class="result-bar-interval last-bar"></div>
-				{% ifnotequal choice.vote_set.count 0 %}
-					<div class="result-bar" style="width: {% widthratio choice.vote_set.count config.poll.total_votes 114 %}px;"></div>
-				{% endifnotequal %}
-				</div>
-				</li>
-				{% endfor %}
-			{% else %}
-			<form action="{% url polls.views.poll_vote config.poll.id %}" method="post">{% csrf_token %}
-				{% poll_form config.poll.id as form %}
-				{{ form.choice }}
-				<input type="hidden" name="url" value="{{ request.get_full_path }}" />
-				<button type="submit">Vote!</button> <a href="{{ request.get_full_path }}?results=1">View results</a>
-			</form>
-			{% endif %}
-		</div>
-	{% endif %}
-	{% endblock poll %}
+    </div>
+    {% endblock content %}
 
 {% block footercode %}
     $(window).load(function() {
         $('#slider').nivoSlider({
-			directionNav:true,
-			controlNav:false,
-			effect:'slideInLeft',
-			pauseOnHover:true,
-			pauseTime:5000,
-			captionOpacity:1,
-		});
-		$('#other-stories').masonry({
- 			singleMode: false,
-			columnWidth: 247,
-			itemSelector: '.brick'
-		});
-	});
+            directionNav:true,
+            controlNav:false,
+            effect:'slideInLeft',
+            pauseOnHover:true,
+            pauseTime:5000,
+            captionOpacity:1,
+        });
+        $('#other-stories').masonry({
+            singleMode: false,
+            columnWidth: 247,
+            itemSelector: '.brick'
+        });
+    });
 {% endblock footercode %}

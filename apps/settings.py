@@ -1,4 +1,6 @@
 import os
+import sys
+import django.conf.global_settings as DEFAULT_SETTINGS
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
@@ -27,7 +29,11 @@ USE_L10N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
 
-STATIC_ROOT = os.path.join(MEDIA_ROOT, 'static/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+
+# devdata options
+PATH_TO_DEVDATA = '../devdata'
+RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose --delete --exclude=.svn'
 
 TEMPLATE_DIRS = (
     os.path.join(DJANGO_ROOT, "templates/"),
@@ -52,14 +58,9 @@ TEMPLATE_LOADERS = (
     #'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.static",
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django_mobile.context_processors.flavour',
+    'config.context_processors.global_config',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'pagination.middleware.PaginationMiddleware',
 
     'django_mobile.middleware.SetFlavourMiddleware',
@@ -90,6 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Dependencies
+    'pipeline',
     'django_mobile',
     'haystack',
     'custom',
@@ -101,10 +104,14 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
+    'pipeline',
+
+    'utils',
 
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.flatpages',
+    'config',
     'archive',
     'polls',
     'stories',
@@ -121,7 +128,6 @@ INSTALLED_APPS = (
     # Staff apps
     'staff',
     'staff.requests',
-    'staff.wiki',
 )
 
 SHORTEN_MODELS = {
@@ -162,11 +168,27 @@ LOGGING = {
 
 from settings_local import *
 
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+from settings_pipeline import *
+PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
+
 if DEBUG:
     INSTALLED_APPS += (
         'debug_toolbar',
-        'django_extensions',
     )
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
+
+# Uses django-discover-runner test discovery
+TEST_RUNNER = "discover_runner.DiscoverRunner"
+
+# Run tests in sqllite
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory',
+        },
+    }

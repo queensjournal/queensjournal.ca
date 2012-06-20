@@ -2,7 +2,6 @@
 *.pyc
 *.json
 *.svn*
-*.sql*
 lib/
 bin/
 build/

@@ -1,0 +1,15 @@
+{% extends "stories/single_detail.html" %}
+{% load navigation %}
+{% load typogrify %}
+{% current_issue as issue %}
+
+{% block actions %}{% endblock actions %}
+{% block content %}
+	<div class="story">
+		<h1 class="story-head">E-mail &ldquo;{{ story.head }}&rdquo; to a friend</h1>
+		<p class="story-byline"></p>
+		<div class="story-content">		
+		<p>{% filter widont %}The e-mail was sent successfully. <a href="">Send this story to another friend</a> or <a href="{{ story.get_absolute_url }}">return to {{ story.head }}</a>.{% endfilter %}</p>
+		</div>
+	</div>
+{% endblock content %}
