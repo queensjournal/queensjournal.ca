@@ -41,6 +41,9 @@
         <script type='text/javascript'>
         GA_googleFetchAds();
         </script>
+
+        {# Facebook API #}
+        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
     </head>
 <body>
 
@@ -132,7 +135,7 @@
             </div>
 
             <div id="facebook-widget">
-                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
+                <fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
             </div>
 
             {% block poll %}{% endblock poll %}
