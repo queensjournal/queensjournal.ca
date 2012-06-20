@@ -105,6 +105,21 @@ class Story(models.Model):
             except IndexError:
                 return False
 
+    def story_photo(self):
+        from galleries.models import Gallery
+        if self.gallery_set.all():
+            try:
+                gallery = Gallery.objects.filter(story=self)[0]
+                return gallery.images.all()[0]
+            except IndexError:
+                return False
+        else:
+            try:
+                sp = StoryPhoto.objects.filter(story=self)[0]
+                return sp.photo
+            except IndexError:
+                return False
+
     def first_photo(self):
         sp = StoryPhoto.objects.filter(story=self)[0]
         return sp.photo
