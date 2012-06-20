@@ -10,8 +10,8 @@ class SiteTestHelper(object):
     tests
     '''
     def setUp(self):
-        SiteConfigFactory()
-        IssueFactory()
+        self.config = SiteConfigFactory()
+        self.issue = IssueFactory()
 
     def assert_page_loads(self, url, template_name=None, context=None):
         response = self.client.get(url)
