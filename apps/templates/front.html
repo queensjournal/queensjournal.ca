@@ -122,7 +122,9 @@
                     </div>
                     <p class="latest-section-summary">{{ config.featured_video.caption|convert_entities|truncatewords:18|safe }}</p>
                     <p class="pub_date">Posted {{ config.featured_video.pub_date|time_since }} ago</p>
-                    {% else %}
+                </div>
+                {% else %}
+                <div id="latest-video">
                     <h3>Latest Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">

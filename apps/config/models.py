@@ -21,8 +21,9 @@ class SiteConfig(models.Model):
     featured_tags = TagField()
     announcement_head = models.CharField(max_length=256, blank=True)
     announcement_body = models.TextField(blank=True)
-    featured_video = models.ForeignKey(Video, blank=True, null=True, help_text="If this \
-        isn't set the most recent video will be used.", default=None)
+    featured_video = models.ForeignKey(Video, blank=True, null=True,
+        help_text="If this isn't set the most recent video will be used.",
+        default=None)
 
     def get_tags(self):
         return Tag.objects.get_for_object(self)

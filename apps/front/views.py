@@ -1,10 +1,12 @@
 from itertools import chain
 from operator import attrgetter
 from django.views.generic.base import TemplateView
+
 from structure.models import Issue
 from stories.models import Story
 from blog.models import Entry
 from config.models import SiteConfig
+from video.models import Video
 
 
 class CurrentView(TemplateView):
@@ -37,6 +39,9 @@ class FrontView(CurrentView):
                 storyphoto__isnull=False).order_by('-pub_date')[:1])
 
         config = SiteConfig.get()
+        if not config.featured_video:
+            context['latest_video'] = Video.published.latest('pub_date')
+
         context['featured'] = config.featuredstory_set.all() \
             .order_by('story_order')
         context['latest_entries'] = latest_entries
