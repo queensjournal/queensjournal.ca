@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/nivo-slider.css" type="text/css" media="screen" />
 {% endblock %}
 
-    {% block title %}{{ config.issue.pub_date|date:"F j, Y" }} - {{ config.issue }} - {{ block.super }}{% endblock title %}
+    {% block title %}{{ issue.pub_date|date:"F j, Y" }} - {{ issue }} - {{ block.super }}{% endblock title %}
 
     {% block issue-banner %}
         {% if config.issue.extra %}
@@ -30,9 +30,9 @@
     {% block content-class %} span-19 front-content{% endblock %}
 
     {% block content %}
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive.views.archive_index %}">Archives</a><span class="divider"></span><a href="{% url archive.views.archive_volume_index config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
+    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive.views.archive_index %}">Archives</a><span class="divider"></span><a href="{% url archive.views.archive_volume_index issue.volume.volume %}">Volume {{ issue.volume }}</a></div>{% endblock %}
         <div class="section-header">
-            <h1>Issue {{ config.issue.issue }} - {{ config.issue.pub_date|date:"F j, Y" }}</h1>
+            <h1>Issue {{ issue.issue }} - {{ issue.pub_date|date:"F j, Y" }}</h1>
         </div>
 
     <div class="hr dblmargin"><hr></div>

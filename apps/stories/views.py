@@ -1,25 +1,19 @@
 import datetime
 from django.conf import settings
 from datetime import date, time, timedelta
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, Context, loader
-from django.http import HttpResponseRedirect
 from stories.models import Story, StoryAuthor
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
 
 # New
-from structure.models import Issue, FrontPageConfig, FrontConfig, SectionFrontConfig
+from structure.models import Issue, SectionFrontConfig
 
 
 def parse_date(datestring):
     return date(*[int(x) for x in datestring.split('-')])
-
-
-def get_issue(request):
-    issue = get_object_or_404(Issue, pk=request.GET.get('issue', ''))
-    return HttpResponseRedirect('/story/%s/' % issue.pub_date)
 
 
 def index_section(request, section):
@@ -118,66 +112,6 @@ def email_story(request, datestring, section, slug):
                   {'story': article,
                    'form': form},
                    context_instance=RequestContext(request))
-
-''' ------------  ARCHIVES ------------- '''
-
-
-# TODO: move archive views to archive apps
-def index_issue_front(request, datestring):
-    issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-    sections = issue.sections.get_sections()
-    stories = {}
-    for section in sections:
-        stories[section.slug] = Story.published.filter(section=section,
-            issue=issue)
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
-    return render_to_response('archives/issue_front.html', {
-        'sections': sections,
-        'stories': stories,
-        'issue': issue
-        }, context_instance=RequestContext(request))
-
-
-def index_issue_section(request, datestring, section):
-    issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-    try:
-        front_config = FrontPageConfig.objects.get(issue=issue)
-    except FrontPageConfig.DoesNotExist:
-        try:
-            front_config = FrontConfig.objects.get(issue=issue)
-        except FrontConfig.DoesNotExist:
-            return redirect('stories.views.index_section', section=section)
-    section_config = get_object_or_404(SectionFrontConfig.objects.filter(\
-        section__slug__iexact=section))
-    first_story = Story.objects.filter(section__slug__iexact=section, issue=issue, \
-        status='p', storyphoto__isnull=False).order_by('section_order')
-    story_set = Story.objects.filter(issue=issue, section__slug__iexact=section).\
-        order_by('section_order')
-    featured = []
-    try:
-        if first_story[0]:
-            featured = first_story[0]
-            other_stories = story_set[1:]
-    except IndexError:
-        other_stories = story_set
-    try:
-        last_story = other_stories.reverse()[0]
-        older_stories = Story.objects.filter(section__slug__iexact=section, \
-            pub_date__lt=last_story.pub_date).order_by('-pub_date')[:5]
-    except IndexError:
-        older_stories = Story.objects.filter(section__slug__iexact=section, \
-            pub_date__lt=issue.pub_date).order_by('-pub_date')[:5]
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
-    return render_to_response('archives/index_section.html',
-        {'featured': featured,
-        'other_stories': other_stories,
-        'older_stories': older_stories,
-        'config': front_config,
-        'section_config': section_config,
-        'issue': issue},
-        context_instance=RequestContext(request))
 
 
 def server_error(request, template_name='500.html'):

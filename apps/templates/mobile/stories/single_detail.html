@@ -37,7 +37,7 @@ $(".gallery-container").mobileGallery();
     {% block content %}
         <!-- google_ad_section_start -->
         <div id="story">
-            {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url archive.views.archive_volume_index story.issue.volume.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_section story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
+            {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %}<a href="{% url archive.views.archive_volume_index story.issue.volume.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url archive.views.archive_issue_index story.issue.pub_date %}">Issue {{ story.issue.issue }}</a><span class="divider"></span><a href="{% url archive.views.section_index story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url stories.views.index_section story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
 
             <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
             <h1 class="story-head">{{ story.head|stripspace|convert_entities|widont }}</h1>
