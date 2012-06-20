@@ -40,7 +40,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
     # tags
-    (r'^tags/$', 'tags.views.tags'),
+    url(r'^tags/$', 'tags.views.tags', name='tag-index'),
     (r'^tag/', include('tags.urls')),
 
     # shorturls
