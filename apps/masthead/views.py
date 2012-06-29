@@ -3,14 +3,16 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import Http404
 from django.views.generic.list_detail import object_list
+
 from structure.models import Volume, Author
 from masthead.models import Masthead
 from stories.models import StoryAuthor
 from blog.models import Entry
 from dependencies.multiquery import QuerySetChain
 
-# helper functions
+
 def section_order(x, y, sections):
+# TODO: rewrite this shit
     section_ids = [obj.section.id for obj in sections]
     index_x = -1
     index_y = -1
@@ -26,12 +28,14 @@ def section_order(x, y, sections):
     else:
         return cmp(index_x, index_y)
 
+
 def masthead_latest(request):
     try:
         masthead_obj = Masthead.objects.latest()
     except:
         raise Http404
     return masthead(request, masthead_obj.volume.volume)
+
 
 def masthead(request, vol_num):
     # get volume, masthead objects
@@ -44,7 +48,7 @@ def masthead(request, vol_num):
     elif len(yearspan) == 1:
         yearstring = yearspan[0].year
     else:
-        yearstring = "%s-%s" % (yearspan[0].year, yearspan[len(yearspan)-1].year)
+        yearstring = "%s-%s" % (yearspan[0].year, yearspan[len(yearspan) - 1].year)
     # get list of names and sort properly
     names = list(masthead_obj.mastheadname_set.all())
 ##    sections = list(masthead_obj.mastheadsectionwrapper_set.all())
@@ -54,9 +58,11 @@ def masthead(request, vol_num):
                                'years': yearstring},
                                 context_instance=RequestContext(request))
 
+
 def masthead_list(request):
     qs = Masthead.objects.order_by('volume')
     return object_list(request, queryset=qs)
+
 
 def detail_author(request, author):
     curr_author = get_object_or_404(Author, slug__exact=author)
@@ -65,9 +71,9 @@ def detail_author(request, author):
     entry_set = Entry.objects.filter(author__slug__exact=author, is_published=True).\
         order_by('-pub_date')
     item_list = QuerySetChain(story_set, entry_set)
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
     return render_to_response('masthead/author_detail.html',
-                                {'author': curr_author,
-                                'items': item_list,},
+                                {
+                                    'author': curr_author,
+                                    'items': item_list,
+                                },
                                 context_instance=RequestContext(request))
