@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from utils.tests import SiteTestHelper
+from utils import SiteTestHelper
 from video.factories import VideoFactory
 
 
