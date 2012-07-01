@@ -18,3 +18,7 @@ class BlogTests(SiteTestHelper, TestCase):
     def test_blog_index(self):
         self.assert_page_loads(reverse('blog-index', args=[self.blog.slug]),
             'blog/entry_list.html')
+
+    def test_blog_detail(self):
+        self.assert_page_loads(self.entry.get_absolute_url(),
+            'blog/entry_detail.html')
