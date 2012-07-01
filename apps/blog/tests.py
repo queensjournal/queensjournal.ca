@@ -1,23 +1,20 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+from utils import SiteTestHelper
+from blog.factories import BlogFactory, EntryFactory
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
 
->>> 1 + 1 == 2
-True
-"""}
+class BlogTests(SiteTestHelper, TestCase):
+    def setUp(self):
+        super(BlogTests, self).setUp()
+        self.blog = BlogFactory()
+        self.entry = EntryFactory(blog=self.blog)
 
+    def test_blog_list(self):
+        self.assert_page_loads(reverse('all_blogs'),
+            'blog/blog_list.html')
+
+    def test_blog_index(self):
+        self.assert_page_loads(reverse('blog-index', args=[self.blog.slug]),
+            'blog/entry_list.html')

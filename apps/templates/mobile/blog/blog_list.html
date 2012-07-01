@@ -30,10 +30,10 @@
      });
 
     $('#latest').masonry({
-		singleMode: true,
-		columnWidth: 320,
-		itemSelector: '.latest-section'
-	});
+        singleMode: true,
+        columnWidth: 320,
+        itemSelector: '.latest-section'
+    });
 {% endblock %}
 
 {% block headcode %}
@@ -43,18 +43,18 @@
 
 {% block title %}Blogs{{ block.super }}{% endblock title %}
 
-	{% block actions %}
-		{% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
-	{% endblock actions %}
+    {% block actions %}
+        {% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
+    {% endblock actions %}
 
-	{% block content %}
-		{% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Blogs</span></div>{% endblock %}
-		<div class="section-header">
-			<h1>Blogs</h1>
-		</div>
+    {% block content %}
+        {% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Blogs</span></div>{% endblock %}
+        <div class="section-header">
+            <h1>Blogs</h1>
+        </div>
 
         <div id="slider">
-		    {% for entry in featured %}
+            {% for entry in featured %}
                 <div class="panel">
                     <img src="{{ entry.story_thumb.display.url }}" alt="{{ entry.title }}" title="#caption{{ entry.id }}"/>
                     <p class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></p>
@@ -64,40 +64,40 @@
             {% endfor %}
         </div>
 
-		<div id="latest-stories">
-			<h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
-			<hr>
-			<ul>
-			{% for entry in latest %}
-				<li><span class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></span><br />
-					<a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
-					<span class="pub-date">{{ entry.pub_date|time_since }}</span>
-				</li>
-			{% endfor %}
-			</ul>
-		</div>
+        <div id="latest-stories">
+            <h3>Latest Posts <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
+            <hr>
+            <ul>
+            {% for entry in latest %}
+                <li><span class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></span><br />
+                    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+                    <span class="pub-date">{{ entry.pub_date|time_since }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
 
 
-		<div id="latest">
+        <div id="latest">
 
-			{% for blog in object_list %}
-			<div class="latest-section">
+            {% for blog in blogs %}
+            <div class="latest-section">
                 <h3><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</h3>
                 <hr>
-				{% if blog.image %}<img src="{{ blog.image.front_image.url }}" /></a>{% endif %}
-				<p class="summary">{{ blog.description|typogrify|safe }}</p>
+                {% if blog.image %}<img src="{{ blog.image.front_image.url }}" /></a>{% endif %}
+                <p class="summary">{{ blog.description|typogrify|safe }}</p>
 
-				<ul>
-				{% for post in blog.entry_set.published|slice:":2" %}
-					<li>
-					<a href="{{ post.get_absolute_url }}">{{ post.title|typogrify }}</a><br />
-					<span class="pub-date">{{ post.pub_date|time_since }}</span>
-					</li>
-				{% endfor %}
-				</ul>
-			</div>
-			{% endfor %}
+                <ul>
+                {% for post in blog.entry_set.published|slice:":2" %}
+                    <li>
+                    <a href="{{ post.get_absolute_url }}">{{ post.title|typogrify }}</a><br />
+                    <span class="pub-date">{{ post.pub_date|time_since }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
 
-		</div>
+        </div>
 
-	{% endblock content %}
+    {% endblock content %}

@@ -29,6 +29,31 @@ def menu_sections(context):
 register.inclusion_tag('global/menu_sections.html', takes_context=True)(menu_sections)
 
 
+def menu_blogs(context):
+    '''
+    Provides HTML code for active blogs
+    '''
+    params = {}
+    params['blogs'] = Blog.objects.filter(active=True)
+    return params
+
+
+register.inclusion_tag('global/menu_blogs.html', takes_context=True)(menu_blogs)
+
+
+def menu_mobile(context):
+    """
+    Returns the HTML code for the sections menu of a given issue.
+    """
+    params = {}
+    params['sections'] = get_sections(context)
+    params['config'] = context.get('config')
+    return params
+
+
+register.inclusion_tag('global/menu.html', takes_context=True)(menu_mobile)
+
+
 class OtherStoriesListNode(template.Node):
     """
     Returns a list of other stories in the section for a given issue as the 'other_stories' context variable.
@@ -66,28 +91,3 @@ def do_other_stories(parser, token):
 
 
 register.tag('other_stories', do_other_stories)
-
-
-def menu_blogs(context):
-    '''
-    Provides HTML code for active blogs
-    '''
-    params = {}
-    params['blogs'] = Blog.objects.filter(active=True)
-    return params
-
-
-register.inclusion_tag('global/menu_blogs.html', takes_context=True)(menu_blogs)
-
-
-def menu_mobile(context):
-    """
-    Returns the HTML code for the sections menu of a given issue.
-    """
-    params = {}
-    params['sections'] = get_sections(context)
-    params['config'] = context.get('config')
-    return params
-
-
-register.inclusion_tag('global/menu.html', takes_context=True)(menu_mobile)
