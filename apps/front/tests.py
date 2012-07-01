@@ -6,9 +6,12 @@ from video.factories import VideoFactory
 
 
 class FrontTests(SiteTestHelper, TestCase):
-    def test_index_front(self):
+    def setUp(self):
+        super(FrontTests, self).setUp()
         self.video = VideoFactory()
-        self.assert_page_loads('/', 'front.html')
+
+    def test_index_front(self):
+        self.assert_page_loads('/')
 
     def test_front_video_is_latest(self):
         self.video = VideoFactory(pub_date=datetime.datetime.now())
