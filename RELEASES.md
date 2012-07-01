@@ -1,3 +1,11 @@
+Picasso 2.2.1 - July 1, 2012
+---------------------------
+
+* fixed some tests
+* fixed some 500s on blogs
+* added tests for blog pages
+
+
 Picasso 2.2 - June 20, 2012
 ---------------------------
 
