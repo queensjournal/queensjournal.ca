@@ -2,12 +2,15 @@ import re
 from datetime import datetime
 from django.db import models
 from django.db.models import permalink
-from structure.models import Author
-from imagekit.models import ImageModel
 from django.template.defaultfilters import slugify
-from images.models import Image
-from tagging.fields import TagField
+
+from imagekit.models import ImageModel
 from dependencies.twitter_update import post_to_twitter
+from tagging.fields import TagField
+
+from structure.models import Author
+from images.models import Image
+
 
 class BlogImage(ImageModel):
     slug = models.SlugField()
@@ -26,6 +29,7 @@ class BlogImage(ImageModel):
     def __unicode__(self):
         return self.slug
 
+
 class Blog(models.Model):
     title = models.CharField(max_length=255, help_text='Short name for the blog.',
         unique=True)
@@ -42,7 +46,7 @@ class Blog(models.Model):
         Blog page.")
 
     class Meta:
-        ordering            = ('title',)
+        ordering = ('title',)
 
     def get_absolute_url(self):
         return('blog_index_front', (), {
@@ -57,7 +61,7 @@ class EntryManager(models.Manager):
     ## single-blog/all blogs queryset functions
     def published(self):
         return self.get_query_set().filter(is_published=True).filter(
-            pub_date__lte = datetime.now())
+            pub_date__lte=datetime.now())
 
     def get_month(self, year, month):
         return self.published().filter(pub_date__year=year, pub_date__month=month)
@@ -88,7 +92,7 @@ class EntryManager(models.Manager):
 
     def has_photos(self, blog):
         entries = self.published().filter(blog=blog).order_by('-pub_date')
-        s_re = re.compile('<!--image:"([-\w]+)"-->',re.IGNORECASE)
+        s_re = re.compile('<!--image:"([-\w]+)"-->', re.IGNORECASE)
         results = []
         for entry in entries:
             try:
@@ -98,32 +102,39 @@ class EntryManager(models.Manager):
                 continue
         return results
 
+
 class Entry(models.Model):
-    title = models.CharField(max_length=255, help_text='Title of the blog post.')
+    title = models.CharField(max_length=255,
+        help_text='Title of the blog post.')
     blog = models.ForeignKey(Blog)
     slug = models.SlugField()
     author = models.ForeignKey(Author)
-    tags = TagField(help_text='Post Tags and Label. Use this to apply tags to the post. \
-        Use commas to separate tags. The first tag will be the post\'s label. \
-        For example: \"Student Ghetto, EngSoc, Town-Gown, Aberdeen\"')
+    tags = TagField(
+        help_text='Post Tags and Label. Use this to apply tags to the post. \
+            Use commas to separate tags. The first tag will be the post\'s \
+            label. For example: \"Student Ghetto, EngSoc, Town-Gown, \
+            Aberdeen\"')
     content = models.TextField()
-    is_published = models.BooleanField('Published', default=True, help_text='When you \
-        want to publish a blog post, make sure this box is checked; if you just want to \
-        save a draft, leave this unchecked.')
-    enable_comments = models.BooleanField(default=True, help_text='Toggle to turn \
-        comments on or off for this post.')
+    is_published = models.BooleanField('Published', default=True,
+        help_text='When you want to publish a blog post, make sure this box \
+        is checked; if you just want to save a draft, leave this unchecked.')
+    enable_comments = models.BooleanField(default=True,
+        help_text='Toggle to turn comments on or off for this post.')
     date_saved = models.DateTimeField(editable=False, default=datetime.now)
-    date_draft_or_publish = models.DateTimeField(editable=False, default=datetime.now)
-    pub_date = models.DateTimeField(default=datetime.now, help_text='If you wish to keep \
-        a post hidden until some time in the future, check the Published box and change \
-        this date to when you want the post to go live.')
+    date_draft_or_publish = models.DateTimeField(editable=False,
+        default=datetime.now)
+    pub_date = models.DateTimeField(default=datetime.now,
+        help_text='If you wish to keep a post hidden until some time in the \
+            future, check the Published box and change this date to when you \
+            want the post to go live.')
     is_tweeted = models.BooleanField(editable=False, default=False)
     objects = EntryManager()
 
     class Meta:
-        ordering            = ('-date_draft_or_publish','-pub_date','-date_saved','title')
+        ordering = ('-date_draft_or_publish', '-pub_date', '-date_saved',
+            'title')
         verbose_name_plural = 'entries'
-        permissions         = (
+        permissions = (
             ('change_own_entry', 'Can change own entry'),
             ('view_draft_entry', 'Can view all drafts and future posts'),
             ('view_own_draft', 'Can view own drafts and future posts'),
@@ -150,7 +161,7 @@ class Entry(models.Model):
         super(Entry, self).save(*args, **kwargs)
 
     def first_photo(self):
-        s_re = re.compile('<!--image:"([-\w]+)"-->',re.IGNORECASE)
+        s_re = re.compile('<!--image:"([-\w]+)"-->', re.IGNORECASE)
         try:
             photo = Image.objects.get(slug__exact=s_re.findall(self.content)[0])
             return photo
