@@ -32,7 +32,7 @@
 	{% endblock actions %}
 	{% block content %}
 		{% block breadcrumb %}
-			<div id="breadcrumb" class="nomrg"><a href="{% url stories.views.index_front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Blogs</a><span class="divider"></span><a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a></div>
+			<div id="breadcrumb" class="nomrg"><a href="{% url front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Blogs</a><span class="divider"></span><a href="{% url blog_index_front blog.slug %}">{{ blog.title }}</a></div>
 		{% endblock breadcrumb %}
 		<div class="blog-header">
 			<div class="blog-header-grad">
@@ -76,10 +76,10 @@
 					{% revcanonical object %}
 
 				</div>
-				
+
 				{{ object.content|more_interior|images:'detail'|removetags:"font"|typogrify|linebreakswithcode|safe }}</div>
 		</div>
-		
+
 		<div class="blog-container">
 			<h3>Post a comment</h3>
 			{% if object.enable_comments %}
