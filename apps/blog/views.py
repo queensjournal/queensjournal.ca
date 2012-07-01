@@ -73,13 +73,12 @@ def blog_detail(request, blog, year, month, slug):
     """
     Entry detail. Displays a single full post, identified by its slug.
     """
-    year = int(year)
-    month = int(month)
-    c = {
-        'blog': get_object_or_404(Blog, slug=blog),
-        'entry': Entry.objects.get_month_on_blog(blog, year, month),
-    }
-    return render(request, 'blog/entry_detail.html', c)
+    blog_obj = get_object_or_404(Blog, slug=blog)
+    entry = get_object_or_404(Entry, slug=slug, blog=blog_obj)
+    return render(request, 'blog/entry_detail.html', {
+        'blog': blog_obj,
+        'entry': entry,
+        })
 
 
 def blog_draft_detail(request, post_id):
