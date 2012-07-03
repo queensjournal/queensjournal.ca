@@ -69,3 +69,9 @@ class FeaturedStory(ImageModel):
     def __unicode__(self):
         from django.utils.encoding import force_unicode
         return 'Featured Story: %s' % (force_unicode(self.story.head))
+
+    def delete(self, *args, **kwargs):
+        super(FeaturedStory, self).delete(*args, **kwargs)
+        if self.image:
+            self.image.delete()
+    delete.alters_data = True
