@@ -1,3 +1,9 @@
+Picasso 2.2.2 - July 2, 2012
+---------------------------
+
+* fixed blog links on front page
+* misc fixes
+
 Picasso 2.2.1 - July 1, 2012
 ---------------------------
 
