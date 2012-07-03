@@ -14,7 +14,8 @@ from images.models import Image
 
 class BlogImage(ImageModel):
     slug = models.SlugField()
-    image = models.ImageField(upload_to="blogs/", help_text="Bigger is better. Jpeg.")
+    image = models.ImageField(upload_to="blogs/",
+        help_text="Bigger is better. Jpeg.")
 
     class IKOptions:
         # Defining ImageKit options
@@ -31,19 +32,20 @@ class BlogImage(ImageModel):
 
 
 class Blog(models.Model):
-    title = models.CharField(max_length=255, help_text='Short name for the blog.',
-        unique=True)
+    title = models.CharField(max_length=255, unique=True,
+        help_text='Short name for the blog.')
     slug = models.SlugField(unique=True)
-    teaser = models.CharField(max_length=100, help_text='Short, one-line teaser for the \
-        blog. Seen on the global blog pull-down menu.')
-    description = models.TextField(blank=True, help_text="Description of the blog's \
-        content.")
+    teaser = models.CharField(max_length=100, help_text='Short, one-line \
+        teaser for the blog. Seen on the global blog pull-down menu.')
+    description = models.TextField(blank=True,
+        help_text="Description of the blog's content.")
     bloggers = models.ManyToManyField(Author)
-    active = models.BooleanField('Blog is active?', default=True, help_text='You can \
-        disable blogs that are no longer being updated. They will be filed under the Archived Blogs page.')
+    active = models.BooleanField('Blog is active?', default=True,
+        help_text='You can disable blogs that are no longer being updated. \
+            They will be filed under the Archived Blogs page.')
     image = models.ForeignKey(BlogImage, blank=True, null=True)
-    order = models.IntegerField(help_text="Order that the Blog will show up on the \
-        Blog page.")
+    order = models.IntegerField(help_text="Order that the Blog will show up on \
+        the Blog page.")
 
     class Meta:
         ordering = ('title',)
