@@ -29,7 +29,7 @@
 
     {% block content %}
     {% block breadcrumb %}
-    <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url stories.views.archive_volume_index issue.volume %}">Volume {{ issue.volume }}</a><span class="divider"></span><a href="{% url stories.views.index_issue_front issue.pub_date %}">Issue {{ config.issue.issue }} &#151; {{ config.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span></div>
+    <div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive-volume-index issue.volume %}">Volume {{ issue.volume }}</a><span class="divider"></span><a href="{% url archive-issue-index issue.pub_date %}">Issue {{ config.issue.issue }} &#151; {{ config.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span></div>
     {% endblock %}
 
     <div class="section-header">
