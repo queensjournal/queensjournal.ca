@@ -58,7 +58,7 @@
     {% if has_next %}<div id="blog-prev" class="side-action">
         {% if author %}<a href="{% url blog_archive_author_pages blog.slug,author.id,next %}">
         {% else %}{% if month %}<a href="{% url blog_archive_month_pages blog.slug,month.year,month|date:"m",next %}">
-        {% else %}<a href="{% url blog_index_pages blog.slug,next %}">
+        {% else %}<a href="{% url blog-index blog.slug,next %}">
         {% endif %}
         {% endif %}
         &laquo; Older posts</a></div>
@@ -67,7 +67,7 @@
     {% if has_previous %}<div id="blog-next" class="side-action">
         {% if author %}<a href="{% url blog_archive_author_pages blog.slug,author.id,previous %}">
         {% else %}{% if month %}<a href="{% url blog_archive_month_pages blog.slug,month.year,month|date:"m",previous %}">
-        {% else %}<a href="{% url blog_index_pages blog.slug,previous %}">
+        {% else %}<a href="{% url blog-index blog.slug,previous %}">
         {% endif %}
         {% endif %}
         Newer posts &raquo;</a></div>
