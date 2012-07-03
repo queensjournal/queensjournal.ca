@@ -17,12 +17,13 @@ def parse_date(datestring):
 
 
 def index_section(request, section):
-    section_config = get_object_or_404(SectionFrontConfig, section__slug__iexact=section)
-    featured = Story.objects.filter(section__slug__iexact=section, featured=True, \
-        status='p').exclude(storyphoto__isnull=True, gallery__isnull=True).\
-        order_by('-pub_date')[:5]
-    story_set = Story.objects.filter(section__slug__iexact=section, status='p').\
-        order_by('-pub_date')
+    section_config = get_object_or_404(SectionFrontConfig,
+        section__slug__iexact=section)
+    featured = Story.objects.filter(section__slug__iexact=section,
+        featured=True, status='p').exclude(storyphoto__isnull=True,
+            gallery__isnull=True).order_by('-pub_date')[:5]
+    story_set = Story.objects.filter(section__slug__iexact=section,
+        status='p').order_by('-pub_date')
     latest_stories = story_set[:5]
     other_stories = story_set[5:13]
     latest_issue = Issue.objects.latest()
@@ -42,7 +43,7 @@ def detail_story(request, datestring, section, slug):
     ## Set up a range of one day based on the datestring
     dt = datetime.datetime.combine(parse_date(datestring), time())
     dt2 = dt + timedelta(1) - datetime.datetime.resolution
-    story_selected = get_object_or_404(Story, section__slug__exact=section, \
+    story_selected = get_object_or_404(Story, section__slug__exact=section,
         pub_date__range=(dt, dt2), slug__exact=slug, status='p')
     try:
         author = StoryAuthor.objects.filter(story__slug__exact=slug)[0]
@@ -63,8 +64,9 @@ def detail_story(request, datestring, section, slug):
 def email_story(request, datestring, section, slug):
     if request.method != "POST":
         form = EmailStoryForm()
-        article = get_object_or_404(Story, issue__pub_date=parse_date(datestring), \
-            section__slug__exact=section, slug__exact=slug)
+        article = get_object_or_404(Story,
+            issue__pub_date=parse_date(datestring), section__slug__exact=section,
+            slug__exact=slug)
         return render_to_response('stories/email_form.html',
                                   {'story': article,
                                    'form': form},
