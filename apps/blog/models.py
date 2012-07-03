@@ -48,10 +48,10 @@ class Blog(models.Model):
     class Meta:
         ordering = ('title',)
 
+    @models.permalink
     def get_absolute_url(self):
-        return('blog_index_front', (), {
+        return('blog-index', (), {
             'blog': self.slug})
-    get_absolute_url = permalink(get_absolute_url)
 
     def __unicode__(self):
         return self.title
