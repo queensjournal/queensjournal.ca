@@ -7,6 +7,7 @@ from structure.factories import IssueFactory, VolumeFactory, SectionFactory
 
 class ArchiveTests(SiteTestHelper, TestCase):
     def setUp(self):
+        super(ArchiveTests, self).setUp()
         self.volumes = []
         self.issues = []
 

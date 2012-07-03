@@ -18,7 +18,7 @@
         singleMode: false,
         columnWidth: 320,
         itemSelector: '.brick'
-    })
+    });
 {% endblock %}
 
 {% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }}{{ block.super }}{% endblock title %}
@@ -46,7 +46,6 @@
         </div>
     </div>
     {% endif %}
-
 
     <div id="other-stories">
     {% for story in other_stories %}
