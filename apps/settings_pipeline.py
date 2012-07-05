@@ -4,6 +4,8 @@ PIPELINE_CSS = {
             'css/blueprint/reset.css',
             'css/blueprint/liquid.css',
             'css/screen.less',
+
+            'css/modules.less',
         ),
         'output_filename': 'compiled/css/core-styles.grouped.css',
         'extra_context': {

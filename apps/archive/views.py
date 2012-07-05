@@ -41,14 +41,15 @@ def archive_volume_index(request, volume):
 
 def archive_issue_index(request, datestring):
     issue = get_object_or_404(Issue, pub_date=parse_date(datestring))
-    sections = issue.sections.get_sections()
-    stories = {}
-    for section in sections:
-        stories[section.slug] = Story.published.filter(section=section,
-            issue=issue)
+    sects = issue.sections.get_sections()
+    sections = []
+    for section in sects:
+        sections.append({
+            'name': section.name,
+            'stories': Story.published.filter(section=section, issue=issue)
+            })
     return render_to_response('archives/issue_detail.html', {
         'sections': sections,
-        'stories': stories,
         'issue': issue
         }, context_instance=RequestContext(request))
 
