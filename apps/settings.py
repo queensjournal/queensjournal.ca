@@ -4,6 +4,7 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
+PROJECT_NAME = 'journal'
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
