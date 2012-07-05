@@ -1,3 +1,9 @@
+Picasso 2.2.3 - July 4, 2012
+---------------------------
+
+* issue\_detail redesign
+* misc cleanup
+
 Picasso 2.2.2 - July 2, 2012
 ---------------------------
 
