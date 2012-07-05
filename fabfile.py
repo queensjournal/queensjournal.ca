@@ -105,6 +105,10 @@ def update_requirements():
     remote_env('pip install -r %(pip_requirements)s' % env)
 
 
+def collectstatic():
+    remote_env('python apps/manage.py collectstatic --noinput')
+
+
 def deploy(tag=None):
     '''
     Update the remote server
