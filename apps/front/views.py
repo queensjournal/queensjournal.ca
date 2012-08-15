@@ -1,5 +1,4 @@
 from itertools import chain
-from operator import attrgetter
 from django.views.generic.base import TemplateView
 
 from structure.models import Issue
@@ -29,8 +28,8 @@ class FrontView(CurrentView):
         latest_entries = Entry.objects.filter(is_published=True) \
             .order_by('-pub_date')[:10]
 
-        context['latest_stories'] = sorted(chain( \
-            latest_stories, latest_entries), key=attrgetter('pub_date'))[:5]
+        context['latest_stories'] = sorted(chain(latest_entries, latest_stories),
+            key=lambda x: x.pub_date, reverse=True)[:5]
 
         latest_section = []
         for section in context['sections']:
