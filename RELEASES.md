@@ -1,3 +1,10 @@
+Picasso 2.2.4 - August 14, 2012
+---------------------------
+
+* fixed pipeline issue
+* fixed feeds
+* fixed order of latest stories on home page
+
 Picasso 2.2.3 - July 4, 2012
 ---------------------------
 
