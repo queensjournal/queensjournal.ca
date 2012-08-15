@@ -1,10 +1,10 @@
 from django.contrib.syndication.views import Feed
+from django.shortcuts import get_object_or_404
 from structure.models import Section
 from stories.models import Story
 from blog.models import Blog, Entry
 from video.models import Video
 from itertools import chain
-from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import striptags
 
 
@@ -56,14 +56,11 @@ class LatestStoriesFeed(Feed):
 class LatestStoriesSectionFeed(Feed):
     description_template = 'feeds/stories_description.html'
 
-    def get_object(self, bits):
+    def get_object(self, request, slug):
         """
-        /rss/section/<section>/: latest stories from <section>
+        /rss/section/<slug>/: latest stories from <slug>
         """
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        else:
-            return Section.objects.get(slug__exact=bits[0])
+        return get_object_or_404(Section, slug=slug)
 
     def title(self, obj):
         return "Queen's Journal: Latest stories in %s" % obj.name
@@ -75,7 +72,8 @@ class LatestStoriesSectionFeed(Feed):
         return "The latest stories in %s from the Queen's Journal." % obj.name
 
     def items(self, obj):
-        return Story.objects.select_related().filter(section__slug=obj.slug, status='p').order_by('-pub_date')[:15]
+        return Story.objects.select_related().filter(
+            section__slug=obj.slug, status='p').order_by('-pub_date')[:15]
 
     def item_author_name(self, item):
         return striptags(item.list_authors())
@@ -100,14 +98,11 @@ class LatestPostsAllBlogsFeed(Feed):
 
 
 class LatestPostsSingleBlogFeed(Feed):
-    def get_object(self, bits):
+    def get_object(self, request, slug):
         """
         /rss/blogs/<blog>/: latest posts from <blog>
         """
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        else:
-            return Blog.objects.get(slug__exact=bits[0])
+        return get_object_or_404(Blog, slug=slug)
 
     def title(self, obj):
         return "Queen's Journal: Latest blog posts in %s" % obj.title
