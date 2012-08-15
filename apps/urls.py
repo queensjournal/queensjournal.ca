@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     # robots
     (r'^robots\.txt$', direct_to_template, {
         'template': 'robots.txt',
-        'mimetype': 'text/plain',}),
+        'mimetype': 'text/plain',
+        }),
 
     # front page
     url(r'^$', FrontView.as_view(), name='front'),
@@ -48,7 +49,12 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('',
-    (r'^rss/(?P<url>.*)/', LatestFeed()),
+    (r'^rss/latest/$', LatestFeed()),
+    (r'^rss/stories/$', LatestStoriesFeed()),
+    (r'^rss/video/$', LatestVideosFeed()),
+    (r'^rss/section/(?P<slug>.*)/', LatestStoriesSectionFeed()),
+    (r'^rss/allblogs/$', LatestPostsAllBlogsFeed()),
+    (r'^rss/blogs/(?P<slug>.*)/$', LatestPostsSingleBlogFeed()),
 )
 
 handler500 = 'stories.views.server_error'
