@@ -50,6 +50,7 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     (r'^rss/latest/$', LatestFeed()),
+    (r'^rss/latest-stories/$', LatestFeed()),  # preserve old url
     (r'^rss/stories/$', LatestStoriesFeed()),
     (r'^rss/video/$', LatestVideosFeed()),
     (r'^rss/section/(?P<slug>.*)/', LatestStoriesSectionFeed()),
