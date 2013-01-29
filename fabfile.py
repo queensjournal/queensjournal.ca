@@ -1,7 +1,7 @@
 import os
 import subprocess
 from random import Random
-from fabric.api import local, cd, run, env, lcd, sudo
+from fabric.api import local, cd, run, env, lcd, sudo, prefix
 from fabric.contrib import django
 
 
@@ -42,7 +42,8 @@ def local_env(cmd):
 
 def remote_env(command):
     with cd(env.path):
-        run('%(path)s/bin/activate && ' % (env) + command)
+        with prefix('source bin/activate'):
+            run(command)
 
 
 def remote_run(command):
