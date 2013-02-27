@@ -5,7 +5,6 @@ from structure.models import Issue, Section, Author
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
-from dependencies.twitter_update import post_to_twitter
 
 
 STATUS_CHOICES = (
@@ -176,8 +175,6 @@ class Story(models.Model):
 
     def get_twitter_message(self):
         return u'%s: %s' % (self.head, self.summary)
-
-models.signals.post_save.connect(post_to_twitter, sender=Story)
 
 
 class StoryAuthor(models.Model):
