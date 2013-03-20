@@ -5,7 +5,6 @@ from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
 from imagekit.models import ImageModel
-from dependencies.twitter_update import post_to_twitter
 from tagging.fields import TagField
 
 from structure.models import Author
@@ -186,5 +185,3 @@ class Entry(models.Model):
 
     def get_twitter_message(self):
         return u'%s: %s' % (self.title, self.content)
-
-models.signals.post_save.connect(post_to_twitter, sender=Entry)

@@ -195,8 +195,6 @@ $(".gallery-container").mobileGallery();
                     </ul>
                 </div>
                 <div class="story-actions col">
-                    <a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a><br/>
-                    <hr>
                     <form action="" method="get">
                         <span class="label">Short URL:</span> <input type="text" id="shorturl" value="{% shorturl story %}" onclick="this.select();" readonly="true" />
                     </form>
@@ -204,7 +202,6 @@ $(".gallery-container").mobileGallery();
                 {% else %}
                 <hr>
                 <div class="story-actions col">
-                    <a href="{{ story.get_absolute_url }}email/">e-mail <img src="{{ STATIC_URL }}img/icon_email.gif" /></a><br/>
                     <a href="javascript:print_preview()">print <img src="{{ STATIC_URL }}img/icon_print.gif" /></a>
                 </div>
                 <div class="story-actions col">

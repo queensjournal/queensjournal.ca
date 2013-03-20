@@ -57,12 +57,6 @@ CACHES = {
     }
 }
 
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-DEFAULT_FROM_EMAIL = 'server@queensjournal.ca'
-SERVER_EMAIL = 'server@queensjournal.ca'
-
 # short url configuration
 SHORT_BASE_URL = "http://qjrnl.net/"
 SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"

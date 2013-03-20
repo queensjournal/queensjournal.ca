@@ -9,9 +9,9 @@
         <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/mobile.css" type="text/css" />
         {% block css %}{% endblock %}
-        
+
         {% block meta %}{% endblock meta %}
-        
+
         <script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
         <script type="text/javascript">
         //<![CDATA[
@@ -33,18 +33,18 @@
         ]);
         //]]>
         </script>
-        
+
         {% block headcode %}{% endblock headcode %}
-        
+
         {% block facebook %}{% endblock facebook %}
-        
-    </head>        
+
+    </head>
     <body>
         <div id="container">
             <div id="header">
                 <a href="/"><img src="{{STATIC_URL}}img/logo-mobile.png" class="logo" /></a> mobile
                 <div id="connect">
-                    <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a> <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a> <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png" /></a> <a href="/emailupdates/"><img src="{{ STATIC_URL }}img/email.png" /></a>
+                    <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a> <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a> <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png" /></a>
                 </div>
                 <div id="search">
                     <form name="topsearch" action="/search/" method="get" id="topsearch">
@@ -52,25 +52,25 @@
                     </form>
                 </div>
             </div><!--#Header-->
-            
+
             <div id="nav">
                 {% menu_mobile %}
             </div>
-            
+
             <div id="content">
                 <!-- google_ad_section_start -->
                 {% block issue-banner %} {% endblock issue-banner %}
-                {% block content %} 
-                {% block breadcrumb %}{% endblock breadcrumb %} 
+                {% block content %}
+                {% block breadcrumb %}{% endblock breadcrumb %}
                 {% endblock content %} <!-- google_ad_section_end -->
             </div>
-            
+
             <ul id="flavours">
                 <li>
                     <a href="?flavour=full">View full site</a>
                 </li>
             </ul>
-            
+
             <div id="footer" class="group">
                 <ul class="col">
                     <li style="list-style: none">{% linkset 'main2' as links %} {% for link in links %}

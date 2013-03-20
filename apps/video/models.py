@@ -18,7 +18,7 @@ class Video(ImageModel):
     tags = TagField()
     caption = models.TextField()
     photographer = models.ForeignKey(Author, blank=True, null=True)
-    screenshot = models.ImageField(upload_to='video_thumbs/%Y/%m/%d', 
+    screenshot = models.ImageField(upload_to='video_thumbs/%Y/%m/%d',
         help_text='Please convert all images to RGB JPEGs.')
     is_published = models.BooleanField()
     is_tweeted = models.BooleanField(editable=False, default=False)
@@ -49,5 +49,3 @@ class Video(ImageModel):
 
     def __unicode__(self):
         return self.name
-
-#models.signals.post_save.connect(post_to_twitter, sender=Video)
