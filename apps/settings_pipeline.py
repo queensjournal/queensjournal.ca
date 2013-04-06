@@ -29,4 +29,14 @@ PIPELINE_JS = {
         ),
         'output_filename': 'compiled/js/core-scripts.min.js',
     },
+
+    'mobile-scripts': {
+        'source_filenames': (
+            'js/jquery.masonry.js',
+            'js/jquery.anythingslider.min.js',
+            'js/jquery.swipe.js',
+            'js/mobile.js',
+        ),
+        'output_filename': 'compiled/js/mobile-scripts.min.js',
+    },
 }

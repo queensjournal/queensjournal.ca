@@ -2,24 +2,9 @@
 {% load typogrify %}
 {% load custom_html %}
 {% load navigation %}
-{% load sidebartags %}
 {% load comparison %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />{% endblock headcode %}
-{% block jsload %}"{{ STATIC_URL }}js/jquery.masonry.js"{% endblock %}
-
-{% block js %}
-    $('#other-stories').masonry({
-        singleMode: false,
-        columnWidth: 320,
-        itemSelector: '.latest-section'
-    });
-    $('#sidebar').masonry({
-        singleMode: false,
-        columnWidth: 320,
-        itemSelector: '.brick'
-    });
-{% endblock %}
 
 {% block title %}{{ section_config.section.name }} - {{ issue.pub_date|date:"F j, Y" }} - {{ issue }}{{ block.super }}{% endblock title %}
 
@@ -47,7 +32,7 @@
     </div>
     {% endif %}
 
-    <div id="other-stories">
+    <div id="other-stories" class="jrnl-masonry">
     {% for story in other_stories %}
         <div class="latest-section">
             <h3>{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</h3>
@@ -58,7 +43,5 @@
         </div>
     {% endfor %}
     </div>
-
-    {% sidebar section_config.section config.issue 5 %}
 
     {% endblock content %}
