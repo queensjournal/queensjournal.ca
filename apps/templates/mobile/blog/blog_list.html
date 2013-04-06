@@ -4,37 +4,7 @@
 {% load navigation %}
 {% load sidebartags %}
 
-{% block jsload %}'{{ STATIC_URL }}js/jquery.masonry.js', '{{ STATIC_URL }}js/jquery.anythingslider.min.js', '{{ STATIC_URL }}js/jquery.swipe.js'{% endblock %}
-{% block js %}
-     $('#slider').anythingSlider({
-         expand: false,
-         hashtags: false,
-         resizeContents: false,
-         buildArrows: false,
-         buildNavigation: false,
-         buildStartStop: false,
-         autoPlay: true,
-         delay: 5000,
-     });
-
-     $('#slider').swipe({
-      swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
-                                $('#slider').data('AnythingSlider').startStop(true); },
-      swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
-                                $('#slider').data('AnythingSlider').startStop(true); },
-      threshold: {
-       x: 15,
-       y: 99999,
-      },
-      preventDefaultEvents: false
-     });
-
-    $('#latest').masonry({
-        singleMode: true,
-        columnWidth: 320,
-        itemSelector: '.latest-section'
-    });
-{% endblock %}
+{% block body_class %}slider-page{% endblock %}
 
 {% block headcode %}
 {% if active %}<link rel="alternate" type="application/rss+xml" title="Latest posts from all blogs (RSS 2.0)" href="/rss/blogs/all/" />{% endif %}
@@ -78,7 +48,7 @@
         </div>
 
 
-        <div id="latest">
+        <div id="latest" class="jrnl-masonry">
 
             {% for blog in blogs %}
             <div class="latest-section">

@@ -1,5 +1,6 @@
 {% load navigation %}
 {% load linkset %}
+{% load compressed %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -12,34 +13,12 @@
 
         {% block meta %}{% endblock meta %}
 
-        <script type="text/javascript" src="{{ STATIC_URL }}js/modernizr2.js"></script>
-        <script type="text/javascript">
-        //<![CDATA[
-        Modernizr.load([
-        {
-        load: ['//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', {% block jsload %}{% endblock %}],
-        callback : function () {
-            if ( !window.jQuery ) {
-                Modernizr.load('{{ STATIC_URL }}js/jquery-1.6.1.min.js');
-            }
-        },
-        complete : function () {
-            $(function () {
-                {% block js %}{% endblock %}
-            })
-        }
-        },
-
-        ]);
-        //]]>
-        </script>
-
         {% block headcode %}{% endblock headcode %}
 
         {% block facebook %}{% endblock facebook %}
 
     </head>
-    <body>
+    <body class="mobile-page {% block body_class %}{% endblock %}">
         <div id="container">
             <div id="header">
                 <a href="/"><img src="{{STATIC_URL}}img/logo-mobile.png" class="logo" /></a> mobile
@@ -108,7 +87,13 @@
                     </p>
                 </div>
             </div>
-        </div><!--#container-->
+        </div><!-- #container-->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/jquery-1.6.1.min.js"><\/script>')</script>
+        {% compressed_js "mobile-scripts" %}
+        {% block js %}{% endblock %}
+
         <!-- Google Analytics -->
         <script type="text/javascript">
         //<![CDATA[
@@ -116,6 +101,7 @@
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
         //]]>
         </script>
+
         <script type="text/javascript">
         //<![CDATA[
         try {
