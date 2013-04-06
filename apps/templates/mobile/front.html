@@ -14,7 +14,7 @@
     <div id="slider">
         {% for story in featured %}
         <div class="panel">
-            <img src="{{ story.photo.mobile.url }}" alt="{{ story.story.head }}"/>
+            <img src="{{ story.story.story_photo.mobile.url }}" alt="{{ story.story.head }}"/>
             <p class="label">{% if story.story.tags %}<a href="/tag/{{story.story.label|striplabel|slugify}}/">
         {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
             <h2><a href="{{ story.story.get_absolute_url }}">{{ story.story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
