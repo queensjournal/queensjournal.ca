@@ -95,7 +95,7 @@ def test_all():
     #test_all()
 
 
-def app_restart():
+def restart():
     sudo('supervisorctl restart %s' % env.project_name)
 
 
@@ -120,7 +120,6 @@ def deploy(tag=None):
             shell=True).rstrip()
     remote_run('git checkout %s' % tag)
 
-    app_restart()
     #remote_env('git submodule sync')
     #remote_env('git submodule init')
     #remote_env('git submodule update')
