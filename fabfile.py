@@ -107,7 +107,7 @@ def update_requirements():
 
 
 def collectstatic():
-    remote_env('python apps/manage.py collectstatic --noinput')
+    remote_env('python apps/manage.py collectstatic -c --noinput')
 
 
 def deploy(tag=None):
