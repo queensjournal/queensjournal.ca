@@ -34,6 +34,10 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # PIPELINE storage
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
 
 # devdata options
 PATH_TO_DEVDATA = '../devdata'
