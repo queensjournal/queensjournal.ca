@@ -97,43 +97,6 @@ $(".gallery-container").mobileGallery();
                         </ul>
                     </div>
                 {% endfor %}
-                {% for poll in story.storypoll_set.all %}
-                    <div class="inline-container poll">
-                        <h4>Poll</h4>
-                        <p id="poll-question">{{ poll.poll.question }}</p>
-                        {% pollflash poll.poll.id %}
-                            {% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll poll.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
-                        {% endpollflash %}
-                        {% if poll.poll.id|in_list:request.session.vote or request.GET.results or not poll.poll.is_active %}
-                            {% if not poll.poll.is_active %}
-                                <p><strong>Voting on this poll is closed.</strong></p>
-                            {% endif %}
-                            <ul id="poll-results">
-                                {% for choice in poll.poll.choice_set.all %}
-                                <li class="clearfix"><p>{{ choice.choice }}</p>
-                                    <p class="result-number">{{ choice.vote_set.count }}</p>
-                                    <div class="result-bar-back">
-                                        <div class="result-bar-interval"></div>
-                                        <div class="result-bar-interval"></div>
-                                        <div class="result-bar-interval"></div>
-                                        <div class="result-bar-interval"></div>
-                                    {% ifnotequal choice.vote_set.count 0 %}
-                                        <div class="result-bar" style="width: {% widthratio choice.vote_set.count poll.poll.total_votes 118 %}px;"></div>
-                                    {% endifnotequal %}
-                                    </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                        <form action="{% url polls.views.poll_vote poll.poll.id %}" method="post">
-                            {% poll_form poll.poll.id as form %}
-                            {{ form.choice }}
-                            <input type="hidden" name="url" value="{{ request.get_full_path }}" />
-                            <button type="submit">Vote!</button> <a href="{{ request.get_full_path }}?results=1">View results</a>
-                        </form>
-                        {% endif %}
-                    </div>
-                {% endfor %}
             </div><!--.story-inlines-->
             {% endif %}
             <div class="story-content">
