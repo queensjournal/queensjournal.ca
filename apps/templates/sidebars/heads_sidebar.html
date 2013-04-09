@@ -25,42 +25,6 @@
 		{% else %}
 		<p class="sidebar-heads-credits">Photos by {{ item.list_photographers|typogrify }}</p>
 		{% endif %}
-		{% if item.poll %}
-			<div id="sidebar-poll" class="poll">
-				<p class="menu-label">Poll</p>
-				<p id="poll-question">{{ item.poll.question }}</p>
-				{% pollflash item.poll.id %}
-					{% ifequal pollmsg.params.type 'voteflood' %}{% ifequal pollmsg.poll item.poll.id %}<p><strong>{{ pollmsg.msg }}</strong></p>{% endifequal %}{% endifequal %}
-				{% endpollflash %}
-				{% if item.poll.id|in_list:request.session.vote or request.GET.results or not item.poll.is_active %}
-				{% if not item.poll.is_active %}
-					<p><strong>Voting on this poll is closed.</strong></p>
-				{% endif %}
-				<ul id="poll-results">
-					{% for choice in item.poll.choice_set.all %}
-					<li class="clearfix"><p>{{ choice.choice }}</p>
-					<p class="result-number">{{ choice.vote_set.count }}</p>
-					<div class="result-bar-back">
-						<div class="result-bar-interval"></div>
-						<div class="result-bar-interval"></div>
-						<div class="result-bar-interval"></div>
-						<div class="result-bar-interval"></div>
-					{% ifnotequal choice.vote_set.count 0 %}
-						<div class="result-bar" style="width: {% widthratio choice.vote_set.count item.poll.total_votes 118 %}px;"></div>
-					{% endifnotequal %}
-					</div>
-					</li>
-					{% endfor %}
-				{% else %}
-				<form action="{% url polls.views.poll_vote item.poll.id %}" method="post">
-					{% poll_form item.poll.id as form %}
-					{{ form.choice }}
-					<input type="hidden" name="url" value="{{ request.get_full_path }}" />
-					<button type="submit">Vote!</button> <a href="{{ request.get_full_path }}?results=1">View results</a>
-				</form>
-				{% endif %}
-			</div>
-		{% endif %}
-	{% endfor %}	
+	{% endfor %}
 	</div>
 {% endif %}
