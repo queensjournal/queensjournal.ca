@@ -1,14 +1,14 @@
+{% extends "global/menu_sections.html" %}
+
 {% load linkset %}
-<ul>
-{% for sect_obj in sections.flatplansection_set.all %}
-	{% spaceless %}
-	<li><a href="{% if back_issue %}{% url stories.views.index_issue_section config.issue.pub_date sect_obj.section.slug %}{% else %}{% url stories.views.index_section sect_obj.section.slug %}{% endif %}" {% ifequal sect_obj.section.slug config.section.slug %}class='ui-btn-active'{% endifequal %}><span>{% if sect_obj.section.short_name %}{{ sect_obj.section.short_name }}{% else %}{{ sect_obj.section.name }}{% endif %}</span></a></li>
-	{% endspaceless %}
-{% endfor %}
-{% linkset 'menu-sections-mobile' as links %}
-{% for link in links %}
-	{% if link.active %}
-	<li><a href="{{ link.url }}"><span>{{ link.text }}</span></a></li>
-	{% endif %}
-{% endfor %}
-</ul>
+
+{% block linkset %}
+    {% linkset 'menu-sections-mobile' as links %}
+    {% for link in links %}
+        {% if link.active %}
+        <li class="menu {% ifequal section_config.section.slug link.text %}section-current{% else %}{% firstof link.css_class 'section-other' %}{% endifequal %}">
+            <a href="{{ link.url }}"><span>{{ link.text }}</span></a>
+        </li>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -16,6 +16,8 @@
         {% endspaceless %}
         </li>
     {% endfor %}
+
+    {% block linkset %}
     {% linkset 'menu-sections' as links %}
     {% for link in links %}
         {% if link.active %}
@@ -24,4 +26,5 @@
         </li>
         {% endif %}
     {% endfor %}
+    {% endblock %}
 </ul>
