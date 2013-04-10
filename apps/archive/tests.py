@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 from utils import SiteTestHelper
 from structure.factories import IssueFactory, VolumeFactory, SectionFactory
+from structure.models import SectionFrontConfig
 
 
 class ArchiveTests(SiteTestHelper, TestCase):
@@ -33,9 +34,20 @@ class ArchiveTests(SiteTestHelper, TestCase):
 
     def test_archive_section_index(self):
         issue = self.issues[0]
-        # TODO: this needs to test a section part of the original issue, else
-        # return 404
+        # this needs to test a section part of the original issue and
+        # return a 302, else return 404
         section = SectionFactory()
-        self.assert_page_loads(reverse('archive-section-index',
-            args=[issue.pub_date.date(), section.slug]),
-            'archives/index_section.html')
+        sfc = SectionFrontConfig(section=section)
+        sfc.save()
+        resp = self.client.get(reverse('archive-section-index', args=[
+            issue.pub_date.date(), section.slug
+        ]))
+        self.assertRedirects(resp, reverse('front-section',
+            args=[section.slug]), status_code=302, target_status_code=200
+        )
+        resp2 = self.client.get(reverse('archive-section-index', args=[
+            issue.pub_date.date(), 'non-section'
+        ]))
+        self.assertRedirects(resp2, reverse('front-section',
+            args=['non-section']), status_code=302, target_status_code=404
+        )
