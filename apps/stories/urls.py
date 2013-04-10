@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^(?P<datestring>\d{4}-\d{1,2}-\d{1,2})/(?P<section>[-\w]+)/(?P<slug>[-\w]+)/$',
         'stories.views.detail_story', name='story-detail'),
 
-    (r'^(?P<section>[-\w]+)/$', 'stories.views.index_section'),
+    url(r'^(?P<section>[-\w]+)/$', 'stories.views.index_section',
+        name='stories-index-section'),
 )

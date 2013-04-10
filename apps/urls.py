@@ -70,5 +70,6 @@ if settings.DEBUG:
 # pattern has to be last in the lookup order, because of the way we
 # look up dynamic section urls
 urlpatterns += patterns('',
-    (r'^(?P<section>[-\w]+)/$', 'stories.views.index_section'),
+    url(r'^(?P<section>[-\w]+)/$', 'stories.views.index_section',
+        name='front-section'),
 )
