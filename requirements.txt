@@ -7,6 +7,7 @@ django-haystack==1.2.7
 django-pagination==1.0.7
 django-tagging==0.3.1
 django-mobile==0.2.1
+django-pipeline==1.2.24
 httplib2
 oauth2==1.5.170
 python-memcached==1.47
@@ -24,7 +25,6 @@ psycopg2==2.0.13
 factory_boy
 django-discover-runner
 
-git+https://github.com/tylerball/django-pipeline.git
 git+https://github.com/tylerball/django-oembed.git
 git+https://github.com/tylerball/django-shorturls.git
 git+https://github.com/tylerball/django-imagekit.git

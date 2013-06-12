@@ -9,16 +9,6 @@
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
 {% endblock headcode %}
 
-{% block jsload %}'{{ STATIC_URL }}js/jquery.masonry.js'{% endblock %}
-
-{% block js %}
-    $('#other-stories').masonry({
-        singleMode: true,
-        columnWidth: 320,
-        itemSelector: '.latest-section'
-    });
-{% endblock %}
-
 {% block title %}Videos - {{ block.super }}{% endblock title %}
 
     {% block content %}
@@ -40,7 +30,7 @@
 
     <h3>Latest Videos</h3>
     <hr>
-    <div id="other-stories">
+    <div id="other-stories" class="jrnl-masonry">
 
         {% for video in other_videos %}
         <div class="latest-section">

@@ -3,30 +3,7 @@
 {% load markup %}
 {% load typogrify %}
 
-{% block jsload %}"{{ STATIC_URL }}js/jquery.masonry.js", "{{ STATIC_URL }}js/jquery.anythingslider.min.js", "{{ STATIC_URL }}js/jquery.swipe.js"{% endblock %}
-{% block js %}
-     $('#slider').anythingSlider({
-         expand: false,
-         hashtags: false,
-         resizeContents: false,
-         buildArrows: false,
-         buildNavigation: false,
-         buildStartStop: false,
-         autoPlay: true,
-         delay: 5000,
-     });
-     $('#slider').swipe({
-      swipeLeft: function() {   $('#slider').data('AnythingSlider').goForward();
-                                $('#slider').data('AnythingSlider').startStop(true); },
-      swipeRight: function() {  $('#slider').data('AnythingSlider').goBack().startStop(true);
-                                $('#slider').data('AnythingSlider').startStop(true); },
-      threshold: {
-       x: 15,
-       y: 99999,
-      },
-      preventDefaultEvents: false
-     });
-{% endblock %}
+{% block body_class %}slider-page{% endblock %}
 
 {% block title %}Photos{{ block.super }}{% endblock title %}
 
@@ -40,16 +17,16 @@
 <h3>Latest Galleries</h3>
 <hr>
     <div id="slider">
-        {% for gallery in featured %} 
-        <div class="panel">  
-            <img src="{{ gallery.first_photo.mobile_featured.url }}" alt="" />  
-            <h2><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h2>  
+        {% for gallery in featured %}
+        <div class="panel">
+            <img src="{{ gallery.first_photo.mobile_featured.url }}" alt="" />
+            <h2><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h2>
             <p>{{ gallery.description|striptags|truncatewords:40|typogrify }}</p>
         </div>
         {% endfor %}
     </div>
 </div>
-    
+
     <div class="resultlist">
         <h2>More Galleries</h2>
         {% autopaginate galleries 10 %}
@@ -62,7 +39,7 @@
             </div>
         {% endfor %}
     </div>
-    
+
     <div id="pagination">
         {% paginate %}
     </div>

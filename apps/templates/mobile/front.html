@@ -1,0 +1,78 @@
+{% extends 'mobile/base.html' %}
+{% load navigation %}
+{% load sidebartags %}
+{% load custom_html %}
+{% load typogrify %}
+{% load flash %}
+{% load poll_tags %}
+{% load lists %}
+
+{% block body_class %}slider-page{% endblock %}
+
+{% block content %}
+
+    <div id="slider">
+        {% for story in featured %}
+        <div class="panel">
+            <img src="{{ story.story.story_photo.mobile.url }}" alt="{{ story.story.head }}"/>
+            <p class="label">{% if story.story.tags %}<a href="/tag/{{story.story.label|striplabel|slugify}}/">
+        {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
+            <h2><a href="{{ story.story.get_absolute_url }}">{{ story.story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
+            <p>{{ story.story.summary|stripspace|convert_entities|truncatewords:25|safe }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="latest-stories">
+        <h3>Latest Stories <span class="feed"><a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" />RSS Feed</a></span></h3>
+        <hr>
+        <ul>
+        {% for story in latest_stories %}
+            <li><span class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</span><br/>
+                <a href="{{ story.get_absolute_url }}">{{ story.head }}</a>
+                <span class="pub-date">{{ story.pub_date|timesince }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div id="latest" class="jrnl-masonry">
+        {% for story in latest_section %}
+        <div class="latest-section">
+            <h3><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></h3>
+            <hr>
+            <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.mobile_front.url }}" />
+            <h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>
+            <p class="summary">{{ story.summary }}</p>
+            <p class="pub-date">Posted {{ story.pub_date|time_since }}</p>
+        </div>
+        {% endfor %}
+
+        <div class="latest-section">
+            <h3>Blogs</h3>
+            <hr>
+            <ul>
+            {% for entry in latest_entries %}
+                <li>
+                    <span class="label"><a href="{{entry.blog.get_absolute_url}}">{{ entry.blog.title }}</a></span><br/>
+                    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a><br />
+                    <span class="pub-date">{{ entry.pub_date|time_since }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="latest-section">
+            <h3>Video</h3>
+            <hr>
+            <div class="video-thumb">
+                <a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" />
+                <h4>{{ latest_video.name }}</h2></a>
+            </div>
+            <p class="summary">{{ latest_video.caption|convert_entities|truncatewords:18|safe }}</p>
+            <p class="pub-date">Posted {{ latest_video.pub_date|time_since }}</p>
+        </div>
+
+    </div>
+
+{% endblock %}
