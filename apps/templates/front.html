@@ -26,6 +26,8 @@
 {% endif %}
 {% endblock issue-banner %}
 
+{% block body_class %}front-page{% endblock %}
+
 {% block content-class %} span-19 front-content{% endblock %}
 
 {% block content %}
@@ -91,7 +93,7 @@
 
 <div class="block">
 
-    <div id="section-stories" class="column span-24 last">
+    <div class="str-section column span-24 last">
 
         {% for story in latest_section %}
         <div class="latest-section">
