@@ -202,5 +202,7 @@ if 'test' in sys.argv:
         },
     }
 
+    PIPELINE = True
+
     # don't post to twitter when running tests. TODO: find a better way.
     TWITTER_DEV = True
