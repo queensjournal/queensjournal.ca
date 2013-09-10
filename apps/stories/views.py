@@ -7,6 +7,7 @@ from stories.models import Story, StoryAuthor
 from django.contrib.sites.models import Site
 from stories.forms import EmailStoryForm
 from django.core.mail import send_mail
+from utils.decorators import preview
 
 # New
 from structure.models import Issue, SectionFrontConfig
@@ -39,8 +40,10 @@ def index_section(request, section):
         context_instance=RequestContext(request))
 
 
+@preview
 def detail_story(request, datestring, section, slug):
-    ## Set up a range of one day based on the datestring
+    # Set up a range of one day based on the datestring TODO: incredibly
+    # stupid
     dt = datetime.datetime.combine(parse_date(datestring), time())
     dt2 = dt + timedelta(1) - datetime.datetime.resolution
     story_selected = get_object_or_404(Story, section__slug__exact=section,
