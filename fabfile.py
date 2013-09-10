@@ -112,7 +112,7 @@ def collectstatic():
 
 def deploy(tag=None):
     '''
-    Update the remote server
+    Update the remote server with the latest git tag
     '''
     remote_run('git fetch origin --tags')
     if not tag:
@@ -120,9 +120,21 @@ def deploy(tag=None):
             shell=True).rstrip()
     remote_run('git checkout %s' % tag)
 
-    #remote_env('git submodule sync')
-    #remote_env('git submodule init')
-    #remote_env('git submodule update')
+    restart()
+
+
+def deploy_latest():
+    deploy_sha()
+
+
+def deploy_sha(sha=None):
+    '''
+    Update the remote server with a specified ref or latest develop
+    '''
+    remote_run('git fetch origin')
+    remote_run('git checkout develop')
+
+    restart()
 
 
 #def pulldump():
