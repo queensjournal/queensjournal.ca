@@ -125,6 +125,7 @@ def deploy(tag=None):
 
 def deploy_latest():
     deploy_sha()
+    remote_run('git pull origin develop')
 
 
 def deploy_sha(sha=None):
