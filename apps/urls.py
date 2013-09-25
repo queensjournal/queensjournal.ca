@@ -44,6 +44,9 @@ urlpatterns = patterns('',
     url(r'^tags/$', 'tags.views.tags', name='tag-index'),
     (r'^tag/', include('tags.urls')),
 
+    # bento
+    (r'^boxes/', include('bento.urls')),
+
     # shorturls
     (r'^s/', include('shorturls.urls')),
 )

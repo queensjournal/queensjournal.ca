@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'pagination',
     'south',
     'pipeline',
+    'bento',
 
     'utils',
 
