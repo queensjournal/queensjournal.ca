@@ -20,6 +20,7 @@ akismet==0.2.0
 Markdown==2.0.3
 docutils
 psycopg2==2.0.13
+git+https://github.com/lazybird/django-bento.git
 
 # tests
 factory_boy
