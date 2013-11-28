@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from imagekit.models import ImageModel
 
 from structure.managers import IssueManager
-from polls.models import Poll
 
 
 class Headshot(ImageModel):
@@ -195,7 +194,6 @@ class SectionFrontConfig(models.Model):
 
 
 class FrontConfig(models.Model):
-    poll = models.ForeignKey(Poll, blank=True, null=True)
     announce_head = models.CharField("Announcement headline", max_length=255,
         blank=True)
     announce_body = models.TextField("Announcement text", blank=True)
@@ -225,7 +223,6 @@ class FrontPageConfig(models.Model):
     announce_head = models.CharField("Announcement headline", max_length=255,
         blank=True)
     announce_body = models.TextField("Announcement text", blank=True)
-    poll = models.ForeignKey(Poll, blank=True, null=True)
 
     class Admin:
         pass

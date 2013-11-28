@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import Q
 from structure.models import Issue, Author
 from stories.models import Story, Photo
-from polls.models import Poll
 from imagekit.models import ImageModel
 
 class PreviousStories:
@@ -126,7 +125,6 @@ class TalkingHeadsItem(models.Model):
     location = models.CharField("at...", max_length=255, help_text="ex. \
         'the Common Ground', 'Jock Harty Arena', '368 Brock Street'")
     issue = models.ForeignKey(Issue, unique=True)
-    poll = models.ForeignKey(Poll, default=None, blank=True, null=True)
     objects = StaticSidebarManager()
     photos_by = models.ForeignKey(Author, null=True)
 

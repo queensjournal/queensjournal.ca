@@ -1,6 +1,5 @@
 from django.db import models
 from stories.models import Story
-from polls.models import Poll
 
 
 class Factbox(models.Model):
@@ -58,11 +57,3 @@ class DocumentFile(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class StoryPoll(models.Model):
-    story = models.ForeignKey(Story)
-    poll = models.ForeignKey(Poll)
-
-    def __unicode__(self):
-        return self.poll.question
