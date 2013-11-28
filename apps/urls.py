@@ -23,7 +23,6 @@ urlpatterns = patterns('',
     url(r'^$', FrontView.as_view(), name='front'),
 
     # apps
-    (r'^polls/', include('polls.urls')),
     (r'^story/', include('stories.urls')),
     (r'^blogs/', include('blog.urls')),
     (r'^video/', include('video.urls')),

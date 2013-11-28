@@ -5,7 +5,7 @@ from django.forms.models import BaseInlineFormSet
 from django.forms import ModelForm
 import settings
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo
-from inlines.models import Factbox, Document, StoryPoll
+from inlines.models import Factbox, Document
 from galleries.models import Gallery
 from tagging.models import Tag
 
@@ -29,13 +29,9 @@ class DocumentInline(admin.TabularInline):
     model = Document
     extra = 1
 
-class StoryPollInline(admin.TabularInline):
-    model = StoryPoll
-    extra = 1
-
 class PhotoInlineForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        ''' 
+        '''
         Alter the queryset to exclude old photos, helps page load quicker.
         '''
         super(PhotoInlineForm, self).__init__(*args, **kwargs)
@@ -54,6 +50,7 @@ class StoryPhotoInline(admin.TabularInline):
 class StoryAuthorInline(admin.TabularInline):
     model = StoryAuthor
 
+
 class StoryAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['head', 'deck', 'slug', 'tags', 'summary']}),
@@ -66,7 +63,6 @@ class StoryAdmin(admin.ModelAdmin):
         StoryAuthorInline,
         FactboxInline,
         DocumentInline,
-        StoryPollInline,
         GalleryInline,
     ]
     prepopulated_fields = {'slug': ('head',),}
