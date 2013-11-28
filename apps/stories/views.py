@@ -23,9 +23,6 @@ def index_section(request, section):
     latest_stories = story_set[:5]
     other_stories = story_set[5:13]
     latest_issue = Issue.objects.latest()
-    # TODO: move all this vote stuff somewhere. Do we even need polls anymore?
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
     return render_to_response('stories/index_section.html',
         {'featured': featured,
         'latest_stories': latest_stories,
@@ -46,8 +43,6 @@ def detail_story(request, datestring, section, slug):
         author_role = author.author.get_role(story_selected.pub_date)
     except IndexError:
         author_role = False
-    if request.session.get('vote') is None:
-        request.session['vote'] = []
     return render_to_response('stories/single_detail.html',
                                 {'story': story_selected,
                                 'author_role': author_role, },
