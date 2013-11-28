@@ -159,11 +159,17 @@ AKISMET_API_KEY = 'a749fbcef622'
 WIKI_REQUIRES_LOGIN = True
 
 LOGGING = {
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+     },
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
+            'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
