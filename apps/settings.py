@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'config',
     'archive',
-    'polls',
     'stories',
     'structure',
     'sidebars',
