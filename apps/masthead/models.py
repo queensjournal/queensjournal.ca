@@ -10,6 +10,9 @@ class Masthead(models.Model):
     volume = models.ForeignKey(Volume)
     objects = MastheadManager()
 
+    class Meta:
+        ordering = ['volume']
+
     class Admin:
         pass
 
