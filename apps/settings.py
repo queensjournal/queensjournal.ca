@@ -133,10 +133,6 @@ INSTALLED_APPS = (
     'galleries',
     'masthead',
     'video',
-
-    # Staff apps
-    'staff',
-    'staff.requests',
 )
 
 SHORTEN_MODELS = {
