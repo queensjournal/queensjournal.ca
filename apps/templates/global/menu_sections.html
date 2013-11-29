@@ -7,9 +7,9 @@
     {% endifequal %}
         {% spaceless %}
             <a href="{% if issue %}
-                {% url stories.views.index_issue_section issue.pub_date section.slug %}
+                {% url "stories.views.index_issue_section" issue.pub_date section.slug %}
             {% else %}
-                {% url stories.views.index_section sect.slug %}
+                {% url "stories.views.index_section" sect.slug %}
             {% endif %}">
                 <span>{% if sect.short_name %}{{ sect.short_name }}{% else %}{{ sect.name }}{% endif %}</span>
             </a>

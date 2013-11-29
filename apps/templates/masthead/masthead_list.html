@@ -12,7 +12,7 @@
 	<h1>Journal masthead archives</h1>
 	<ul>
 	{% for masthead in object_list %}
-		<li><a href="{% url masthead_single masthead.volume.volume %}">{% for year in masthead.volume.get_years %}{% if forloop.first %}{{ year|date:"Y" }}{% else %}{% if forloop.last and not forloop.first %}&ndash;{{ year|date:"Y" }}{% endif %}{% endif %}{% endfor %} (volume {{ masthead.volume.volume }})</a></li>
+		<li><a href="{% url "masthead_single" masthead.volume.volume %}">{% for year in masthead.volume.get_years %}{% if forloop.first %}{{ year|date:"Y" }}{% else %}{% if forloop.last and not forloop.first %}&ndash;{{ year|date:"Y" }}{% endif %}{% endif %}{% endfor %} (volume {{ masthead.volume.volume }})</a></li>
 	{% endfor %}
 	</ul>
 </div>

@@ -10,7 +10,7 @@
 {% block content %}
 <div id="masthead">
 	<h1>Journal staff, {{ years }}</h1>
-	<p><a href="{% url masthead_archives %}">Mastheads for previous years</a></p>
+	<p><a href="{% url "masthead_archives" %}">Mastheads for previous years</a></p>
 	{% regroup names by section as sections %}
 	<ul>
 	{% for section in sections %}
