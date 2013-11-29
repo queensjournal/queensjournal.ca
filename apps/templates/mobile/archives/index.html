@@ -27,7 +27,7 @@
 <hr>
 <ul class="volumes">
 	{% for key, value in dates.items reversed %}
-	<li><a href="{% url archive.views.archive_volume_index key %}">Volume {{ key }}</a> - {{ value }}</li>
+	<li><a href="{% url "archive.views.archive_volume_index" key %}">Volume {{ key }}</a> - {{ value }}</li>
 	{% endfor %}
 </ul>
 

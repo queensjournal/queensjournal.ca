@@ -96,7 +96,7 @@
 
         {% for story in latest_section %}
         <div class="latest-section">
-            <p class="label section-label"><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></p>
+            <p class="label section-label"><a href="{% url "stories.views.index_section" story.section|slugify %}">{{ story.section }}</a></p>
             <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" />
                 <h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
                 <p class="latest-section-summary">{{ story.summary }}</p>
@@ -116,7 +116,7 @@
 
                 {% if config.featured_video %}
                 <div id="latest-video">
-                    <h3>Featured Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
+                    <h3>Featured Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
                         <a href="{{ config.featured_video.get_absolute_url }}"><img src="{{ config.featured_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
@@ -127,7 +127,7 @@
                 </div>
                 {% else %}
                 <div id="latest-video">
-                    <h3>Latest Video: <span class="feed"><a href="{% url video.views.video_index %}">More Videos &gt;&gt;</a></span></h3>
+                    <h3>Latest Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
                     <hr>
                     <div class="video-thumb">
                         <a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>

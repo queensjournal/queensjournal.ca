@@ -31,7 +31,7 @@
 {% endif %}
 <ul class="issues">
     {% for issue in issues %}
-    <li><a href="{% url archive.views.archive_issue_index issue.pub_date %}">{{ issue }}</a> - {{ issue.pub_date|date:"F j, Y" }}</li>
+    <li><a href="{% url "archive.views.archive_issue_index" issue.pub_date %}">{{ issue }}</a> - {{ issue.pub_date|date:"F j, Y" }}</li>
     {% endfor %}
 </ul>
 
