@@ -1,10 +1,26 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
 
-{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
-
 {% block branding %}
-<h1 id="site-name">{% trans "Queen's Journal administration" %}</h1>
+<h1 id="site-name">{% trans "Queen's Journal Administration" %}</h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+{% block userlinks %}
+    <a href="https://github.com/queensjournal/queensjournal.ca/wiki">Wiki</a> /
+    {{ block.super }}
+{% endblock %}
+
+{% block content_title %}
+{% if title %}<h1>Welcome to the Queen's Journal admin page</h1>{% endif %}
+
+<div class="module">
+    <table>
+        <tr>
+            <th>For help see the <a href="https://github.com/queensjournal/queensjournal.ca/wiki">wiki</a> or <a href="mailto:tyler@tylerball.net?subject=queensjournal.ca help">email me</a></th>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
