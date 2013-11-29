@@ -2,7 +2,8 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import Http404
-from django.views.generic.list_detail import object_list
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from structure.models import Volume, Author
 from masthead.models import Masthead
@@ -59,9 +60,12 @@ def masthead(request, vol_num):
                                 context_instance=RequestContext(request))
 
 
-def masthead_list(request):
-    qs = Masthead.objects.order_by('volume')
-    return object_list(request, queryset=qs)
+class MastheadListView(ListView):
+    model = Masthead
+
+
+class MastheadDetailView(DetailView):
+    model = Masthead
 
 
 def detail_author(request, author):
