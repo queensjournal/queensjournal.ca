@@ -18,7 +18,7 @@
     {% endblock issue-banner %}
 
     {% block content %}
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive.views.archive_index %}">Archives</a><span class="divider"></span><a href="{% url stories.views.index_archive_volume config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
+    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url "archive.views.archive_index" %}">Archives</a><span class="divider"></span><a href="{% url "stories.views.index_archive_volume" config.issue.volume.volume %}">Volume {{ config.issue.volume }}</a></div>{% endblock %}
 
     <div id="section-header">
         <h1>Issue {{ config.issue.issue }} - {{ config.issue.pub_date|date:"F j, Y" }}</h1>
@@ -52,7 +52,7 @@
         <div id="latest">
             {% for story in latest_section %}
             <div class="latest-section">
-                <h3><a href="{% url stories.views.index_section story.section|slugify %}">{{ story.section }}</a></h3>
+                <h3><a href="{% url "stories.views.index_section" story.section|slugify %}">{{ story.section }}</a></h3>
                 <hr>
                 <a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.mobile_front.url }}" />{% endif %}
                 <h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>

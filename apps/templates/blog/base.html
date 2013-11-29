@@ -24,7 +24,7 @@
                     <ul>
                     {% blog_dates blog.slug as dates %}
                     {% for date in dates %}
-                        <li><a href="{% url blog_archive_month_front blog.slug,date.year,date|date:"m" %}" title="{{ date|date:"F Y" }}">{{ date|date:"F Y" }}</a></li>
+                        <li><a href="{% url "blog_archive_month_front" blog.slug date.year date|date:"m" %}" title="{{ date|date:"F Y" }}">{{ date|date:"F Y" }}</a></li>
                     {% endfor %}
                     </ul>
                     <p class="blog-label">Archives by Tag</p>

@@ -18,7 +18,7 @@
     {% block content-class %} span-19 front-content{% endblock %}
 
     {% block content %}
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url archive.views.archive_index %}">Archives</a><span class="divider"></span><a href="{% url archive.views.archive_volume_index issue.volume.volume %}">Volume {{ issue.volume }}</a></div>{% endblock %}
+    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url "archive.views.archive_index" %}">Archives</a><span class="divider"></span><a href="{% url "archive.views.archive_volume_index" issue.volume.volume %}">Volume {{ issue.volume }}</a></div>{% endblock %}
         <div class="section-header">
             <h1>Issue {{ issue.issue }} - {{ issue.pub_date|date:"F j, Y" }}</h1>
         </div>
