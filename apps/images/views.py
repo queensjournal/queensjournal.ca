@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.views.generic.simple import direct_to_template
 from django.template import RequestContext
+from django.views.generic.base import TemplateView
 from images.models import Image
 from images.forms import ImageForm
 
@@ -43,9 +43,9 @@ def images_add(request):
 ##							   post_save_redirect='/images/widget/markup/%(id)i/')
 
 
-def images_list(request):
-    return direct_to_template(request, template='images/widget_add.html')
+class AddImagesView(TemplateView):
 
-def images_add_to_markup(request, image_id):
-    c = {'image': Image.objects.get(pk=image_id)}
-    return direct_to_template(request, template='images/widget_add_to_markup.html', extra_context=c)
+    def get_context_data(self, **kwargs):
+        context = super(AddImagesView, self).get_context_data(**kwargs)
+        context['image'] = Image.objects.get(pk=self.kwargs['image_id'])
+        return context

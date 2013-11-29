@@ -178,8 +178,6 @@ LOGGING = {
 
 from settings_local import *
 
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
 from settings_pipeline import *
 PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
 
