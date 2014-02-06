@@ -53,6 +53,10 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
 TEMPLATE_LOADERS = (
     # THE django-mobile HAS TO BE FIRST IN THIS LIST OR IT WON'T WORK
     'django_mobile.loader.Loader',
