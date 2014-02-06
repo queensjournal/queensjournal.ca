@@ -120,13 +120,10 @@ def deploy(tag=None):
             shell=True).rstrip()
     remote_run('git checkout %s' % tag)
 
-    restart()
-
 
 def deploy_latest():
     remote_run('git checkout develop')
     remote_run('git pull origin develop')
-    restart()
 
 
 def deploy_sha(sha=None):
@@ -135,8 +132,6 @@ def deploy_sha(sha=None):
     '''
     remote_run('git fetch origin')
     remote_run('git checkout develop')
-
-    restart()
 
 
 #def pulldump():
