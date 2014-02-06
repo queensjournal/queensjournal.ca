@@ -34,10 +34,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # PIPELINE storage
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.less.LessCompiler',
-)
-
 
 # devdata options
 PATH_TO_DEVDATA = '../devdata'
@@ -113,7 +109,6 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
-    'pipeline',
     'bento',
 
     'utils',
@@ -181,14 +176,6 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 from settings_pipeline import *
 PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
-
-if DEBUG:
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
 
 # Uses django-discover-runner test discovery
 TEST_RUNNER = "discover_runner.DiscoverRunner"
