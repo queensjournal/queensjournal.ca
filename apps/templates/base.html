@@ -26,20 +26,7 @@
         {% block headcode %}{% endblock headcode %}
         {% block facebook %}{% endblock facebook %}
 
-        <script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'></script>
-        <script type='text/javascript'>
-        GS_googleAddAdSenseService("ca-pub-4573993547628801");
-        GS_googleEnableAllServices();
-        </script>
-        <script type='text/javascript'>
-        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Global_Banner-468x60");
-        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-In_Story_Rectangle_Ad-300x250");
-        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Leaderboard-728x90");
-        GA_googleAddSlot("ca-pub-4573993547628801", "QJ-Side_Banner_Ad-160x600");
-        </script>
-        <script type='text/javascript'>
-        GA_googleFetchAds();
-        </script>
+        {% include "ads/head.html" %}
 
         {# Facebook API #}
         <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
@@ -51,9 +38,7 @@
     <hr>
 
     <div id="top-ad" class="ad">
-        <script type='text/javascript'>
-        GA_googleFillSlot("QJ-Global_Banner-468x60");
-        </script>
+        {% include "ads/banner-top.html" %}
     </div>
 
     <div class="hr-dbl"><hr></div>
@@ -140,9 +125,9 @@
             </div>
 
             <div id="menu-ad" class="ad">
-                <script type='text/javascript'>
-                GA_googleFillSlot("QJ-Side_Banner_Ad-160x600");
-                </script>
+                {% include "ads/sidebar.html" %}
+
+                {% include "ads/kanetix.html" %}
             </div>
 
         </div> <!--menu-->
@@ -150,9 +135,7 @@
     </div><!--content block -->
 
     <div id="footer-ad" class="ad">
-        <script type='text/javascript'>
-        GA_googleFillSlot("QJ-Leaderboard-728x90");
-        </script>
+        {% include "ads/banner-bottom.html" %}
     </div>
 
     <div class="hr"><hr></div>
