@@ -183,10 +183,7 @@
                     {% endfor %}
                     {% endif %}
 
-                    <!-- QJ-In_Story_Rectangle_Ad-300x250 -->
-                    <script type='text/javascript'>
-                        GA_googleFillSlot("QJ-In_Story_Rectangle_Ad-300x250");
-                        </script>
+                    {% include "ads/in-story.html" %}
 
                         {% if story.enable_comments %}
                         {% load disqus_tags %}
