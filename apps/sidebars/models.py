@@ -1,7 +1,8 @@
 import datetime
 from django.db import models
 from django.db.models import Q
-from structure.models import Issue, Author
+from issues.models import Issue
+from authors.models import Author
 from stories.models import Story, Photo
 from imagekit.models import ImageModel
 

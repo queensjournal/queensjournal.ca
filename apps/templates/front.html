@@ -28,6 +28,17 @@
 
 {% block content %}
 
+{# TODOF move this #}
+{% load story_tags %}
+
+{% get_latest_stories as latest_stories %}
+
+{% for story in latest_stories %}
+  {{ story.head }}
+{% endfor %}
+
+
+
 <div class="block">
 
     {% load bento_tags %}

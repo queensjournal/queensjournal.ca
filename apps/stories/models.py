@@ -1,7 +1,8 @@
 import datetime
+
 from django.db import models
-from stories.managers import PublishedStoryManager
-from structure.models import Issue, Section, Author
+from .managers import StoryManager
+
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
@@ -21,8 +22,8 @@ class Story(models.Model):
         help_text='Automatically written based on the headline. If nothing \
             shows up here, try typing in the headline instead of copying and \
             pasting.')
-    section = models.ForeignKey(Section)
-    issue = models.ForeignKey(Issue, null=True, blank=True)
+    section = models.ForeignKey('sections.Section')
+    issue = models.ForeignKey('issues.Issue', null=True, blank=True)
     label = models.CharField(max_length=255, blank=True, null=True,
         editable=False)
     content = models.TextField()
@@ -50,8 +51,7 @@ class Story(models.Model):
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
 
-    objects = models.Manager()
-    published = PublishedStoryManager()
+    objects = StoryManager()
 
     class Meta:
         verbose_name_plural = "Stories"
@@ -178,7 +178,7 @@ class Story(models.Model):
 
 
 class StoryAuthor(models.Model):
-    author = models.ForeignKey(Author, default=None)
+    author = models.ForeignKey('authors.Author', default=None)
     story = models.ForeignKey(Story)
 
     class Meta:
@@ -198,9 +198,9 @@ class Photo(ImageModel):
         help_text='Please convert all images to RGB JPEGs.')
     thumbnail = models.ImageField(upload_to='thumbs/', editable=False,
         null=True, default='')
-    issue = models.ForeignKey(Issue, blank=True, null=True)
+    issue = models.ForeignKey('issues.Issue', blank=True, null=True)
     caption = models.TextField(blank=True)
-    photographer = models.ForeignKey(Author, blank=True, null=True)
+    photographer = models.ForeignKey('authors.Author', blank=True, null=True)
     credit = models.CharField("Optional credit", max_length=255,
         help_text="For special photo credits not involving a staff \
             photographer, ex. 'Photo supplied by Queen's Alumni Services,' \

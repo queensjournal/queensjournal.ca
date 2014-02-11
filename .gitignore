@@ -14,3 +14,8 @@ devdata/
 .DS_Store
 media/
 xapian/
+
+apps/static/components
+
+# collectstatic target
+static/

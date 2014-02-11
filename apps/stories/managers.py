@@ -2,7 +2,11 @@ import datetime
 from django.db import models
 
 
-class PublishedStoryManager(models.Manager):
-    def get_query_set(self):
-        return super(PublishedStoryManager, self).get_query_set().filter(
-            pub_date__lt=datetime.datetime.now(), status='p')
+class StoryManager(models.Manager):
+    def published(self):
+        return self.get_query_set().filter(
+                pub_date__lt=datetime.datetime.now(), status='p'
+            )
+
+    def latest(self, limit=10):
+        return self.published()[:limit]

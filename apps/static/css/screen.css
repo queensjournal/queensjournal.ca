@@ -1,4 +1,5 @@
 /* ================= JOURNAL CSS ================= */
+<<<<<<< HEAD
 /* ================== Global typography ================== */
 /* Load in the headline font */
 @font-face {
@@ -1669,3 +1670,12 @@ a.nivo-prevNav {
 #about-vcard .phonenums {
   margin-right: 0;
 }
+=======
+.container {
+  max-width: 95%;
+  margin: 0 auto;
+}
+.header {
+  text-align: center;
+}
+>>>>>>> wip

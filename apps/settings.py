@@ -17,7 +17,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-AUTH_USER_PROFILE = 'structure.Author'
+AUTH_USER_PROFILE = 'authors.Author'
 
 TIME_ZONE = 'America/Toronto'
 
@@ -121,7 +121,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.flatpages',
     'config',
+    'issues',
     'archive',
+    'sections',
+    'authors',
     'stories',
     'structure',
     'sidebars',

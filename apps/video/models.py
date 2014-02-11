@@ -1,8 +1,7 @@
 import datetime
 from django.db import models
 from imagekit.models import ImageModel
-from structure.models import Author
-from video.managers import PublishedVideoManager
+from video.managers import VideoManager
 from tagging.fields import TagField
 
 
@@ -17,14 +16,13 @@ class Video(ImageModel):
             http, not httpS")
     tags = TagField()
     caption = models.TextField()
-    photographer = models.ForeignKey(Author, blank=True, null=True)
+    photographer = models.ForeignKey('authors.Author', blank=True, null=True)
     screenshot = models.ImageField(upload_to='video_thumbs/%Y/%m/%d',
         help_text='Please convert all images to RGB JPEGs.')
     is_published = models.BooleanField()
     is_tweeted = models.BooleanField(editable=False, default=False)
 
-    objects = models.Manager()
-    published = PublishedVideoManager()
+    objects = VideoManager()
 
     class IKOptions:
         # Defining ImageKit options

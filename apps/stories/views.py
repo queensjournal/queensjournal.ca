@@ -4,8 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from stories.models import Story, StoryAuthor
 
-# New
-from structure.models import Issue, SectionFrontConfig
+from issues.models import Issue
 
 
 def parse_date(datestring):
@@ -13,8 +12,6 @@ def parse_date(datestring):
 
 
 def index_section(request, section):
-    section_config = get_object_or_404(SectionFrontConfig,
-        section__slug__iexact=section)
     featured = Story.objects.filter(section__slug__iexact=section,
         featured=True, status='p').exclude(storyphoto__isnull=True,
             gallery__isnull=True).order_by('-pub_date')[:5]
@@ -27,7 +24,6 @@ def index_section(request, section):
         {'featured': featured,
         'latest_stories': latest_stories,
         'other_stories': other_stories,
-        'config': section_config,
         'latest_issue': latest_issue, },
         context_instance=RequestContext(request))
 

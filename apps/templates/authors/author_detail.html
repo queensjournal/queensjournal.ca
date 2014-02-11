@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load pagination_tags %}
+{% load typogrify %}
+{% load custom_html %}
+
+{% block title %}{{ author.name }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% block breadcrumb %}
+    <div id="breadcrumb" class="nomrg"><a href="{% url "front" %}" class="homelink">Home</a><span class="divider"></span><a href="{% url "masthead_latest" %}">Authors</a><span class="divider"></span></div>
+{% endblock breadcrumb %}
+
+<h1>{{ author.name }}</h1>
+
+<div id="author">
+    <div id="author-bio">
+    <p>{{ author.bio|safe }}</p>
+    </div>
+
+    <div id="author-info">
+    {% if author.headshot %}<img src="{{ author.headshot.display.url }}" alt="{{ author.name }}" />{% endif %}
+    {% if author.homepage %}<p><a href="{{ author.homepage }}">Website</a></p>{% endif %}
+    {% if author.email %}<p><a href="mailto:{{ author.email }}">Email</a></p>{% endif %}
+    </div>
+</div>
+
+<div class="hr dblmargin"><hr></div>
+
+{% autopaginate items 10 %}
+<div class="resultlist">
+    {% for item in items %}
+    <div class="{% cycle 'search1' 'search2' %}">
+    {% ifequal item.model_type 'Entry' %}
+        {% if item.first_photo %}<img src="{{ item.first_photo.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+        <h3><a href="{{ item.get_absolute_url }}">{{ item.title|typogrify }}</a></h3>
+        <p class="meta">By <a href="{{ item.author.get_absolute_url }}">{{ item.author.name }}</a></p>
+        <p>{{ item.content|striptags|truncatewords:40|safe }}</p>
+    {% else %}
+        {% if item.story.story_thumb %}<img src="{{ item.story.story_thumb.thumbnail_image.url }}" class="result_thumb" />{% endif %}
+        <h3><a href="{{ item.story.get_absolute_url }}">{{ item.story.head|typogrify }}</a></h3>
+        {% ifnotequal item.story.list_authors '[no author]' %}<p class="meta">By {{ item.story.list_authors|safe }}</p>{% endifnotequal %}
+        <p>{{ item.story.summary|striptags|truncatewords:40|safe }}</p>
+    {% endifequal %}
+    </div>
+    {% endfor %}
+</div>
+
+<div id="pagination">
+    {% paginate %}
+</div>
+
+{% endblock content %}

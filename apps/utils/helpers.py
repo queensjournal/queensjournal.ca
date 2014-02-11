@@ -1,7 +1,7 @@
 from django.db.models.query import QuerySet
 
 from config.factories import SiteConfigFactory
-from structure.factories import IssueFactory
+from issues.factories import IssueFactory
 
 
 class SiteTestHelper(object):

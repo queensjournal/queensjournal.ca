@@ -3,11 +3,13 @@
 {% load tag_cloud %}
 {% load compressed %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
         <title>{% block title %}Queen's Journal{% endblock title %}</title>
+
         {% block meta %}
         <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
         {% endblock meta %}
@@ -31,37 +33,62 @@
         {# Facebook API #}
         <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
     </head>
+
 <body class="{% block body_class %}front-page{% endblock %}">
+
+    <div class="container">
+        {% include "includes/ad.html" with id="QJ-Global_Banner-468x60" slug="top-ad" %}
+
+        {# MENU #}
+        <div class="header">
+            <a href="/">
+                <img src="{{ STATIC_URL }}images/header/logo.png" class="logo" alt="The Journal - Queen's University &#151; Since 1873" />
+            </a>
+
+            <div class="header-left">
+                {% load issue_tags %}{% get_latest_issue as latest_issue %}
+                Volume {{ latest_issue.volume }} Issue {{ latest_issue.issue }}
+            </div>
+
+            <div class="header-center">
+                {# TODO: turn these into sprites #}
+                <a href="/rss/latest/">
+                    <img src="{{ STATIC_URL }}images/header/rss.png" />
+                </a>
+
+                <a href="http://twitter.com/queensjournal/">
+                    <img src="{{ STATIC_URL }}images/header/twitter.png" />
+                </a>
+
+                <a href="http://www.facebook.com/queensjournal">
+                    <img src="{{ STATIC_URL }}images/header/facebook.png">
+                </a>
+            </div>
+
+            <div class="header-right">
+                {# get_latest_story as latest_story #}
+                Last Updated {# {{ latest_story.pub_date | time_since }} #}
+            </div>
+        </div>
+
+        {# MENU #}
+        <div class="menu">
+            <ul>
+            </ul>
+        </div>
+
+    </div><!-- .container -->
 
 <div id="container" class="container">
 
-    <hr>
-
-    <div id="top-ad" class="ad">
-        {% include "ads/banner-top.html" %}
-    </div>
-
-    <div class="hr-dbl"><hr></div>
-
     <div id="header-container" class="block">
-        <div id="header-left" class="column span-14">
-            <a href="/"><img src="{{ STATIC_URL }}img/logo_front.gif" id="logo" /></a>
-        </div>
         <div id="header-right" class="column span-10 last">
-            <img src="{{ STATIC_URL }}img/journal-print-logo.gif" id="logo-print" width="1" height="1" />
-            <div id="header-mobile"><a href="?flavour=mobile">View the Journal Mobile Edition</a></div>
             <div id="search">
                 <form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
-                <div id="connect">
-                    Connect: <a href="/rss/latest/"><img src="{{ STATIC_URL }}img/feed.png" /></a>
-                    <a href="http://twitter.com/queensjournal/"><img src="{{ STATIC_URL }}img/twitter.png" /></a>
-                    <a href="http://www.facebook.com/queensjournal"><img src="{{ STATIC_URL }}img/facebook.png"></a>
-                </div>
             </div><!--actions-->
 
         </div><!--header-right-->
         <div id="header-slogan">
-        Queen's University &#151; Since 1873
         </div>
 
     </div><!--header-container-->

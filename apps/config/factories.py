@@ -1,6 +1,5 @@
 import factory
 from config.models import SiteConfig
-from structure.factories import SectionFactory
 
 
 class SiteConfigFactory(factory.Factory):

@@ -3,9 +3,6 @@ from tagging.fields import TagField
 from tagging.models import Tag
 from imagekit.models import ImageModel
 
-from video.models import Video
-from stories.models import Story
-
 
 class SiteConfig(models.Model):
     '''
@@ -21,7 +18,7 @@ class SiteConfig(models.Model):
     featured_tags = TagField()
     announcement_head = models.CharField(max_length=256, blank=True)
     announcement_body = models.TextField(blank=True)
-    featured_video = models.ForeignKey(Video, blank=True, null=True,
+    featured_video = models.ForeignKey('video.Video', blank=True, null=True,
         help_text="If this isn't set the most recent video will be used.",
         default=None)
 
@@ -49,7 +46,7 @@ def get_previous_story_order():
 
 
 class FeaturedStory(ImageModel):
-    story = models.ForeignKey(Story)
+    story = models.ForeignKey('stories.Story')
     config = models.ForeignKey(SiteConfig)
     orig_photo = models.ImageField("Photo", upload_to='featured_photos/%Y/%m/%d')
     story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \

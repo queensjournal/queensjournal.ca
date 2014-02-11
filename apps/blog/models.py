@@ -1,13 +1,11 @@
 import re
 from datetime import datetime
 from django.db import models
-from django.db.models import permalink
 from django.template.defaultfilters import slugify
 
 from imagekit.models import ImageModel
 from tagging.fields import TagField
 
-from structure.models import Author
 from images.models import Image
 
 
@@ -38,7 +36,7 @@ class Blog(models.Model):
         teaser for the blog. Seen on the global blog pull-down menu.')
     description = models.TextField(blank=True,
         help_text="Description of the blog's content.")
-    bloggers = models.ManyToManyField(Author)
+    bloggers = models.ManyToManyField('authors.Author')
     active = models.BooleanField('Blog is active?', default=True,
         help_text='You can disable blogs that are no longer being updated. \
             They will be filed under the Archived Blogs page.')
@@ -109,7 +107,7 @@ class Entry(models.Model):
         help_text='Title of the blog post.')
     blog = models.ForeignKey(Blog)
     slug = models.SlugField()
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey('authors.Author')
     tags = TagField(
         help_text='Post Tags and Label. Use this to apply tags to the post. \
             Use commas to separate tags. The first tag will be the post\'s \

@@ -1,5 +1,5 @@
 from django.db import models
-from structure.models import Volume
+
 
 class MastheadManager(models.Manager):
     def latest(self):
@@ -7,7 +7,7 @@ class MastheadManager(models.Manager):
 
 
 class Masthead(models.Model):
-    volume = models.ForeignKey(Volume)
+    volume = models.ForeignKey('issues.Volume')
     objects = MastheadManager()
 
     class Meta:

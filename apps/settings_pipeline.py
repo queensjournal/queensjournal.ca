@@ -1,10 +1,8 @@
 PIPELINE_CSS = {
     'core-styles': {
         'source_filenames': (
-            'css/blueprint/reset.css',
-            'css/blueprint/liquid.css',
-            'css/screen.less',
-
+            'components/normalize-css/normalize.css',
+            'css/layout.less',
             'css/modules.less',
         ),
         'output_filename': 'compiled/css/core-styles.grouped.css',

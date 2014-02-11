@@ -2,10 +2,7 @@ from datetime import datetime
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.dates import MonthArchiveView
-from django.shortcuts import get_object_or_404, render
-from django.http import Http404, HttpResponseRedirect
 from blog.models import Blog, Entry
-from structure.models import Author
 from tagging.models import Tag
 from tagging.utils import calculate_cloud
 

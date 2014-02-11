@@ -1,6 +1,6 @@
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
-from structure.models import Section
+from sections.models import Section
 from stories.models import Story
 from blog.models import Blog, Entry
 from video.models import Video
