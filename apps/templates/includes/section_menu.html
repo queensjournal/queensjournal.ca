@@ -6,7 +6,7 @@
     {% else %}
         <li class="section-other menu">
     {% endifequal %}
-    <a href="{% url "stories.views.index_section" section.slug %}"><span>{% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}</span>
+    <a href="{% url "front-section" section.slug %}"><span>{% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}</span>
     </a></li>
     {% endspaceless %}
 {% endfor %}

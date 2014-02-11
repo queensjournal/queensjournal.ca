@@ -45,8 +45,7 @@ class Author(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('masthead.views.detail_author', (), {
-            'author': self.slug})
+        return ('author-detail', [self.slug])
 
     def get_latest_role(self):
         if self.authorrole_set:

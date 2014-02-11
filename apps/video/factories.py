@@ -3,7 +3,7 @@ import factory
 from video.models import Video
 
 
-class VideoFactory(factory.Factory):
+class VideoFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Video
 
     name = "Test Video"

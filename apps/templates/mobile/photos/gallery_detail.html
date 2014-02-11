@@ -30,7 +30,7 @@
     {% block content %}
     <div id="story">
         {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a>
-            {% if gallery.story %}<span class="divider"></span><a href="{% url "stories.views.index_section" gallery.story.section.slug %}" class="section">{{ gallery.story.section }}</a>
+            {% if gallery.story %}<span class="divider"></span><a href="{% url "front-section" gallery.story.section.slug %}" class="section">{{ gallery.story.section }}</a>
             {% endif %}<span class="divider"></span><span class="current">gallery</span></div>{% endblock %}
 
         <div class="pub-date">{{ gallery.pub_date|date:"jS F Y" }}</div>

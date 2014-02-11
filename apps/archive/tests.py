@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from utils import SiteTestHelper
-from structure.factories import IssueFactory, VolumeFactory, SectionFactory
-from structure.models import SectionFrontConfig
+from issues.factories import IssueFactory, VolumeFactory
+from sections.factories import SectionFactory
 
 
 class ArchiveTests(SiteTestHelper, TestCase):
@@ -37,8 +37,6 @@ class ArchiveTests(SiteTestHelper, TestCase):
         # this needs to test a section part of the original issue and
         # return a 302, else return 404
         section = SectionFactory()
-        sfc = SectionFrontConfig(section=section)
-        sfc.save()
         resp = self.client.get(reverse('archive-section-index', args=[
             issue.pub_date.date(), section.slug
         ]))

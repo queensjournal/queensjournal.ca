@@ -3,7 +3,7 @@ import factory
 from .models import Section
 
 
-class SectionFactory(factory.Factory):
+class SectionFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Section
 
     name = factory.Sequence(lambda n: "Test Section %s" % n)

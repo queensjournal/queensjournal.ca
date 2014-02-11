@@ -3,7 +3,7 @@ from django.test import TestCase
 from utils import SiteTestHelper
 from stories.models import Story
 from stories.factories import StoryFactory
-from stories.managers import PublishedStoryManager
+from stories.managers import StoryManager
 
 
 class StoryTests(SiteTestHelper, TestCase):
@@ -19,10 +19,10 @@ class StoryTests(SiteTestHelper, TestCase):
         resp = self.client.get(story.get_absolute_url())
         self.assertEqual(resp.status_code, 404)
 
-class PublishedStoryManagerTests(TestCase):
+class StoryManagerTests(TestCase):
     def test_publised_manager_does_not_include_unpublished_stories(self):
         unpublished = StoryFactory(status='d')
         published = StoryFactory(status='p')
-        stories = Story.published()
+        stories = Story.objects.published()
         self.assertTrue(published in stories)
         self.assertFalse(unpublished in stories)

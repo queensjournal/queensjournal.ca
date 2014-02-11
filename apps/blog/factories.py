@@ -1,18 +1,18 @@
 from datetime import datetime, timedelta
 import factory
 
-from structure.factories import AuthorFactory
+from authors.factories import AuthorFactory
 from blog.models import BlogImage, Blog, Entry
 
 
-class BlogImageFactory(factory.Factory):
+class BlogImageFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = BlogImage
 
     slug = 'test-blog-image'
     image = 'test'
 
 
-class BlogFactory(factory.Factory):
+class BlogFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Blog
 
     title = 'Test Blog'
@@ -24,7 +24,7 @@ class BlogFactory(factory.Factory):
     order = factory.Sequence(lambda n: n)
 
 
-class EntryFactory(factory.Factory):
+class EntryFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Entry
 
     title = 'Test Post'

@@ -6,4 +6,7 @@ register = template.Library()
 
 @register.assignment_tag
 def get_latest_issue():
-    return Issue.objects.latest()
+    try:
+        return Issue.objects.latest()
+    except Issue.DoesNotExist:
+        return None

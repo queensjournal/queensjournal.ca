@@ -31,7 +31,7 @@
     {% endblock blog-filter %}
 
     {% block breadcrumb %}
-        <div id="breadcrumb" class="nomrg"><a href="{% url "front" %}" class="homelink">Home</a><span class="divider"></span><a href="{% url "blog.views.all_blogs" %}">Blogs</a><span class="divider"></span></div>
+        <div id="breadcrumb" class="nomrg"><a href="{% url "front" %}" class="homelink">Home</a><span class="divider"></span><a href="{% url "all_blogs" %}">Blogs</a><span class="divider"></span></div>
     {% endblock breadcrumb %}
 
     {% block header %}
@@ -56,22 +56,22 @@
         {% endfor %}
 
     {% if has_next %}<div id="blog-prev" class="side-action">
-        {% if author %}<a href="{% url "blog_archive_author_pages" blog.slug,author.id,next %}">
-        {% else %}{% if month %}<a href="{% url "blog_archive_month_pages" blog.slug,month.year,month|date:"m",next %}">
-        {% else %}<a href="{% url "blog-index" blog.slug,next %}">
+        {% if author %}<a href="{% url "blog_archive_author_pages" blog.slug author.id next %}">
+        {% else %}{% if month %}<a href="{% url "blog_archive_month_pages" blog.slug month.year month|date:"m" next %}">
+        {% else %}<a href="{% url "blog-index" blog.slug next %}">
         {% endif %}
         {% endif %}
         &laquo; Older posts</a></div>
-    {% else %}{% comment %}{% if not has_next and prev_month %}<div id="blog-prev" class="side-action"><a href="{% url blog_archive_month prev_month.year,prev_month|date:"m" %}">&laquo; To {{ prev_month|date:"F Y" }}</a></div>{% endif %}
+    {% else %}{% comment %}{% if not has_next and prev_month %}<div id="blog-prev" class="side-action"><a href="{% url blog_archive_month prev_month.year prev_month|date:"m" %}">&laquo; To {{ prev_month|date:"F Y" }}</a></div>{% endif %}
     {% endcomment %}{% endif %}
     {% if has_previous %}<div id="blog-next" class="side-action">
-        {% if author %}<a href="{% url "blog_archive_author_pages" blog.slug,author.id,previous %}">
-        {% else %}{% if month %}<a href="{% url "blog_archive_month_pages" blog.slug,month.year,month|date:"m",previous %}">
-        {% else %}<a href="{% url "blog-index" blog.slug,previous %}">
+        {% if author %}<a href="{% url "blog_archive_author_pages" blog.slug author.id previous %}">
+        {% else %}{% if month %}<a href="{% url "blog_archive_month_pages" blog.slug month.year month|date:"m" previous %}">
+        {% else %}<a href="{% url "blog-index" blog.slug previous %}">
         {% endif %}
         {% endif %}
         Newer posts &raquo;</a></div>
-    {% else %}{% comment %}{% if not has_previous and next_month %}<div id="blog-next" class="side-action"><a href="{% url blog_archive_month_front next_month.year,next_month|date:"m" %}">To {{ next_month|date:"F Y" }} &raquo;</a></div>{% endif %}
+    {% else %}{% comment %}{% if not has_previous and next_month %}<div id="blog-next" class="side-action"><a href="{% url blog_archive_month_front next_month.year next_month|date:"m" %}">To {{ next_month|date:"F Y" }} &raquo;</a></div>{% endif %}
     {% endcomment %}{% endif %}
 
     {% endblock blog-content %}

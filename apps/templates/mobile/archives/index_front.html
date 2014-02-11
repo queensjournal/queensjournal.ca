@@ -52,7 +52,7 @@
         <div id="latest">
             {% for story in latest_section %}
             <div class="latest-section">
-                <h3><a href="{% url "stories.views.index_section" story.section|slugify %}">{{ story.section }}</a></h3>
+                <h3><a href="{% url "front-section" story.section|slugify %}">{{ story.section }}</a></h3>
                 <hr>
                 <a href="{{ story.get_absolute_url }}">{% if story.story_thumb %}<img src="{{ story.story_thumb.mobile_front.url }}" />{% endif %}
                 <h4><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h4>

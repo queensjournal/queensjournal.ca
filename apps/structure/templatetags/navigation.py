@@ -1,5 +1,5 @@
 from django import template
-from structure.models import Issue
+from issues.models import Issue
 from stories.models import Story
 from blog.models import Blog
 

@@ -3,7 +3,7 @@ import factory
 from .models import Author
 
 
-class AuthorFactory(factory.Factory):
+class AuthorFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Author
 
     name = factory.Sequence(lambda n: "Test Author %s" % n)

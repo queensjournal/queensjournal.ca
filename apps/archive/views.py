@@ -3,8 +3,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404, \
     render_to_response, redirect
 from django.template import RequestContext
 
-from structure.models import Volume, Issue, FrontPageConfig, FrontConfig, \
-    SectionFrontConfig
+from issues.models import Volume, Issue
+from structure.models import FrontPageConfig, FrontConfig
 from stories.models import Story
 from stories.views import parse_date
 
@@ -63,9 +63,7 @@ def section_index(request, datestring, section):
         try:
             front_config = FrontConfig.objects.get(issue=issue)
         except FrontConfig.DoesNotExist:
-            return redirect('stories.views.index_section', section=section)
-    section_config = get_object_or_404(SectionFrontConfig.objects.filter(\
-        section__slug__iexact=section))
+            return redirect('front-section', slug=section)
     first_story = Story.objects.filter(section__slug__iexact=section, issue=issue, \
         status='p', storyphoto__isnull=False).order_by('section_order')
     story_set = Story.objects.filter(issue=issue, section__slug__iexact=section).\
@@ -91,6 +89,5 @@ def section_index(request, datestring, section):
         'other_stories': other_stories,
         'older_stories': older_stories,
         'config': front_config,
-        'section_config': section_config,
         'issue': issue},
         context_instance=RequestContext(request))

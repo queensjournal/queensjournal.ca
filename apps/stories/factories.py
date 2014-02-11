@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 import factory
-from structure.factories import SectionFactory, IssueFactory
+from issues.factories import IssueFactory
+from sections.factories import SectionFactory
 from stories.models import Story
 
 
-class StoryFactory(factory.Factory):
+class StoryFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Story
 
     head = 'testing'

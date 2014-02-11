@@ -1,7 +1,8 @@
 from django import template
-from structure.models import Section, Issue
+from issues.models import Issue
+from sections.models import Section
 from sidebars.models import PreviousStories
-from sidebars.settings import *
+from sidebars.settings import SIDEBAR_SECTIONS
 
 register = template.Library()
 

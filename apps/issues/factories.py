@@ -5,13 +5,13 @@ from .models import Issue, Volume
 from structure.factories import FlatPlanConfigFactory
 
 
-class VolumeFactory(factory.Factory):
+class VolumeFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Volume
 
     volume = factory.Sequence(lambda n: n)
 
 
-class IssueFactory(factory.Factory):
+class IssueFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = Issue
 
     issue = factory.Sequence(lambda n: n)

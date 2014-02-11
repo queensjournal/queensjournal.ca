@@ -2,6 +2,7 @@ from django.conf.urls.defaults import url, patterns, include
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from front.views import FrontView
+from sections.views import SectionDetailView
 from feeds import LatestFeed, LatestStoriesFeed, LatestStoriesSectionFeed, \
     LatestPostsAllBlogsFeed, LatestPostsSingleBlogFeed, LatestVideosFeed
 
@@ -33,7 +34,7 @@ urlpatterns = patterns('',
     (r'^archives/', include('archive.urls')),
     (r'^photos/', include('galleries.urls')),
 
-    (r'^author/(?P<author>[\w-]+)/$', 'masthead.views.detail_author'),
+    (r'^author/', include('authors.urls')),
 
     # admin
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -72,6 +73,6 @@ if settings.DEBUG:
 # pattern has to be last in the lookup order, because of the way we
 # look up dynamic section urls
 urlpatterns += patterns('',
-    url(r'^(?P<section>[-\w]+)/$', 'stories.views.index_section',
+    url(r'^(?P<slug>[-\w]+)/$', SectionDetailView.as_view(),
         name='front-section'),
 )

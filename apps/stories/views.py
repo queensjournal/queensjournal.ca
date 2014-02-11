@@ -11,23 +11,6 @@ def parse_date(datestring):
     return date(*[int(x) for x in datestring.split('-')])
 
 
-def index_section(request, section):
-    featured = Story.objects.filter(section__slug__iexact=section,
-        featured=True, status='p').exclude(storyphoto__isnull=True,
-            gallery__isnull=True).order_by('-pub_date')[:5]
-    story_set = Story.objects.filter(section__slug__iexact=section,
-        status='p').order_by('-pub_date')
-    latest_stories = story_set[:5]
-    other_stories = story_set[5:13]
-    latest_issue = Issue.objects.latest()
-    return render_to_response('stories/index_section.html',
-        {'featured': featured,
-        'latest_stories': latest_stories,
-        'other_stories': other_stories,
-        'latest_issue': latest_issue, },
-        context_instance=RequestContext(request))
-
-
 def detail_story(request, datestring, section, slug):
     ## Set up a range of one day based on the datestring
     dt = datetime.datetime.combine(parse_date(datestring), time())
