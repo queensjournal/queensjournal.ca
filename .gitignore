@@ -1,18 +1,18 @@
 *settings_local.py
 *.pyc
-lib/
-bin/
-build/
-share/
-include/
-*.sass-cache/
-devdata/
+/lib/
+/bin/
+/build/
+/share/
+/include/
+.sass-cache/
 
 .DS_Store
-media/
-xapian/
+/devdata/
+/media/
+/xapian/
 
-apps/static/components
+/apps/static/components/
 
 # collectstatic target
-./static/
+/static/
