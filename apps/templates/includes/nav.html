@@ -1,0 +1,13 @@
+{% load navigation %}
+{% get_menu_sections as nav %}
+<nav>
+  <ul>
+    {% for section in nav %}
+    <li>
+      <a href="{% url "sections.views.section_detail" section.slug %}">
+        {% if section.short_name %}{{ section.short_name }}{% else %}{{ section.name }}{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>

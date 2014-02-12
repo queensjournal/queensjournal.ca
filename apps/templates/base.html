@@ -3,6 +3,8 @@
 {% load tag_cloud %}
 {% load compressed %}
 
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +15,9 @@
         {% block meta %}
         <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
         {% endblock meta %}
+
+        <script src="//use.typekit.net/vsz8ypk.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
 
         {% compressed_css 'core-styles' %}
         {% block css %}{% endblock %}
@@ -38,11 +43,10 @@
 
   {% include "includes/ad.html" with id="QJ-Global_Banner-468x60" slug="top-ad" %}
 
-  <div class="wrap">
-
+  <div class="container">
     <header>
       <a href="/">
-        <img src="{{ STATIC_URL }}images/header/logo.png" class="logo" alt="The Journal - Queen's University &#151; Since 1873" />
+        <img src="{% static "images/global/logo-header.png" %}" class="logo" alt="The Journal - Queen's University &#151; Since 1873" />
       </a>
 
       <div class="header-sub">
@@ -72,10 +76,9 @@
         </div>
       </div>
     </header>
-
   </div><!--.wrap-->
 
-  <div class="wrap">
+  <div class="container">
     {% include "includes/nav.html" %}
   </div><!--.wrap-->
 
