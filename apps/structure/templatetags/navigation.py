@@ -3,30 +3,20 @@ from issues.models import Issue
 from stories.models import Story
 from blog.models import Blog
 
-
 register = template.Library()
 
 
-def get_sections(context):
-    issue = context.get('issue')
+@register.assignment_tag
+def get_menu_sections(*args, **kwargs):
+    """
+    Returns the HTML code for the sections menu of a given issue.
+    """
+    issue = kwargs.get('issue')
     if issue:
         sections = issue.sections.get_sections()
     else:
         sections = Issue.objects.latest().sections.get_sections()
     return sections
-
-
-def menu_sections(context):
-    """
-    Returns the HTML code for the sections menu of a given issue.
-    """
-    params = {}
-    params['sections'] = get_sections(context)
-    params['config'] = context.get('config')
-    return params
-
-
-register.inclusion_tag('global/menu_sections.html', takes_context=True)(menu_sections)
 
 
 def menu_blogs(context):
