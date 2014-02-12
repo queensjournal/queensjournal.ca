@@ -1,7 +1,5 @@
 *settings_local.py
 *.pyc
-*.json
-*.svn*
 lib/
 bin/
 build/
@@ -10,7 +8,6 @@ include/
 *.sass-cache/
 devdata/
 
-*.tgz
 .DS_Store
 media/
 xapian/
@@ -18,4 +15,4 @@ xapian/
 apps/static/components
 
 # collectstatic target
-static/
+./static/
