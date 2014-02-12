@@ -1,0 +1,19 @@
+@import "susy";
+
+// VARIABLES
+// ===================================================
+
+// Layout
+  $layout_column_width: 225px;
+  $layout_gutter: 16px;
+
+$total-columns  : 12;             // a 12-column grid
+$column-width   : 4em;            // each column is 4em wide
+$gutter-width   : 1em;            // 1em gutters between columns
+$grid-padding   : $gutter-width;
+
+$colour_dark_slate: #2d3840;
+$colour_mid_slate: #4d5961;
+
+// decoration
+$divider: 1px solid $colour_dark_slate;

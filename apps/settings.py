@@ -34,6 +34,12 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # PIPELINE storage
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+PIPELINE_COMPASS_BINARY = '/usr/bin/env bundle exec compass'
+PIPELINE_COMPASS_ARGUMENTS = '-c ' + os.path.join(DJANGO_ROOT, 'compass.rb')
+PIPELINE_COMPILERS = (
+    'pipeline_compass.compass.CompassCompiler',
+)
+
 
 # devdata options
 PATH_TO_DEVDATA = '../devdata'
@@ -51,10 +57,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
-
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.less.LessCompiler',
 )
 
 TEMPLATE_LOADERS = (
@@ -113,6 +115,7 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
+    'pipeline',
     'bento',
 
     'utils',

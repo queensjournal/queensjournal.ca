@@ -1,11 +1,16 @@
+/* line 3, modules.scss */
+.ad {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* line 10, modules.scss */
 .sct-preview .first-story {
   float: left;
-  width: 225px;
-  margin-right: 20px;
+  width: 4em;
+  margin-right: 1em;
 }
+/* line 15, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
-}
-.header {
-  text-align: center;
 }

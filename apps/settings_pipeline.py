@@ -1,9 +1,8 @@
 PIPELINE_CSS = {
     'core-styles': {
         'source_filenames': (
-            'components/normalize-css/normalize.css',
-            'css/layout.less',
-            'css/modules.less',
+            'css/layout.scss',
+            'css/modules.scss',
         ),
         'output_filename': 'compiled/css/core-styles.grouped.css',
         'extra_context': {

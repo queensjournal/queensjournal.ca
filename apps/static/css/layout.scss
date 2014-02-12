@@ -1,0 +1,76 @@
+@import "project";
+@import "compass/reset";
+
+body {
+  font-size: $font_base;
+}
+
+a {
+  color: #0072bc;
+}
+
+.container {
+  @include container;
+}
+
+header {
+  margin: 1em auto 0.5em;
+  padding: 1em 0 0;
+  border-top: $divider;
+  text-align: center;
+}
+
+$header_sub_top: 0.4em;
+.header-sub {
+  position: relative;
+  margin-top: 1em;
+  padding: $header_sub_top 0 0.25em;
+  border-top: $divider;
+  border-bottom: $divider;
+  @include futura;
+  text-transform: uppercase;
+}
+
+.header-left {
+  @include span-columns(4);
+  position: absolute;
+  top: $header_sub_top;
+  left: 0;
+  text-align: left;
+}
+
+.header-right {
+  @include span-columns(4);
+  position: absolute;
+  top: $header_sub_top;
+  right: 0;
+  text-align: right;
+}
+
+nav {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  background-color: $colour_mid_slate;
+
+  ul {
+    display: table-row;
+  }
+
+  li {
+    display: table-cell;
+    text-align: center;
+  }
+
+  a {
+    width: 100%;
+    display: inline-block;
+    padding: 0.5em 0;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      background-color: lighten($colour_mid_slate, 20%);
+    }
+  }
+}

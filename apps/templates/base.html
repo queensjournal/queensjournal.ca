@@ -36,48 +36,48 @@
 
 <body class="{% block body_class %}front-page{% endblock %}">
 
-    <div class="container">
-        {% include "includes/ad.html" with id="QJ-Global_Banner-468x60" slug="top-ad" %}
+  {% include "includes/ad.html" with id="QJ-Global_Banner-468x60" slug="top-ad" %}
 
-        {# MENU #}
-        <div class="header">
-            <a href="/">
-                <img src="{{ STATIC_URL }}images/header/logo.png" class="logo" alt="The Journal - Queen's University &#151; Since 1873" />
-            </a>
+  <div class="wrap">
 
-            <div class="header-left">
-                {% load issue_tags %}{% get_latest_issue as latest_issue %}
-                Volume {{ latest_issue.volume }} Issue {{ latest_issue.issue }}
-            </div>
+    <header>
+      <a href="/">
+        <img src="{{ STATIC_URL }}images/header/logo.png" class="logo" alt="The Journal - Queen's University &#151; Since 1873" />
+      </a>
 
-            <div class="header-center">
-                {# TODO: turn these into sprites #}
-                <a href="/rss/latest/">
-                    <img src="{{ STATIC_URL }}images/header/rss.png" />
-                </a>
-
-                <a href="http://twitter.com/queensjournal/">
-                    <img src="{{ STATIC_URL }}images/header/twitter.png" />
-                </a>
-
-                <a href="http://www.facebook.com/queensjournal">
-                    <img src="{{ STATIC_URL }}images/header/facebook.png">
-                </a>
-            </div>
-
-            <div class="header-right">
-                {# get_latest_story as latest_story #}
-                Last Updated {# {{ latest_story.pub_date | time_since }} #}
-            </div>
+      <div class="header-sub">
+        <div class="header-left">
+          {% load issue_tags %}{% get_latest_issue as latest_issue %}
+          Volume {{ latest_issue.volume }} Issue {{ latest_issue.issue }}
         </div>
 
-        {# MENU #}
-        <div class="menu">
-            <ul>
-            </ul>
+        <div class="header-center">
+          {# TODO: turn these into sprites #}
+          <a href="/rss/latest/">
+            <img src="{{ STATIC_URL }}images/header/rss.png" />
+          </a>
+
+          <a href="http://twitter.com/queensjournal/">
+            <img src="{{ STATIC_URL }}images/header/twitter.png" />
+          </a>
+
+          <a href="http://www.facebook.com/queensjournal">
+            <img src="{{ STATIC_URL }}images/header/facebook.png">
+          </a>
         </div>
 
-    </div><!-- .container -->
+        <div class="header-right">
+          {# get_latest_story as latest_story #}
+          Last Updated {# {{ latest_story.pub_date | time_since }} #}
+        </div>
+      </div>
+    </header>
+
+  </div><!--.wrap-->
+
+  <div class="wrap">
+    {% include "includes/nav.html" %}
+  </div><!--.wrap-->
 
 <div id="container" class="container">
 
@@ -94,8 +94,6 @@
     </div><!--header-container-->
 
     <div id="menu-sections" class="menu-bar block">
-        {% menu_sections %}
-
         <div id="menu-popular-tags" class="block">
             <span class="popular-tags-title">Hot topics</span>
             <ul>{% for tag in config.get_tags %}
@@ -197,6 +195,8 @@
         </ul>
     </div>
 </div><!--footer-container-->
+
+  </div><!--.wrap-->
 
     <!-- Google Analytics -->
     <script type="text/javascript">

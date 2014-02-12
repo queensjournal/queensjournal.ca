@@ -1,0 +1,19 @@
+@import "project";
+
+.ad {
+  margin: 0 auto;
+  text-align: center
+}
+
+// Issue Detail Section Preview
+.sct-preview {
+    .first-story {
+        float: left;
+        width: $column-width;
+        margin-right: $gutter-width;
+
+        img {
+            margin-bottom: 1em;
+        }
+    }
+}
