@@ -34,12 +34,6 @@ class FrontView(CurrentView):
                 section=section, featured=True, \
                 storyphoto__isnull=False).order_by('-pub_date')[:1])
 
-        config = SiteConfig.get()
-        if not config.featured_video:
-            context['latest_video'] = Video.objects.published().latest('pub_date')
-
-        context['featured'] = config.featuredstory_set.all() \
-            .order_by('story_order')
         context['latest_entries'] = latest_entries
         context['latest_section'] = latest_section
         return context

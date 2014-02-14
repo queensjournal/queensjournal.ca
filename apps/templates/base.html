@@ -79,19 +79,27 @@
     {% include "includes/nav.html" %}
   </div><!--.wrap-->
 
-<div id="container" class="container">
+  <div class="container">
+    <div class="rail-left">
+      {% block rail-left %}
+      {% endblock %}
+    </div>
 
-    <div id="header-container" class="block">
-        <div id="header-right" class="column span-10 last">
+    <main>
+      {% block main %}
+      {% endblock %}
+    </main>
+
+    <div class="rail-right">
+      {% block rail-right %}
+      {% endblock %}
+    </div>
+  </div>
+
             <div id="search">
                 <form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
             </div><!--actions-->
 
-        </div><!--header-right-->
-        <div id="header-slogan">
-        </div>
-
-    </div><!--header-container-->
 
     <div id="menu-sections" class="menu-bar block">
         <div id="menu-popular-tags" class="block">
@@ -103,12 +111,6 @@
             {% endfor %} </ul>
         </div>
     </div>
-    <div id="menu-blogs">
-        <div id="menu-blogs-scroll">
-            {% menu_blogs %}
-        </div>
-    </div>
-
     <div class="block">
 
         <div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
@@ -162,17 +164,6 @@
     <div id="footer-ad" class="ad">
         {% include "ads/banner-bottom.html" %}
     </div>
-
-    <div class="hr"><hr></div>
-    <!--
-    <div id="flavours" class="block">
-        <ul>
-            <li><a href="?flavour=mobile">View our mobile version</a>
-        </ul>
-    </div>
--->
-
-</div><!--container-->
 
 <div id="footer" class="container">
     <div id="address" class="clearfix">
