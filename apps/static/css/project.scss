@@ -5,7 +5,6 @@
 
 // Layout
   $layout_column_width: 225px;
-  $layout_gutter: 16px;
 
 $total-columns  : 12;             // a 12-column grid
 $column-width   : 4em;            // each column is 4em wide
@@ -17,3 +16,11 @@ $colour_mid_slate: #4d5961;
 
 // decoration
 $divider: 1px solid $colour_dark_slate;
+
+// typography
+$font_base: 16px;
+
+@mixin futura($size: $font_base) {
+  font: normal $size "futura-pt",sans-serif;
+  font-weight: 400;
+}

@@ -25,10 +25,7 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/ie.css">
         <![endif]-->
 
-        <LINK REL="shortcut icon" HREF="{{ STATIC_URL }}favicon.ico">
-
-        {% compressed_js 'core-scripts' %}
-        {% block js %}{% endblock %}
+        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
 
         {% block headcode %}{% endblock headcode %}
         {% block facebook %}{% endblock facebook %}
