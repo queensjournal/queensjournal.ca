@@ -11,8 +11,8 @@ from tagging.models import Tag
 
 class GalleryFormSet(BaseInlineFormSet):
     def get_queryset(self):
-        return super(GalleryFormSet, \
-            self).get_queryset().filter(pub_date__gt=(datetime.datetime.now() \
+        return super(GalleryFormSet,
+            self).get_queryset().filter(pub_date__gt=(datetime.datetime.now()
             - datetime.timedelta(weeks=8)))
 
 
@@ -57,11 +57,12 @@ class StoryAuthorInline(admin.TabularInline):
 
 class StoryAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['title', 'deck', 'slug', 'tags',
-            'summary']}),
+        (None, {'fields': ['title', 'deck', 'slug', 'tags', 'summary']}),
         ('Date information', {'fields': ['pub_date']}),
-        ('Content', {'fields': ['content', 'show_headshots'], 'classes': ['richedit']}),
-        ('Organizational', {'fields': ['status', 'section', 'issue', 'featured',]})
+        ('Content',
+            {'fields': ['content', 'show_headshots'], 'classes': ['richedit']}),
+        ('Organizational',
+            {'fields': ['status', 'section', 'issue', 'featured']})
     ]
     inlines = [
         StoryPhotoInline,
@@ -70,7 +71,7 @@ class StoryAdmin(admin.ModelAdmin):
         DocumentInline,
         GalleryInline,
     ]
-    prepopulated_fields = {'slug': ('title')}
+    prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'summary', 'pub_date', 'issue', 'section',
         'featured', 'status', 'pk')
     list_filter = ['pub_date', 'section', 'status', 'issue']
@@ -87,7 +88,8 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "1 story was"
         else:
             message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully marked as published." % message_bit)
+        self.message_user(request,
+            "%s successfully marked as published." % message_bit)
     make_published.short_description = "Mark selected stories as published"
 
     def make_draft(self, request, queryset):
@@ -96,7 +98,8 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "1 story was"
         else:
             message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully marked as draft." % message_bit)
+        self.message_user(request,
+            "%s successfully marked as draft." % message_bit)
     make_draft.short_description = "Mark selected stories as draft"
 
     def make_featured(self, request, queryset):
@@ -105,7 +108,8 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "1 story was"
         else:
             message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully marked as featured." % message_bit)
+        self.message_user(request,
+            "%s successfully marked as featured." % message_bit)
     make_featured.short_description = "Mark selected stories as featured"
 
     def remove_featured(self, request, queryset):
@@ -114,17 +118,21 @@ class StoryAdmin(admin.ModelAdmin):
             message_bit = "1 story was"
         else:
             message_bit = "%s stories were" % rows_updated
-        self.message_user(request, "%s successfully removed from featured." % message_bit)
+        self.message_user(request,
+            "%s successfully removed from featured." % message_bit)
     remove_featured.short_description = "Remove selected from featured"
 
 admin.site.register(Story, StoryAdmin)
 
+
 class PhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['photo', 'name', 'storyphoto__story__title']
-    list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption', 'photo_stories')
+    list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption',
+        'photo_stories')
 
 admin.site.register(Photo, PhotoAdmin)
+
 
 class MyTagAdmin(admin.ModelAdmin):
     list_display = ["name"]
@@ -132,4 +140,4 @@ class MyTagAdmin(admin.ModelAdmin):
 
 # Override Taggit's admin
 admin.site.unregister(Tag)
-admin.site.register(Tag,MyTagAdmin)
+admin.site.register(Tag, MyTagAdmin)
