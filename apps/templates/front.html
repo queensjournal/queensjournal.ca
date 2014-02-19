@@ -131,7 +131,6 @@ $('#section-stories').masonry({
 {% endblock footercode %}
 
 {% load latest_content %}
-{% load config_tags %}
 
 {% block rail-left %}
 <h3>The Latest</h3>
@@ -172,6 +171,7 @@ $('#section-stories').masonry({
 {% block rail-right %}
   {% load video_tags %}
   {% get_featured_video as video %}
+  {% if video %}
   <div id="latest-video">
     <h3>Featured Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
     <hr>
@@ -182,4 +182,5 @@ $('#section-stories').masonry({
     <p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
     <p class="pub_date">Posted {{ video.pub_date|time_since }} ago</p>
   </div>
+  {% endif %}
 {% endblock %}
