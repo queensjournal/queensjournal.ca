@@ -15,5 +15,5 @@ class VideoManager(models.Manager):
     def featured(self):
         config = SiteConfig.get()
         if not config.featured_video:
-            self.published
+            return self.published()[:1].get()
         return config.featured_video

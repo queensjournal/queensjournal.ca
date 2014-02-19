@@ -90,30 +90,6 @@
                 </div>
                 {% endif %}
 
-                {% if config.featured_video %}
-                <div id="latest-video">
-                    <h3>Featured Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
-                    <hr>
-                    <div class="video-thumb">
-                        <a href="{{ config.featured_video.get_absolute_url }}"><img src="{{ config.featured_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
-                            <h2 class="latest-section-head">{{ config.featured_video.name }}</h2></a>
-                    </div>
-                    <p class="latest-section-summary">{{ config.featured_video.caption|convert_entities|truncatewords:18|safe }}</p>
-                    <p class="pub_date">Posted {{ config.featured_video.pub_date|time_since }} ago</p>
-                </div>
-                {% else %}
-                <div id="latest-video">
-                    <h3>Latest Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
-                    <hr>
-                    <div class="video-thumb">
-                        <a href="{{ latest_video.get_absolute_url }}"><img src="{{ latest_video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
-                            <h2 class="latest-section-head">{{ latest_video.name }}</h2></a>
-                    </div>
-                    <p class="latest-section-summary">{{ latest_video.caption|convert_entities|truncatewords:18|safe }}</p>
-                    <p class="pub_date">Posted {{ latest_video.pub_date|time_since }} ago</p>
-                </div>
-                {% endif %}
-
                 <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
                     {% for entry in latest_entries %}
                     <li>
@@ -191,4 +167,19 @@ $('#section-stories').masonry({
   {% for story in config.featuredstory_set.all %}
   <h2>{{ story.story.head }}</h2>
   {% endfor %}
+{% endblock %}
+
+{% block rail-right %}
+  {% load video_tags %}
+  {% get_featured_video as video %}
+  <div id="latest-video">
+    <h3>Featured Video: <span class="feed"><a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></span></h3>
+    <hr>
+    <div class="video-thumb">
+      <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
+        <h2 class="latest-section-head">{{ video.name }}</h2></a>
+    </div>
+    <p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+    <p class="pub_date">Posted {{ video.pub_date|time_since }} ago</p>
+  </div>
 {% endblock %}

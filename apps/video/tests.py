@@ -1,5 +1,7 @@
+import datetime
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.template import Template, Context
 
 from utils import SiteTestHelper
 from video.factories import VideoFactory
@@ -21,3 +23,13 @@ class VideoTests(SiteTestHelper, TestCase):
         video = VideoFactory(is_published=False)
         resp = self.client.get(video.get_absolute_url())
         self.assertEqual(resp.status_code, 404)
+
+
+class VideoTagTests(TestCase):
+    def test_front_video_is_latest(self):
+        video = VideoFactory(pub_date=datetime.datetime.now())
+        rendered = Template(
+            '{% load video_tags %}'
+            '{% get_featured_video as video %}{{ video.name }}'
+        ).render(Context())
+        self.assertEqual(rendered, video.name)
