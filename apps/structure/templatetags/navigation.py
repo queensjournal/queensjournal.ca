@@ -36,7 +36,6 @@ def menu_mobile(context):
     Returns the HTML code for the sections menu of a given issue.
     """
     params = {}
-    params['sections'] = get_sections(context)
     params['config'] = context.get('config')
     return params
 
@@ -46,7 +45,8 @@ register.inclusion_tag('global/menu.html', takes_context=True)(menu_mobile)
 
 class OtherStoriesListNode(template.Node):
     """
-    Returns a list of other stories in the section for a given issue as the 'other_stories' context variable.
+    Returns a list of other stories in the section for a given issue as the
+    'other_stories' context variable.
     """
     def __init__(self, section, issue, num=0):
         self.section, self.issue, self.num = section, issue, num
@@ -59,7 +59,8 @@ class OtherStoriesListNode(template.Node):
         except:
             context['no_other_stories'] = True
             return ''
-        context['other_stories'] = Story.objects.filter(issue=issue_obj, section=section_obj).exclude(slug=context.get('story').slug)
+        context['other_stories'] = Story.objects.filter(issue=issue_obj,
+            section=section_obj).exclude(slug=context.get('story').slug)
         if self.num != 0:
             context['other_stories'] = context['other_stories'][:self.num]
         if len(context['other_stories']) == 0:
@@ -73,7 +74,8 @@ def do_other_stories(parser, token):
     """
     bits = token.contents.split()
     if len(bits) != 3 and len(bits) != 4:
-        raise template.TemplateSyntaxError, "%s takes two or three arguments" % bits[0]
+        raise template.TemplateSyntaxError, "%s takes two or three arguments" \
+            % bits[0]
     if len(bits) == 4:
         return OtherStoriesListNode(bits[1], bits[2], bits[3])
     else:

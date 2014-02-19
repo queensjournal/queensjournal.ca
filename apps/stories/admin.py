@@ -1,5 +1,4 @@
 import datetime
-from django import forms
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 from django.forms import ModelForm
@@ -9,11 +8,13 @@ from inlines.models import Factbox, Document
 from galleries.models import Gallery
 from tagging.models import Tag
 
+
 class GalleryFormSet(BaseInlineFormSet):
     def get_queryset(self):
         return super(GalleryFormSet, \
             self).get_queryset().filter(pub_date__gt=(datetime.datetime.now() \
             - datetime.timedelta(weeks=8)))
+
 
 class GalleryInline(admin.TabularInline):
     model = Gallery
@@ -21,13 +22,16 @@ class GalleryInline(admin.TabularInline):
     filter_horizontal = ['images']
     extra = 1
 
+
 class FactboxInline(admin.TabularInline):
     model = Factbox
     extra = 1
 
+
 class DocumentInline(admin.TabularInline):
     model = Document
     extra = 1
+
 
 class PhotoInlineForm(ModelForm):
     def __init__(self, *args, **kwargs):

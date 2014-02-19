@@ -12,7 +12,7 @@ class StoryFactory(factory.django.DjangoModelFactory):
     deck = u'Editor-in-Chief says this will help detect issues earlier'
     slug = u'journal-implements-tests'
     issue = factory.SubFactory(IssueFactory)
-    pub_date = factory.Sequence(lambda n: datetime.now() - \
+    pub_date = factory.Sequence(lambda n: datetime.now() -
         timedelta(weeks=(n)), type=int)
     section = factory.SubFactory(SectionFactory)
     status = 'p'
