@@ -16,7 +16,7 @@ STATUS_CHOICES = (
 
 
 class Story(models.Model):
-    head = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     deck = models.CharField(max_length=255, blank=True, null=True)
     slug = models.SlugField(
         help_text='Automatically written based on the headline. If nothing \
@@ -159,7 +159,7 @@ class Story(models.Model):
         return self.__class__.__name__
 
     def __unicode__(self):
-        return self.head
+        return self.title
 
     def save(self, *args, **kwargs):
         if self.status == 'p':
@@ -174,7 +174,7 @@ class Story(models.Model):
             'slug': self.slug})
 
     def get_twitter_message(self):
-        return u'%s: %s' % (self.head, self.summary)
+        return u'%s: %s' % (self.title, self.summary)
 
 
 class StoryAuthor(models.Model):
@@ -185,7 +185,7 @@ class StoryAuthor(models.Model):
         order_with_respect_to = 'story'
 
     def __unicode__(self):
-        return '%s - %s' % (self.author.name, self.story.head)
+        return '%s - %s' % (self.author.name, self.story.title)
 
 
 class Photo(ImageModel):
@@ -225,8 +225,7 @@ class Photo(ImageModel):
         for storyp in storyp_set:
             url = urlresolvers.reverse('admin:stories_story_change', \
                 args=(storyp.story.id,))
-            head = storyp.story.head
-            sections.append('<a href="%s">%s</a>' % (url, head))
+            sections.append('<a href="%s">%s</a>' % (url, storyp.story.title))
         return ", ".join(sections)
     photo_stories.short_description = 'Locations'
     photo_stories.allow_tags = True

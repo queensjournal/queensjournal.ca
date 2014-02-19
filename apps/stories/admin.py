@@ -53,7 +53,8 @@ class StoryAuthorInline(admin.TabularInline):
 
 class StoryAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['head', 'deck', 'slug', 'tags', 'summary']}),
+        (None,               {'fields': ['title', 'deck', 'slug', 'tags',
+            'summary']}),
         ('Date information', {'fields': ['pub_date']}),
         ('Content', {'fields': ['content', 'show_headshots'], 'classes': ['richedit']}),
         ('Organizational', {'fields': ['status', 'section', 'issue', 'featured',]})
@@ -65,11 +66,13 @@ class StoryAdmin(admin.ModelAdmin):
         DocumentInline,
         GalleryInline,
     ]
-    prepopulated_fields = {'slug': ('head',),}
-    list_display = ('head', 'summary', 'pub_date', 'issue', 'section', 'featured', 'status', 'pk')
+    prepopulated_fields = {'slug': ('title')}
+    list_display = ('title', 'summary', 'pub_date', 'issue', 'section',
+        'featured', 'status', 'pk')
     list_filter = ['pub_date', 'section', 'status', 'issue']
-    search_fields = ['head', 'deck', 'content']
-    actions = ['make_published', 'make_featured', 'remove_featured', 'make_draft']
+    search_fields = ['title', 'deck', 'content']
+    actions = ['make_published', 'make_featured', 'remove_featured',
+        'make_draft']
 
     class Media:
         js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
@@ -114,7 +117,7 @@ admin.site.register(Story, StoryAdmin)
 
 class PhotoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
-    search_fields = ['photo', 'name', 'storyphoto__story__head']
+    search_fields = ['photo', 'name', 'storyphoto__story__title']
     list_display = ('name', 'issue', 'photographer', 'thumbnail', 'caption', 'photo_stories')
 
 admin.site.register(Photo, PhotoAdmin)
