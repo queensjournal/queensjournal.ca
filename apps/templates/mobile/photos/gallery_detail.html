@@ -26,18 +26,18 @@
 
 {% block js %}
 {% endblock %}
-    
+
     {% block content %}
     <div id="story">
         {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a>
-            {% if gallery.story %}<span class="divider"></span><a href="{% url stories.views.index_section gallery.story.section.slug %}" class="section">{{ gallery.story.section }}</a>
+            {% if gallery.story %}<span class="divider"></span><a href="{% url "stories.views.index_section" gallery.story.section.slug %}" class="section">{{ gallery.story.section }}</a>
             {% endif %}<span class="divider"></span><span class="current">gallery</span></div>{% endblock %}
-        
+
         <div class="pub-date">{{ gallery.pub_date|date:"jS F Y" }}</div>
         <h1 class="story-head">{{ gallery.name|stripspace|convert_entities|widont }}</h1>
-            
+
         <p class="story-byline">By {{ gallery.list_authors|safe }}</p>
-            
+
         <div class="story-content">
             {{ gallery.description|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
         </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </a>
-            
+
             <div id="story-meta">
                 {% tags_for_object gallery as tags %}
                 {% if tags %}
@@ -73,7 +73,7 @@
                 {% else %}
                 <hr>
                 <div class="story-actions col">
-                    
+
                 </div>
                 <div class="story-actions col">
                     <form action="" method="get">
@@ -83,11 +83,11 @@
                 {% endif %}
                 {% revcanonical story %}
             </div><!--.story-meta-->
-            
+
                 {% load disqus_tags %}
                 {% disqus_dev %}
                 {% disqus_show_comments %}
-            
+
     </div><!--.story-->
     {% endblock content %}
     <!-- google_ad_section_end -->

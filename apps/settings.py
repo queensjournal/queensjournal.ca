@@ -132,10 +132,6 @@ INSTALLED_APPS = (
     'galleries',
     'masthead',
     'video',
-
-    # Staff apps
-    'staff',
-    'staff.requests',
 )
 
 SHORTEN_MODELS = {
@@ -157,11 +153,17 @@ AKISMET_API_KEY = 'a749fbcef622'
 WIKI_REQUIRES_LOGIN = True
 
 LOGGING = {
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+     },
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
+            'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
     },
@@ -175,8 +177,6 @@ LOGGING = {
 }
 
 from settings_local import *
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 from settings_pipeline import *
 PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')

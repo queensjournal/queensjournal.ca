@@ -175,13 +175,13 @@ class Entry(models.Model):
     def __unicode__(self):
         return '%s' % (self.title)
 
+    @models.permalink
     def get_absolute_url(self):
-        return('blog.views.blog_detail', (), {
+        return ('entry-detail', (), {
             'blog': self.blog.slug,
             'year': self.pub_date.strftime('%Y'),
             'month': self.pub_date.strftime('%m'),
             'slug': self.slug})
-    get_absolute_url = permalink(get_absolute_url)
 
     def get_twitter_message(self):
         return u'%s: %s' % (self.title, self.content)

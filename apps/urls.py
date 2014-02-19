@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import url, patterns, include
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
+from django.views.generic.base import TemplateView
 from front.views import FrontView
 from feeds import LatestFeed, LatestStoriesFeed, LatestStoriesSectionFeed, \
     LatestPostsAllBlogsFeed, LatestPostsSingleBlogFeed, LatestVideosFeed
@@ -11,13 +11,14 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Google webmaster tools
-    (r'^google9fc9f538545cc45e\.html$', direct_to_template, {'template': 'google9fc9f538545cc45e.html'}),
+    url(r'^google9fc9f538545cc45e\.html$', TemplateView.as_view(
+        template_name='google9fc9f538545cc45e.html')),
 
     # robots
-    (r'^robots\.txt$', direct_to_template, {
-        'template': 'robots.txt',
-        'mimetype': 'text/plain',
-        }),
+    url(r'^robots\.txt$', TemplateView.as_view(
+        template_name='robots.txt',
+        content_type='text/plain',
+    )),
 
     # front page
     url(r'^$', FrontView.as_view(), name='front'),
@@ -26,7 +27,6 @@ urlpatterns = patterns('',
     (r'^story/', include('stories.urls')),
     (r'^blogs/', include('blog.urls')),
     (r'^video/', include('video.urls')),
-    (r'^staff/', include('staff.urls')),
     (r'^images/', include('images.urls')),
     (r'^masthead/', include('masthead.urls')),
     (r'^search/', include('search.urls')),
