@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load navigation %}
 {% load comparison %}
@@ -46,8 +46,8 @@
                     <div id="caption{{ story.id }}" class="nivo-html-caption">
                         <p class="slider-story label">{% if story.tags %}<a href="/tag/{{story.label|striplabel|slugify}}/">
             {{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
-                        <h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-                        {{ story.summary|stripspace|convert_entities|truncatewords:38|safe }}
+                        <h2><a href="{{ story.get_absolute_url }}">{{ story.head|striptags|choptext:"42"|stripspace }}</a></h2>
+                        {{ story.summary|stripspace|truncatewords:38 }}
                     </div>
                     {% endfor %}
 

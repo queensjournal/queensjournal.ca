@@ -1,5 +1,5 @@
 {% extends 'stories/index_section.html' %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load navigation %}
 {% load sidebartags %}
@@ -37,8 +37,8 @@
                         {% for entry in featured %}
                         <div id="caption{{ entry.id }}" class="nivo-html-caption">
                             <p class="slider-story label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></p>
-                            <h2><a href="{{ entry.get_absolute_url }}">{{ entry.title|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-                            {{ entry.content|stripspace|convert_entities|truncatewords:38|striptags|safe }}
+                            <h2><a href="{{ entry.get_absolute_url }}">{{ entry.title|striptags|choptext:"42"|stripspace }}</a></h2>
+                            {{ entry.content|stripspace|truncatewords:38|striptags }}
                         </div>
                         {% endfor %}
 

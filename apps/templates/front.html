@@ -2,8 +2,11 @@
 {% load navigation %}
 {% load sidebartags %}
 {% load custom_html %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load flash %}
+
+{% load latest_content %}
+{% load since %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest stories feed (RSS 2.0)" href="/rss/latest/" />
 {% endblock headcode %}
@@ -129,9 +132,6 @@ $('#section-stories').masonry({
     });
 });
 {% endblock footercode %}
-
-{% load latest_content %}
-{% load since %}
 
 {% block rail-left %}
 <h3>The Latest</h3>

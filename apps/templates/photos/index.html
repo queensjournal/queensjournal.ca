@@ -1,7 +1,7 @@
 {% extends 'stories/index_section.html' %}
 {% load pagination_tags %}
 {% load markup %}
-{% load typogrify %}
+{% load typogrify_tags %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui.min.js" ></script>{% endblock headcode %}
@@ -15,28 +15,28 @@
 </div>
 
 <div class="hr"><hr></div>
-	
+
 <div class="block">
     <div id="featured-galleries">
         <h3>Latest Galleries</h3>
         <ul class="ui-tabs-nav">
             {% for gallery in featured %}
                 <li class="ui-tabs-nav-item ui-tabs-selected" id="nav-fragment-{{ forloop.counter }}"><a href="#fragment-{{ forloop.counter }}"><img src="{{ gallery.first_photo.thumbnail_image.url }}" alt="" /></a></li>
-            {% endfor %}  
-        </ul>  
-        {% for gallery in featured %} 
-        <div id="fragment-{{ forloop.counter }}" class="ui-tabs-panel" style="">  
-            <img src="{{ gallery.first_photo.gallery_featured.url }}" alt="" />  
-            <div class="info" >  
-            <h2><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h2>  
-            <p>{{ gallery.description|striptags|truncatewords:40|typogrify }}</p>  
-            </div>  
+            {% endfor %}
+        </ul>
+        {% for gallery in featured %}
+        <div id="fragment-{{ forloop.counter }}" class="ui-tabs-panel" style="">
+            <img src="{{ gallery.first_photo.gallery_featured.url }}" alt="" />
+            <div class="info" >
+            <h2><a href="{% if gallery.story %}{{ gallery.story.get_absolute_url }}{% else %}{{ gallery.get_absolute_url }}{% endif %}">{{ gallery.name|typogrify }}</a></h2>
+            <p>{{ gallery.description|striptags|truncatewords:40|typogrify }}</p>
+            </div>
         </div>
         {% endfor %}
     </div>
-    
+
     <div class="dblmargin"><hr></div>
-    
+
     <div class="resultlist">
         <h2>More Galleries</h2>
         {% autopaginate galleries 10 %}
@@ -49,7 +49,7 @@
             </div>
         {% endfor %}
     </div>
-    
+
     <div id="pagination">
         {% paginate %}
     </div>
@@ -57,14 +57,14 @@
 
 {% endblock content %}
 {% block footercode %}
-$(document).ready(function(){  
-    $("#featured-galleries").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);  
-    $("#featured-galleries").hover(  
-    function() {  
-        $("#featured-galleries").tabs("rotate",0,true);  
-    },  
-    function() {  
-        $("#featured-galleries").tabs("rotate",5000,true);  
-    });  
+$(document).ready(function(){
+    $("#featured-galleries").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
+    $("#featured-galleries").hover(
+    function() {
+        $("#featured-galleries").tabs("rotate",0,true);
+    },
+    function() {
+        $("#featured-galleries").tabs("rotate",5000,true);
+    });
 });
 {% endblock %}

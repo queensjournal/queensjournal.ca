@@ -1,4 +1,4 @@
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 
 {% ifequal obj.model_type 'Story' %}
@@ -18,7 +18,7 @@
     	{% endfor %}
     {% endif %}
 
-    {{ obj.content|typogrify|convert_entities|linebreakswithcode|safe|urlizetrunc:50 }}
+    {{ obj.content|typogrify|linebreakswithcode|urlizetrunc:50|safe }}
 
     {% if obj.gallery_set.all %}
     	{% for pwrapper in obj.gallery_set.all|slice:":4" %}

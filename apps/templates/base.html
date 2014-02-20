@@ -4,6 +4,8 @@
 {% load compressed %}
 
 {% load static %}
+{% load story_tags %}
+{% load since %}
 
 <!DOCTYPE html>
 <html>
@@ -92,6 +94,20 @@
 
     <div class="rail-right">
       {% block rail-right %}
+        {% load video_tags %}
+        {% get_featured_video as video %}
+        {% if video %}
+        <div id="latest-video">
+          <h3>Featured Video: <a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></h3>
+          <div class="video-thumb">
+            <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
+              <h2 class="latest-section-head">{{ video.name }}</h2>
+            </a>
+          </div>
+          <p class="latest-section-summary">{{ video.caption | truncatewords:18 }}</p>
+          <p class="pub_date">Posted {{ video.pub_date | since }} ago</p>
+        </div>
+        {% endif %}
       {% endblock %}
     </div>
   </div>

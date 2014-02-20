@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load navigation %}
 {% load sidebartags %}
@@ -42,8 +42,8 @@
 				{{ latest_video.link|safe }}
 				{% endoembed %}
 	             <p class="label">{% if latest_video.tags %}<a href="/tag/{{latest_video.label|striplabel|slugify}}/">{{ latest_video.tags|striplabel }}</a>{% endif %}</p>
-				<h2><a href="{{ latest_video.get_absolute_url }}">{{ latest_video.name|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-				{{ latest_video.caption|stripspace|convert_entities|truncatewords:38|safe }}
+				<h2><a href="{{ latest_video.get_absolute_url }}">{{ latest_video.name|striptags|choptext:"42"|stripspace }}</a></h2>
+				{{ latest_video.caption|stripspace|truncatewords:38 }}
 			</div>
 
 		</div><!--featured box-->
@@ -58,7 +58,7 @@
 					<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
 					<h2 class="latest-section-head">{{ video.name }}</h2></a>
 				</div>
-				<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+				<p class="latest-section-summary">{{ video.caption|truncatewords:18 }}</p>
 				<p class="pub_date">Posted {{ video.pub_date|since }}</p>
 			</div>
 			{% endfor %}

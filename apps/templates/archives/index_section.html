@@ -1,5 +1,5 @@
 {% extends 'stories/index_section.html' %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load navigation %}
 {% load sidebartags %}
@@ -44,8 +44,8 @@
                     <div class="caption">
                         <p class="slider-story label">{% if featured.tags %}<a href="/tag/{{featured.label|striplabel|slugify}}/">
             {{ featured.tags|striplabel }}</a>{% else %}{% firstof featured.label "Story" %}{% endif %}</p>
-                        <h2><a href="{{ featured.get_absolute_url }}">{{ featured.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-                        {{ featured.summary|stripspace|convert_entities|truncatewords:38|safe }}
+                        <h2><a href="{{ featured.get_absolute_url }}">{{ featured.head|striptags|choptext:"42"|stripspace }}</a></h2>
+                        {{ featured.summary|stripspace|truncatewords:38 }}
                     </div>
                 </div>
             {% endif %}

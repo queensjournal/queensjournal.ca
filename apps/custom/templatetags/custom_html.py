@@ -23,6 +23,7 @@ def convert_entities(value):
     return ''.join(entities)
 register.filter(convert_entities)
 
+
 def linebreakswithcode(value):
     """
     Inserts paragraph tags at line breaks, EXCEPT when an HTML element starts the

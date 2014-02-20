@@ -1,7 +1,7 @@
 {% extends "stories/single_detail.html" %}
 {% load navigation %}
 {% load custom_html %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load media_url %}
 
 {% block title %}{{ flatpage.title }} - Queen's Journal{% endblock title %}
@@ -15,8 +15,8 @@
 		{% endblock story-actions %}
 		<h1 class="story-head">{{ flatpage.title|typogrify }}</h1>
 		<p class="story-byline"></p>
-		<div class="story-content">		
-		{{ flatpage.content|linebreakswithcode|typogrify|media_url }}
+		<div class="story-content">
+		{{ flatpage.content|linebreakswithcode|typogrify|media_url|safe }}
 		</div>
 	</div>
 {% endblock content %}

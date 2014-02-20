@@ -1,5 +1,5 @@
 {% load image_tags %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load more %}
 <p>Posted by <a href="{{obj.author.get_absolute_url}}">{{obj.author}}</a>{% if obj.author.get_latest_role %}, {{obj.author.get_latest_role}}{% endif %}</p>

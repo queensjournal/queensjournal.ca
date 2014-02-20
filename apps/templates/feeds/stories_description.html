@@ -1,4 +1,4 @@
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 
 {% for pwrapper in obj.storyphoto_set.all|slice:":2" %}
@@ -15,7 +15,7 @@
 	{% endfor %}
 {% endif %}
 
-{{ obj.content|striptags|truncatewords:100|typogrify|convert_entities|linebreakswithcode|safe }}
+{{ obj.content|striptags|truncatewords:100|typogrify|linebreakswithcode|safe }}
 
 {% if obj.gallery_set.all %}
 	{% for pwrapper in obj.gallery_set.all|slice:":4" %}

@@ -1,5 +1,5 @@
 {% extends 'stories/single_detail.html' %}
-{% load typogrify %}
+{% load typogrify_tags %}
 {% load custom_html %}
 {% load sanitize %}
 {% load comparison %}
@@ -42,7 +42,7 @@
 
         <!-- google_ad_section_start -->
         <div id="story" class="story clearfix">
-            <h1 class="story-head">{{ video.name|stripspace|convert_entities|widont }}</h1>
+            <h1 class="story-head">{{ video.name|stripspace|widont }}</h1>
             {{ video.pub_date|date:"jS F Y" }}
             <p class="story-byline">Video By <a href="{{ video.photographer.get_absolute_url }}">{{ video.photographer.name }}</a></p>
 
@@ -88,7 +88,7 @@
 
 					<div class="video-caption">
 
-					{{ video.caption|typogrify|urlizetrunc:50|convert_entities|linebreakswithcode|safe }}
+					{{ video.caption|typogrify|urlizetrunc:50|linebreakswithcode|safe }}
 
 					</div>
 
@@ -104,7 +104,7 @@
 							<a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" /><span class="play-img"><img src="{{ STATIC_URL }}img/play.png"></span>
 							<h2 class="latest-section-head">{{ video.name }}</h2></a>
 						</div>
-						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
+						<p class="latest-section-summary">{{ video.caption|truncatewords:18 }}</p>
 						<p class="pub_date">Posted {{ video.pub_date|since }}</p>
 					</div>
 					{% endfor %}
