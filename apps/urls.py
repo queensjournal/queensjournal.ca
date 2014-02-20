@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url, patterns, include
+from django.conf.urls import url, patterns, include
 from django.conf import settings
 from django.views.generic.base import TemplateView
 from front.views import FrontView
@@ -49,6 +49,9 @@ urlpatterns = patterns('',
 
     # shorturls
     (r'^s/', include('shorturls.urls')),
+
+    # selectable
+    (r'^selectable/', include('selectable.urls')),
 )
 
 urlpatterns += patterns('',

@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import url, patterns
+from django.conf.urls import url, patterns
 from haystack.views import FacetedSearchView
 from haystack.query import SearchQuerySet
 from search.forms import SuperSearchForm

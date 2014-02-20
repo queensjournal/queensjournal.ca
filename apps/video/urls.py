@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('video.views',
     url(r'^$', 'video_index', name='video-index'),
