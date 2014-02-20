@@ -51,6 +51,8 @@ class Story(models.Model):
     is_tweeted = models.BooleanField(editable=False, default=False)
     is_published = models.BooleanField(editable=False)
 
+    photos = models.ManyToManyField('Photo', through='StoryPhoto')
+
     objects = StoryManager()
 
     class Meta:

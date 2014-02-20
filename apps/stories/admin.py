@@ -3,7 +3,9 @@ from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 from django.forms import ModelForm
 import settings
+from selectable.forms.widgets import AutoCompleteSelectWidget
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo
+from stories.lookups import PhotoLookup
 from inlines.models import Factbox, Document
 from galleries.models import Gallery
 from tagging.models import Tag
@@ -34,16 +36,11 @@ class DocumentInline(admin.TabularInline):
 
 
 class PhotoInlineForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        '''
-        Alter the queryset to exclude old photos, helps page load quicker.
-        '''
-        super(PhotoInlineForm, self).__init__(*args, **kwargs)
-        self.fields['photo'].queryset = Photo.objects.exclude(
-            creation_date__lt=(
-                datetime.datetime.now() - datetime.timedelta(weeks=8)
-            )
-        )
+    class Meta(object):
+        model = StoryPhoto
+        widgets = {
+            'photo': AutoCompleteSelectWidget(lookup_class=PhotoLookup)
+        }
 
 
 class StoryPhotoInline(admin.TabularInline):

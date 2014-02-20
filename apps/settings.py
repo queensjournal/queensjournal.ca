@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'south',
     'pipeline',
     'bento',
+    'selectable',
 
     'utils',
 
