@@ -53,7 +53,7 @@
                 {% for entry in latest %}
                     <li><p class="label"><a href="{{ entry.blog.get_absolute_url }}">{{ entry.blog }}</a></p>
                         <h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
-                        <p class="pub_date">{{ entry.pub_date|time_since }}</p>
+                        <p class="pub_date">{{ entry.pub_date|timesince }}</p>
                     </li>
                 {% endfor %}
                 </ul>
@@ -77,7 +77,7 @@
                     <div class="blog-recent-posts latest">
                         <ul>
                         {% for post in blog.entry_set.published|slice:":2" %}
-                            <li><p class="label">Posted {{ post.pub_date|time_since }}</p>
+                            <li><p class="label">Posted {{ post.pub_date|timesince }}</p>
                             <h5><a href="{{ post.get_absolute_url }}">{{ post.title|typogrify }}</a></h5></li>
                         {% endfor %}
                         </ul>

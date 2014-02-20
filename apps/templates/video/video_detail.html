@@ -6,6 +6,7 @@
 {% load flash %}
 {% load tagging_tags %}
 {% load shorturl %}
+{% load since %}
 
 {% block facebook %}
 <meta property="og:title" content="{{ video.name }}" />
@@ -104,7 +105,7 @@
 							<h2 class="latest-section-head">{{ video.name }}</h2></a>
 						</div>
 						<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-						<p class="pub_date">Posted {{ video.pub_date|time_since }}</p>
+						<p class="pub_date">Posted {{ video.pub_date|since }}</p>
 					</div>
 					{% endfor %}
 

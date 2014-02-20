@@ -5,6 +5,7 @@
 {% load sidebartags %}
 {% load comparison %}
 {% load oembed_tags %}
+{% load since %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
 {% endblock headcode %}
@@ -58,7 +59,7 @@
 					<h2 class="latest-section-head">{{ video.name }}</h2></a>
 				</div>
 				<p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-				<p class="pub_date">Posted {{ video.pub_date|time_since }}</p>
+				<p class="pub_date">Posted {{ video.pub_date|since }}</p>
 			</div>
 			{% endfor %}
 

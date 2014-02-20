@@ -76,7 +76,7 @@
             <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" />
                 <h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
                 <p class="latest-section-summary">{{ story.summary }}</p>
-                <p class="pub_date">Posted {{ story.pub_date|time_since }} ago</p>
+                <p class="pub_date">Posted {{ story.pub_date|since }} ago</p>
             </div>
             {% endfor %}
 
@@ -95,7 +95,7 @@
                     <li>
                         <p class="label">{{ entry.blog.title }}</p>
                         <h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
-                        <p class="pub_date">{{ entry.pub_date|time_since }} ago</p>
+                        <p class="pub_date">{{ entry.pub_date|since }} ago</p>
                     </li>
                     {% endfor %}
                 </ul>
@@ -131,6 +131,7 @@ $('#section-stories').masonry({
 {% endblock footercode %}
 
 {% load latest_content %}
+{% load since %}
 
 {% block rail-left %}
 <h3>The Latest</h3>
@@ -156,7 +157,7 @@ $('#section-stories').masonry({
     <h5>
       <a href="{{ story.get_absolute_url }}">{% ifequal story.model_type 'Story' %}{{ story.head }}{% else %}{{ story.title }}{% endifequal %}</a>
     </h5>
-    <p class="pub_date">{{ story.pub_date|time_since }} ago</p>
+    <p class="pub-date">{{ story.pub_date | since }} ago</p>
   </li>
   {% endfor %}
 </ul>
@@ -180,7 +181,7 @@ $('#section-stories').masonry({
         <h2 class="latest-section-head">{{ video.name }}</h2></a>
     </div>
     <p class="latest-section-summary">{{ video.caption|convert_entities|truncatewords:18|safe }}</p>
-    <p class="pub_date">Posted {{ video.pub_date|time_since }} ago</p>
+    <p class="pub_date">Posted {{ video.pub_date | since }} ago</p>
   </div>
   {% endif %}
 {% endblock %}

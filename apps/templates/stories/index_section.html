@@ -4,6 +4,7 @@
 {% load navigation %}
 {% load sidebartags %}
 {% load comparison %}
+{% load since %}
 
 {% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest {{ story.section.name }} stories feed (RSS 2.0)" href="/rss/section/{{ story.section.slug }}/" />
 {% endblock headcode %}
@@ -62,7 +63,7 @@
             {% for story in latest_stories %}
                 <li><p class="label">{% if story.tags %}<a href="/tag/{{ story.tags|striplabel|slugify }}/">{{ story.tags|striplabel }}</a>{% else %}{% firstof story.label "Story" %}{% endif %}</p>
                     <h5><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h5>
-                    <p class="pub_date">{{ story.pub_date|time_since }}</p>
+                    <p class="pub_date">{{ story.pub_date|since }}</p>
                 </li>
             {% endfor %}
             </ul>
