@@ -6,4 +6,7 @@ register = template.Library()
 
 @register.filter
 def since(value, delimiter=","):
-    return timesince(value).split(delimiter)[0]
+    try:
+        return timesince(value).split(delimiter)[0]
+    except AttributeError:
+        return None
