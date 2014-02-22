@@ -164,8 +164,8 @@ $('#section-stories').masonry({
 {% endblock %}
 
 {% block main %}
-  {% for story in config.featuredstory_set.all %}
-  <h2>{{ story.story.head }}</h2>
+  {% for story in config.featured_stories.all %}
+  <h2>{{ story.title }}</h2>
   {% endfor %}
 {% endblock %}
 

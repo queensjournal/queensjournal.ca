@@ -21,6 +21,8 @@ class SiteConfig(models.Model):
     featured_video = models.ForeignKey('video.Video', blank=True, null=True,
         help_text="If this isn't set the most recent video will be used.",
         default=None)
+    featured_stories = models.ManyToManyField('stories.Story',
+        through='FeaturedStory')
 
     def get_tags(self):
         return Tag.objects.get_for_object(self)
