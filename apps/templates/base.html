@@ -6,6 +6,7 @@
 {% load static %}
 {% load story_tags %}
 {% load since %}
+{% load compressed %}
 
 <!DOCTYPE html>
 <html>
@@ -216,8 +217,7 @@
     pageTracker._trackPageview();
     } catch(err) {}</script>
 
-    <script type="text/javascript">
-    {% block footercode %}{% endblock footercode %}
-    </script>
+  {% compressed_js "core-scripts" %}
+
 </body>
 </html>

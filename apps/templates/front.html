@@ -116,22 +116,6 @@
     {% endblock content %}
 
 {% block footercode %}
-$(window).load(function() {
-$('#slider').nivoSlider({
-    directionNav:true,
-    controlNav:false,
-    effect:'slideInLeft',
-    pauseOnHover:true,
-    pauseTime:5000,
-    captionOpacity:1,
-});
-$('#section-stories').masonry({
-    singleMode: true,
-    columnWidth: 260,
-    itemSelector: '.latest-section'
-    });
-});
-{% endblock footercode %}
 
 {% block rail-left %}
 <h3>The Latest</h3>
