@@ -115,7 +115,7 @@
 
     {% endblock content %}
 
-{% block footercode %}
+{% load solo_tags %}
 
 {% block rail-left %}
 <h3>The Latest</h3>
@@ -148,6 +148,8 @@
 {% endblock %}
 
 {% block main %}
+  {% get_solo "config.SiteConfig" as config %}
+
   {% for story in config.featured_stories.all %}
   <h2>{{ story.title }}</h2>
   {% endfor %}

@@ -1,9 +1,10 @@
 from django.db import models
+from solo.models import SingletonModel
 from tagging.fields import TagField
 from tagging.models import Tag
 
 
-class SiteConfig(models.Model):
+class SiteConfig(SingletonModel):
     '''
     Global configuration settings
 

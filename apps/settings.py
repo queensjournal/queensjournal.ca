@@ -71,7 +71,6 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django_mobile.context_processors.flavour',
     'django.core.context_processors.request',
-    'config.context_processors.global_config',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -118,6 +117,7 @@ INSTALLED_APPS = (
     'pipeline',
     'bento',
     'selectable',
+    'solo',
 
     'utils',
 

@@ -1,6 +1,7 @@
 import datetime
 from django.contrib import admin
 from django.forms import ModelForm
+from solo.admin import SingletonModelAdmin
 
 from config.models import SiteConfig, FeaturedStory
 from stories.models import Story
@@ -22,15 +23,9 @@ class FeaturedInline(admin.TabularInline):
     model = FeaturedStory
 
 
-class ConfigAdmin(admin.ModelAdmin):
-    inlines = [
+class SiteConfigAdmin(SingletonModelAdmin):
+    inlines = (
         FeaturedInline,
-    ]
+    )
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request, obj=None):
-        return False
-
-admin.site.register(SiteConfig, ConfigAdmin)
+admin.site.register(SiteConfig, SiteConfigAdmin)

@@ -22,6 +22,7 @@ Markdown==2.0.3
 docutils
 psycopg2==2.0.13
 git+https://github.com/lazybird/django-bento.git
+django-solo==1.0.4
 django-imagekit==3.2.0
 
 # tests
