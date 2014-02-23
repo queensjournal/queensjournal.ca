@@ -1,26 +1,24 @@
-import datetime
 from django.contrib import admin
 from django.forms import ModelForm
 from solo.admin import SingletonModelAdmin
+from selectable.forms.widgets import AutoCompleteSelectWidget
 
+from stories.lookups import StoryLookup
 from config.models import SiteConfig, FeaturedStory
-from stories.models import Story
 
 
-class FeaturedInlineForm(ModelForm):
-    '''
-    Limits the choices in the Featured Story Inline to cut down on database calls
-    '''
-    def __init__(self, *args, **kwargs):
-        super(FeaturedInlineForm, self).__init__(*args, **kwargs)
-        start_date = datetime.datetime.now() - datetime.timedelta(150)
-        self.fields['story'].queryset = Story.objects.filter(
-            pub_date__gte=start_date).order_by('-pub_date')
+class FeaturedStoryInlineForm(ModelForm):
+    class Meta(object):
+        model = FeaturedStory
+        widgets = {
+            'story': AutoCompleteSelectWidget(lookup_class=StoryLookup)
+        }
 
 
 class FeaturedInline(admin.TabularInline):
-    form = FeaturedInlineForm
     model = FeaturedStory
+    form = FeaturedStoryInlineForm
+    extra = 1
 
 
 class SiteConfigAdmin(SingletonModelAdmin):

@@ -32,16 +32,21 @@ class SiteConfig(SingletonModel):
         obj, created = cls.objects.get_or_create(id=1)
         return obj
 
+    def get_featured_stories(self):
+        return [f.story for f in FeaturedStory.objects.all().order_by('story_order')]
+
     def __unicode__(self):
         return "Site Configuration"
 
     class Meta:
         verbose_name = "Site Configuration"
+        verbose_name_plural = "Site Configuration"
 
 
 def get_previous_story_order():
     try:
-        prev = FeaturedStory.objects.all()[0].id + 1
+        prev = FeaturedStory.objects.all().order_by('-story_order')[:1].get() \
+            .id + 1
     except:
         prev = 0
     return prev
@@ -49,7 +54,7 @@ def get_previous_story_order():
 
 class FeaturedStory(models.Model):
     story = models.ForeignKey('stories.Story')
-    config = models.ForeignKey(SiteConfig)
+    config = models.ForeignKey('config.SiteConfig')
     orig_photo = models.ImageField("Photo", upload_to='featured_photos/%Y/%m/%d')
     story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \
         show in the Front slideshow", default=get_previous_story_order, unique=True)
@@ -63,14 +68,14 @@ class FeaturedStory(models.Model):
     class Meta:
         verbose_name = 'Top Story'
         verbose_name_plural = 'Top Story'
-        ordering = ['story__pub_date']
+        ordering = ['story_order']
 
     def __unicode__(self):
         from django.utils.encoding import force_unicode
-        return 'Featured Story: %s' % (force_unicode(self.story.head))
+        return 'Featured Story: %s' % (force_unicode(self.story.title))
 
     def delete(self, *args, **kwargs):
         super(FeaturedStory, self).delete(*args, **kwargs)
-        if self.image:
-            self.image.delete()
+        if self.orig_photo:
+            self.orig_photo.delete()
     delete.alters_data = True
