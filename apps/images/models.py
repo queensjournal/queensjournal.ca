@@ -1,9 +1,9 @@
 from datetime import datetime
 from django.db import models
 from django.template.defaultfilters import slugify
-from imagekit.models import ImageModel
 
-class Image(ImageModel):
+
+class Image(models.Model):
     name = models.CharField(max_length=255, unique=True, help_text='Descriptive name of \
         the image. Will be displayed as alt text.')
     slug = models.SlugField(unique=True)

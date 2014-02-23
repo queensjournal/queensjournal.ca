@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from imagekit.models import ImageModel
 
 
-class Headshot(ImageModel):
+class Headshot(models.Model):
     name = models.SlugField()
     headshot = models.ImageField(upload_to="headshots/%Y/",
         help_text='Please crop all photos to 200x100 pixels and convert them \

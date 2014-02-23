@@ -4,7 +4,7 @@ from django.db.models import Q
 from issues.models import Issue
 from authors.models import Author
 from stories.models import Story, Photo
-from imagekit.models import ImageModel
+
 
 class PreviousStories:
     """
@@ -157,7 +157,7 @@ class TalkingHeadsItem(models.Model):
         ordering = ['issue']
 
 
-class TalkingHeadsAnswer(ImageModel):
+class TalkingHeadsAnswer(models.Model):
     name = models.CharField(max_length=255)
     quote = models.TextField()
     photo = models.ForeignKey(Photo, help_text="Photos should be 100 pixels square. \

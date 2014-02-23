@@ -3,7 +3,6 @@ import datetime
 from django.db import models
 from .managers import StoryManager
 
-from imagekit.models import ImageModel
 from tagging.fields import TagField
 from tagging.models import Tag
 
@@ -190,7 +189,7 @@ class StoryAuthor(models.Model):
         return '%s - %s' % (self.author.name, self.story.title)
 
 
-class Photo(ImageModel):
+class Photo(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(
         help_text='Automatically written based on the headline. If nothing \

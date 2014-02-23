@@ -1,11 +1,10 @@
 import datetime
 from django.db import models
-from imagekit.models import ImageModel
 from video.managers import VideoManager
 from tagging.fields import TagField
 
 
-class Video(ImageModel):
+class Video(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     pub_date = models.DateTimeField(default=datetime.datetime.now,

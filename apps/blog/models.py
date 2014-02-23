@@ -3,13 +3,12 @@ from datetime import datetime
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from imagekit.models import ImageModel
 from tagging.fields import TagField
 
 from images.models import Image
 
 
-class BlogImage(ImageModel):
+class BlogImage(models.Model):
     slug = models.SlugField()
     image = models.ImageField(upload_to="blogs/",
         help_text="Bigger is better. Jpeg.")

@@ -1,7 +1,6 @@
 from django.db import models
 from tagging.fields import TagField
 from tagging.models import Tag
-from imagekit.models import ImageModel
 
 
 class SiteConfig(models.Model):
@@ -47,7 +46,7 @@ def get_previous_story_order():
     return prev
 
 
-class FeaturedStory(ImageModel):
+class FeaturedStory(models.Model):
     story = models.ForeignKey('stories.Story')
     config = models.ForeignKey(SiteConfig)
     orig_photo = models.ImageField("Photo", upload_to='featured_photos/%Y/%m/%d')
