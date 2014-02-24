@@ -4,13 +4,81 @@
   text-align: center;
 }
 
-/* line 10, modules.scss */
+/* line 8, modules.scss */
+.list-header {
+  color: #0072bc;
+  text-transform: uppercase;
+  border-bottom: 1px solid #0072bc;
+  padding-bottom: 0.25em;
+}
+
+/* line 15, modules.scss */
+.label {
+  font: normal 16px "ltc-bodoni-175", serif;
+  font-weight: 400;
+  color: #0072bc;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* line 23, modules.scss */
+.stories-list {
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+}
+/* line 27, modules.scss */
+.stories-list li {
+  padding: 0.5em 0;
+  border-bottom: 1px solid #499acf;
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+  color: #6c7f8b;
+}
+/* line 34, modules.scss */
+.stories-list .label {
+  font-size: 0.8em;
+  color: #6c7f8b;
+}
+/* line 39, modules.scss */
+.stories-list h5 {
+  margin: 0.25em auto;
+  font: normal 1.25em "ltc-bodoni-175", serif;
+  font-weight: 400;
+  color: #000;
+}
+/* line 46, modules.scss */
+.stories-list a:hover h5 {
+  text-decoration: underline;
+}
+
+/* line 52, modules.scss */
+.carousel--featured {
+  text-align: center;
+}
+/* line 55, modules.scss */
+.carousel--featured img {
+  margin-bottom: 0.5em;
+}
+/* line 59, modules.scss */
+.carousel--featured h2 {
+  font: normal 16px "ltc-bodoni-175", serif;
+  font-weight: 400;
+  font-size: 3em;
+  line-height: 1.1em;
+}
+/* line 65, modules.scss */
+.carousel--featured h3 {
+  font: normal 1.25em "futura-pt", sans-serif;
+  color: #4d5961;
+}
+
+/* line 76, modules.scss */
 .sct-preview .first-story {
   float: left;
   width: 4em;
   margin-right: 1em;
 }
-/* line 15, modules.scss */
+/* line 81, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
 }

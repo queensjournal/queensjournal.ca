@@ -33,7 +33,7 @@ class SiteConfig(SingletonModel):
         return obj
 
     def get_featured_stories(self):
-        return [f.story for f in FeaturedStory.objects.all().order_by('story_order')]
+        return [f for f in FeaturedStory.objects.all().order_by('story_order')]
 
     def __unicode__(self):
         return "Site Configuration"

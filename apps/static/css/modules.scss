@@ -49,6 +49,28 @@
   }
 }
 
+.carousel--featured {
+  text-align: center;
+
+  img {
+    margin-bottom: 0.5em;
+  }
+
+  h2 {
+    @include adriane;
+    font-size: 3em;
+    line-height: 1.1em;
+  }
+
+  h3 {
+    @include futura(1.25em, 'bold');
+    color: $colour_mid_slate;
+  }
+}
+
+// Front Page
+// ----------
+
 // Issue Detail Section Preview
 .sct-preview {
     .first-story {

@@ -22,37 +22,8 @@
 
 {% block content %}
 
-<div class="block">
-
     {% load bento_tags %}
     {% show_image_box 'front-banner' %}
-
-    <div class="featured column span-16 colborder"><!--featured box-->
-
-        <div id="slider-wrapper">
-
-            <div id="slider" class="nivoSlider" style="margin-right: 0px;">
-                {% for story in config.featuredstory_set.all %}
-                    <img src="{{ story.display.url }}" alt="{{ story.story.head }}" class="slideshow-featured-img" title="#caption{{ story.story.id }}"/>
-                {% endfor %}
-            </div>
-            {% for story in config.featuredstory_set.all %}
-            <div id="caption{{ story.story.id }}" class="nivo-html-caption">
-                <p class="slider-story label">{% if story.story.tags %}<a href="/tag/{{story.story.label|striplabel|slugify}}/">
-                    {{ story.story.tags|striplabel }}</a>{% else %}{% firstof story.story.label "Story" %}{% endif %}</p>
-                <h2><a href="{{ story.story.get_absolute_url }}">{{ story.story.head|striptags|choptext:"42"|stripspace|convert_entities|safe }}</a></h2>
-                {{ story.story.summary|stripspace|convert_entities|truncatewords:38|safe }}
-                <!--<p class="slider-readmore"><a href="{{ story.story.get_absolute_url }}">Full Story</a></p>-->
-            </div>
-            {% endfor %}
-
-        </div>
-
-    </div><!--featured box-->
-
-</div><!--block-->
-
-<div class="hr dblmargin"><hr></div>
 
 <div class="block">
 
@@ -101,6 +72,7 @@
     {% endblock content %}
 
 {% load solo_tags %}
+{% load imagekit %}
 {% load typogrify_tags %}
 
 {% block rail-left %}
@@ -122,9 +94,26 @@
 {% block main %}
   {% get_solo "config.SiteConfig" as config %}
 
-  {% for story in config.featured_stories.all %}
-  <h2>{{ story.title }}</h2>
-  {% endfor %}
+  <div id="CarouselFeatured" class="carousel slide carousel--featured" data-ride="carousel">
+    <div class="carousel-inner">
+    {% for fstory in config.get_featured_stories %}
+    <div class="item{% if forloop.first %} active{% endif %}">
+      {% thumbnail "544x330" fstory.orig_photo %}
+
+      <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
+      <h2>{{ fstory.story.title|typogrify }}</h2>
+      <h3>{{ fstory.story.deck }}</h3>
+    </div>
+    {% endfor %}
+    </div>
+
+    <a class="left carousel-control" href="#CarouselFeatured" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#CarouselFeatured" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
 {% endblock %}
 
 {% block rail-right %}

@@ -71,29 +71,32 @@
         </div>
 
         <div class="header-right">
-          {# get_latest_story as latest_story #}
-          Last Updated {# {{ latest_story.pub_date | time_since }} #}
+          {% get_latest_stories as latest_stories %}
+          Last Updated {{ latest_stories.0.pub_date | since }} ago
         </div>
       </div>
     </header>
-  </div><!--.wrap-->
+  </div><!--.container-->
 
   <div class="container">
     {% include "includes/nav.html" %}
-  </div><!--.wrap-->
+  </div><!--.container-->
 
   <div class="container">
-    <div class="rail-left">
+    <div class="rail rail-left">
       {% block rail-left %}
       {% endblock %}
     </div>
 
-    <main>
+    <div class="main">
       {% block main %}
       {% endblock %}
-    </main>
+    </div>
 
-    <div class="rail-right">
+    <div class="rail rail-right">
+      <div class="search">
+        <form name="topsearch" action="/search/" method="get"><input type="text" name="q" placeholder="Search" /></form>
+      </div>
       {% block rail-right %}
         {% load video_tags %}
         {% get_featured_video as video %}
@@ -113,9 +116,6 @@
     </div>
   </div>
 
-            <div id="search">
-                <form name="topsearch" action="/search/" method="get"><input type="text" name="q" onblur="if(this.value=='') this.value = 'Search';" onfocus="if(this.value=='Search') this.value = '';" value="Search" /></form>
-            </div><!--actions-->
 
 
     <div id="menu-sections" class="menu-bar block">

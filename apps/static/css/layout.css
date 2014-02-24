@@ -71,9 +71,16 @@ body {
 /* line 8, layout.scss */
 a {
   color: #0072bc;
+  text-decoration: none;
 }
 
-/* line 12, layout.scss */
+/* line 13, layout.scss */
+h3 {
+  font: normal 1.4em "ltc-bodoni-175", serif;
+  font-weight: 400;
+}
+
+/* line 17, layout.scss */
 .container {
   *zoom: 1;
   max-width: 59em;
@@ -90,7 +97,7 @@ a {
   clear: both;
 }
 
-/* line 16, layout.scss */
+/* line 21, layout.scss */
 header {
   margin: 1em auto 0.5em;
   padding: 1em 0 0;
@@ -98,7 +105,7 @@ header {
   text-align: center;
 }
 
-/* line 24, layout.scss */
+/* line 29, layout.scss */
 .header-sub {
   position: relative;
   margin-top: 1em;
@@ -110,7 +117,7 @@ header {
   text-transform: uppercase;
 }
 
-/* line 34, layout.scss */
+/* line 39, layout.scss */
 .header-left {
   width: 32.20339%;
   float: left;
@@ -122,7 +129,7 @@ header {
   text-align: left;
 }
 
-/* line 42, layout.scss */
+/* line 47, layout.scss */
 .header-right {
   width: 32.20339%;
   float: left;
@@ -134,23 +141,24 @@ header {
   text-align: right;
 }
 
-/* line 50, layout.scss */
+/* line 55, layout.scss */
 nav {
   width: 100%;
   display: table;
   table-layout: fixed;
+  margin-bottom: 0.5em;
   background-color: #4d5961;
 }
-/* line 56, layout.scss */
+/* line 62, layout.scss */
 nav ul {
   display: table-row;
 }
-/* line 60, layout.scss */
+/* line 66, layout.scss */
 nav li {
   display: table-cell;
   text-align: center;
 }
-/* line 65, layout.scss */
+/* line 71, layout.scss */
 nav a {
   width: 100%;
   display: inline-block;
@@ -158,7 +166,32 @@ nav a {
   color: #fff;
   text-decoration: none;
 }
-/* line 72, layout.scss */
+/* line 78, layout.scss */
 nav a:hover {
   background-color: #7d8d97;
+}
+
+/* line 86, layout.scss */
+.rail-left {
+  width: 15.25424%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 90, layout.scss */
+.main {
+  width: 57.62712%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 94, layout.scss */
+.rail-right {
+  width: 23.72881%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
 }
