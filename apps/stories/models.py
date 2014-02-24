@@ -153,6 +153,9 @@ class Story(models.Model):
     def set_tags(self, tags):
         Tag.objects.update_tags(self, tags)
 
+    def label(self):
+        return self.section
+
     def get_tags(self, tags):
         return Tag.objects.get_for_object(self)
 

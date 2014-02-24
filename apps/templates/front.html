@@ -2,7 +2,6 @@
 {% load navigation %}
 {% load sidebartags %}
 {% load custom_html %}
-{% load typogrify_tags %}
 {% load flash %}
 
 {% load latest_content %}
@@ -22,17 +21,6 @@
 {% block content-class %} span-19 front-content{% endblock %}
 
 {% block content %}
-
-{# TODOF move this #}
-{% load story_tags %}
-
-{% get_latest_stories as latest_stories %}
-
-{% for story in latest_stories %}
-  {{ story.head }}
-{% endfor %}
-
-
 
 <div class="block">
 
@@ -61,9 +49,6 @@
         </div>
 
     </div><!--featured box-->
-
-    <div id="latest_stories" class="latest column span-7 last">
-    </div>
 
 </div><!--block-->
 
@@ -116,32 +101,19 @@
     {% endblock content %}
 
 {% load solo_tags %}
+{% load typogrify_tags %}
 
 {% block rail-left %}
-<h3>The Latest</h3>
-<ul>
+<ul class="stories-list stories-list--latest">
+  <h3 class="list-header">The Latest</h3>
   {% get_latest_content as latest %}
-  {% for story in latest %}
+  {% for item in latest %}
   <li>
-    {% spaceless %}
-    <p class="label">
-      {% ifequal story.model_type 'Story' %}
-      {% if story.tags %}
-      <a href="/tag/{{ story.tags|striplabel|slugify }}/">
-        {{ story.tags|striplabel }}</a>
-      {% else %}
-      {% firstof story.label "Story" %}
-      {% endif %}
-      {% else %}
-      <a href="{{ story.blog.get_absolute_url }}">{{ story.blog.title }}</a>
-      {% endifequal %}
-    </p>
-    {% endspaceless %}
-
-    <h5>
-      <a href="{{ story.get_absolute_url }}">{% ifequal story.model_type 'Story' %}{{ story.head }}{% else %}{{ story.title }}{% endifequal %}</a>
-    </h5>
-    <p class="pub-date">{{ story.pub_date | since }} ago</p>
+    <a href="{{ item.get_absolute_url }}">
+      <p class="label">{{ item.label }}</p>
+      <h5>{{ item.title|typogrify }}</h5>
+      <p class="pub-date">{{ item.pub_date | since }} ago</p>
+    </a>
   </li>
   {% endfor %}
 </ul>

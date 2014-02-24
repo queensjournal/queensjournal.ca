@@ -5,6 +5,50 @@
   text-align: center
 }
 
+.list-header {
+  color: $colour_blue;
+  text-transform: uppercase;
+  border-bottom: 1px solid $colour_blue;
+  padding-bottom: 0.25em;
+}
+
+.label {
+  // story label for related section, tags
+  @include adriane();
+  color: $colour_blue;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.stories-list {
+  // basic styling for any condensed list of content items
+  @include futura();
+
+  li {
+    padding: 0.5em 0;
+    border-bottom: 1px solid $colour_blue_light;
+    @include futura();
+    color: $colour_slate_light;
+  }
+
+  .label {
+    font-size: 0.8em;
+    color: $colour_slate_light;
+  }
+
+  h5 {
+    margin: 0.25em auto;
+    @include adriane(1.25em);
+    color: #000;
+  }
+
+  a:hover {
+    h5 {
+      text-decoration: underline;
+    }
+  }
+}
+
 // Issue Detail Section Preview
 .sct-preview {
     .first-story {

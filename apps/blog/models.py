@@ -172,6 +172,9 @@ class Entry(models.Model):
     def __unicode__(self):
         return '%s' % (self.title)
 
+    def label(self):
+        return self.blog
+
     @models.permalink
     def get_absolute_url(self):
         return ('entry-detail', (), {
