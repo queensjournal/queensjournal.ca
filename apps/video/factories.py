@@ -11,3 +11,4 @@ class VideoFactory(factory.django.DjangoModelFactory):
     pub_date = datetime.datetime.now() - datetime.timedelta(weeks=1)
     link = 'http://www.youtube.com/watch?v=xnxz3acXM6w'
     is_published = True
+    screenshot = factory.django.ImageField(color="blue")
