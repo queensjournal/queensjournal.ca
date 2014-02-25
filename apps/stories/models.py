@@ -211,12 +211,6 @@ class Photo(models.Model):
             'Journal File Photo,' etc.", blank=True)
     creation_date = models.DateField(default=datetime.date.today())
 
-    class IKOptions:
-        # Defining ImageKit options
-        spec_module = 'stories.specs'
-        cache_dir = 'photo_cache'
-        image_field = 'photo'
-
     def thumbnail(self):
         return '<img src="%s"/>' % (self.thumbnail_image.url)
     thumbnail.short_description = 'Image thumbnail'

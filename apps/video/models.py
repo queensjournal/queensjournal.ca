@@ -23,12 +23,6 @@ class Video(models.Model):
 
     objects = VideoManager()
 
-    class IKOptions:
-        # Defining ImageKit options
-        spec_module = 'video.specs'
-        cache_dir = 'photo_cache'
-        image_field = 'screenshot'
-
     class Meta:
         ordering = ['-pub_date']
 

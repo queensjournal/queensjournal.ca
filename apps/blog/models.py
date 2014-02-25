@@ -13,12 +13,6 @@ class BlogImage(models.Model):
     image = models.ImageField(upload_to="blogs/",
         help_text="Bigger is better. Jpeg.")
 
-    class IKOptions:
-        # Defining ImageKit options
-        spec_module = 'blog.blog_specs'
-        cache_dir = 'photo_cache'
-        image_field = 'image'
-
     class Meta:
         verbose_name = 'Blog Header Image'
         verbose_name_plural = 'Blog Header Images'

@@ -59,12 +59,6 @@ class FeaturedStory(models.Model):
     story_order = models.PositiveIntegerField(help_text="Lower the number, order it will \
         show in the Front slideshow", default=get_previous_story_order, unique=True)
 
-    class IKOptions:
-    # Defining ImageKit options
-        spec_module = 'stories.featured_specs'
-        cache_dir = 'photo_cache'
-        image_field = 'orig_photo'
-
     class Meta:
         verbose_name = 'Top Story'
         verbose_name_plural = 'Top Story'

@@ -12,11 +12,6 @@ class Image(models.Model):
     credit = models.CharField(max_length=64, blank=True, help_text='Image credit. Optional.')
     date_added = models.DateTimeField(default=datetime.now,editable=False)
 
-    class IKOptions: # Defining ImageKit options
-        spec_module = 'images.specs'
-        cache_dir = 'photo_cache'
-        image_field = 'image'
-
     def __unicode__(self):
         return self.name
 

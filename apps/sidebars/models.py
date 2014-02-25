@@ -166,12 +166,6 @@ class TalkingHeadsAnswer(models.Model):
         should be square. JPEGs only, please.")
     question = models.ForeignKey(TalkingHeadsItem)
 
-    class IKOptions:
-        # Defining ImageKit options
-        spec_module = 'sidebars.heads_specs'
-        cache_dir = 'photo_cache'
-        image_field = 'image'
-
     class Meta:
         order_with_respect_to   = 'question'
 

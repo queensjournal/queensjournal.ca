@@ -8,11 +8,6 @@ class Headshot(models.Model):
         help_text='Please crop all photos to 200x100 pixels and convert them \
             to RGB JPG.', null=True, blank=True)
 
-    class IKOptions:
-        spec_module = 'structure.headshot_specs'
-        cache_fir = 'photo_cache'
-        image_field = 'headshot'
-
     def __unicode__(self):
         return self.name
 
