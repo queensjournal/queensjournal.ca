@@ -95,24 +95,43 @@
   {% get_solo "config.SiteConfig" as config %}
 
   <div id="CarouselFeatured" class="carousel slide carousel--featured" data-ride="carousel">
+    {% with fstories=config.get_featured_stories %}
     <div class="carousel-inner">
-    {% for fstory in config.get_featured_stories %}
-    <div class="item{% if forloop.first %} active{% endif %}">
-      {% thumbnail "544x330" fstory.orig_photo %}
+      {% for fstory in fstories %}
+      <div class="item{% if forloop.first %} active{% endif %}">
+        <div class="image-wrap">
+          {% thumbnail "544x330" fstory.orig_photo %}
+          <a class="left carousel-control" href="#CarouselFeatured" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#CarouselFeatured" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
 
-      <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
-      <h2>{{ fstory.story.title|typogrify }}</h2>
-      <h3>{{ fstory.story.deck }}</h3>
-    </div>
+        <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
+
+        <a href="{{ fstory.get_absolute_url }}">
+          <h2>{{ fstory.story.title|typogrify }}</h2>
+          <h3>{{ fstory.story.deck }}</h3>
+        </a>
+      </div>
+      {% endfor %}
+    </div>{# .carousel-inner #}
+
+    <ol class="carousel-indicators">
+      {% for slide in fstories %}
+      <li data-target="#CarouselFeatured" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+      {% endfor %}
+    </ol>
+    {% endwith %}
+  </div>{# .carousel #}
+
+  <div class="hot-topics">
+    <h3>Hot Topics</h3>
+    {% for tag in config.get_tags %}
+    <a href="/tag/{{ tag }}/">{{ tag|capfirst }}</a>
     {% endfor %}
-    </div>
-
-    <a class="left carousel-control" href="#CarouselFeatured" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#CarouselFeatured" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
   </div>
 {% endblock %}
 

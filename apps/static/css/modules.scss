@@ -51,6 +51,11 @@
 
 .carousel--featured {
   text-align: center;
+  padding-bottom: 50px;
+
+  .image-wrap {
+    position: relative;
+  }
 
   img {
     margin-bottom: 0.5em;
@@ -60,11 +65,29 @@
     @include adriane;
     font-size: 3em;
     line-height: 1.1em;
+    margin-bottom: 0.15em;
   }
 
   h3 {
-    @include futura(1.25em, 'bold');
+    @include futura(1.25em);
     color: $colour_mid_slate;
+  }
+
+  a:hover h2 {
+    color: $colour_mid_slate;
+  }
+}
+
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  background: $colour_dark_slate;
+
+  &.active {
+    margin: 1px;
+    width: 10px;
+    height: 10px;
+    background: $colour_blue;
   }
 }
 

@@ -3,10 +3,16 @@
 
 body {
   font-size: $font_base;
+  color: $colour_dark_slate;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #000;
 }
 
 a {
   color: #0072bc;
+  text-decoration: none;
 }
 
 .container {
