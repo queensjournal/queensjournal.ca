@@ -1,6 +1,7 @@
 PIPELINE_CSS = {
     'core-styles': {
         'source_filenames': (
+            'css/bootstrap-glyphicons.css',
             'css/bootstrap-carousel.css',
             'css/layout.scss',
             'css/modules.scss',
