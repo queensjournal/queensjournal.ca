@@ -1,4 +1,4 @@
-import settings
+from django.conf import settings
 from django.contrib import admin
 from galleries.models import Gallery
 

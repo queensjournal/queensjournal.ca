@@ -1,6 +1,6 @@
 from django.contrib import admin
 from video.models import Video
-import settings
+from django.conf import settings
 
 class VideoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',),}

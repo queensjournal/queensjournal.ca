@@ -1,6 +1,6 @@
 from blog.models import Blog, BlogImage, Entry
 from django.contrib import admin
-import settings
+from django.conf import settings
 
 class BlogImageAdmin(admin.ModelAdmin):
     pass

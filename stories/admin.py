@@ -2,7 +2,7 @@ import datetime
 from django.contrib import admin
 from django.forms.models import BaseInlineFormSet
 from django.forms import ModelForm
-import settings
+from django.conf import settings
 from selectable.forms.widgets import AutoCompleteSelectWidget
 from stories.models import Story, StoryPhoto, StoryAuthor, Photo
 from stories.lookups import PhotoLookup

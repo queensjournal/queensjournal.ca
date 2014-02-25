@@ -6,8 +6,6 @@ from optparse import make_option
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-import settings
-
 
 class Command(BaseCommand):
     help = 'Loads database and files from devdata'
@@ -26,14 +24,15 @@ class Command(BaseCommand):
         media_files = settings.MEDIA_ROOT
 
         if not os.path.exists(media_files):
-            self.stderr.write('Media files path does not exist: %s\n' % media_files)
+            self.stderr.write('Media files path does not exist: %s\n' %
+                media_files)
 
         db_name = settings.DATABASES['default']['NAME']
         if "live" in db_name:
-            response = raw_input('Looks like you are loading dev data on a live database.'
+            response = raw_input('Looks like you are loading dev data'
+                ' on a live database.'
                 ' Are you sure you want to do this?'
-                '\nType "yes" to continue: '
-            )
+                '\nType "yes" to continue: ')
             if response != "yes":
                 self.stdout.write('Exiting\n')
                 return
@@ -56,7 +55,8 @@ class Command(BaseCommand):
 
         # Load the database dump
         dump_sql = os.path.join(path, 'dump.sql')
-        shell_load = './manage.py dbshell < %(dump_sql)s' % {'dump_sql': dump_sql}
+        shell_load = './manage.py dbshell < %(dump_sql)s' % {
+            'dump_sql': dump_sql}
         status, output = commands.getstatusoutput(shell_load)
         if status != 0:
             self.stderr.write(output + "\n")

@@ -2,8 +2,7 @@ import os
 import sys
 import django.conf.global_settings as DEFAULT_SETTINGS
 
-DJANGO_ROOT = os.path.dirname(os.path.realpath(__file__))
-PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 PROJECT_NAME = 'journal'
 
 DEBUG = False
@@ -28,29 +27,30 @@ SITE_ID = 1
 USE_I18N = False
 USE_L10N = False
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
-
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'served/media/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'served/static/')
 
 # PIPELINE storage
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 PIPELINE_COMPASS_BINARY = '/usr/bin/env bundle exec compass'
-PIPELINE_COMPASS_ARGUMENTS = '-c ' + os.path.join(DJANGO_ROOT, 'compass.rb')
+PIPELINE_COMPASS_ARGUMENTS = '-c ' + os.path.join(PROJECT_ROOT, 'compass.rb')
 PIPELINE_COMPILERS = (
     'pipeline_compass.compass.CompassCompiler',
 )
 
 
 # devdata options
-PATH_TO_DEVDATA = '../devdata'
-RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose --delete --exclude=.svn'
+PATH_TO_DEVDATA = os.path.join(PROJECT_ROOT, 'devdata')
+DUMBO_DATA_DIR = PATH_TO_DEVDATA
+RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose --delete'
+DUMBO_RSYNC_OPTIONS = RSYNC_OPTIONS
 
 TEMPLATE_DIRS = (
-    os.path.join(DJANGO_ROOT, "templates/"),
+    os.path.join(PROJECT_ROOT, "templates/"),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(DJANGO_ROOT, 'static/'),
+    os.path.join(PROJECT_ROOT, 'static/'),
 )
 
 STATICFILES_FINDERS = (
@@ -90,7 +90,7 @@ MIDDLEWARE_CLASSES = (
     'django_mobile.middleware.SetFlavourMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'journal.urls'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -142,6 +142,10 @@ INSTALLED_APPS = (
     'video',
 )
 
+SOUTH_MIGRATION_MODULES = {
+    'bento': 'migrations.bento',
+}
+
 SHORTEN_MODELS = {
     's': 'stories.story',
     'b': 'blog.entry',
@@ -184,13 +188,15 @@ LOGGING = {
     }
 }
 
-from settings_local import *
+from journal.settings_local import *
 
-from settings_pipeline import *
-PIPELINE_ROOT = os.path.join(DJANGO_ROOT, 'static/')
+from journal.settings_pipeline import *
+
+PIPELINE_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 
 # Uses django-discover-runner test discovery
 TEST_RUNNER = "discover_runner.DiscoverRunner"
+TEST_DISCOVER_TOP_LEVEL = PROJECT_ROOT
 
 # Run tests in sqllite
 if 'test' in sys.argv:
