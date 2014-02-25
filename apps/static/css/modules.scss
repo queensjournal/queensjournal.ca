@@ -14,7 +14,7 @@
 
 .label {
   // story label for related section, tags
-  @include adriane();
+  @include serif();
   color: $colour_blue;
   text-transform: uppercase;
   text-decoration: none;
@@ -62,7 +62,7 @@
   }
 
   h2 {
-    @include adriane;
+    @include serif;
     font-size: 3em;
     line-height: 1.1em;
     margin-bottom: 0.15em;
