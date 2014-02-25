@@ -6,79 +6,198 @@
 
 /* line 8, modules.scss */
 .list-header {
+  padding-bottom: 0.25em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #0072bc;
+  font: normal 1.1em "futura-pt", sans-serif;
+  font-weight: 400;
   color: #0072bc;
   text-transform: uppercase;
-  border-bottom: 1px solid #0072bc;
-  padding-bottom: 0.25em;
 }
 
-/* line 15, modules.scss */
+/* line 17, modules.scss */
 .label {
-  font: normal 16px "ltc-bodoni-175", serif;
+  font: normal 16px "utopia-std", serif;
   font-weight: 400;
   color: #0072bc;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-/* line 23, modules.scss */
-.stories-list {
-  font: normal 16px "futura-pt", sans-serif;
+/* line 25, modules.scss */
+.pub-date {
+  font: normal 0.8em "futura-pt", sans-serif;
   font-weight: 400;
+  color: #6c7f8b;
 }
-/* line 27, modules.scss */
+
+/* line 30, modules.scss */
+.list-caption {
+  margin-bottom: 0.5em;
+}
+
+/* line 37, modules.scss */
 .stories-list li {
   padding: 0.5em 0;
   border-bottom: 1px solid #499acf;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
-  color: #6c7f8b;
 }
-/* line 34, modules.scss */
+/* line 42, modules.scss */
+.stories-list li.first-child {
+  padding-top: 0;
+}
+/* line 47, modules.scss */
 .stories-list .label {
   font-size: 0.8em;
   color: #6c7f8b;
 }
-/* line 39, modules.scss */
-.stories-list h5 {
-  margin: 0.25em auto;
-  font: normal 1.25em "ltc-bodoni-175", serif;
-  font-weight: 400;
-  color: #000;
-}
-/* line 46, modules.scss */
+/* line 53, modules.scss */
 .stories-list a:hover h5 {
   text-decoration: underline;
 }
 
-/* line 52, modules.scss */
+/* line 59, modules.scss */
 .carousel--featured {
   text-align: center;
+  padding-bottom: 50px;
 }
-/* line 55, modules.scss */
+/* line 63, modules.scss */
+.carousel--featured .image-wrap {
+  position: relative;
+}
+/* line 67, modules.scss */
 .carousel--featured img {
   margin-bottom: 0.5em;
 }
-/* line 59, modules.scss */
+/* line 71, modules.scss */
 .carousel--featured h2 {
-  font: normal 16px "ltc-bodoni-175", serif;
+  font: normal 16px "utopia-std", serif;
   font-weight: 400;
   font-size: 3em;
   line-height: 1.1em;
+  margin-bottom: 0.15em;
 }
-/* line 65, modules.scss */
+/* line 78, modules.scss */
 .carousel--featured h3 {
   font: normal 1.25em "futura-pt", sans-serif;
+  font-weight: 400;
+  color: #4d5961;
+}
+/* line 83, modules.scss */
+.carousel--featured a:hover h2 {
   color: #4d5961;
 }
 
-/* line 76, modules.scss */
+/* line 88, modules.scss */
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  background: #2d3840;
+}
+/* line 93, modules.scss */
+.carousel-indicators li.active {
+  margin: 1px;
+  width: 10px;
+  height: 10px;
+  background: #0072bc;
+}
+
+/* line 101, modules.scss */
+.cta {
+  font: normal 16px "futura-pt", sans-serif;
+}
+/* line 104, modules.scss */
+.cta:hover {
+  text-decoration: underline;
+}
+
+/* line 109, modules.scss */
+.cta--right {
+  text-align: right;
+}
+
+/* line 118, modules.scss */
 .sct-preview .first-story {
   float: left;
   width: 4em;
   margin-right: 1em;
 }
-/* line 81, modules.scss */
+/* line 123, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
+}
+
+/* line 130, modules.scss */
+.search input {
+  width: 100%;
+  padding: 0.25em;
+  margin-bottom: 1em;
+  border: 1px solid #4d5961;
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+}
+/* line 48, project.scss */
+.search input ::-webkit-input-placeholder {
+  color: #2d3840;
+}
+/* line 49, project.scss */
+.search input :-moz-placeholder {
+  color: #2d3840;
+}
+/* line 50, project.scss */
+.search input ::-moz-placeholder {
+  color: #2d3840;
+}
+/* line 51, project.scss */
+.search input :-ms-input-placeholder {
+  color: #2d3840;
+}
+
+/* line 144, modules.scss */
+.featured h5:hover {
+  text-decoration: underline;
+}
+
+/* line 151, modules.scss */
+.featured--video .video-thumb {
+  position: relative;
+}
+/* line 154, modules.scss */
+.featured--video .video-thumb .glyphicon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  font-size: 3.5em;
+  line-height: 0;
+  text-align: center;
+  color: #fff;
+  opacity: 0.7;
+}
+
+/* line 168, modules.scss */
+.hot-topics {
+  background-color: #2d3840;
+}
+/* line 171, modules.scss */
+.hot-topics > * {
+  display: inline-block;
+  padding: 0.5em;
+}
+/* line 176, modules.scss */
+.hot-topics h3 {
+  color: #f26522;
+  font: normal 1.1em "utopia-std", serif;
+  font-weight: 700;
+}
+/* line 181, modules.scss */
+.hot-topics a {
+  color: #fff;
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+}
+/* line 185, modules.scss */
+.hot-topics a:hover {
+  background-color: #4d5961;
 }

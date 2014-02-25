@@ -1,5 +1,10 @@
 @import "project";
 @import "compass/reset";
+@import "compass/css3/box-sizing";
+
+* {
+  @include box-sizing(border-box);
+}
 
 body {
   font-size: $font_base;
@@ -8,6 +13,16 @@ body {
 
 h1, h2, h3, h4, h5 {
   color: #000;
+}
+
+h5 {
+  // list item titles
+  @include serif(1.3em);
+  margin: 0.25em auto;
+}
+
+p {
+  color: $colour_dark_slate;
 }
 
 a {
@@ -20,7 +35,7 @@ a {
 }
 
 header {
-  margin: 1em auto 0.5em;
+  margin: 1em auto 0.25em;
   padding: 1em 0 0;
   border-top: $divider;
   text-align: center;
@@ -32,7 +47,6 @@ $header_sub_top: 0.4em;
   margin-top: 1em;
   padding: $header_sub_top 0 0.25em;
   border-top: $divider;
-  border-bottom: $divider;
   @include futura;
   text-transform: uppercase;
 }
@@ -46,7 +60,7 @@ $header_sub_top: 0.4em;
 }
 
 .header-right {
-  @include span-columns(4);
+  @include span-columns(4 omega);
   position: absolute;
   top: $header_sub_top;
   right: 0;
@@ -57,8 +71,11 @@ nav {
   width: 100%;
   display: table;
   table-layout: fixed;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   background-color: $colour_mid_slate;
+  @include futura();
+  text-transform: uppercase;
+  letter-spacing: 1px;
 
   ul {
     display: table-row;

@@ -6,10 +6,12 @@
 }
 
 .list-header {
+  padding-bottom: 0.25em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid $colour_blue;
+  @include futura(1.1em);
   color: $colour_blue;
   text-transform: uppercase;
-  border-bottom: 1px solid $colour_blue;
-  padding-bottom: 0.25em;
 }
 
 .label {
@@ -20,26 +22,31 @@
   text-decoration: none;
 }
 
+.pub-date {
+  @include futura(0.8em);
+  color: $colour_slate_light;
+}
+
+.list-caption {
+  margin-bottom: 0.5em;
+}
+
 .stories-list {
   // basic styling for any condensed list of content items
-  @include futura();
 
   li {
     padding: 0.5em 0;
     border-bottom: 1px solid $colour_blue_light;
-    @include futura();
-    color: $colour_slate_light;
+    @include futura;
+
+    &.first-child {
+      padding-top: 0;
+    }
   }
 
   .label {
     font-size: 0.8em;
     color: $colour_slate_light;
-  }
-
-  h5 {
-    margin: 0.25em auto;
-    @include adriane(1.25em);
-    color: #000;
   }
 
   a:hover {
@@ -91,6 +98,18 @@
   }
 }
 
+.cta {
+  @include futura($weight:'bold');
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.cta--right {
+  text-align: right;
+}
+
 // Front Page
 // ----------
 
@@ -105,4 +124,66 @@
             margin-bottom: 1em;
         }
     }
+}
+
+.search {
+  input {
+    width: 100%;
+    padding: 0.25em;
+    margin-bottom: 1em;
+    border: 1px solid $colour_mid_slate;
+    @include futura;
+    @include placeholder {
+      color: $colour_dark_slate;
+    }
+  }
+}
+
+.featured {
+  h5 {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.featured--video {
+  .video-thumb {
+    position: relative;
+
+    .glyphicon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      font-size: 3.5em;
+      line-height: 0;
+      text-align: center;
+      color: #fff;
+      opacity: 0.7;
+    }
+  }
+}
+
+.hot-topics {
+  background-color: $colour_dark_slate;
+
+  > * {
+    display: inline-block;
+    padding: 0.5em;
+  }
+
+  h3 {
+    color: $colour_orange;
+    @include serif(1.1em, 'bold');
+  }
+
+  a {
+    color: #fff;;
+    @include futura;
+
+    &:hover {
+      background-color: $colour_mid_slate;
+    }
+  }
 }

@@ -63,24 +63,43 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 4, layout.scss */
-body {
-  font-size: 16px;
+/* line 5, layout.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-/* line 8, layout.scss */
+/* line 9, layout.scss */
+body {
+  font-size: 16px;
+  color: #2d3840;
+}
+
+/* line 14, layout.scss */
+h1, h2, h3, h4, h5 {
+  color: #000;
+}
+
+/* line 18, layout.scss */
+h5 {
+  font: normal 1.3em "utopia-std", serif;
+  font-weight: 400;
+  margin: 0.25em auto;
+}
+
+/* line 24, layout.scss */
+p {
+  color: #2d3840;
+}
+
+/* line 28, layout.scss */
 a {
   color: #0072bc;
   text-decoration: none;
 }
 
-/* line 13, layout.scss */
-h3 {
-  font: normal 1.4em "ltc-bodoni-175", serif;
-  font-weight: 400;
-}
-
-/* line 17, layout.scss */
+/* line 33, layout.scss */
 .container {
   *zoom: 1;
   max-width: 59em;
@@ -97,27 +116,26 @@ h3 {
   clear: both;
 }
 
-/* line 21, layout.scss */
+/* line 37, layout.scss */
 header {
-  margin: 1em auto 0.5em;
+  margin: 1em auto 0.25em;
   padding: 1em 0 0;
   border-top: 1px solid #2d3840;
   text-align: center;
 }
 
-/* line 29, layout.scss */
+/* line 45, layout.scss */
 .header-sub {
   position: relative;
   margin-top: 1em;
   padding: 0.4em 0 0.25em;
   border-top: 1px solid #2d3840;
-  border-bottom: 1px solid #2d3840;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
 }
 
-/* line 39, layout.scss */
+/* line 54, layout.scss */
 .header-left {
   width: 32.20339%;
   float: left;
@@ -129,11 +147,12 @@ header {
   text-align: left;
 }
 
-/* line 47, layout.scss */
+/* line 62, layout.scss */
 .header-right {
   width: 32.20339%;
-  float: left;
-  margin-right: 1.69492%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
   display: inline;
   position: absolute;
   top: 0.4em;
@@ -141,24 +160,28 @@ header {
   text-align: right;
 }
 
-/* line 55, layout.scss */
+/* line 70, layout.scss */
 nav {
   width: 100%;
   display: table;
   table-layout: fixed;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   background-color: #4d5961;
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-/* line 62, layout.scss */
+/* line 80, layout.scss */
 nav ul {
   display: table-row;
 }
-/* line 66, layout.scss */
+/* line 84, layout.scss */
 nav li {
   display: table-cell;
   text-align: center;
 }
-/* line 71, layout.scss */
+/* line 89, layout.scss */
 nav a {
   width: 100%;
   display: inline-block;
@@ -166,12 +189,12 @@ nav a {
   color: #fff;
   text-decoration: none;
 }
-/* line 78, layout.scss */
+/* line 96, layout.scss */
 nav a:hover {
   background-color: #7d8d97;
 }
 
-/* line 86, layout.scss */
+/* line 104, layout.scss */
 .rail-left {
   width: 15.25424%;
   float: left;
@@ -179,7 +202,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 90, layout.scss */
+/* line 108, layout.scss */
 .main {
   width: 57.62712%;
   float: left;
@@ -187,7 +210,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 94, layout.scss */
+/* line 112, layout.scss */
 .rail-right {
   width: 23.72881%;
   float: right;
