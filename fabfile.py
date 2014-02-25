@@ -122,16 +122,16 @@ def deploy(tag=None):
 
 
 def deploy_latest():
-    remote_run('git checkout develop')
-    remote_run('git pull origin develop')
+    remote_run('git checkout master')
+    remote_run('git pull origin master')
 
 
 def deploy_sha(sha=None):
     '''
-    Update the remote server with a specified ref or latest develop
+    Update the remote server with a specified ref or latest master
     '''
-    remote_run('git fetch origin')
-    remote_run('git checkout develop')
+    remote_run('git fetch master')
+    remote_run('git checkout master')
 
 
 #def pulldump():
