@@ -12,12 +12,12 @@ PIPELINE_CSS = {
         },
     },
 
-    'ie-styles': {
-        'source_filenames': (
-            'css/ie.less',
-        ),
-        'output_filename': 'compiled/css/ie.grouped.css',
-    },
+    #'ie-styles': {
+        #'source_filenames': (
+            #'css/ie.less',
+        #),
+        #'output_filename': 'compiled/css/ie.grouped.css',
+    #},
 }
 
 PIPELINE_JS = {

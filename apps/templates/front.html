@@ -43,8 +43,8 @@
 
                 {% if config.announce_head and config.announce_body %}
                 <div class="announcement">
-                    <h3>{{ config.announce_head|stripspace|convert_entities|widont }}</h3>
-                    {{ config.announce_body|linebreaks|convert_entities|typogrify }}
+                    <h3>{{ config.announce_head }}</h3>
+                    {{ config.announce_body|linebreaks }}
                     <hr>
                 </div>
                 {% endif %}
