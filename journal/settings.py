@@ -45,7 +45,8 @@ PIPELINE_COMPILERS = (
 # devdata options
 PATH_TO_DEVDATA = os.path.join(PROJECT_ROOT, 'devdata')
 DUMBO_DATA_DIR = PATH_TO_DEVDATA
-RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose --delete'
+RSYNC_OPTIONS = '--recursive --links --times --omit-dir-times --verbose \
+    --delete --exclude=example* --exclude=*cache*'
 DUMBO_RSYNC_OPTIONS = RSYNC_OPTIONS
 
 TEMPLATE_DIRS = (

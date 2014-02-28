@@ -29,14 +29,13 @@ class Command(BaseCommand):
 
         # Perform sql dump
         dump_sql = os.path.join(path, 'dump.sql')
-        pg_dump = 'pg_dump -h %(host)s -U %(user)s --clean --no-owner ' + \
-            '--no-privileges %(db)s > %(dump_sql)s' % \
-            {
-                'host': settings.DATABASES['default']['HOST'],
-                'user': settings.DATABASES['default']['USER'],
-                'db': settings.DATABASES['default']['NAME'],
-                'dump_sql': dump_sql,
-            }
+        pg_dump = 'pg_dump -h {host} -U {user} --clean --no-owner \
+            --no-privileges {db} > {dump_sql}'.format(
+            host=settings.DATABASES['default']['HOST'],
+            user=settings.DATABASES['default']['USER'],
+            db=settings.DATABASES['default']['NAME'],
+            dump_sql=dump_sql,
+        )
         status, output = commands.getstatusoutput(pg_dump)
         if status != 0:
             self.stderr.write(output + "\n")
