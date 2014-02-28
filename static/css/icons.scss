@@ -1,0 +1,39 @@
+@import "project";
+@import "compass/typography/text/replacement";
+@import "compass/css3/background-size";
+
+$images:
+  'icon-twitter',
+  'icon-rss',
+  'icon-facebook';
+
+// TODO: sprite
+.icon {
+  @include hide-text;
+  display: inline-block;
+  background-repeat: no-repeat;
+  @include background-size;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  @each $fname in $images {
+    &.#{$fname} {
+      background-image: url('/static/images/icons/#{$fname}.png');
+    }
+  }
+}
+
+header .icon {
+  width: 23px;
+  height: 23px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5) {
+  @each $fname in $images {
+    .icon.#{$fname} {
+      background-image: url('/static/images/icons/#{$fname}@2x.png');
+    }
+  }
+}

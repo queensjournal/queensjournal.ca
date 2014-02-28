@@ -1,10 +1,61 @@
-/* line 3, modules.scss */
+/* line 11, icons.scss */
+.icon {
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  display: inline-block;
+  background-repeat: no-repeat;
+  -webkit-background-size: 100% auto;
+  -moz-background-size: 100% auto;
+  -o-background-size: 100% auto;
+  background-size: 100% auto;
+}
+/* line 17, icons.scss */
+.icon:hover {
+  opacity: 0.75;
+}
+/* line 22, icons.scss */
+.icon.icon-twitter {
+  background-image: url("/static/images/icons/icon-twitter.png");
+}
+/* line 22, icons.scss */
+.icon.icon-rss {
+  background-image: url("/static/images/icons/icon-rss.png");
+}
+/* line 22, icons.scss */
+.icon.icon-facebook {
+  background-image: url("/static/images/icons/icon-facebook.png");
+}
+
+/* line 28, icons.scss */
+header .icon {
+  width: 23px;
+  height: 23px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 1.5) {
+  /* line 35, icons.scss */
+  .icon.icon-twitter {
+    background-image: url("/static/images/icons/icon-twitter@2x.png");
+  }
+
+  /* line 35, icons.scss */
+  .icon.icon-rss {
+    background-image: url("/static/images/icons/icon-rss@2x.png");
+  }
+
+  /* line 35, icons.scss */
+  .icon.icon-facebook {
+    background-image: url("/static/images/icons/icon-facebook@2x.png");
+  }
+}
+/* line 5, modules.scss */
 .ad {
   margin: 0 auto;
   text-align: center;
 }
 
-/* line 8, modules.scss */
+/* line 10, modules.scss */
 .list-header {
   padding-bottom: 0.25em;
   margin-bottom: 1em;
@@ -15,7 +66,7 @@
   text-transform: uppercase;
 }
 
-/* line 17, modules.scss */
+/* line 19, modules.scss */
 .label {
   font: normal 16px "utopia-std", serif;
   font-weight: 400;
@@ -24,53 +75,53 @@
   text-decoration: none;
 }
 
-/* line 25, modules.scss */
+/* line 27, modules.scss */
 .pub-date {
   font: normal 0.8em "futura-pt", sans-serif;
   font-weight: 400;
   color: #6c7f8b;
 }
 
-/* line 30, modules.scss */
+/* line 32, modules.scss */
 .list-caption {
   margin-bottom: 0.5em;
 }
 
-/* line 37, modules.scss */
+/* line 39, modules.scss */
 .stories-list li {
   padding: 0.5em 0;
   border-bottom: 1px solid #499acf;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 42, modules.scss */
+/* line 44, modules.scss */
 .stories-list li.first-child {
   padding-top: 0;
 }
-/* line 47, modules.scss */
+/* line 49, modules.scss */
 .stories-list .label {
   font-size: 0.8em;
   color: #6c7f8b;
 }
-/* line 53, modules.scss */
+/* line 55, modules.scss */
 .stories-list a:hover h5 {
   text-decoration: underline;
 }
 
-/* line 59, modules.scss */
+/* line 61, modules.scss */
 .carousel--featured {
   text-align: center;
   padding-bottom: 50px;
 }
-/* line 63, modules.scss */
+/* line 65, modules.scss */
 .carousel--featured .image-wrap {
   position: relative;
 }
-/* line 67, modules.scss */
+/* line 69, modules.scss */
 .carousel--featured img {
   margin-bottom: 0.5em;
 }
-/* line 71, modules.scss */
+/* line 73, modules.scss */
 .carousel--featured h2 {
   font: normal 16px "utopia-std", serif;
   font-weight: 400;
@@ -78,24 +129,24 @@
   line-height: 1.1em;
   margin-bottom: 0.15em;
 }
-/* line 78, modules.scss */
+/* line 80, modules.scss */
 .carousel--featured h3 {
   font: normal 1.25em "futura-pt", sans-serif;
   font-weight: 400;
   color: #4d5961;
 }
-/* line 83, modules.scss */
+/* line 85, modules.scss */
 .carousel--featured a:hover h2 {
   color: #4d5961;
 }
 
-/* line 88, modules.scss */
+/* line 90, modules.scss */
 .carousel-indicators li {
   width: 10px;
   height: 10px;
   background: #2d3840;
 }
-/* line 93, modules.scss */
+/* line 95, modules.scss */
 .carousel-indicators li.active {
   margin: 1px;
   width: 10px;
@@ -103,32 +154,32 @@
   background: #0072bc;
 }
 
-/* line 101, modules.scss */
+/* line 103, modules.scss */
 .cta {
   font: normal 16px "futura-pt", sans-serif;
 }
-/* line 104, modules.scss */
+/* line 106, modules.scss */
 .cta:hover {
   text-decoration: underline;
 }
 
-/* line 109, modules.scss */
+/* line 111, modules.scss */
 .cta--right {
   text-align: right;
 }
 
-/* line 118, modules.scss */
+/* line 120, modules.scss */
 .sct-preview .first-story {
   float: left;
   width: 4em;
   margin-right: 1em;
 }
-/* line 123, modules.scss */
+/* line 125, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
 }
 
-/* line 130, modules.scss */
+/* line 132, modules.scss */
 .search input {
   width: 100%;
   padding: 0.25em;
@@ -154,16 +205,16 @@
   color: #2d3840;
 }
 
-/* line 144, modules.scss */
+/* line 146, modules.scss */
 .featured h5:hover {
   text-decoration: underline;
 }
 
-/* line 151, modules.scss */
+/* line 153, modules.scss */
 .featured--video .video-thumb {
   position: relative;
 }
-/* line 154, modules.scss */
+/* line 156, modules.scss */
 .featured--video .video-thumb .glyphicon {
   position: absolute;
   top: 50%;
@@ -176,28 +227,28 @@
   opacity: 0.7;
 }
 
-/* line 168, modules.scss */
+/* line 170, modules.scss */
 .hot-topics {
   background-color: #2d3840;
 }
-/* line 171, modules.scss */
+/* line 173, modules.scss */
 .hot-topics > * {
   display: inline-block;
   padding: 0.5em;
 }
-/* line 176, modules.scss */
+/* line 178, modules.scss */
 .hot-topics h3 {
   color: #f26522;
   font: normal 1.1em "utopia-std", serif;
   font-weight: 700;
 }
-/* line 181, modules.scss */
+/* line 183, modules.scss */
 .hot-topics a {
   color: #fff;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 185, modules.scss */
+/* line 187, modules.scss */
 .hot-topics a:hover {
   background-color: #4d5961;
 }
