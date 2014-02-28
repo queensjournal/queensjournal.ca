@@ -34,6 +34,9 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'served/static/')
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 PIPELINE_COMPASS_BINARY = '/usr/bin/env bundle exec compass'
 PIPELINE_COMPASS_ARGUMENTS = '-c ' + os.path.join(PROJECT_ROOT, 'compass.rb')
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
+PIPELINE_UGLIFYJS_BINARY = os.path.join(PROJECT_ROOT,
+    'node_modules/uglify-js/bin/uglifyjs')
 PIPELINE_COMPILERS = (
     'pipeline_compass.compass.CompassCompiler',
 )

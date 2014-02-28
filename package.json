@@ -1,0 +1,6 @@
+{
+  "name": "journal",
+  "devDependencies": {
+    "uglify-js": "2.4.12"
+  }
+}

@@ -6,6 +6,7 @@
 /share/
 /include/
 .sass-cache/
+/node_modules/
 
 .DS_Store
 /devdata/
