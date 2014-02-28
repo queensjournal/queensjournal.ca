@@ -114,7 +114,6 @@ INSTALLED_APPS = (
     'disqus',
     'pagination',
     'south',
-    'pipeline',
     'bento',
     'selectable',
     'solo',

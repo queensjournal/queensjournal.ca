@@ -25,15 +25,8 @@ SECRET_KEY = '' # TODO Fill on prod
 
 HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_ROOT, 'xapian/')
 
-# Pipeline specific settings
-PIPELINE = True                          # Use concatenated files
-PIPELINE_AUTO = False                    # Auto-generate CSS / JS
-PIPELINE_LESS_ARGUMENTS = '--no-color'   # Nicer Less error output in django 500 pages
-
-# List of classes that pipeline uses to render assets requiring compilation
-PIPELINE_COMPILERS = (
-    #'pipeline.compilers.less.LessCompiler',  # Uncomment for local development of less CSS
-)
+# don't package assets in prod
+STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 
 # Twitter Authentication info for posting new stories to Twitter
 # Visit dev.twitter.com for more info.
