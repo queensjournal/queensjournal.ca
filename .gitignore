@@ -8,9 +8,9 @@ build/
 share/
 include/
 *.sass-cache/
+devdata/
 
 *.tgz
 .DS_Store
-dumps/
 media/
 xapian/
