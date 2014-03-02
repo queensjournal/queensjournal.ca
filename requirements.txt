@@ -24,6 +24,7 @@ psycopg2==2.0.13
 git+https://github.com/lazybird/django-bento.git
 django-solo==1.0.4
 django-imagekit==3.2.0
+django-selectable==0.8.0
 
 # tests
 factory_boy
