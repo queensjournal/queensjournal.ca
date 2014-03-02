@@ -27,6 +27,7 @@ HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_ROOT, 'xapian/')
 
 # don't package assets in prod
 STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
+PIPELINE_ENABLED = True
 
 # Twitter Authentication info for posting new stories to Twitter
 # Visit dev.twitter.com for more info.
