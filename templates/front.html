@@ -20,34 +20,11 @@
 
 {% block content-class %} span-19 front-content{% endblock %}
 
-{% block content %}
-
-    {% load bento_tags %}
-    {% show_image_box 'front-banner' %}
-
-<div class="block">
-
-    <div id="section-stories" class="column span-24 last">
-
-        {% for story in latest_section %}
-        <div class="latest-section">
-            <p class="label section-label"><a href="{% url "sections.views.section_detail" story.section|slugify %}">{{ story.section }}</a></p>
-            <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" />
-                <h2 class="latest-section-head"><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h2>
-                <p class="latest-section-summary">{{ story.summary }}</p>
-                <p class="pub_date">Posted {{ story.pub_date|since }} ago</p>
-            </div>
-            {% endfor %}
-
-            <div id="sidebar" class="latest">
-
-                {% if config.announce_head and config.announce_body %}
-                <div class="announcement">
-                    <h3>{{ config.announce_head }}</h3>
-                    {{ config.announce_body|linebreaks }}
-                    <hr>
-                </div>
-                {% endif %}
+{% block nav %}
+  {{ block.super }}
+  {% load bento_tags %}
+  {% show_image_box 'front-banner' %}
+{% endblock %}
 
                 <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
                     {% for entry in latest_entries %}
