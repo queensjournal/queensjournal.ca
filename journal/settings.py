@@ -37,8 +37,12 @@ PIPELINE_COMPASS_ARGUMENTS = '-c ' + os.path.join(PROJECT_ROOT, 'compass.rb')
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
 PIPELINE_UGLIFYJS_BINARY = os.path.join(PROJECT_ROOT,
     'node_modules/uglify-js/bin/uglifyjs')
+
+PIPELINE_COFFEE_SCRIPT_BINARY = os.path.join(PROJECT_ROOT,
+    'node_modules/coffee-script/bin/coffee')
 PIPELINE_COMPILERS = (
     'pipeline_compass.compass.CompassCompiler',
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
 )
 
 

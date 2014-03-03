@@ -24,8 +24,10 @@ PIPELINE_JS = {
     'core-scripts': {
         'source_filenames': (
             'js/jquery-1.11.0.js',
+            'js/underscore.js',
             'js/transition.js',
             'js/carousel.js',
+            'js/journal.coffee',
         ),
         'output_filename': 'compiled/js/core-scripts.min.js',
     },
