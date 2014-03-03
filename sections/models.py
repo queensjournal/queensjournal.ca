@@ -15,6 +15,9 @@ class Section(models.Model):
     def get_latest_stories(self, limit=10):
         return Story.stories.published().filter(section=self)[:limit]
 
+    def get_top_featured_story(self):
+        return Story.objects.published().filter(section=self, featured=True)[:1].get()
+
     @models.permalink
     def get_absolute_url(self):
         return ('front-section', (), {'slug': self.slug})

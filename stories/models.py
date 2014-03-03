@@ -41,7 +41,9 @@ class Story(models.Model):
             story. Use commas to separate tags. The first tag will be the \
             story\'s label. For example: \"Student Ghetto, EngSoc, Town-Gown, \
             Aberdeen\"')
-    featured = models.BooleanField()
+    featured = models.BooleanField(help_text="Checking this will feature this \
+        story on its respective section page. The most recent featured story \
+        from each section will be placed on the Front page.")
     pub_date = models.DateTimeField(default=datetime.datetime.now, unique=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES,
         default='d',

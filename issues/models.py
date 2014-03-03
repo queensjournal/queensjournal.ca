@@ -44,3 +44,9 @@ class Issue(models.Model):
             return 'Vol. %s, %s (special issue)' % (self.volume, self.extra)
         else:
             return 'Vol. %s, Issue %i' % (self.volume, self.issue)
+
+    def get_featured_stories(self):
+        stories = []
+        for section in self.sections.flatplansection_set.all():
+            stories.append(section.section.get_top_featured_story())
+        return stories

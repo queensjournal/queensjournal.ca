@@ -44,6 +44,12 @@ $font_base: 16px;
   }
 }
 
+@mixin blue-border-bottom($spacing: 0.25em) {
+  padding-bottom: $spacing;
+  border-bottom: 1px solid $colour_blue;
+  margin-bottom: $spacing;
+}
+
 @mixin placeholder {
   ::-webkit-input-placeholder {@content}
   :-moz-placeholder           {@content}

@@ -40,13 +40,6 @@
 
                 <fb:recommendations site="http://www.queensjournal.ca" width="220" height="450" header="true" font="" border_color=""></fb:recommendations>
 
-            </div><!--sidebar-->
-
-        </div>
-
-    </div><!--block 2-->
-
-    {% endblock content %}
 
 {% load solo_tags %}
 {% load imagekit %}
@@ -108,6 +101,21 @@
     <h3>Hot Topics</h3>
     {% for tag in config.get_tags %}
     <a href="/tag/{{ tag }}/">{{ tag|capfirst }}</a>
+    {% endfor %}
+  </div>
+
+  {% get_featured_stories_by_section as latest_stories %}
+  <div class="stories-blocks latest-stories">
+    {% for story in latest_stories %}
+    <div class="stories-blocks--story latest-stories--story {% cycle 'odd' 'even' %}">
+      <p class="label">
+        <a href="{{ story.section.get_absolute_url }}">{{ story.section }}</a>
+      </p>
+      {# TODO: thumbnail this #}
+      <img src="{{ story.story_thumb.photo.url }}" />
+      <h4><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h4>
+      <h5 class="deck">{{ story.deck }}</h5>
+    </div>
     {% endfor %}
   </div>
 {% endblock %}

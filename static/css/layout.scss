@@ -12,13 +12,17 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-  color: #000;
+  color: $colour_dark_slate;
+
+  a {
+    color: $colour_dark_slate;
+  }
 }
 
 h5 {
   // list item titles
   @include serif(1.3em);
-  margin: 0.25em auto;
+  margin: 0 auto 0.25em;
 }
 
 p {
@@ -28,6 +32,10 @@ p {
 a {
   color: #0072bc;
   text-decoration: none;
+}
+
+img {
+  max-width: 100%;
 }
 
 .container {

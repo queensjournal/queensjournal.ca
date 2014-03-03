@@ -8,9 +8,8 @@
 }
 
 .list-header {
-  padding-bottom: 0.25em;
+  @include blue-border-bottom();
   margin-bottom: 1em;
-  border-bottom: 1px solid $colour_blue;
   @include futura(1.1em);
   color: $colour_blue;
   text-transform: uppercase;
@@ -19,9 +18,15 @@
 .label {
   // story label for related section, tags
   @include serif();
+  line-height: 1em;
   color: $colour_blue;
   text-transform: uppercase;
   text-decoration: none;
+}
+
+.deck {
+  @include futura(1.25em);
+  color: $colour_mid_slate;
 }
 
 .pub-date {
@@ -110,6 +115,39 @@
 
 .cta--right {
   text-align: right;
+}
+
+.stories-blocks {
+  margin-top: 1em;
+}
+
+.stories-blocks--story {
+  float: left;
+  width: 50%;
+  padding-bottom: 1em;
+
+  &.odd {
+    clear: left;
+    padding-right: 0.5em;
+  }
+
+  &.even {
+    padding-left: 0.5em;
+  }
+
+  .label {
+    @include blue-border-bottom;
+    margin-bottom: 0.5em;
+  }
+
+  h4 {
+    @include serif(1.6em);
+    margin: 0.25em auto 0.25em;
+  }
+
+  h5 {
+    @include futura(1em);
+  }
 }
 
 // Front Page
