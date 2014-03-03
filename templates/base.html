@@ -76,9 +76,11 @@
     </header>
   </div><!--.container-->
 
+  {% block nav %}
   <div class="container">
     {% include "includes/nav.html" %}
   </div><!--.container-->
+  {% endblock nav %}
 
   <div class="container">
     <div class="rail rail-left">
@@ -112,9 +114,29 @@
         {% endif %}
       {% endblock %}
     </div>
+  </div><!-- .container -->
+
+  {% include "ads/banner-bottom.html" %}
+
+  <div class="container social-blocks">
+    <div class="social-block">
+      <h3 class="list-header">Instagram</h3>
+      <!-- SnapWidget -->
+<iframe src="http://snapwidget.com/sl/?u=cXVlZW5zam91cm5hbHxpbnwyOTR8M3wzfHxub3w1fG5vbmV8b25TdGFydHx5ZXM=&v=2314" title="Instagram Widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:299px; height:299px"></iframe>
+    </div>
+
+    <div class="social-block">
+      <h3 class="list-header">Twitter</h3>
+
+      <a class="twitter-timeline" href="https://twitter.com/queensjournal" data-widget-id="440310537696456705">Tweets by @queensjournal</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+
+    <div class="social-block last-child">
+      <h3 class="list-header">On Newsstands Now</h3>
+      Issuu
+    </div>
   </div>
-
-
 
     <div id="menu-sections" class="menu-bar block">
         <div id="menu-popular-tags" class="block">

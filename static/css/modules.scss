@@ -3,7 +3,7 @@
 @import "icons";
 
 .ad {
-  margin: 0 auto;
+  margin: 1em auto;
   text-align: center
 }
 
@@ -226,4 +226,18 @@
       background-color: $colour_mid_slate;
     }
   }
+}
+
+// sub-footer social
+$social_block_height: 400px;
+.social-block {
+  @include span-columns(4);
+
+  &.last-child {
+    @include span-columns(4 omega);
+  }
+}
+
+.twitter-timeline {
+  height: $social_block_height;
 }
