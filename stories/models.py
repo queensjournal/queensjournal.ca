@@ -97,7 +97,7 @@ class Story(models.Model):
         if self.gallery_set.all():
             try:
                 gallery = Gallery.objects.filter(story=self)[0]
-                return gallery.images.all()[0]
+                return gallery.images.all()[0].photo
             except IndexError:
                 return False
         else:
@@ -200,7 +200,7 @@ class Photo(models.Model):
         help_text='Automatically written based on the headline. If nothing \
             shows up here, try typing in the headline instead of copying and \
             pasting.')
-    photo = models.ImageField(upload_to='story_photos/%Y/%m/%d/',
+    image = models.ImageField(upload_to='story_photos/%Y/%m/%d/',
         help_text='Please convert all images to RGB JPEGs.')
     thumbnail = models.ImageField(upload_to='thumbs/', editable=False,
         null=True, default='')

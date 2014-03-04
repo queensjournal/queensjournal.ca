@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Headshot(models.Model):
     name = models.SlugField()
-    headshot = models.ImageField(upload_to="headshots/%Y/",
+    image = models.ImageField(upload_to="headshots/%Y/",
         help_text='Please crop all photos to 200x100 pixels and convert them \
             to RGB JPG.', null=True, blank=True)
 

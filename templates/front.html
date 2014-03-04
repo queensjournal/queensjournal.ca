@@ -113,8 +113,10 @@
       <p class="label">
         <a href="{{ story.section.get_absolute_url }}">{{ story.section }}</a>
       </p>
-      {# TODO: thumbnail this #}
-      <img src="{{ story.story_thumb.photo.url }}" />
+      {% if story.story_thumb %}
+      {% thumbnail "215x145" story.story_thumb.image as th %}
+      <img src="{{ th.url }}" />
+      {% endif %}
       <h4><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h4>
       <h5 class="deck">{{ story.deck }}</h5>
     </div>
