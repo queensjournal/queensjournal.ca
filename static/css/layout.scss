@@ -120,3 +120,49 @@ nav {
 .rail-right {
   @include span-columns(3 omega);
 }
+
+// footer
+// ------
+footer {
+  @include container;
+  margin-top: 1em;
+  padding-top: 1em;
+  margin-bottom: 3em;
+  border-top: $divider;
+  @include serif;
+
+  address {
+    margin-top: 0.5em;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.footer-left {
+  @include span-columns(5);
+  padding-right: 1em;
+  border-right: $divider;
+}
+
+.footer-right {
+  @include span-columns(7 omega);
+}
+
+.footer-link-col {
+  @include span-columns(4);
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  a {
+    color: $colour_dark_slate;
+  }
+
+  &.last-child {
+    @include span-columns(4 omega);
+  }
+}

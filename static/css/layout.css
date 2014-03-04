@@ -78,28 +78,37 @@ body {
 
 /* line 14, layout.scss */
 h1, h2, h3, h4, h5 {
-  color: #000;
+  color: #2d3840;
+}
+/* line 17, layout.scss */
+h1 a, h2 a, h3 a, h4 a, h5 a {
+  color: #2d3840;
 }
 
-/* line 18, layout.scss */
+/* line 22, layout.scss */
 h5 {
   font: normal 1.3em "utopia-std", serif;
   font-weight: 400;
-  margin: 0.25em auto;
+  margin: 0 auto 0.25em;
 }
 
-/* line 24, layout.scss */
+/* line 28, layout.scss */
 p {
   color: #2d3840;
 }
 
-/* line 28, layout.scss */
+/* line 32, layout.scss */
 a {
   color: #0072bc;
   text-decoration: none;
 }
 
-/* line 33, layout.scss */
+/* line 37, layout.scss */
+img {
+  max-width: 100%;
+}
+
+/* line 41, layout.scss */
 .container {
   *zoom: 1;
   max-width: 59em;
@@ -116,15 +125,15 @@ a {
   clear: both;
 }
 
-/* line 37, layout.scss */
+/* line 45, layout.scss */
 header {
-  margin: 1em auto 0.25em;
+  margin: 1em auto 0;
   padding: 1em 0 0;
   border-top: 1px solid #2d3840;
   text-align: center;
 }
 
-/* line 45, layout.scss */
+/* line 53, layout.scss */
 .header-sub {
   position: relative;
   margin-top: 1em;
@@ -135,7 +144,7 @@ header {
   text-transform: uppercase;
 }
 
-/* line 54, layout.scss */
+/* line 62, layout.scss */
 .header-left {
   width: 32.20339%;
   float: left;
@@ -147,7 +156,7 @@ header {
   text-align: left;
 }
 
-/* line 62, layout.scss */
+/* line 70, layout.scss */
 .header-right {
   width: 32.20339%;
   float: right;
@@ -160,7 +169,7 @@ header {
   text-align: right;
 }
 
-/* line 70, layout.scss */
+/* line 78, layout.scss */
 nav {
   width: 100%;
   display: table;
@@ -172,16 +181,16 @@ nav {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-/* line 80, layout.scss */
+/* line 88, layout.scss */
 nav ul {
   display: table-row;
 }
-/* line 84, layout.scss */
+/* line 92, layout.scss */
 nav li {
   display: table-cell;
   text-align: center;
 }
-/* line 89, layout.scss */
+/* line 97, layout.scss */
 nav a {
   width: 100%;
   display: inline-block;
@@ -189,30 +198,105 @@ nav a {
   color: #fff;
   text-decoration: none;
 }
-/* line 96, layout.scss */
+/* line 104, layout.scss */
 nav a:hover {
   background-color: #7d8d97;
 }
 
-/* line 104, layout.scss */
-.rail-left {
-  width: 15.25424%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-
-/* line 108, layout.scss */
-.main {
-  width: 57.62712%;
-  float: left;
-  margin-right: 1.69492%;
-  display: inline;
-}
-
 /* line 112, layout.scss */
+.rail-left {
+  width: 23.72881%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 116, layout.scss */
+.main {
+  width: 49.15254%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 120, layout.scss */
 .rail-right {
   width: 23.72881%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+}
+
+/* line 126, layout.scss */
+footer {
+  *zoom: 1;
+  max-width: 59em;
+  _width: 59em;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  padding-top: 1em;
+  margin-bottom: 3em;
+  border-top: 1px solid #2d3840;
+  font: normal 16px "utopia-std", serif;
+  font-weight: 400;
+}
+/* line 38, ../../../../.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+footer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 134, layout.scss */
+footer address {
+  margin-top: 0.5em;
+}
+/* line 138, layout.scss */
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* line 143, layout.scss */
+.footer-left {
+  width: 40.67797%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  padding-right: 1em;
+  border-right: 1px solid #2d3840;
+}
+
+/* line 149, layout.scss */
+.footer-right {
+  width: 57.62712%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+}
+
+/* line 153, layout.scss */
+.footer-link-col {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 156, layout.scss */
+.footer-link-col ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+/* line 161, layout.scss */
+.footer-link-col a {
+  color: #2d3840;
+}
+/* line 165, layout.scss */
+.footer-link-col.last-child {
+  width: 32.20339%;
   float: right;
   margin-right: 0;
   *margin-left: -1em;

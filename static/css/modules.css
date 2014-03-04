@@ -51,77 +51,93 @@ header .icon {
 }
 /* line 5, modules.scss */
 .ad {
-  margin: 0 auto;
+  margin: 1em auto;
   text-align: center;
 }
 
 /* line 10, modules.scss */
+.image-box {
+  text-align: center;
+}
+
+/* line 15, modules.scss */
 .list-header {
   padding-bottom: 0.25em;
-  margin-bottom: 1em;
   border-bottom: 1px solid #0072bc;
+  margin-bottom: 0.25em;
+  margin-bottom: 1em;
   font: normal 1.1em "futura-pt", sans-serif;
   font-weight: 400;
   color: #0072bc;
   text-transform: uppercase;
 }
 
-/* line 19, modules.scss */
+/* line 23, modules.scss */
 .label {
   font: normal 16px "utopia-std", serif;
   font-weight: 400;
+  line-height: 1em;
   color: #0072bc;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-/* line 27, modules.scss */
+/* line 32, modules.scss */
+.deck {
+  font: normal 1.25em "futura-pt", sans-serif;
+  font-weight: 400;
+  color: #4d5961;
+}
+
+/* line 37, modules.scss */
 .pub-date {
   font: normal 0.8em "futura-pt", sans-serif;
   font-weight: 400;
   color: #6c7f8b;
 }
 
-/* line 32, modules.scss */
+/* line 42, modules.scss */
 .list-caption {
   margin-bottom: 0.5em;
+  font: normal 16px "utopia-std", serif;
+  font-weight: 400;
 }
 
-/* line 39, modules.scss */
+/* line 50, modules.scss */
 .stories-list li {
   padding: 0.5em 0;
   border-bottom: 1px solid #499acf;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 44, modules.scss */
+/* line 55, modules.scss */
 .stories-list li.first-child {
   padding-top: 0;
 }
-/* line 49, modules.scss */
+/* line 60, modules.scss */
 .stories-list .label {
   font-size: 0.8em;
   color: #6c7f8b;
 }
-/* line 55, modules.scss */
+/* line 66, modules.scss */
 .stories-list a:hover h5 {
   text-decoration: underline;
 }
 
-/* line 61, modules.scss */
+/* line 72, modules.scss */
 .carousel--featured {
   text-align: center;
   padding-bottom: 50px;
 }
-/* line 65, modules.scss */
+/* line 76, modules.scss */
 .carousel--featured .image-wrap {
   position: relative;
 }
-/* line 69, modules.scss */
+/* line 80, modules.scss */
 .carousel--featured img {
   margin-bottom: 0.5em;
 }
-/* line 73, modules.scss */
+/* line 84, modules.scss */
 .carousel--featured h2 {
   font: normal 16px "utopia-std", serif;
   font-weight: 400;
@@ -129,24 +145,18 @@ header .icon {
   line-height: 1.1em;
   margin-bottom: 0.15em;
 }
-/* line 80, modules.scss */
-.carousel--featured h3 {
-  font: normal 1.25em "futura-pt", sans-serif;
-  font-weight: 400;
-  color: #4d5961;
-}
-/* line 85, modules.scss */
+/* line 91, modules.scss */
 .carousel--featured a:hover h2 {
   color: #4d5961;
 }
 
-/* line 90, modules.scss */
+/* line 96, modules.scss */
 .carousel-indicators li {
   width: 10px;
   height: 10px;
   background: #2d3840;
 }
-/* line 95, modules.scss */
+/* line 101, modules.scss */
 .carousel-indicators li.active {
   margin: 1px;
   width: 10px;
@@ -154,32 +164,75 @@ header .icon {
   background: #0072bc;
 }
 
-/* line 103, modules.scss */
+/* line 109, modules.scss */
 .cta {
   font: normal 16px "futura-pt", sans-serif;
 }
-/* line 106, modules.scss */
+/* line 112, modules.scss */
 .cta:hover {
   text-decoration: underline;
 }
 
-/* line 111, modules.scss */
+/* line 117, modules.scss */
 .cta--right {
   text-align: right;
 }
 
-/* line 120, modules.scss */
+/* line 121, modules.scss */
+.stories-blocks {
+  margin-top: 1em;
+}
+
+/* line 125, modules.scss */
+.stories-blocks--story {
+  float: left;
+  width: 50%;
+  padding-bottom: 1em;
+}
+/* line 130, modules.scss */
+.stories-blocks--story.odd {
+  clear: left;
+  padding-right: 0.5em;
+}
+/* line 135, modules.scss */
+.stories-blocks--story.even {
+  padding-left: 0.5em;
+}
+/* line 139, modules.scss */
+.stories-blocks--story .label {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #0072bc;
+  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
+}
+/* line 144, modules.scss */
+.stories-blocks--story a:hover {
+  text-decoration: underline;
+}
+/* line 148, modules.scss */
+.stories-blocks--story h4 {
+  font: normal 1.6em "utopia-std", serif;
+  font-weight: 400;
+  margin: 0.25em auto 0.25em;
+}
+/* line 153, modules.scss */
+.stories-blocks--story h5 {
+  font: normal 1em "futura-pt", sans-serif;
+  font-weight: 400;
+}
+
+/* line 163, modules.scss */
 .sct-preview .first-story {
   float: left;
   width: 4em;
   margin-right: 1em;
 }
-/* line 125, modules.scss */
+/* line 168, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
 }
 
-/* line 132, modules.scss */
+/* line 175, modules.scss */
 .search input {
   width: 100%;
   padding: 0.25em;
@@ -188,33 +241,33 @@ header .icon {
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 48, project.scss */
+/* line 54, project.scss */
 .search input ::-webkit-input-placeholder {
   color: #2d3840;
 }
-/* line 49, project.scss */
+/* line 55, project.scss */
 .search input :-moz-placeholder {
   color: #2d3840;
 }
-/* line 50, project.scss */
+/* line 56, project.scss */
 .search input ::-moz-placeholder {
   color: #2d3840;
 }
-/* line 51, project.scss */
+/* line 57, project.scss */
 .search input :-ms-input-placeholder {
   color: #2d3840;
 }
 
-/* line 146, modules.scss */
+/* line 189, modules.scss */
 .featured h5:hover {
   text-decoration: underline;
 }
 
-/* line 153, modules.scss */
+/* line 196, modules.scss */
 .featured--video .video-thumb {
   position: relative;
 }
-/* line 156, modules.scss */
+/* line 199, modules.scss */
 .featured--video .video-thumb .glyphicon {
   position: absolute;
   top: 50%;
@@ -227,28 +280,49 @@ header .icon {
   opacity: 0.7;
 }
 
-/* line 170, modules.scss */
+/* line 213, modules.scss */
 .hot-topics {
   background-color: #2d3840;
 }
-/* line 173, modules.scss */
+/* line 216, modules.scss */
 .hot-topics > * {
   display: inline-block;
   padding: 0.5em;
 }
-/* line 178, modules.scss */
+/* line 221, modules.scss */
 .hot-topics h3 {
   color: #f26522;
   font: normal 1.1em "utopia-std", serif;
   font-weight: 700;
 }
-/* line 183, modules.scss */
+/* line 226, modules.scss */
 .hot-topics a {
   color: #fff;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 187, modules.scss */
+/* line 230, modules.scss */
 .hot-topics a:hover {
   background-color: #4d5961;
+}
+
+/* line 238, modules.scss */
+.social-block {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+/* line 241, modules.scss */
+.social-block.last-child {
+  width: 32.20339%;
+  float: right;
+  margin-right: 0;
+  *margin-left: -1em;
+  display: inline;
+}
+
+/* line 246, modules.scss */
+.twitter-timeline {
+  height: 400px;
 }
