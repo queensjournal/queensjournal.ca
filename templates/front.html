@@ -26,6 +26,7 @@
   {% show_image_box 'front-banner' %}
 {% endblock %}
 
+      {% comment %}
                 <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
                     {% for entry in latest_entries %}
                     <li>
@@ -39,6 +40,7 @@
                 <div class="hr"><hr/></div>
 
                 <fb:recommendations site="http://www.queensjournal.ca" width="220" height="450" header="true" font="" border_color=""></fb:recommendations>
+        {% endcomment %}
 
 
 {% load solo_tags %}
@@ -72,7 +74,8 @@
       {% for fstory in fstories %}
       <div class="item{% if forloop.first %} active{% endif %}">
         <div class="image-wrap">
-          {% thumbnail "544x330" fstory.orig_photo %}
+          {% thumbnail "544x330" fstory.orig_photo as th %}
+          <img src="{{ th.url }}" />
           <a class="left carousel-control" href="#CarouselFeatured" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
@@ -83,9 +86,9 @@
 
         <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
 
-        <a href="{{ fstory.get_absolute_url }}">
+        <a href="{{ fstory.story.get_absolute_url }}">
           <h2>{{ fstory.story.title|typogrify }}</h2>
-          <h3>{{ fstory.story.deck }}</h3>
+          <h3 class="deck">{{ fstory.story.deck }}</h3>
         </a>
       </div>
       {% endfor %}
@@ -134,7 +137,9 @@
 
     <a href="{{ video.get_absolute_url }}">
       <div class="video-thumb">
-        {% thumbnail "216x121" video.screenshot %}<span class="glyphicon glyphicon-play-circle"></span>
+        {% thumbnail "216x121" video.screenshot as th %}
+        <img src="{{ th.url }}" />
+        <span class="glyphicon glyphicon-play-circle"></span>
       </div>
 
       <h5>{{ video.name }}</h5>
