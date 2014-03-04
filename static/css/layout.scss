@@ -43,7 +43,7 @@ img {
 }
 
 header {
-  margin: 1em auto 0.25em;
+  margin: 1em auto 0;
   padding: 1em 0 0;
   border-top: $divider;
   text-align: center;
@@ -110,11 +110,11 @@ nav {
 // columns
 // -------
 .rail-left {
-  @include span-columns(2);
+  @include span-columns(3);
 }
 
 .main {
-  @include span-columns(7);
+  @include span-columns(6);
 }
 
 .rail-right {

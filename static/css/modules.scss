@@ -7,6 +7,11 @@
   text-align: center
 }
 
+.image-box {
+  // bento
+  text-align: center;
+}
+
 .list-header {
   @include blue-border-bottom();
   margin-bottom: 1em;
@@ -36,6 +41,7 @@
 
 .list-caption {
   margin-bottom: 0.5em;
+  @include serif;
 }
 
 .stories-list {
@@ -80,11 +86,6 @@
     font-size: 3em;
     line-height: 1.1em;
     margin-bottom: 0.15em;
-  }
-
-  h3 {
-    @include futura(1.25em);
-    color: $colour_mid_slate;
   }
 
   a:hover h2 {
@@ -138,6 +139,10 @@
   .label {
     @include blue-border-bottom;
     margin-bottom: 0.5em;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 
   h4 {
