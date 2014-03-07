@@ -6,7 +6,6 @@ from stories.models import Story, Photo
 class Gallery(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField()
-    story = models.ForeignKey(Story, null=True, blank=True)
     pub_date = models.DateField()
     description = models.TextField()
     images = models.ManyToManyField(Photo, limit_choices_to = {

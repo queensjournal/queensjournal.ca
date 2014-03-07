@@ -53,6 +53,8 @@ class Story(models.Model):
     is_published = models.BooleanField(editable=False)
 
     photos = models.ManyToManyField('Photo', through='StoryPhoto')
+    galleries = models.ManyToManyField('galleries.Gallery',
+        related_name='story')
 
     objects = StoryManager()
 
@@ -87,17 +89,15 @@ class Story(models.Model):
     list_authors.short_description = 'Author(s)'
 
     def story_thumb(self):
-        from galleries.models import Gallery
         if self.show_headshots is True:
             try:
                 sa = StoryAuthor.objects.filter(story=self)[0]
                 return sa.author.headshot
             except IndexError:
                 return False
-        if self.gallery_set.all():
+        if self.galleries.all():
             try:
-                gallery = Gallery.objects.filter(story=self)[0]
-                return gallery.images.all()[0].photo
+                return self.galleries.all()[0].images.all()[0].photo
             except IndexError:
                 return False
         else:

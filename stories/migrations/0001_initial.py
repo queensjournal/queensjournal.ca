@@ -6,8 +6,12 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('structure', '0001_initial'),
+    )
+
     def forwards(self, orm):
-        
+
         # Adding model 'Story'
         db.create_table(u'stories_story', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -65,7 +69,7 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        
+
         # Deleting model 'Story'
         db.delete_table(u'stories_story')
 

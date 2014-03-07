@@ -11,20 +11,6 @@ from galleries.models import Gallery
 from tagging.models import Tag
 
 
-class GalleryFormSet(BaseInlineFormSet):
-    def get_queryset(self):
-        return super(GalleryFormSet,
-            self).get_queryset().filter(pub_date__gt=(datetime.datetime.now()
-            - datetime.timedelta(weeks=8)))
-
-
-class GalleryInline(admin.TabularInline):
-    model = Gallery
-    formset = GalleryFormSet
-    filter_horizontal = ['images']
-    extra = 1
-
-
 class FactboxInline(admin.TabularInline):
     model = Factbox
     extra = 1
@@ -57,7 +43,8 @@ class StoryAdmin(admin.ModelAdmin):
         (None, {'fields': ['title', 'deck', 'slug', 'tags', 'summary']}),
         ('Date information', {'fields': ['pub_date']}),
         ('Content',
-            {'fields': ['content', 'show_headshots'], 'classes': ['richedit']}),
+            {'fields': ['content', 'show_headshots', 'galleries'],
+                'classes': ['richedit']}),
         ('Organizational',
             {'fields': ['status', 'section', 'issue', 'featured']})
     ]
@@ -66,7 +53,6 @@ class StoryAdmin(admin.ModelAdmin):
         StoryAuthorInline,
         FactboxInline,
         DocumentInline,
-        GalleryInline,
     ]
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'summary', 'pub_date', 'issue', 'section',
@@ -75,6 +61,7 @@ class StoryAdmin(admin.ModelAdmin):
     search_fields = ['title', 'deck', 'content']
     actions = ['make_published', 'make_featured', 'remove_featured',
         'make_draft']
+    filter_horizontal = ('galleries',)
 
     class Media:
         js = (settings.MEDIA_URL + 'js/admin/formatting-controls.js',)
