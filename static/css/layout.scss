@@ -117,6 +117,10 @@ nav {
   @include span-columns(6);
 }
 
+.main--single {
+  @include span-columns(9);
+}
+
 .rail-right {
   @include span-columns(3 omega);
 }

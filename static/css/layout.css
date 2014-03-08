@@ -220,6 +220,14 @@ nav a:hover {
 }
 
 /* line 120, layout.scss */
+.main--single {
+  width: 74.57627%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+}
+
+/* line 124, layout.scss */
 .rail-right {
   width: 23.72881%;
   float: right;
@@ -228,7 +236,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 126, layout.scss */
+/* line 130, layout.scss */
 footer {
   *zoom: 1;
   max-width: 59em;
@@ -250,16 +258,16 @@ footer:after {
   display: table;
   clear: both;
 }
-/* line 134, layout.scss */
+/* line 138, layout.scss */
 footer address {
   margin-top: 0.5em;
 }
-/* line 138, layout.scss */
+/* line 142, layout.scss */
 footer a:hover {
   text-decoration: underline;
 }
 
-/* line 143, layout.scss */
+/* line 147, layout.scss */
 .footer-left {
   width: 40.67797%;
   float: left;
@@ -269,7 +277,7 @@ footer a:hover {
   border-right: 1px solid #2d3840;
 }
 
-/* line 149, layout.scss */
+/* line 153, layout.scss */
 .footer-right {
   width: 57.62712%;
   float: right;
@@ -278,23 +286,23 @@ footer a:hover {
   display: inline;
 }
 
-/* line 153, layout.scss */
+/* line 157, layout.scss */
 .footer-link-col {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 156, layout.scss */
+/* line 160, layout.scss */
 .footer-link-col ul {
   list-style-type: none;
   padding-left: 0;
 }
-/* line 161, layout.scss */
+/* line 165, layout.scss */
 .footer-link-col a {
   color: #2d3840;
 }
-/* line 165, layout.scss */
+/* line 169, layout.scss */
 .footer-link-col.last-child {
   width: 32.20339%;
   float: right;
