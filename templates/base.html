@@ -1,12 +1,14 @@
 {% load navigation %}
 {% load linkset %}
-{% load tag_cloud %}
 {% load compressed %}
 
 {% load static %}
 {% load story_tags %}
 {% load since %}
 {% load compressed %}
+{% load imagekit %}
+{% load custom_html %}
+{% load typogrify_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -100,20 +102,32 @@
       {% block rail-right %}
         {% load video_tags %}
         {% get_featured_video as video %}
+
         {% if video %}
-        <div id="latest-video">
-          <h3>Featured Video: <a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</a></h3>
-          <div class="video-thumb">
-            <a href="{{ video.get_absolute_url }}"><img src="{{ video.front_image.url }}" />
-              <h2 class="latest-section-head">{{ video.name }}</h2>
-            </a>
-          </div>
-          <p class="latest-section-summary">{{ video.caption | truncatewords:18 }}</p>
-          <p class="pub_date">Posted {{ video.pub_date | since }} ago</p>
-        </div>
+        <div class="featured featured--video">
+          <h3 class="list-header">Featured Video</h3>
+
+          <a href="{{ video.get_absolute_url }}">
+            <div class="video-thumb">
+              {% thumbnail "216x121" video.screenshot as th %}
+              <img src="{{ th.url }}" />
+              <span class="glyphicon glyphicon-play-circle"></span>
+            </div>
+
+            <h5>{{ video.name }}</h5>
+
+            <p class="list-caption">{{ video.caption|paragraphs:"0:1"|truncatewords:50|typogrify|safe }}</p>
+
+            <p class="pub-date">Posted {{ video.pub_date | since }} ago</p>
+          </a>
+
+          <p class="cta cta--right">
+            <a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</span></a>
+        </p>
+      </div>
         {% endif %}
       {% endblock %}
-    </div>
+    </div><!-- .rail-right -->
   </div><!-- .container -->
 
   {% include "ads/banner-bottom.html" %}

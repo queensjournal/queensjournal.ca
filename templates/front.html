@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load navigation %}
 {% load sidebartags %}
-{% load custom_html %}
-{% load flash %}
 
 {% load latest_content %}
 {% load since %}
@@ -125,33 +123,4 @@
     </div>
     {% endfor %}
   </div>
-{% endblock %}
-
-{% block rail-right %}
-  {% load video_tags %}
-  {% get_featured_video as video %}
-
-  {% if video %}
-  <div class="featured featured--video">
-    <h3 class="list-header">Featured Video</h3>
-
-    <a href="{{ video.get_absolute_url }}">
-      <div class="video-thumb">
-        {% thumbnail "216x121" video.screenshot as th %}
-        <img src="{{ th.url }}" />
-        <span class="glyphicon glyphicon-play-circle"></span>
-      </div>
-
-      <h5>{{ video.name }}</h5>
-
-      <p class="list-caption">{{ video.caption|paragraphs:"0:1"|truncatewords:50|typogrify|safe }}</p>
-
-      <p class="pub-date">Posted {{ video.pub_date | since }} ago</p>
-    </a>
-
-    <p class="cta cta--right">
-      <a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</span></a>
-    </p>
-  </div>
-  {% endif %}
 {% endblock %}
