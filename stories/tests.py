@@ -12,7 +12,7 @@ class StoryTests(SiteTestHelper, TestCase):
 
     def test_story_detail(self):
         self.assert_page_loads(self.story.get_absolute_url(),
-            'stories/single_detail.html')
+            'stories/story_detail.html')
 
     def test_story_returns_404_if_unpublished(self):
         story = StoryFactory(status='d')

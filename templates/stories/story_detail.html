@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'single.html' %}
 {% load navigation %}
 {% load typogrify_tags %}
 {% load custom_html %}
@@ -20,23 +20,10 @@
     <meta property="fb:admins" content="1653600047" />
     {% endblock facebook %}
 
-    {% block js %}
-    {% if story.gallery_set.all %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-    {% endif %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/print_preview.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plusone.js"></script>
-    {% endblock %}
-
     {% block css %}
-    {% if story.gallery_set.all %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-    {% endif %}
     <link rel="alternate stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print_preview.css" media="screen" title="Print Preview" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print.css" media="print" />
     {% endblock %}
-
-    {% block title %}{{ story.head }} - {{ block.super }}{% endblock title %}
 
     {% block header-type %}secondary{% endblock header-type %}
     {% if story.issue %}
@@ -62,7 +49,6 @@
     {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %} <a href="{% url "archive-volume-index" story.issue.volume.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url "archive.views.archive_issue_index" story.issue.pub_date %}">Issue {{ story.issue.issue }} &#151; {{ story.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span><a href="{% url "archive.views.section_index" story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url "front-section" story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
 
     <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
-    <h1 class="story-head">{{ story.head|stripspace|widont }}</h1>
     <h4 class="story-deck">{{ story.deck|stripspace|widont }}</h4>
     <p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors|safe }}{% endifnotequal %}</p>
 
@@ -210,3 +196,12 @@
         this.select();
     });
     {% endblock footercode %}
+
+{% block title %}{{ story.title }} - {{ block.super }}{% endblock title %}
+
+{% block main %}
+<h1 class="item__title">{{ item.title|widont }}</h1>
+{% if item.deck %}
+<h2 class="item__deck">{{ item.deck|widont }}</h2>
+{% endif %}
+{% endblock %}

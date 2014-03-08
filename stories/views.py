@@ -22,7 +22,7 @@ def detail_story(request, datestring, section, slug):
         author_role = author.author.get_role(story_selected.pub_date)
     except IndexError:
         author_role = False
-    return render_to_response('stories/single_detail.html',
+    return render_to_response('stories/story_detail.html',
                                 {'story': story_selected,
                                 'author_role': author_role, },
                                 context_instance=RequestContext(request))
