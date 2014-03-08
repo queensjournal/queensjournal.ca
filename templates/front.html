@@ -87,7 +87,7 @@
         <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
 
         <a href="{{ fstory.story.get_absolute_url }}">
-          <h2>{{ fstory.story.title|typogrify }}</h2>
+          <h2>{{ fstory.story.title|typogrify|widont }}</h2>
           <h3 class="deck">{{ fstory.story.deck }}</h3>
         </a>
       </div>
