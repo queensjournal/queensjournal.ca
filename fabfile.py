@@ -47,9 +47,9 @@ def remote_env(command):
             run(command)
 
 
-def remote_run(command):
+def remote_run(command, **kwargs):
     with cd(env.path):
-        run(command)
+        run(command, **kwargs)
 
 
 def restart():
@@ -95,11 +95,28 @@ def make_dump(db):
     dump_loc = os.path.join(env.path, 'devdata/dump.sql')
     remote_run('mkdir -p devdata')
     remote_run('pg_dump -v -h localhost -U postgres --clean --no-owner --no-privileges \
-        --format=custom {db} -f {dump_loc}'.format(db=db, dump_loc=dump_loc))
+        --exclude-table=django_session --format=custom {db} -f {dump_loc}'.format(db=db, dump_loc=dump_loc))
 
 
 def get_dump():
     get(os.path.join(env.path, 'devdata/dump.sql'))
 
+
 def get_media():
-    get(os.path.join(env.path, 'media/'), settings.MEDIA_ROOT)
+    media_folder = os.path.join(env.path, 'media/')
+    dirs = run('find ' + media_folder + ' -type d -name "*2014*"').split('\r\n')
+    for d in dirs:
+        get(d, settings.MEDIA_ROOT)
+
+def restore_dump():
+    cmds = [
+        'dropdb journal',
+        'createdb journal --owner journal',
+        'pg_restore -O -d journal --role=journal journal@queensjournal.ca/dump.sql',
+        './manage.py syncdb',
+        './manage.py migrate bento --fake',
+        './manage.py migrate galleries --fake 0001',
+        './manage.py migrate',
+    ]
+    for cmd in cmds:
+        local(cmd)
