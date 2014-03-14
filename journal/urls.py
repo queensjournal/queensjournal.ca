@@ -64,7 +64,7 @@ urlpatterns += patterns('',
     (r'^rss/blogs/(?P<slug>.*)/$', LatestPostsSingleBlogFeed()),
 )
 
-handler500 = 'stories.views.server_error'
+handler500 = 'utils.views.server_error'
 
 if settings.DEBUG:
     urlpatterns += patterns('',
