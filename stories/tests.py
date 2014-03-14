@@ -1,9 +1,9 @@
 from django.test import TestCase
+from django.core.urlresolvers import resolve, reverse
 
 from utils import SiteTestHelper
 from stories.models import Story
 from stories.factories import StoryFactory
-from stories.managers import StoryManager
 
 
 class StoryTests(SiteTestHelper, TestCase):
@@ -18,6 +18,16 @@ class StoryTests(SiteTestHelper, TestCase):
         story = StoryFactory(status='d')
         resp = self.client.get(story.get_absolute_url())
         self.assertEqual(resp.status_code, 404)
+
+    def test_url_without_pk_returns_story(self):
+        url = reverse('story-detail', args=[
+            self.story.get_datestring(),
+            self.story.section.slug,
+            self.story.slug
+        ])
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+
 
 class StoryManagerTests(TestCase):
     def test_publised_manager_does_not_include_unpublished_stories(self):

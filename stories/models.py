@@ -172,12 +172,17 @@ class Story(models.Model):
             self.is_published = True
         super(Story, self).save(*args, **kwargs)
 
+    def get_datestring(self):
+        return self.pub_date.strftime("%Y-%m-%d")
+
     @models.permalink
     def get_absolute_url(self):
-        return ('stories.views.detail_story', (), {
-            'datestring': self.pub_date.strftime("%Y-%m-%d"),
-            'section': self.section.slug,
-            'slug': self.slug})
+        return ('story-detail', (), {
+                'datestring': self.get_datestring(),
+                'section': self.section.slug,
+                'slug': self.slug,
+                'pk': self.pk,
+                })
 
     def get_twitter_message(self):
         return u'%s: %s' % (self.title, self.summary)
