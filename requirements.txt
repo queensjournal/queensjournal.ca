@@ -32,3 +32,6 @@ django-discover-runner
 
 git+https://github.com/tylerball/django-oembed.git
 git+https://github.com/tylerball/django-shorturls.git
+
+# deployment
+gunicorn
