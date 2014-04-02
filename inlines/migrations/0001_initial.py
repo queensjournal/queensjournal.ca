@@ -45,14 +45,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'inlines', ['DocumentFile'])
 
-        # Adding model 'StoryPoll'
-        db.create_table(u'inlines_storypoll', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('story', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['stories.Story'])),
-            ('poll', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['polls.Poll'])),
-        ))
-        db.send_create_signal(u'inlines', ['StoryPoll'])
-
 
     def backwards(self, orm):
         
@@ -67,9 +59,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'DocumentFile'
         db.delete_table(u'inlines_documentfile')
-
-        # Deleting model 'StoryPoll'
-        db.delete_table(u'inlines_storypoll')
 
 
     models = {
@@ -96,19 +85,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'source': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'story': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['stories.Story']"})
-        },
-        u'inlines.storypoll': {
-            'Meta': {'object_name': 'StoryPoll'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'poll': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['polls.Poll']"}),
-            'story': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['stories.Story']"})
-        },
-        u'polls.poll': {
-            'Meta': {'ordering': "('-pub_date', 'question')", 'object_name': 'Poll'},
-            'close_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 12, 5, 14, 13, 52, 312907)'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'question': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
         },
         u'stories.story': {
             'Meta': {'ordering': "['-pub_date']", 'object_name': 'Story'},

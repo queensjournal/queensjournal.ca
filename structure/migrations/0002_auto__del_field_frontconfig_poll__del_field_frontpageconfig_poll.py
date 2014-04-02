@@ -6,24 +6,17 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('sidebars', '0001_initial'),
+    )
+
     def forwards(self, orm):
+        pass
         
-        # Deleting field 'FrontConfig.poll'
-        db.delete_column(u'structure_frontconfig', 'poll_id')
-
-        # Deleting field 'FrontPageConfig.poll'
-        db.delete_column(u'structure_frontpageconfig', 'poll_id')
-
 
     def backwards(self, orm):
+        pass
         
-        # Adding field 'FrontConfig.poll'
-        db.add_column(u'structure_frontconfig', 'poll', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['polls.Poll'], null=True, blank=True), keep_default=False)
-
-        # Adding field 'FrontPageConfig.poll'
-        db.add_column(u'structure_frontpageconfig', 'poll', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['polls.Poll'], null=True, blank=True), keep_default=False)
-
-
     models = {
         u'auth.group': {
             'Meta': {'object_name': 'Group'},

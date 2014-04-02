@@ -46,7 +46,6 @@ class Migration(SchemaMigration):
             ('question', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('location', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('issue', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['structure.Issue'], unique=True)),
-            ('poll', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['polls.Poll'], null=True, blank=True)),
             ('photos_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['structure.Author'], null=True)),
         ))
         db.send_create_signal(u'sidebars', ['TalkingHeadsItem'])
@@ -182,13 +181,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'polls.poll': {
-            'Meta': {'ordering': "('-pub_date', 'question')", 'object_name': 'Poll'},
-            'close_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 12, 5, 14, 18, 35, 238760)'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'question': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
-        },
         u'sidebars.artscalendaritem': {
             'Meta': {'ordering': "('event_type', 'location', 'name', 'start_time')", 'object_name': 'ArtsCalendarItem'},
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
@@ -269,7 +261,6 @@ class Migration(SchemaMigration):
             'issue': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['structure.Issue']", 'unique': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'photos_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['structure.Author']", 'null': 'True'}),
-            'poll': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['polls.Poll']", 'null': 'True', 'blank': 'True'}),
             'question': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
         u'stories.photo': {

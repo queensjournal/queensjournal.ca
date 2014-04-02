@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('blog', '0001_initial'),
+    )
+
     def forwards(self, orm):
         db.rename_table(u'structure_headshot', u'authors_headshot')
 

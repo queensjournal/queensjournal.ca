@@ -95,7 +95,6 @@ class Migration(SchemaMigration):
         # Adding model 'FrontConfig'
         db.create_table(u'structure_frontconfig', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('poll', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['polls.Poll'], null=True, blank=True)),
             ('announce_head', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('announce_body', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('pub_date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2013, 11, 28, 14, 45, 3, 43913))),
@@ -110,7 +109,6 @@ class Migration(SchemaMigration):
             ('issue', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['structure.Issue'], unique=True)),
             ('announce_head', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('announce_body', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('poll', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['polls.Poll'], null=True, blank=True)),
         ))
         db.send_create_signal(u'structure', ['FrontPageConfig'])
 
@@ -188,13 +186,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'polls.poll': {
-            'Meta': {'ordering': "('-pub_date', 'question')", 'object_name': 'Poll'},
-            'close_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 12, 5, 14, 45, 3, 36210)'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'question': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
-        },
         u'structure.author': {
             'Meta': {'ordering': "['name']", 'object_name': 'Author'},
             'bio': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
@@ -231,7 +222,6 @@ class Migration(SchemaMigration):
             'announce_head': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'issue': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['structure.Issue']", 'null': 'True', 'blank': 'True'}),
-            'poll': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['polls.Poll']", 'null': 'True', 'blank': 'True'}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 11, 28, 14, 45, 3, 43913)'}),
             'sections': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['structure.FlatPlanConfig']"})
         },
@@ -241,7 +231,6 @@ class Migration(SchemaMigration):
             'announce_head': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'issue': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['structure.Issue']", 'unique': 'True'}),
-            'poll': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['polls.Poll']", 'null': 'True', 'blank': 'True'})
         },
         u'structure.headshot': {
             'Meta': {'object_name': 'Headshot'},
