@@ -1,0 +1,8 @@
+#!/bin/sh
+exec 2>&1
+cd <%= @options[:app_path] %>
+if [ -f <%= @options[:gunicorn_path] %> ]; then
+  exec chpst -u <%= @options[:user] %> <%= @options[:gunicorn_path] %> <%= @options[:app] %>.wsgi:application
+else
+  exit 0
+fi

@@ -1,0 +1,31 @@
+{
+  "name": "django",
+  "description": "Installs/Configures django",
+  "long_description": "django\n======\n\n\n",
+  "maintainer": "Tyler Ball",
+  "maintainer_email": "tyler@tylerball.net",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "postgresql": ">= 0.0.0",
+    "python": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}

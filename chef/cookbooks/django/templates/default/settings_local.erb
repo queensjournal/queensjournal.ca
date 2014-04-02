@@ -1,0 +1,44 @@
+<% if node.chef_environment == 'dev' %>
+DEBUG = True
+<% else %>
+DEBUG = False
+<% end %>
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<%= @db %>',
+        'USER': '<%= @db_user %>',
+        'PASSWORD': '<%= @db_pass %>',
+        'HOST': '127.0.0.1',
+        'PORT': '',
+    }
+}
+
+MEDIA_URL = '<%= node[:fqdn] %>/media/'
+
+STATIC_URL = '<%= node[:fqdn] %>/static/'
+
+SECRET_KEY = '<%= @secret_key %>'
+
+HAYSTACK_XAPIAN_PATH = '<%= File.join(@app_path, 'xapian/') %>'
+
+# don't package assets in prod
+STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
+PIPELINE_ENABLED = True
+
+# MEMCACHED Config
+#CACHES = {
+#    'default': {
+#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#        'LOCATION': '127.0.0.1:11211',
+#        'TIMEOUT': 60,
+#        'OPTIONS': {
+#            'MAX_ENTRIES': 1000
+#        }
+#    }
+#}
+
+# short url configuration
+SHORT_BASE_URL = "http://qjrnl.net/"
+SHORTEN_FULL_BASE_URL = "http://queensjournal.ca/"

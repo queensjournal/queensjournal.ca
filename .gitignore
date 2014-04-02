@@ -1,19 +1,15 @@
 *settings_local.py
 *.pyc
-/lib/
-/bin/
-/build/
-/share/
-/include/
 .sass-cache/
 /node_modules/
+/venv/
 
 .DS_Store
-/devdata/
 /media/
-/xapian/
 
 /apps/static/components/
 
 # collectstatic target
 /served/
+
+/tmp/librarian

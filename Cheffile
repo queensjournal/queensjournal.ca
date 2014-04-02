@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+# base
+cookbook 'apt'
+cookbook 'users'
+cookbook 'zsh'
+cookbook 'sudo'
+cookbook 'git'
+cookbook 'build-essential'
+cookbook 'runit'
+cookbook 'tmux'
+cookbook 'openssl'
+
+# django
+cookbook 'postgresql',
+  :github => "phlipper/chef-postgresql",
+  :ref => "0.13.1"
+
+cookbook 'python'
+cookbook 'nginx'

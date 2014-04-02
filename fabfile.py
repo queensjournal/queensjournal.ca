@@ -1,7 +1,7 @@
 import os
 import subprocess
 from random import Random
-from fabric.api import local, cd, run, env, lcd, sudo, prefix
+from fabric.api import local, cd, run, env, sudo, prefix, task, put
 from fabric.operations import get
 from fabric.contrib import django
 
@@ -16,7 +16,6 @@ env.project_name = settings.PROJECT_NAME
 env.path = "/home/journal/%(project_name)s" % env
 env.django_root = os.path.join(env.project_root, 'apps/')
 
-env.hosts = ['journal@queensjournal.ca']
 env.media = env.path + '/media/'
 
 local_dumps = os.path.join(env.project_root, 'dumps/')
@@ -120,3 +119,47 @@ def restore_dump():
     ]
     for cmd in cmds:
         local(cmd)
+
+
+@task
+def install_chef():
+    """
+    Install chef-solo on the server
+    """
+    run('sudo apt-get update', pty=True)
+    run('sudo apt-get -y install build-essential zlib1g-dev libssl-dev \
+        libreadline6-dev libyaml-dev', pty=True)
+    with cd('/tmp'):
+        run('wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz')
+        run('tar -xvzf ruby-1.9.3-p194.tar.gz')
+        with cd('ruby-1.9.3-p194'):
+            run('./configure --prefix=/usr/local')
+            run('make && sudo make install')
+    run('sudo gem install chef ruby-shadow --no-ri --no-rdoc')
+
+
+@task
+def sync_config():
+    sudo('mkdir -p /etc/chef')
+    put('./tmp/librarian/cookbooks', '/etc/chef', use_sudo=True)
+    put('./chef/cookbooks', '/etc/chef', use_sudo=True)
+    put('./chef/environments', '/etc/chef', use_sudo=True)
+    put('./chef/roles/', '/etc/chef', use_sudo=True)
+    put('./chef/data_bags/', '/etc/chef', use_sudo=True)
+
+
+@task
+def provision(node, environment='_default'):
+    """
+    Run chef-solo
+    """
+    sync_config()
+
+    if node:
+        node_str = " -j /etc/chef/cookbooks/node_%s.json" % (node)
+    else:
+        node_str = ''
+
+    with cd('/etc/chef/cookbooks'):
+        sudo('chef-solo -E %s -c /etc/chef/cookbooks/solo.rb %s'
+            % (environment, node_str), pty=True)

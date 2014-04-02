@@ -1,0 +1,65 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    apt (2.3.8)
+    bluepill (2.3.1)
+      rsyslog (>= 0.0.0)
+    build-essential (2.0.0)
+    chef_handler (1.1.5)
+    dmg (2.2.0)
+    git (4.0.0)
+      build-essential (>= 0.0.0)
+      dmg (>= 0.0.0)
+      runit (>= 1.0.0)
+      windows (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    nginx (2.5.0)
+      apt (~> 2.2)
+      bluepill (~> 2.3)
+      build-essential (~> 2.0)
+      ohai (~> 1.1)
+      runit (~> 1.2)
+      yum-epel (~> 0.3)
+    ohai (1.1.12)
+    openssl (1.1.0)
+    python (1.4.6)
+      build-essential (>= 0.0.0)
+      yum-epel (>= 0.0.0)
+    rsyslog (1.12.2)
+    runit (1.5.10)
+      build-essential (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    sudo (2.5.2)
+    tmux (1.4.0)
+    users (1.7.0)
+    windows (1.30.0)
+      chef_handler (>= 0.0.0)
+    yum (3.1.6)
+    yum-epel (0.3.4)
+      yum (~> 3.0)
+    zsh (1.0.0)
+
+GIT
+  remote: https://github.com/phlipper/chef-postgresql
+  ref: 0.13.1
+  sha: 517e5331ddaa08aabf81deed64d0387b1f5c7a31
+  specs:
+    postgresql (0.13.1)
+      apt (>= 1.9.0)
+
+DEPENDENCIES
+  apt (>= 0)
+  build-essential (>= 0)
+  git (>= 0)
+  nginx (>= 0)
+  openssl (>= 0)
+  postgresql (>= 0)
+  python (>= 0)
+  runit (>= 0)
+  sudo (>= 0)
+  tmux (>= 0)
+  users (>= 0)
+  zsh (>= 0)
+
