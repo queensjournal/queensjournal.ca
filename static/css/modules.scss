@@ -155,6 +155,42 @@
   }
 }
 
+// Item Detail modules
+// -------------------
+
+.breadcrumb {
+  margin-bottom: 1em;
+  @include futura;
+
+  a {
+    &:after {
+      content: ' >';
+      position: relative;
+      top: 0.05em;
+      color: $colour_dark_slate;
+    }
+  }
+
+  .last-child:after {
+    content: '';
+  }
+}
+
+.item__deck {
+  margin-top: 0.25em;
+  font-size: 1.5em;
+}
+
+.item__byline {
+  margin-top: 1em;
+}
+
+.item__pub-date {
+  margin-top: 0.25em;
+  color: $colour_mid_slate;
+  font-size: 0.9em;
+}
+
 // Front Page
 // ----------
 

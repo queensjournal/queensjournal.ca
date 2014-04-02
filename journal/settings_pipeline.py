@@ -5,6 +5,7 @@ PIPELINE_CSS = {
             'css/bootstrap-carousel.css',
             'css/layout.scss',
             'css/modules.scss',
+            'css/ugc.scss',
         ),
         'output_filename': 'compiled/css/core-styles.grouped.css',
         'extra_context': {

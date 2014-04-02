@@ -1,11 +1,55 @@
 {% extends "base.html" %}
 {# Two-column template without left rail #}
 
+{% load typogrify_tags %}
+
 {% block rail-left-outer %}{% endblock %}
 
 {% block main-outer %}
 <main role="main" class="main main--single">
-  {% block main %}
+  {% block breadcrumb %}
+  <div class="breadcrumb">
+    <a href="{% url "front" %}">Home</a>
+    {% block breadcrumb-extend %}{% endblock %}
+  </div>
   {% endblock %}
+
+  {% block item__title %}
+    <h1 class="item__title">{{ story.title|widont }}</h1>
+    {% if story.deck %}
+    <h2 class="item__deck">{{ story.deck|widont }}</h2>
+    {% endif %}
+  {% endblock item__title %}
+
+  {% block byline %}
+    {% if story.authors %}
+    <p class="item__byline">By: 
+    {% if story.authors.count > 1 %}
+      {% for author in story.authors.all %}
+      {% if forloop.last %} and {% endif %}<a href="{{ author.get_absolute_url }}">{{ author }}</a>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    {% else %}
+      {% load author_tags %}
+      {% for author in story.authors.all %}
+      <a href="{{ author.get_absolute_url }}">{{ author }}</a>, {% get_author_role author story.pub_date %}
+      {% endfor %}
+    {% endif %}
+    </p>
+    {% endif %}
+  {% endblock %}
+
+  {% block pub-date %}
+  <p class="item__pub-date">{{ story.pub_date }}</p>
+  {% endblock %}
+
+  <div class="ugc">
+    {% block main %}
+    {% endblock %}
+  </div>
+
+  {% if story.enable_comments %}
+  {% load disqus_tags %}
+  {% disqus_show_comments %}
+  {% endif %}
 </main>
 {% endblock %}
