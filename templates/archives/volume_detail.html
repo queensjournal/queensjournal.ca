@@ -1,0 +1,24 @@
+{% extends "single.html" %}
+
+{% block breadcrumb-extend %}
+{{ block.super }}
+<a href="{% url "archive-volume-list" %}">Archives</a>
+<span class="last-child">{{ volume }}</span>
+{% endblock %}
+
+{% block main %}
+<h1>{{ volume }}</h1>
+
+{% if volume.issuu_embed %}
+<div class="issuu-embed">
+{{ volume.issuu_embed|safe }}
+</div>
+{% endif %}
+
+<ul class="archive-list issue-list">
+  {% for issue in volume.issue_list %}
+  <li><a href="{{ issue.get_absolute_url }}">{{ issue }}</a> - {{ issue.pub_date|date:"F j, Y" }}</li>
+  {% endfor %}
+</ul>
+
+{% endblock main %}

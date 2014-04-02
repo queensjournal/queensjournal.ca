@@ -1,62 +1,55 @@
-{% extends 'front.html' %}
+{% extends "single.html" %}
+
+{% load section_tags %}
 
 {% block body_class %}issue-detail{% endblock %}
 
-{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest stories feed (RSS 2.0)" href="/rss/latest/" />
-{% endblock headcode %}
+{% block title %}{{ issue.pub_date|date:"F j, Y" }} - {{ issue }} - {{ block.super }}{% endblock title %}
 
-    {% block title %}{{ issue.pub_date|date:"F j, Y" }} - {{ issue }} - {{ block.super }}{% endblock title %}
-
-    {% block issue-banner %}
-        {% if config.issue.extra %}
-            <div id="issue-banner" class="clearfix">
-                <h1>{{ config.issue.extra }}</h1><h4>A special issue of the Journal</h4>
-            </div>
-        {% endif %}
-    {% endblock issue-banner %}
-
-    {% block content-class %} span-19 front-content{% endblock %}
-
-    {% block content %}
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span><a href="{% url "archive.views.archive_index" %}">Archives</a><span class="divider"></span><a href="{% url "archive.views.archive_volume_index" issue.volume.volume %}">Volume {{ issue.volume }}</a></div>{% endblock %}
-        <div class="section-header">
-            <h1>Issue {{ issue.issue }} - {{ issue.pub_date|date:"F j, Y" }}</h1>
+{% block issue-banner %}
+    {% if config.issue.extra %}
+        <div id="issue-banner" class="clearfix">
+            <h1>{{ config.issue.extra }}</h1><h4>A special issue of the Journal</h4>
         </div>
+    {% endif %}
+{% endblock issue-banner %}
 
-    <div class="hr dblmargin"><hr></div>
+{% block breadcrumb-extend %}
+{{ block.super }}
+<a href="{% url "archive-volume-list" %}">Archives</a>
+<a href="{% url "archive-volume-detail" issue.volume.volume %}">{{ issue.volume }}</a>
+<span class="last-child">{{ issue }}<span>
+{% endblock %}
 
-    <div class="block">
+{% block main %}
+<h1>{{ issue }}</h1>
 
-        <div id="section-stories" class="column span-24">
+{% for section in issue.sections.get_sections %}
+<div class="archive-issue-section">
+  <h2>
+    {{ section.name|capfirst }}
+  </h2>
 
-            {% for section in sections %}
-                <div class="sct-preview">
-                    <h2>
-                        {{ section.name|capfirst }}
-                    </h2>
+  {% get_section_issue_content section issue as section_stories %}
 
-                    {% with section.stories|first as story %}
-                    <div class="first-story">
-                        <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" alt="{{ story.head }}"/></a>
+  {% with section_stories.featured as story %}
+  <div class="first-story">
+    <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" alt="{{ story.title }}"/></a>
 
-                        <h3>
-                            {% if story.story_thumb %}
-                            {% endif %}
-                            <a href="{{ story.get_absolute_url }}">{{ story.head }}</a>
-                        </h3>
+    <h3>
+      <a href="{{ story.get_absolute_url }}">{{ story.title }}</a>
+    </h3>
 
-                        <p>{{ story.summary }}</p>
-                    </div>
-                    {% endwith %}
+    <p>{{ story.summary }}</p>
+  </div>
+  {% endwith %}
 
-                    {% for story in section.stories|slice:"1:" %}
-                        <h3><a href="{{ story.get_absolute_url }}">{{ story.head }}</a></h3>
-                    {% endfor %}
-                </div>
-            {% endfor %}
+  {% for story in section_stories.other %}
+  <h3>
+    <a href="{{ story.get_absolute_url }}">{{ story.title }}</a>
+  </h3>
+  {% endfor %}
+</div>
+{% endfor %}
 
-        </div>
-
-    </div><!--block 2-->
-
-    {% endblock content %}
+{% endblock main %}

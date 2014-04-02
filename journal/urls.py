@@ -32,6 +32,7 @@ urlpatterns = patterns('',
     (r'^masthead/', include('masthead.urls')),
     (r'^search/', include('search.urls')),
     (r'^archives/', include('archive.urls')),
+    (r'^issues/', include('issues.urls')),
     (r'^photos/', include('galleries.urls')),
 
     (r'^author/', include('authors.urls')),

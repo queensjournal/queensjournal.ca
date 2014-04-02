@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 
 from utils import SiteTestHelper
 from issues.factories import IssueFactory, VolumeFactory
-from sections.factories import SectionFactory
 
 
 class ArchiveTests(SiteTestHelper, TestCase):
@@ -19,33 +18,23 @@ class ArchiveTests(SiteTestHelper, TestCase):
             for _ in range(2):
                 self.issues.append(IssueFactory(volume=volume))
 
-    def test_archive_index(self):
-        self.assert_page_loads(reverse('archive-index'), 'archives/index.html')
+    def test_archive_volume_list(self):
+        self.assert_page_loads(reverse('archive-volume-list'),
+            'archives/volume_list.html')
 
-    def test_archive_index_volume(self):
+    def test_archive_volume_detail(self):
         volume = self.volumes[0]
-        self.assert_page_loads(reverse('archive-volume-index',
-            args=[volume.volume]), 'archives/index_volume.html')
+        self.assert_page_loads(reverse('archive-volume-detail',
+            args=[volume.volume]), 'archives/volume_detail.html')
 
-    def test_archive_issue_index(self):
+    def test_legacy_archive_issue_detail(self):
         issue = self.issues[0]
-        self.assert_page_loads(reverse('archive-issue-index',
-            args=[issue.pub_date.date()]), 'archives/issue_detail.html')
-
-    def test_archive_section_index(self):
-        issue = self.issues[0]
-        # this needs to test a section part of the original issue and
-        # return a 302, else return 404
-        section = SectionFactory()
-        resp = self.client.get(reverse('archive-section-index', args=[
-            issue.pub_date.date(), section.slug
-        ]))
-        self.assertRedirects(resp, reverse('front-section',
-            args=[section.slug]), status_code=302, target_status_code=200
+        resp = self.client.get(
+            reverse('legacy-archive-issue-detail',
+            args=[
+                issue.pub_date.strftime('%Y'),
+                issue.pub_date.strftime('%m'),
+                issue.pub_date.strftime('%d'),
+            ])
         )
-        resp2 = self.client.get(reverse('archive-section-index', args=[
-            issue.pub_date.date(), 'non-section'
-        ]))
-        self.assertRedirects(resp2, reverse('front-section',
-            args=['non-section']), status_code=302, target_status_code=404
-        )
+        self.assertEqual(resp.status_code, 301)
