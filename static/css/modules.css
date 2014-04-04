@@ -221,18 +221,54 @@
   font-weight: 400;
 }
 
-/* line 163, modules.scss */
+/* line 161, modules.scss */
+.breadcrumb {
+  margin-bottom: 1em;
+  font: normal 16px "futura-pt", sans-serif;
+  font-weight: 400;
+}
+/* line 166, modules.scss */
+.breadcrumb a:after {
+  content: ' >';
+  position: relative;
+  top: 0.05em;
+  color: #2d3840;
+}
+/* line 174, modules.scss */
+.breadcrumb .last-child:after {
+  content: '';
+}
+
+/* line 179, modules.scss */
+.item__deck {
+  margin-top: 0.25em;
+  font-size: 1.5em;
+}
+
+/* line 184, modules.scss */
+.item__byline {
+  margin-top: 1em;
+}
+
+/* line 188, modules.scss */
+.item__pub-date {
+  margin-top: 0.25em;
+  color: #4d5961;
+  font-size: 0.9em;
+}
+
+/* line 199, modules.scss */
 .sct-preview .first-story {
   float: left;
   width: 4em;
   margin-right: 1em;
 }
-/* line 168, modules.scss */
+/* line 204, modules.scss */
 .sct-preview .first-story img {
   margin-bottom: 1em;
 }
 
-/* line 175, modules.scss */
+/* line 211, modules.scss */
 .search input {
   width: 100%;
   padding: 0.25em;
@@ -258,16 +294,16 @@
   color: #2d3840;
 }
 
-/* line 189, modules.scss */
+/* line 225, modules.scss */
 .featured h5:hover {
   text-decoration: underline;
 }
 
-/* line 196, modules.scss */
+/* line 232, modules.scss */
 .featured--video .video-thumb {
   position: relative;
 }
-/* line 199, modules.scss */
+/* line 235, modules.scss */
 .featured--video .video-thumb .glyphicon {
   position: absolute;
   top: 50%;
@@ -280,40 +316,40 @@
   opacity: 0.7;
 }
 
-/* line 213, modules.scss */
+/* line 249, modules.scss */
 .hot-topics {
   background-color: #2d3840;
 }
-/* line 216, modules.scss */
+/* line 252, modules.scss */
 .hot-topics > * {
   display: inline-block;
   padding: 0.5em;
 }
-/* line 221, modules.scss */
+/* line 257, modules.scss */
 .hot-topics h3 {
   color: #f26522;
   font: normal 1.1em "utopia-std", serif;
   font-weight: 700;
 }
-/* line 226, modules.scss */
+/* line 262, modules.scss */
 .hot-topics a {
   color: #fff;
   font: normal 16px "futura-pt", sans-serif;
   font-weight: 400;
 }
-/* line 230, modules.scss */
+/* line 266, modules.scss */
 .hot-topics a:hover {
   background-color: #4d5961;
 }
 
-/* line 238, modules.scss */
+/* line 274, modules.scss */
 .social-block {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 241, modules.scss */
+/* line 277, modules.scss */
 .social-block.last-child {
   width: 32.20339%;
   float: right;
@@ -322,7 +358,26 @@
   display: inline;
 }
 
-/* line 246, modules.scss */
+/* line 282, modules.scss */
 .twitter-timeline {
   height: 400px;
+}
+
+/* line 289, modules.scss */
+.archive-list li {
+  float: left;
+  width: 50%;
+}
+/* line 293, modules.scss */
+.archive-list li:nth-child(1n) {
+  padding-right: 1em;
+}
+/* line 297, modules.scss */
+.archive-list li:nth-child(2n) {
+  padding-left: 1em;
+}
+
+/* line 303, modules.scss */
+.issuu-embed {
+  margin: 1em auto;
 }
