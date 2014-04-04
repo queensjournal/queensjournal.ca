@@ -4,8 +4,8 @@ run_list(
   "recipe[django]",
   "recipe[nginx]",
 )
-override_attributes(
-  :nginx => {
-    :init_style => 'runit'
+default_attributes({
+  nginx: {
+    init_style: 'runit'
   }
-)
+})

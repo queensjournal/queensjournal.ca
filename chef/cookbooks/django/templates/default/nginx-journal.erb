@@ -18,8 +18,8 @@ server {
     server_name localhost <%= node[:fqdn] %>;
     client_max_body_size 20M;
 
-    location /media {
-        root <%= @app_path %>;
+    location ~ ^/(media|static).*$ {
+        root <%= @app_path %>/served;
         if ($query_string) {
             expires max;
         }

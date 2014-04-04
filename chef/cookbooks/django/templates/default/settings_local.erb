@@ -15,9 +15,9 @@ DATABASES = {
     }
 }
 
-MEDIA_URL = '<%= node[:fqdn] %>/media/'
+MEDIA_URL = '//<%= node[:fqdn] %>/media/'
 
-STATIC_URL = '<%= node[:fqdn] %>/static/'
+STATIC_URL = '//<%= node[:fqdn] %>/static/'
 
 SECRET_KEY = '<%= @secret_key %>'
 

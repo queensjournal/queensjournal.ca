@@ -159,6 +159,7 @@ template "#{app_path}/journal/settings_local.py" do
     :db_pass => node[:postgres][:password],
     :secret_key => node[:django][:secret_key],
   })
+  notifies :restart, "runit_service[django]"
 end
 
 runit_service "django" do
@@ -176,8 +177,18 @@ template "/etc/nginx/sites-available/journal" do
   variables({
     :app_path => app_path,
   })
+  notifies :reload, "service[nginx]", :delayed
 end
 
 link "/etc/nginx/sites-enabled/journal" do
   to "/etc/nginx/sites-available/journal"
 end
+
+%w[ /served /served/static /served/media ].each do |path|
+  directory "#{app_path}#{path}" do
+    owner "www-data"
+    group "deploy"
+    mode 0770
+  end
+end
+
