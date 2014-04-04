@@ -46,7 +46,6 @@
 
 {% block content %}
 <div id="story" class="story clearfix">
-    {% block breadcrumb %}<div id="breadcrumb"><a href="/" class="homelink">Home</a><span class="divider"></span>{% if story.issue %} <a href="{% url "archive-volume-index" story.issue.volume.volume %}">Volume {{ story.issue.volume }}</a><span class="divider"></span><a href="{% url "archive.views.archive_issue_index" story.issue.pub_date %}">Issue {{ story.issue.issue }} &#151; {{ story.issue.pub_date|date:"F j, Y" }}</a><span class="divider"></span><a href="{% url "archive.views.section_index" story.issue.pub_date story.section.slug %}" class="section">{{ story.section }}</a>{% else %} <a href="{% url "front-section" story.section.slug %}" class="section">{{ story.section }}</a>{% endif %}</div>{% endblock %}
 
     <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
     <h4 class="story-deck">{{ story.deck|stripspace|widont }}</h4>
@@ -171,10 +170,6 @@
 
                     {% include "ads/in-story.html" %}
 
-                        {% if story.enable_comments %}
-                        {% load disqus_tags %}
-                        {% disqus_show_comments %}
-                        {% endif %}
 
                     </div>
                 </div>
@@ -182,26 +177,12 @@
                 <!-- google_ad_section_end -->
 
 
-    {% block footercode %}
-    {% if story.gallery_set.all %}
-    $(document).ready(function() {
-        $("a.gallery").fancybox({
-            'titlePosition'  : 'inside'
-        });
-        $("div.thumbs-container a:nth-child(6n)").addClass('last')
-    });
-    {% endif %}
-    $("#shorturl").focus(function(){
-        // Select input field contents
-        this.select();
-    });
-    {% endblock footercode %}
-
 {% block title %}{{ story.title }} - {{ block.super }}{% endblock title %}
 
+{% block breadcrumb-extend %}
+<a class="last-child" href="{% url "stories-index-section" story.section.slug %}">{{ story.section }}</a>
+{% endblock %}
+
 {% block main %}
-<h1 class="item__title">{{ item.title|widont }}</h1>
-{% if item.deck %}
-<h2 class="item__deck">{{ item.deck|widont }}</h2>
-{% endif %}
+{{ story.content|safe|linebreaks|typogrify|urlize }}
 {% endblock %}

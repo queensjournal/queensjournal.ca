@@ -8,5 +8,5 @@ class StoryManager(models.Manager):
                 pub_date__lt=datetime.datetime.now(), status='p'
             )
 
-    def latest(self, limit=10):
-        return self.published()[:limit]
+    def latest(self):
+        return self.published().latest()

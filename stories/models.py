@@ -53,6 +53,7 @@ class Story(models.Model):
     is_published = models.BooleanField(editable=False)
 
     photos = models.ManyToManyField('Photo', through='StoryPhoto')
+    authors = models.ManyToManyField('authors.Author', through='StoryAuthor')
     galleries = models.ManyToManyField('galleries.Gallery',
         related_name='story')
 
@@ -62,31 +63,6 @@ class Story(models.Model):
         verbose_name_plural = "Stories"
         get_latest_by = 'pub_date'
         ordering = ['-pub_date']
-
-    def list_authors(self):
-        authors = []
-        author_qset = list(self.storyauthor_set.all())
-        author_num = len(author_qset)
-        # byline names
-        for wrapper in author_qset:
-            if (author_num > 1 and wrapper != author_qset[-2]) \
-            or author_num == 1:
-                authors.append('<a href="/author/%s/">%s</a>, ' % (
-                    wrapper.author.slug, wrapper.author.name))
-            else:
-                authors.append('<a href="/author/%s/">%s</a>' % (
-                    wrapper.author.slug, wrapper.author.name))
-
-        # byline titles
-        if author_num > 1:
-            authors.insert(-1, 'and')
-            authors.append('Journal Staff')
-        elif author_num == 1:
-            authors.append(author_qset[0].author.get_role(self.pub_date))
-        elif author_num == 0:
-            authors.append('Journal Staff')
-        return ' '.join(authors)
-    list_authors.short_description = 'Author(s)'
 
     def story_thumb(self):
         if self.show_headshots is True:
