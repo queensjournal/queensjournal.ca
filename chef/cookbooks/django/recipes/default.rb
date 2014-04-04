@@ -188,7 +188,7 @@ end
   directory "#{app_path}#{path}" do
     owner "www-data"
     group "deploy"
-    mode 0770
+    mode 0775
   end
 end
 
