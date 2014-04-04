@@ -15,7 +15,10 @@ def get_menu_sections(*args, **kwargs):
     if issue:
         sections = issue.sections.get_sections()
     else:
-        sections = Issue.objects.latest().sections.get_sections()
+        try:
+            sections = Issue.objects.latest().sections.get_sections()
+        except Issue.DoesNotExist:
+            return None
     return sections
 
 
