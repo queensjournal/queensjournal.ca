@@ -6,10 +6,6 @@ from django.shortcuts import redirect
 from issues.models import Volume, Issue
 
 
-def parse_date(datestring):
-    return datetime.date(*[int(x) for x in datestring.split('-')])
-
-
 class ArchiveVolumeListView(ListView):
     model = Volume
     template_name = 'archives/volume_list.html'
