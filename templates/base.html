@@ -49,7 +49,7 @@
       <div class="header-sub">
         <div class="header-left">
           {% load issue_tags %}{% get_latest_issue as latest_issue %}
-          Volume {{ latest_issue.volume }} Issue {{ latest_issue.issue }}
+          {{ latest_issue }}
         </div>
 
         <div class="header-center">
@@ -67,8 +67,8 @@
         </div>
 
         <div class="header-right">
-          {% get_latest_stories as latest_stories %}
-          Last Updated {{ latest_stories.0.pub_date | since }} ago
+          {% get_last_updated as last_updated %}
+          Last Updated {{ last_updated | since }} ago
         </div>
       </div>
     </header>
