@@ -169,3 +169,15 @@ runit_service "django" do
     :app => 'journal'
   })
 end
+
+template "/etc/nginx/sites-available/journal" do
+  source "nginx-journal.erb"
+  owner "www-data"
+  variables({
+    :app_path => app_path,
+  })
+end
+
+link "/etc/nginx/sites-enabled/journal" do
+  to "/etc/nginx/sites-available/journal"
+end

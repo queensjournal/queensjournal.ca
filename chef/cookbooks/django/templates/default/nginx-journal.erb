@@ -1,3 +1,4 @@
+<% if node.chef_environment == 'production' %>
 server {
     listen 80;
     server_name www.qjrnl.net qjrnl.net;
@@ -10,14 +11,15 @@ server {
     server_name www.thequeensjournal.org thequeensjournal.org www.thequeensjournal.net thequeensjournal.net www.queensjournal.ca thequeensjournal.com www.thequeensjournal.com;
     rewrite ^ http://queensjournal.ca$request_uri? permanent;
 }
+<% end %>
 
 server {
     listen   80 default;
-    server_name localhost queensjournal.ca;
+    server_name localhost <%= node[:fqdn] %>;
     client_max_body_size 20M;
 
     location /media {
-        root /home/journal/webapps/journal;
+        root <%= @app_path %>;
         if ($query_string) {
             expires max;
         }
@@ -33,7 +35,4 @@ server {
         proxy_read_timeout 10;
         proxy_pass http://localhost:8000/;
     }
-
-    access_log      /home/journal/logs/journal.access_log;
-    error_log       /home/journal/logs/journal.error_log;
 }
