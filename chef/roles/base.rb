@@ -10,11 +10,6 @@ run_list(
   "recipe[runit]",
   "recipe[tmux]",
 )
-default_attributes(
-  "chef_client" => {
-    "init_style" => "runit"
-  }
-)
 override_attributes(
   :authorization => {
     :sudo => {
