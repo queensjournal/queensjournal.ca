@@ -195,15 +195,11 @@ LOGGING = {
     }
 }
 
-from journal.settings_local import *
-
-from journal.settings_pipeline import *
-
-PIPELINE_ROOT = os.path.join(PROJECT_ROOT, 'static/')
-
 # Uses django-discover-runner test discovery
 TEST_RUNNER = "discover_runner.DiscoverRunner"
 TEST_DISCOVER_TOP_LEVEL = PROJECT_ROOT
+
+HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_ROOT, 'xapian/')
 
 # Run tests in sqllite
 if 'test' in sys.argv:
@@ -216,5 +212,13 @@ if 'test' in sys.argv:
 
     PIPELINE = True
 
-    # don't post to twitter when running tests. TODO: find a better way.
-    TWITTER_DEV = True
+    SECRET_KEY = 'test_testsdfaklsgag4t345h4h3ergs24394g4rg49'
+
+    MEDIA_URL = '/media/'
+    STATIC_URL = '/static/'
+else:
+    from journal.settings_local import *
+
+from journal.settings_pipeline import *
+
+PIPELINE_ROOT = os.path.join(PROJECT_ROOT, 'static/')
