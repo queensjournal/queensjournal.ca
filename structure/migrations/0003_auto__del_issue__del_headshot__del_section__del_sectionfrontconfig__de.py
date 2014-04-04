@@ -9,7 +9,6 @@ class Migration(SchemaMigration):
 
     depends_on = (
         ('authors', '0001_initial'),
-        ('blog', '0001_initial'),
         ('issues', '0001_initial'),
         ('sections', '0001_initial'),
     )
