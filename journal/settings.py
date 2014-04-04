@@ -111,9 +111,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Dependencies
+    'haystack',
     'pipeline',
     'django_mobile',
-    'haystack',
     'custom',
     'typogrify',
     'imagekit',
@@ -212,11 +212,15 @@ if 'test' in sys.argv:
     }
 
     PIPELINE = True
+    STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
 
     SECRET_KEY = 'test_testsdfaklsgag4t345h4h3ergs24394g4rg49'
 
     MEDIA_URL = '/media/'
     STATIC_URL = '/static/'
+
+    # Don't bother with haystack during tests
+    HAYSTACK_SEARCH_ENGINE = 'dummy'
 else:
     from journal.settings_local import *
 
