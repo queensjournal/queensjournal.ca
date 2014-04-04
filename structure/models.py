@@ -10,9 +10,9 @@ class FlatPlanConfig(models.Model):
 
     def get_sections(self):
         sections = []
-        section_qset = self.flatplansection_set.all()
-        for section_wrapper in section_qset:
-            sections.append(section_wrapper.section)
+        for flat_section in self.flatplansection_set.all() \
+                .prefetch_related('section'):
+            sections.append(flat_section.section)
         return sections
 
     def list_sections(self):
