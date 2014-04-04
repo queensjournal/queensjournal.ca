@@ -23,9 +23,10 @@ SECRET_KEY = '<%= @secret_key %>'
 
 HAYSTACK_XAPIAN_PATH = '<%= File.join(@app_path, 'xapian/') %>'
 
-# don't package assets in prod
-STATICFILES_STORAGE = 'pipeline.storage.NonPackagingPipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+<% if node.chef_environment != 'dev' %>
 PIPELINE_ENABLED = True
+<% end %>
 
 # MEMCACHED Config
 #CACHES = {

@@ -192,3 +192,13 @@ end
   end
 end
 
+include_recipe "apt"
+
+apt_repository 'node-js' do
+  uri 'http://ppa.launchpad.net/chris-lea/node.js/ubuntu'
+  distribution 'precise'
+  components ['main']
+  notifies :install, 'package[nodejs]', :immediately
+end
+
+package 'nodejs'

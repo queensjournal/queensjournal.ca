@@ -15,5 +15,7 @@ echo "Collect Static Files"
 echo "Migrate"
 <%= File.join(@app_path, '/venv/bin/python') %> <%= @manage_py %> syncdb --migrate
 
+cd <%= @app_path %> && npm install .
+
 #echo "Restart"
 sudo sv restart django
