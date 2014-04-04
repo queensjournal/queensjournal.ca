@@ -282,3 +282,24 @@ $social_block_height: 400px;
 .twitter-timeline {
   height: $social_block_height;
 }
+
+// Archives
+// --------
+.archive-list {
+  li {
+    float: left;
+    width: 50%;
+
+    &:nth-child(1n) {
+      padding-right: 1em;
+    }
+
+    &:nth-child(2n) {
+      padding-left: 1em;
+    }
+  }
+}
+
+.issuu-embed {
+  margin: 1em auto;
+}
