@@ -141,11 +141,10 @@ def install_chef():
 @task
 def sync_config():
     sudo('mkdir -p /etc/chef')
-    put('./tmp/librarian/cookbooks', '/etc/chef', use_sudo=True)
-    put('./chef/cookbooks', '/etc/chef', use_sudo=True)
-    put('./chef/environments', '/etc/chef', use_sudo=True)
-    put('./chef/roles/', '/etc/chef', use_sudo=True)
-    put('./chef/data_bags/', '/etc/chef', use_sudo=True)
+    local('rsync -r chef/ %s:/tmp/chef' % env.host)
+    local('rsync -r tmp/librarian/cookbooks %s:/tmp/chef' % env.host)
+    sudo('cp -r /tmp/chef /etc')
+    sudo('rm -rf /tmp/chef')
 
 
 @task
