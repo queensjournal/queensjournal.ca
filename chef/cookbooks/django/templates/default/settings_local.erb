@@ -28,6 +28,10 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 PIPELINE_ENABLED = True
 <% end %>
 
+ALLOWED_HOSTS = [
+  '<%= node[:fqdn] %>',
+]
+
 # MEMCACHED Config
 #CACHES = {
 #    'default': {
