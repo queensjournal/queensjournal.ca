@@ -56,8 +56,12 @@
 }
 
 /* line 10, modules.scss */
-.image-box {
+.bento-image-box {
   text-align: center;
+}
+/* line 14, modules.scss */
+.container--nav .bento-image-box img {
+  margin-bottom: 1em;
 }
 
 /* line 15, modules.scss */

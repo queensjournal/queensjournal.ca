@@ -7,9 +7,13 @@
   text-align: center
 }
 
-.image-box {
+.bento-image-box {
   // bento
   text-align: center;
+
+  .container--nav & img {
+    margin-bottom: 1em;
+  }
 }
 
 .list-header {

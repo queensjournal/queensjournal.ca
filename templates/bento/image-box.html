@@ -1,8 +1,7 @@
 {% load url from future %}
 {% load i18n %}
 
-<div{% if perms.bento %} class="image-box"{% endif %}>
-
+<div class="bento-image-box">
 {% if box.image %}
     {% block image %}
         {% if box.link %}
