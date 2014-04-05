@@ -94,7 +94,7 @@ include_recipe "postgresql::server_dev"
 node.set_unless[:postgres][:password] = secure_password
 
 pg_user "journal" do
-  privileges superuser: false, createdb: false, login: true
+  privileges superuser: false, createdb: true, login: true
   password node[:postgres][:password]
 end
 
@@ -122,6 +122,9 @@ package "zlib1g-dev"
 package 'libxapian22'
 package 'libxapian-dev'
 package 'python-xapian'
+
+# send error emails
+package 'postfix'
 
 # ve.path
 link "#{ve.path}/lib/python2.7/site-packages/xapian" do
@@ -164,6 +167,25 @@ runit_service "django" do
     :app_path => app_path,
     :app => 'journal'
   })
+end
+
+ruby_block "add staging password" do
+  block do
+    require 'webrick/httpauth/htpasswd'
+    @htpasswd = WEBrick::HTTPAuth::Htpasswd.new('/etc/nginx/staging-htpasswd')
+
+    @htpasswd.set_passwd( 'Restricted', node[:nginx_user], node[:nginx_password] )
+
+    @htpasswd.flush
+  end
+
+  only_if { node.chef_environment == 'staging' }
+end
+
+file '/etc/nginx/staging-htpasswd' do
+  mode 0644
+  action :touch
+  only_if { node.chef_environment == 'staging' }
 end
 
 template "/etc/nginx/sites-available/journal" do

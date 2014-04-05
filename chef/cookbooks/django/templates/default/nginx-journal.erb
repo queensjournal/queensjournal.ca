@@ -35,4 +35,9 @@ server {
         proxy_read_timeout 10;
         proxy_pass http://localhost:8000/;
     }
+
+    <% if node.chef_environment == 'staging' %>
+        auth_basic           "Restricted";
+        auth_basic_user_file /etc/nginx/staging-htpasswd;
+    <% end %>
 }
