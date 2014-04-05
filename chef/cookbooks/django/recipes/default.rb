@@ -48,13 +48,13 @@ repo_path = File.expand_path("/opt/journal.git")
 directory app_path do
   owner "www-data"
   group "deploy"
-  mode 0770
+  mode 0775
 end
 
 directory repo_path do
   owner "www-data"
   group "deploy"
-  mode 0770
+  mode 0775
 end
 
 execute "setup git repo" do
@@ -142,11 +142,6 @@ directory "#{app_path}/journal" do
   mode 0775
 end
 
-execute "app permissions" do
-  cwd "#{app_path}"
-  command "chmod -R 0770 ."
-end
-
 # settings_local
 template "#{app_path}/journal/settings_local.py" do
   source "settings_local.erb"
@@ -188,7 +183,6 @@ end
   directory "#{app_path}#{path}" do
     owner "www-data"
     group "deploy"
-    mode 0775
   end
 end
 
