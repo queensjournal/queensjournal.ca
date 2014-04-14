@@ -21,6 +21,11 @@
         <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
         {% endblock meta %}
 
+        <meta property="fb:admins" content="1653600047" />
+        <meta property="og:site_name" content="The Queen&#039;s Journal" />
+        {% block og_meta %}
+        {% endblock %}
+
         {% compressed_css 'core-styles' %}
 
         <script src="//use.typekit.net/vsz8ypk.js"></script>
@@ -49,7 +54,9 @@
       <div class="header-sub">
         <div class="header-left">
           {% load issue_tags %}{% get_latest_issue as latest_issue %}
+          {% block header_issue %}
           {{ latest_issue }}
+          {% endblock %}
         </div>
 
         <div class="header-center">

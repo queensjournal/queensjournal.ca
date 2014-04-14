@@ -7,49 +7,23 @@
 {% load tagging_tags %}
 {% load shorturl %}
 
-    {% block meta %}
-    <meta name="description" content="{{ story.summary }}" />
-    {% endblock meta %}
+{% block meta %}
+<meta name="description" content="{{ story.summary }}" />
+{% endblock meta %}
 
-    {% block facebook %}
-    <meta property="og:title" content="{{ story.head }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="{% shorturl story %}" />
-    <meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
-    <meta property="og:site_name" content="The Queen&#039;s Journal" />
-    <meta property="fb:admins" content="1653600047" />
-    {% endblock facebook %}
-
-    {% block css %}
-    <link rel="alternate stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print_preview.css" media="screen" title="Print Preview" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/journal_print.css" media="print" />
-    {% endblock %}
-
-    {% block header-type %}secondary{% endblock header-type %}
-    {% if story.issue %}
-    {% block issueline %}Vol. {{ story.issue.volume.volume}}, Issue {{ story.issue.issue }}{% endblock issueline %}
-    {% endif %}
+{% block og_meta %}
+<meta property="og:title" content="{{ story.head }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{% shorturl story %}" />
+<meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
+{% endblock %}
 
 {% if story.issue %}
-    {% block menu-stories %}
-    {% other_stories story.section story.issue %}
-    {% if other_stories %}
-    <p class="menu-label">Other stories in {{ story.section.name }}</p>
-    <ul>
-        {% for other_story in other_stories %}
-        <li><a href="{{ other_story.get_absolute_url }}">{{ other_story.head }}</a></li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endblock menu-stories %}
+{% block header_issue %}{{ story.issue }}{% endblock %}
 {% endif %}
 
 {% block content %}
 <div id="story" class="story clearfix">
-
-    <div class="pub-date">{{ story.pub_date|date:"jS F Y" }}</div>
-    <h4 class="story-deck">{{ story.deck|stripspace|widont }}</h4>
-    <p class="story-byline">{% ifnotequal story.list_authors '[no author]' %}By {{ story.list_authors|safe }}{% endifnotequal %}</p>
 
     {% if story.storyphoto_set.all|length > 0 %}
     <div id="top-photo" class="story" style="{% if story.first_photo.first.width < 500 %}float:right;{% endif %}width:{{story.first_photo.first.width}}px">
