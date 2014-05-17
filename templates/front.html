@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load navigation %}
+{% load sidebartags %}
+
+{% load latest_content %}
+{% load since %}
+
+{% block headcode %}<link rel="alternate" type="application/rss+xml" title="Latest stories feed (RSS 2.0)" href="/rss/latest/" />
+{% endblock headcode %}
+
+{% block issue-banner %}
+{% if config.issue.extra %}
+<div id="issue-banner" class="clearfix">
+    <h1>{{ config.issue.extra }}</h1><h4>A special issue of the Journal</h4>
+</div>
+{% endif %}
+{% endblock issue-banner %}
+
+{% block content-class %} span-19 front-content{% endblock %}
+
+{% block nav %}
+  {{ block.super }}
+  {% load bento_tags %}
+  {% show_image_box "front-banner" %}
+{% endblock %}
+
+      {% comment %}
+                <ul><h3>From the Blogs <span class="feed"><a href="/rss/allblogs/"><img src="{{ STATIC_URL }}img/feed-small.png" />RSS Feed</a></span></h3>
+                    {% for entry in latest_entries %}
+                    <li>
+                        <p class="label">{{ entry.blog.title }}</p>
+                        <h5><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h5>
+                        <p class="pub_date">{{ entry.pub_date|since }} ago</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="hr"><hr/></div>
+
+                <fb:recommendations site="http://www.queensjournal.ca" width="220" height="450" header="true" font="" border_color=""></fb:recommendations>
+        {% endcomment %}
+
+
+{% load solo_tags %}
+{% load imagekit %}
+{% load typogrify_tags %}
+
+{% block rail-left %}
+<ul class="stories-list stories-list--latest">
+  <h3 class="list-header">The Latest</h3>
+  {% get_latest_content as latest %}
+  {% for item in latest %}
+  <li{% if forloop.first %} class="first-child"{% endif %}>
+    <a href="{{ item.get_absolute_url }}">
+      <p class="label">{{ item.label }}</p>
+      <h5>{{ item.title|typogrify }}</h5>
+      <p class="pub-date">{{ item.pub_date | since }} ago</p>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% include "ads/sidebar.html" %}
+{% endblock %}
+
+{% block main %}
+  {% get_solo "config.SiteConfig" as config %}
+
+  <div id="CarouselFeatured" class="carousel slide carousel--featured" data-ride="carousel">
+    {% with fstories=config.get_featured_stories %}
+    <div class="carousel-inner">
+      {% for fstory in fstories %}
+      <div class="item{% if forloop.first %} active{% endif %}">
+        <div class="image-wrap">
+          {% thumbnail "544x330" fstory.orig_photo as th %}
+          <img src="{{ th.url }}" />
+          <a class="left carousel-control" href="#CarouselFeatured" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#CarouselFeatured" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+
+        <a class="label" href="{{ fstory.story.label.get_absolute_url }}">{{ fstory.story.label }}</a>
+
+        <a href="{{ fstory.story.get_absolute_url }}">
+          <h2>{{ fstory.story.title|typogrify|widont }}</h2>
+          <h3 class="deck">{{ fstory.story.deck }}</h3>
+        </a>
+      </div>
+      {% endfor %}
+    </div>{# .carousel-inner #}
+
+    <ol class="carousel-indicators">
+      {% for slide in fstories %}
+      <li data-target="#CarouselFeatured" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+      {% endfor %}
+    </ol>
+    {% endwith %}
+  </div>{# .carousel #}
+
+  <div class="hot-topics">
+    <h3>Hot Topics</h3>
+    {% for tag in config.get_tags %}
+    <a href="/tag/{{ tag }}/">{{ tag|capfirst }}</a>
+    {% endfor %}
+  </div>
+
+  {% get_featured_stories_by_section as latest_stories %}
+  <div class="stories-blocks latest-stories">
+    {% for story in latest_stories %}
+    <div class="stories-blocks--story latest-stories--story {% cycle 'odd' 'even' %}">
+      <p class="label">
+        <a href="{{ story.section.get_absolute_url }}">{{ story.section }}</a>
+      </p>
+      {% if story.story_thumb %}
+      {% thumbnail "215x145" story.story_thumb.image as th %}
+      <img src="{{ th.url }}" />
+      {% endif %}
+      <h4><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h4>
+      <h5 class="deck">{{ story.deck }}</h5>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

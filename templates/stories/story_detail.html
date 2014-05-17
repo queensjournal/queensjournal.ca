@@ -1,0 +1,114 @@
+{% extends 'single.html' %}
+{% load navigation %}
+{% load typogrify_tags %}
+{% load custom_html %}
+{% load sanitize %}
+{% load comparison %}
+
+
+
+{% if story.issue %}
+{% block header_issue %}{{ story.issue }}{% endblock %}
+{% endif %}
+
+{% block content %}
+<div id="story" class="story clearfix">
+
+    {% if story.storyphoto_set.all|length > 0 %}
+    {% endif %}
+
+            {% if story.show_headshots %}
+            {% for sauthor in story.storyauthor_set.all %}
+            <div class="headshot"><img src="{{ sauthor.author.headshot.display.url }}" /><br/>
+                <a href="{{ sauthor.author.get_absolute_url }}">{{ sauthor.author.name }}</a></div>
+            {% endfor %}
+            {% endif %}
+
+            {% if story.has_inlines %}
+            <div class="story-inlines">
+                {% for factbox in story.factbox_set.all %}
+                {% if not factbox.full_width %}
+                <div class="inline-container factbox">
+                    <h4>{{ factbox.head|widont }}</h4>
+                    {{ factbox.body|sanitize:"h4 strong em a ul li table tr td tbody thead tfoot th,"|typogrify|linebreakswithcode|safe }}
+                    {% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for document in story.document_set.all %}
+                <div class="inline-container document">
+                    <h4>{{ document.head|widont }}</h4>
+                    {% if document.body %}<p>{{ document.body|typogrify }}</p>{% endif %}
+                    <ul>
+                        {% for file in document.files.all %}
+                        <li>{% filter widont %}<a href="{{ file.get_file_obj_url }}">{{ file.name }}</a> <span class="doc-details">({{ file.get_file_obj_size|filesizeformat }})</span>{% endfilter %}{% if file.caption %}<p class="doc-caption">{{ file.caption }}</p>{% endif %}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+                </div>
+                {% endif %}
+                <div class="story-content">
+
+                    {% if story.storyphoto_set.all|length > 1 %}
+                    {{ story.content|paragraphs:'0:12'|typogrify|linebreakswithcode|urlize|safe }}
+
+                    {% for photo in story.other_photos %}
+                    <div class="other-photo">
+                        <img src="{{ photo.photo.other.url }}" alt="{{ photo.photo.caption|striptags }}">
+                        <div id="caption-top">
+                            {{ photo.photo.caption }}{% ifnotequal photo.photo.list_photographer '[no credit]' %} ({{ photo.photo.list_photographer|safe }}){% endifnotequal %}
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {{ story.content|paragraphs:'12:'|safe|linebreakswithcode|typogrify|urlize }}
+
+                    {% else %}
+
+                    {{ story.content|safe|linebreaks|typogrify|urlize }}
+
+                    {% endif %}
+
+                    {% if story.gallery_set.all %}
+                    {% for gallery in story.gallery_set.all %}
+                    <div class="gallery-container">
+                        <h4><strong>Gallery &gt;&gt;</strong> {{ gallery.name|widont }}</h4>
+                        <div class="thumbs-container">
+                            {% for image in gallery.images.all %}
+                            <a class="gallery" rel="{{ gallery.name|slugify }}" href="{{ image.gallery_image.url }}"{% if image.caption %} title="{{ image.caption|escape }} ({{ image.list_photographer|striptags }})"{% endif %}><img src="{{ image.thumbnail_image.url }}" alt="{{ image.caption }}"/></a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% if story.has_wide_inlines %}
+                    {% for factbox in story.factbox_set.all %}
+                    {% if factbox.full_width %}
+                    <div class="inline-container factbox">
+                        <h4>{{ factbox.head|widont }}</h4>
+                        {{ factbox.body|sanitize:"h4 strong em a ul li table tr td th tbody thead tfoot,"|typogrify|linebreakswithcode|safe }}
+                        {% if factbox.source %}<p class="factbox-source">&mdash;{{ factbox.source }}</p>{% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    {% include "ads/in-story.html" %}
+
+
+                    </div>
+                </div>
+                {% endblock content %}
+                <!-- google_ad_section_end -->
+
+
+{% block title %}{{ story.title }} - {{ block.super }}{% endblock title %}
+
+{% block breadcrumb-extend %}
+<a class="last-child" href="{% url "stories-index-section" story.section.slug %}">{{ story.section }}</a>
+{% endblock %}
+
+{% block main %}
+{{ story.content|safe|linebreaks|typogrify|urlize }}
+{% endblock %}

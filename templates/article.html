@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{# single item template that includes boilerplate social media and content #}
+
+{% block rail-left-outer %}{% endblock %}
+
+{% load typogrify_tags %}
+{% load tagging_tags %}
+{% load shorturl %}
+
+{% block meta %}
+<meta name="description" content="{{ story.summary }}" />
+{% endblock meta %}
+
+{% block og_meta %}
+<meta property="og:title" content="{{ story.head }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{% shorturl story %}" />
+<meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
+{% endblock %}
+
+{% block main-before %}
+  {% block breadcrumb %}
+  <div class="breadcrumb">
+    <a href="{% url "front" %}">Home</a>
+    {% block breadcrumb-extend %}{% endblock %}
+  </div>
+  {% endblock %}
+
+  {% block item__title %}
+    <h1 class="item__title">{{ story.title|widont }}</h1>
+    {% if story.deck %}
+    <h2 class="item__deck">{{ story.deck|widont }}</h2>
+    {% endif %}
+  {% endblock item__title %}
+
+  {% block byline %}
+    {% if story.authors %}
+    <p class="item__byline">By: 
+    {% if story.authors.count > 1 %}
+      {% for author in story.authors.all %}
+      {% if forloop.last %} and {% endif %}<a href="{{ author.get_absolute_url }}">{{ author }}</a>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    {% else %}
+      {% load author_tags %}
+      {% for author in story.authors.all %}
+      <a href="{{ author.get_absolute_url }}">{{ author }}</a>, {% get_author_role author story.pub_date %}
+      {% endfor %}
+    {% endif %}
+    </p>
+    {% endif %}
+  {% endblock %}
+
+  <p class="item__meta">
+  {% block pub-date %}
+  <span class="item__pub-date">{{ story.pub_date }}</span>
+
+    {% tags_for_object story as tags %}
+    {% if tags %}
+    <span class="item__tags">Article tags:
+      {% for tag in tags %}
+      <a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a>
+      {% endfor %}
+    </span>
+    {% endif %}
+  {% endblock %}
+  </p>
+
+  {% block social %}
+  <div class="item__social">
+    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+    <a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl story %}" data-via="queensjournal">Tweet</a>
+
+    <a class="reddit" href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
+
+    <g:plusone></g:plusone>
+
+    <form class="item__short-url" action="" method="get">
+      <label>Short URL:</label>
+      <input type="text" id="shorturl" onclick="this.select();" value="{% shorturl story %}" readonly="false" />
+    </form>
+    {% revcanonical story %}
+
+  </div>
+  {% endblock %}
+
+  {% if story.photos.all|length > 0 %}
+  {% include "stories/includes/photo.html" with photo=story.photos.all|first %}
+  {% endif %}
+{% endblock %}{# main-before #}
+
+  <div class="ugc">
+    {% block main %}
+    {% endblock %}
+  </div>
+
+  {% if story.enable_comments %}
+  {% load disqus_tags %}
+  {% disqus_show_comments %}
+  {% endif %}
+</main>
+{% endblock %}

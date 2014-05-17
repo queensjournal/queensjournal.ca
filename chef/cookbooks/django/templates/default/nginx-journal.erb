@@ -1,0 +1,43 @@
+<% if node.chef_environment == 'production' %>
+server {
+    listen 80;
+    server_name www.qjrnl.net qjrnl.net;
+    rewrite ^$ http://queensjournal.ca permanent;
+    rewrite ^(.*)$ http://queensjournal.ca/s$1 permanent;
+}
+
+server {
+    listen  80;
+    server_name www.thequeensjournal.org thequeensjournal.org www.thequeensjournal.net thequeensjournal.net www.queensjournal.ca thequeensjournal.com www.thequeensjournal.com;
+    rewrite ^ http://queensjournal.ca$request_uri? permanent;
+}
+<% end %>
+
+server {
+    listen   80 default;
+    server_name localhost <%= node[:fqdn] %>;
+    client_max_body_size 20M;
+
+    location ~ ^/(media|static).*$ {
+        root <%= @app_path %>/served;
+        if ($query_string) {
+            expires max;
+        }
+    }
+
+    location / {
+        proxy_pass_header Server;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_connect_timeout 10;
+        proxy_read_timeout 10;
+        proxy_pass http://localhost:8000/;
+    }
+
+    <% if node.chef_environment == 'staging' %>
+        auth_basic           "Restricted";
+        auth_basic_user_file /etc/nginx/staging-htpasswd;
+    <% end %>
+}

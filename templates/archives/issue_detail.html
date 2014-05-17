@@ -1,0 +1,55 @@
+{% extends "single.html" %}
+
+{% load section_tags %}
+
+{% block body_class %}issue-detail{% endblock %}
+
+{% block title %}{{ issue.pub_date|date:"F j, Y" }} - {{ issue }} - {{ block.super }}{% endblock title %}
+
+{% block issue-banner %}
+    {% if config.issue.extra %}
+        <div id="issue-banner" class="clearfix">
+            <h1>{{ config.issue.extra }}</h1><h4>A special issue of the Journal</h4>
+        </div>
+    {% endif %}
+{% endblock issue-banner %}
+
+{% block breadcrumb-extend %}
+{{ block.super }}
+<a href="{% url "archive-volume-list" %}">Archives</a>
+<a href="{% url "archive-volume-detail" issue.volume.volume %}">{{ issue.volume }}</a>
+<span class="last-child">{{ issue }}<span>
+{% endblock %}
+
+{% block main %}
+<h1>{{ issue }}</h1>
+
+{% for section in issue.sections.get_sections %}
+<div class="archive-issue-section">
+  <h2>
+    {{ section.name|capfirst }}
+  </h2>
+
+  {% get_section_issue_content section issue as section_stories %}
+
+  {% with section_stories.featured as story %}
+  <div class="first-story">
+    <a href="{{ story.get_absolute_url }}"><img src="{{ story.story_thumb.front_image.url }}" alt="{{ story.title }}"/></a>
+
+    <h3>
+      <a href="{{ story.get_absolute_url }}">{{ story.title }}</a>
+    </h3>
+
+    <p>{{ story.summary }}</p>
+  </div>
+  {% endwith %}
+
+  {% for story in section_stories.other %}
+  <h3>
+    <a href="{{ story.get_absolute_url }}">{{ story.title }}</a>
+  </h3>
+  {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock main %}

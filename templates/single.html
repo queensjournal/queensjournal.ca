@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{# Two-column template without left rail #}
+
+{% block main-outer %}
+<main role="main" class="main main--single">
+  {% block main-before %}{% endblock %}
+
+  <div class="ugc">
+    {% block main %}
+    {% endblock %}
+  </div>
+
+  {% block main-after %}{% endblock %}
+</main>
+{% endblock %}

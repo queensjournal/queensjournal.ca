@@ -1,0 +1,320 @@
+{% load navigation %}
+{% load linkset %}
+{% load compressed %}
+
+{% load static %}
+{% load story_tags %}
+{% load since %}
+{% load compressed %}
+{% load imagekit %}
+{% load custom_html %}
+{% load typogrify_tags %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+        <title>{% block title %}Queen's Journal{% endblock title %}</title>
+
+        {% block meta %}
+        <meta name="description" content="The Queen's Journal is a completely student-run newspaper at Queen's University in Kingston, Ontario, Canada." />
+        {% endblock meta %}
+
+        <meta property="fb:admins" content="1653600047" />
+        <meta property="og:site_name" content="The Queen&#039;s Journal" />
+        {% block og_meta %}
+        {% endblock %}
+
+        {% compressed_css 'core-styles' %}
+
+        <script src="//use.typekit.net/vsz8ypk.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
+
+        <link rel="shortcut icon" href="{% static "favicon.ico" %}">
+
+        {% block facebook %}{% endblock facebook %}
+
+        {% include "ads/head.html" %}
+
+        {# Facebook API #}
+        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+    </head>
+
+<body class="{% block body_class %}front-page{% endblock %}">
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId={# TODO #}";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  {% include "ads/banner-top.html" %}
+
+  <div class="container">
+    <header>
+      <a href="/">
+        <img src="{% static "images/global/logo-header.png" %}" class="logo" alt="The Journal &#151; Queen's University &#151; Since 1873" />
+      </a>
+
+      <div class="header-sub">
+        <div class="header-left">
+          {% load issue_tags %}{% get_latest_issue as latest_issue %}
+          {% block header_issue %}
+          {{ latest_issue }}
+          {% endblock %}
+        </div>
+
+        <div class="header-center">
+          <a href="/rss/latest/">
+            <span class="icon icon-rss">RSS</span>
+          </a>
+
+          <a href="http://twitter.com/queensjournal/">
+            <span class="icon icon-twitter">Twitter</span>
+          </a>
+
+          <a href="http://www.facebook.com/queensjournal">
+            <span class="icon icon-facebook">Facebook</span>
+          </a>
+        </div>
+
+        <div class="header-right">
+          {% get_last_updated as last_updated %}
+          Last Updated {{ last_updated | since }} ago
+        </div>
+      </div>
+    </header>
+  </div><!--.container-->
+
+  <div class="container container--nav">
+  {% block nav %}
+    {% include "includes/nav.html" %}
+  {% endblock nav %}
+  </div><!--.container-->
+
+  <div class="container">
+    {% block rail-left-outer %}
+    <div class="rail rail-left">
+      {% block rail-left %}
+      {% endblock %}
+    </div>
+    {% endblock rail-left-outer %}
+
+    {% block main-outer %}
+    <div class="main">
+      {% block main %}
+      {% endblock %}
+    </div>
+    {% endblock main-outer %}
+
+    <div class="rail rail-right">
+      <div class="search">
+        <form name="topsearch" action="/search/" method="get"><input type="text" name="q" placeholder="Search" /></form>
+      </div>
+      {% block rail-right %}
+        {% load video_tags %}
+        {% get_featured_video as video %}
+
+        {% if video %}
+        <div class="featured featured--video">
+          <h3 class="list-header">Featured Video</h3>
+
+          <a href="{{ video.get_absolute_url }}">
+            <div class="video-thumb">
+              {% thumbnail "216x121" video.screenshot as th %}
+              <img src="{{ th.url }}" />
+              <span class="glyphicon glyphicon-play-circle"></span>
+            </div>
+
+            <h5>{{ video.name }}</h5>
+
+            <p class="list-caption">{{ video.caption|paragraphs:"0:1"|truncatewords:50|typogrify|safe }}</p>
+
+            <p class="pub-date">Posted {{ video.pub_date | since }} ago</p>
+          </a>
+
+          <p class="cta cta--right">
+            <a href="{% url "video.views.video_index" %}">More Videos &gt;&gt;</span></a>
+        </p>
+      </div>
+        {% endif %}
+      {% endblock %}
+    </div><!-- .rail-right -->
+  </div><!-- .container -->
+
+  {% include "ads/banner-bottom.html" %}
+
+  <div class="container social-blocks">
+    <div class="social-block">
+      <h3 class="list-header">Instagram</h3>
+      <!-- SnapWidget -->
+<iframe src="http://snapwidget.com/sl/?u=cXVlZW5zam91cm5hbHxpbnwyOTR8M3wzfHxub3w1fG5vbmV8b25TdGFydHx5ZXM=&v=2314" title="Instagram Widget" allowTransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:299px; height:299px"></iframe>
+    </div>
+
+    <div class="social-block">
+      <h3 class="list-header">Twitter</h3>
+
+      <a class="twitter-timeline" href="https://twitter.com/queensjournal" data-widget-id="440310537696456705">Tweets by @queensjournal</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+
+    <div class="social-block last-child">
+      <h3 class="list-header">On Newsstands Now</h3>
+      Issuu
+    </div>
+  </div>
+
+  {% comment %}
+    <div id="menu-sections" class="menu-bar block">
+        <div id="menu-popular-tags" class="block">
+            <span class="popular-tags-title">Hot topics</span>
+            <ul>{% for tag in config.get_tags %}
+                <li class="tag">
+                    <a href="/tag/{{ tag }}/">{{ tag }}</a>
+                </li>
+            {% endfor %} </ul>
+        </div>
+    </div>
+    <div class="block">
+
+        <div id="content" class="column {% block content-class %}span-18 colborder{% endblock content-class %}">
+
+            <!-- google_ad_section_start -->
+            {% block issue-banner %}
+            {% endblock issue-banner %}
+            {% block content %}
+            {% block breadcrumb %}{% endblock breadcrumb %}
+            {% endblock content %}
+            <!-- google_ad_section_end -->
+
+        </div><!--content-->
+
+        <div id="menu" class="column {% block menu-type %}span-5{% endblock menu-type %} last">
+
+            <div id="disqus-plugin">
+                <script type="text/javascript" src="http://queensjournal.disqus.com/combination_widget.js?num_items=5&hide_mods=0&color=blue&default_tab=popular&excerpt_length=10"></script>
+            </div>
+
+            <div id="menu-social-media">
+                <h3>Connect with us:</h3>
+                <hr>
+                <ul>
+                    <li><a href="http://twitter.com/QueensJournal" target="new"><span><img src="{{ STATIC_URL }}img/twitter.png" />QJ on Twitter</span></a></li>
+                    <li><a href="http://www.facebook.com/pages/Kingston-ON/Queens-Journal/214066523083"><span><img src="{{ STATIC_URL }}img/facebook.png" />QJ on Facebook</span></a></li>
+                    {% block actions %}
+                    <li><a href="/rss/latest/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest stories RSS</span></a></li>
+                    {% endblock actions %}
+                </ul>
+            </div>
+
+            <div id="facebook-widget">
+                <fb:activity site="queensjournal.ca" width="190" height="350" header="true" font="" border_color="#fff" recommendations="false"></fb:activity>
+            </div>
+
+            <div id="menu-stories">
+                {% block menu-stories %}{% endblock menu-stories %}
+            </div>
+
+            <div id="menu-ad" class="ad">
+                {% include "ads/sidebar.html" %}
+
+                {% include "ads/kanetix.html" %}
+            </div>
+
+        </div> <!--menu-->
+
+    </div><!--content block -->
+
+    <div id="footer-ad" class="ad">
+        {% include "ads/banner-bottom.html" %}
+    </div>
+
+<div id="footer" class="container">
+    <div id="address" class="clearfix">
+        <p id="nameplate">The Queen's Journal</p>
+        <p>190 University Ave.<br/>Kingston, ON<br/>K7L 3P4<br/>
+        Editorial office: (613) 533-2800<br/>Business office: (613) 533-6711<br/>Fax: (613) 533-6728</p>
+    </div>
+    <div id="footlinks">
+        {% linkset 'main' as links %}
+        <ul class="col2">
+            {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+        <ul class="col1">
+        {% linkset 'main2' as links %}
+            {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div><!--footer-container-->
+
+  </div><!--.wrap-->
+
+  {% endcomment %}
+
+  <footer>
+    <div class="footer-left">
+      <img src="{% static "images/global/logo-header.png" %}" alt="The Journal &#151; Queen's University &#151; Since 1873" />
+      <address>
+        190 University Ave. Kingston ON K7L 3P4<br>
+        Editorial office: (613) 533 2800<br>
+        Business office: (613) 533 6711<br>
+        Fax: (613) 533 6728<br>
+      </address>
+    </div>
+    <div class="footer-right">
+      <div class="footer-link-col">
+        <h5>About Us</h5>
+        <ul>
+          <li><a href="">Who we are</a></li>
+          <li><a href="">Masthead</a></li>
+          <li><a href="">Join the QJ Team</a></li>
+          <li><a href="">Journal policy</a></li>
+          <li><a href="">Archives</a></li>
+        </ul>
+      </div>
+      <div class="footer-link-col">
+        <h5>Editorial</h5>
+        <ul>
+          <li><a href="">Contribute</a></li>
+          <li><a href="">Writer's Handbook</a></li>
+          <li><a href="">Corrections</a></li>
+          <li><a href="">Production Schedule</a></li>
+        </ul>
+      </div>
+      <div class="footer-link-col last-child">
+        <h5>Business</h5>
+        <ul>
+          <li><a href="">Advertising Info</a></li>
+          <li><a href="">Subscription</a></li>
+          <li><a href="">Journal Board Minutes</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-15740362-1");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+
+  {% compressed_js "core-scripts" %}
+
+  {# Twitter Buttons #}
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+</body>
+</html>

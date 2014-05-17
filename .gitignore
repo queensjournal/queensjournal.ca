@@ -1,16 +1,15 @@
 *settings_local.py
 *.pyc
-*.json
-*.svn*
-lib/
-bin/
-build/
-share/
-include/
-*.sass-cache/
-devdata/
+.sass-cache/
+/node_modules/
+/venv/
 
-*.tgz
 .DS_Store
-media/
-xapian/
+/media/
+
+/apps/static/components/
+
+# collectstatic target
+/served/
+
+/tmp/librarian

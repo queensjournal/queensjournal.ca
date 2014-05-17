@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo "Checkout"
+GIT_WORK_TREE="<%= @app_path %>" git checkout -f master
+
+echo "installing node packages"
+cd <%= @app_path %> && npm install .
+
+echo "Deleting .pyc files"
+find <%= @app_path %> -name "*.pyc" -delete
+
+echo "Installing Python Packages"
+<%= File.join(@app_path, '/venv/bin/pip') %> install -r <%= File.join(@app_path, 'requirements.txt') %>
+
+echo "Collect Static Files"
+<%= File.join(@app_path, '/venv/bin/python') %> <%= @manage_py %> collectstatic -c --noinput
+
+echo "Migrate"
+<%= File.join(@app_path, '/venv/bin/python') %> <%= @manage_py %> syncdb --migrate
+
+sudo chmod -R 0775 <%= File.join(@app_path, '/served/') %>
+
+#echo "Restart"
+sudo sv restart django

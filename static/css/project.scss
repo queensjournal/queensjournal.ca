@@ -1,0 +1,58 @@
+@import "susy";
+
+// VARIABLES
+// ===================================================
+
+// Layout
+  $layout_column_width: 225px;
+
+$total-columns  : 12;             // a 12-column grid
+$column-width   : 4em;            // each column is 4em wide
+$gutter-width   : 1em;            // 1em gutters between columns
+$grid-padding   : $gutter-width;
+
+$colour_dark_slate: #2d3840;
+$colour_mid_slate: #4d5961;
+$colour_slate_light: #6c7f8b;
+$colour_blue: #0072bc;
+$colour_blue_light: #499acf;
+$colour_orange: #f26522;
+
+// decoration
+$divider: 1px solid $colour_dark_slate;
+
+// typography
+$font_base: 16px;
+
+@mixin futura($size: $font_base, $weight:'regular') {
+  font: normal $size "futura-pt",sans-serif;
+
+  @if $weight == 'medium' {
+    font-weight: 500;
+  } @else if $weight == 'regular' {
+    font-weight: 400;
+  }
+}
+
+@mixin serif($size: $font_base, $weight:'regular') {
+  font: normal $size "utopia-std", serif;
+
+  @if $weight == 'bold' {
+    font-weight: 700;
+  } @else if $weight == 'regular' {
+    font-weight: 400;
+  }
+}
+
+@mixin blue-border-bottom($spacing: 0.25em) {
+  padding-bottom: $spacing;
+  border-bottom: 1px solid $colour_blue;
+  margin-bottom: $spacing;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}

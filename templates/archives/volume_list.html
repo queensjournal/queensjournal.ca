@@ -1,0 +1,28 @@
+{% extends "single.html" %}
+
+{% block js %}
+<script src="{{ STATIC_URL }}js/jquery.columns.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block breadcrumb-extend %}
+{{ block.super }}<span class="last-child">Archives</span>
+{% endblock %}
+
+{% block main %}
+<div id="section-header">
+    <h1>Archives</h1>
+</div>
+
+<ul class="archive-list volume-list">
+  {% for volume in volume_list %}
+  <li>
+    <a href="{{ volume.get_absolute_url }}">{{ volume }}</a>:
+    {% with volume.get_years as years %}
+    {% for year in years %}
+    {{ year|date:"Y" }}{% if years.count > 1 and forloop.first %} - {% endif %}
+    {% endfor %}{% endwith %}
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock main %}
