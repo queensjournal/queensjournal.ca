@@ -1,0 +1,6 @@
+<div class="photo">
+  <img src="{{ photo.url }}" alt="{{ photo.caption }}"/>
+  <p>
+    {{ photo.caption }}{% ifnotequal photo.list_photographer '[no credit]' %} ({{ photo.list_photographer|safe }}){% endifnotequal %}
+  </p>
+</div>

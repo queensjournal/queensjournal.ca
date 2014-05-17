@@ -4,19 +4,8 @@
 {% load custom_html %}
 {% load sanitize %}
 {% load comparison %}
-{% load tagging_tags %}
-{% load shorturl %}
 
-{% block meta %}
-<meta name="description" content="{{ story.summary }}" />
-{% endblock meta %}
 
-{% block og_meta %}
-<meta property="og:title" content="{{ story.head }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{% shorturl story %}" />
-<meta property="og:image" content="{{ story.story_thumb.thumbnail_image.url }}" />
-{% endblock %}
 
 {% if story.issue %}
 {% block header_issue %}{{ story.issue }}{% endblock %}
@@ -26,44 +15,7 @@
 <div id="story" class="story clearfix">
 
     {% if story.storyphoto_set.all|length > 0 %}
-    <div id="top-photo" class="story" style="{% if story.first_photo.first.width < 500 %}float:right;{% endif %}width:{{story.first_photo.first.width}}px">
-        <img src="{{ story.first_photo.first.url }}" alt="{{story.first_photo.caption|striptags}}"/>
-        <div id="caption-top">
-            {{ story.first_photo.caption }}{% ifnotequal story.first_photo.list_photographer '[no credit]' %} ({{ story.first_photo.list_photographer|safe }}){% endifnotequal %}
-        </div>
-    </div>
     {% endif %}
-
-    <div id="story-socmedia">
-        <p class="label">Share<p>
-                <hr>
-                <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="{% shorturl story%}" layout="button_count" show_faces="false" width="100" font=""></fb:like>
-                <br/>
-                <a href="http://twitter.com/share" class="twitter-share-button" data-url="{% shorturl story %}" data-count="horizontal" data-via="queensjournal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-                <br/>
-                <a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="submit to reddit" border="0" /> </a>
-                <br/>
-                <g:plusone></g:plusone>
-                <hr>
-                {% tags_for_object story as tags %}
-                {% if tags %}
-                <h4>Article tags:</h4>
-                <ul>
-                    {% for tag in tags %}
-                    <li><a href="/tag/{{tag.name|urlencode}}/">{{ tag }}</a></li>
-                    {% endfor %}
-                </ul>{% endif %}
-                <ul class="story-actions">
-                    <li><a href="javascript:print_preview()">print <img src="{{ STATIC_URL }}img/icon_print.gif" /></a></li>
-                    <hr>
-                    <li><span class="label">Short URL:</span>
-                        <form action="" method="get">
-                            <input type="text" id="shorturl" onclick="this.select();" value="{% shorturl story %}" readonly="false" />
-                    </form></li>
-                </ul>
-                {% revcanonical story %}
-
-            </div>
 
             {% if story.show_headshots %}
             {% for sauthor in story.storyauthor_set.all %}
