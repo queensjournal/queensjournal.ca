@@ -26,7 +26,7 @@ h1 {
 h5 {
   // list item titles
   @include serif(1.3em);
-  margin: 0 auto 0.25em;
+  margin: 0.25em auto;
 }
 
 p {
@@ -44,6 +44,7 @@ img {
 
 .container {
   @include container;
+  width: 944px;
 }
 
 header {

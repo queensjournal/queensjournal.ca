@@ -110,6 +110,10 @@
   }
 }
 
+.carousel-control {
+  opacity: 0;
+}
+
 .cta {
   @include futura($weight:'bold');
 
@@ -189,10 +193,35 @@
   margin-top: 1em;
 }
 
-.item__pub-date {
+.item__meta {
   margin-top: 0.25em;
   color: $colour_mid_slate;
   font-size: 0.9em;
+}
+
+.item__pub-date {
+  display: inline-block;
+}
+
+.item__social {
+  margin: 0.5em 0;
+
+  .fb-like {
+    position: relative;
+    top: -4px;
+    margin-right: 1em;
+  }
+}
+
+.item__tags {
+  display: inline-block;
+}
+
+.item__short-url {
+  display: inline-block;
+  font-size: 0.9em;
+  vertical-align: top;
+  margin-left: 1em;
 }
 
 // Front Page

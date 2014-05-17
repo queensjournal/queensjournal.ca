@@ -95,7 +95,7 @@ h1 {
 h5 {
   font: normal 1.3em "utopia-std", serif;
   font-weight: 400;
-  margin: 0 auto 0.25em;
+  margin: 0.25em auto;
 }
 
 /* line 32, layout.scss */
@@ -123,6 +123,7 @@ img {
   padding-right: 1em;
   margin-left: auto;
   margin-right: auto;
+  width: 944px;
 }
 /* line 38, ../../../../.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
 .container:after {
@@ -131,7 +132,7 @@ img {
   clear: both;
 }
 
-/* line 49, layout.scss */
+/* line 50, layout.scss */
 header {
   margin: 1em auto 0;
   padding: 1em 0 0;
@@ -139,7 +140,7 @@ header {
   text-align: center;
 }
 
-/* line 57, layout.scss */
+/* line 58, layout.scss */
 .header-sub {
   position: relative;
   margin-top: 1em;
@@ -150,7 +151,7 @@ header {
   text-transform: uppercase;
 }
 
-/* line 66, layout.scss */
+/* line 67, layout.scss */
 .header-left {
   width: 32.20339%;
   float: left;
@@ -162,7 +163,7 @@ header {
   text-align: left;
 }
 
-/* line 74, layout.scss */
+/* line 75, layout.scss */
 .header-right {
   width: 32.20339%;
   float: right;
@@ -175,7 +176,7 @@ header {
   text-align: right;
 }
 
-/* line 82, layout.scss */
+/* line 83, layout.scss */
 nav {
   width: 100%;
   display: table;
@@ -187,16 +188,16 @@ nav {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-/* line 92, layout.scss */
+/* line 93, layout.scss */
 nav ul {
   display: table-row;
 }
-/* line 96, layout.scss */
+/* line 97, layout.scss */
 nav li {
   display: table-cell;
   text-align: center;
 }
-/* line 101, layout.scss */
+/* line 102, layout.scss */
 nav a {
   width: 100%;
   display: inline-block;
@@ -204,12 +205,12 @@ nav a {
   color: #fff;
   text-decoration: none;
 }
-/* line 108, layout.scss */
+/* line 109, layout.scss */
 nav a:hover {
   background-color: #7d8d97;
 }
 
-/* line 116, layout.scss */
+/* line 117, layout.scss */
 .rail-left {
   width: 23.72881%;
   float: left;
@@ -217,7 +218,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 120, layout.scss */
+/* line 121, layout.scss */
 .main {
   width: 49.15254%;
   float: left;
@@ -225,7 +226,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 124, layout.scss */
+/* line 125, layout.scss */
 .main--single {
   width: 74.57627%;
   float: left;
@@ -233,7 +234,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 128, layout.scss */
+/* line 129, layout.scss */
 .rail-right {
   width: 23.72881%;
   float: right;
@@ -242,7 +243,7 @@ nav a:hover {
   display: inline;
 }
 
-/* line 134, layout.scss */
+/* line 135, layout.scss */
 footer {
   *zoom: 1;
   max-width: 59em;
@@ -264,16 +265,16 @@ footer:after {
   display: table;
   clear: both;
 }
-/* line 142, layout.scss */
+/* line 143, layout.scss */
 footer address {
   margin-top: 0.5em;
 }
-/* line 146, layout.scss */
+/* line 147, layout.scss */
 footer a:hover {
   text-decoration: underline;
 }
 
-/* line 151, layout.scss */
+/* line 152, layout.scss */
 .footer-left {
   width: 40.67797%;
   float: left;
@@ -283,7 +284,7 @@ footer a:hover {
   border-right: 1px solid #2d3840;
 }
 
-/* line 157, layout.scss */
+/* line 158, layout.scss */
 .footer-right {
   width: 57.62712%;
   float: right;
@@ -292,23 +293,23 @@ footer a:hover {
   display: inline;
 }
 
-/* line 161, layout.scss */
+/* line 162, layout.scss */
 .footer-link-col {
   width: 32.20339%;
   float: left;
   margin-right: 1.69492%;
   display: inline;
 }
-/* line 164, layout.scss */
+/* line 165, layout.scss */
 .footer-link-col ul {
   list-style-type: none;
   padding-left: 0;
 }
-/* line 169, layout.scss */
+/* line 170, layout.scss */
 .footer-link-col a {
   color: #2d3840;
 }
-/* line 173, layout.scss */
+/* line 174, layout.scss */
 .footer-link-col.last-child {
   width: 32.20339%;
   float: right;
