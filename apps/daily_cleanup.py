@@ -8,7 +8,7 @@ sessions at the moment).
 """
 
 import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'journal.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import datetime
 from django.db import transaction
 from django.contrib.sessions.models import Session
