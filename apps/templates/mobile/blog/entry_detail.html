@@ -32,7 +32,7 @@
     {% endblock actions %}
     {% block content %}
         {% block breadcrumb %}
-            <div id="breadcrumb" class="nomrg"><a href="{% url front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Blogs</a><span class="divider"></span><a href="{% url blog-index blog.slug %}">{{ blog.title }}</a></div>
+            <div id="breadcrumb" class="nomrg"><a href="{% url front %}" class="homelink">Home</a><span class="divider"></span><a href="{% url blog.views.all_blogs %}">Lifestyle</a><span class="divider"></span><a href="{% url blog-index blog.slug %}">{{ blog.title }}</a></div>
         {% endblock breadcrumb %}
         <div class="blog-header">
             <div class="blog-header-grad">

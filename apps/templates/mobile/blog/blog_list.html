@@ -7,20 +7,20 @@
 {% block body_class %}slider-page{% endblock %}
 
 {% block headcode %}
-{% if active %}<link rel="alternate" type="application/rss+xml" title="Latest posts from all blogs (RSS 2.0)" href="/rss/blogs/all/" />{% endif %}
+{% if active %}<link rel="alternate" type="application/rss+xml" title="Latest posts from all Lifestyle blogs (RSS 2.0)" href="/rss/blogs/all/" />{% endif %}
 {{ block.super }}
 {% endblock headcode %}
 
-{% block title %}Blogs{{ block.super }}{% endblock title %}
+{% block title %}Lifestyle{{ block.super }}{% endblock title %}
 
     {% block actions %}
         {% if active %}<li><a href="/rss/allblogs/"><span><img src="{{ STATIC_URL }}img/feed.png" />Latest blogs RSS</span></a></li>{% endif %}
     {% endblock actions %}
 
     {% block content %}
-        {% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Blogs</span></div>{% endblock %}
+        {% block breadcrumb %}<div id="breadcrumb"><a href="/">Home</a><span class="divider"></span><span class="current">Lifestyle</span></div>{% endblock %}
         <div class="section-header">
-            <h1>Blogs</h1>
+            <h1>Lifestyle</h1>
         </div>
 
         <div id="slider">
