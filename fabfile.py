@@ -90,13 +90,15 @@ def deploy_sha(sha=None):
     remote_run('git checkout master')
 
 
+@task
 def make_dump(db):
     dump_loc = os.path.join(env.path, 'devdata/dump.sql')
     remote_run('mkdir -p devdata')
     remote_run('pg_dump -v -h localhost -U postgres --clean --no-owner --no-privileges \
-        --exclude-table=django_session --format=custom {db} -f {dump_loc}'.format(db=db, dump_loc=dump_loc))
+        --exclude-table=django_session {db} -f {dump_loc}'.format(db=db, dump_loc=dump_loc))
 
 
+@task
 def get_dump():
     get(os.path.join(env.path, 'devdata/dump.sql'))
 
